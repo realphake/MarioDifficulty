@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="89">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="." name="bayesopt">
+      <df name="examples">
+        <in>bo_branin.cpp</in>
+        <in>bo_cont.cpp</in>
+        <in>bo_disc.cpp</in>
+        <in>bo_oned.cpp</in>
+      </df>
+      <df name="include">
+        <in>bayesoptbase.hpp</in>
+        <in>bayesoptcont.hpp</in>
+        <in>bayesoptdisc.hpp</in>
+        <in>criteria_atomic.hpp</in>
+        <in>criteria_combined.hpp</in>
+        <in>criteria_functors.hpp</in>
+        <in>dll_stuff.h</in>
+        <in>gauss_distribution.hpp</in>
+        <in>gaussian_process.hpp</in>
+        <in>gaussian_process_ml.hpp</in>
+        <in>gaussian_process_normal.hpp</in>
+        <in>hierarchical_gaussian_process.hpp</in>
+        <in>inneroptimization.hpp</in>
+        <in>kernel_atomic.hpp</in>
+        <in>kernel_combined.hpp</in>
+        <in>kernel_functors.hpp</in>
+        <in>mean_atomic.hpp</in>
+        <in>mean_combined.hpp</in>
+        <in>mean_functors.hpp</in>
+        <in>nonparametricprocess.hpp</in>
+        <in>parameters.h</in>
+        <in>prob_distribution.hpp</in>
+        <in>randgen.hpp</in>
+        <in>specialtypes.hpp</in>
+        <in>student_t_distribution.hpp</in>
+        <in>student_t_process_jef.hpp</in>
+        <in>student_t_process_nig.hpp</in>
+      </df>
+      <df name="sobol">
+        <in>sobol.cpp</in>
+        <in>sobol.hpp</in>
+        <in>sobol_i4.cpp</in>
+        <in>sobol_i8.cpp</in>
+      </df>
+      <df name="src">
+        <in>bayesoptbase.cpp</in>
+        <in>bayesoptcont.cpp</in>
+        <in>bayesoptdisc.cpp</in>
+        <in>criteria_combined.cpp</in>
+        <in>criteria_functors.cpp</in>
+        <in>gauss_distribution.cpp</in>
+        <in>gaussian_process.cpp</in>
+        <in>gaussian_process_ml.cpp</in>
+        <in>gaussian_process_normal.cpp</in>
+        <in>hierarchical_gaussian_process.cpp</in>
+        <in>inneroptimization.cpp</in>
+        <in>kernel_functors.cpp</in>
+        <in>mean_functors.cpp</in>
+        <in>nonparametricprocess.cpp</in>
+        <in>parameters.cpp</in>
+        <in>student_t_distribution.cpp</in>
+        <in>student_t_process_jef.cpp</in>
+        <in>student_t_process_nig.cpp</in>
+      </df>
+      <df name="utils">
+        <in>boundingbox.hpp</in>
+        <in>cholesky.hpp</in>
+        <in>elementwise_ublas.hpp</in>
+        <in>indexvector.hpp</in>
+        <in>lhs.hpp</in>
+        <in>log.hpp</in>
+        <in>parser.cpp</in>
+        <in>parser.hpp</in>
+        <in>trace_ublas.hpp</in>
+        <in>ublas_extra.cpp</in>
+        <in>ublas_extra.hpp</in>
+      </df>
+      <df name="wrappers">
+        <in>bayesoptwpr.cpp</in>
+        <in>bayesoptwpr.h</in>
+        <in>nloptwpr.cpp</in>
+        <in>nloptwpr.h</in>
+      </df>
+    </df>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>CMakeLists.txt</itemPath>
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath></executablePath>
+          <ccTool>
+            <incDir>
+              <pElem>include</pElem>
+              <pElem>wrappers</pElem>
+              <pElem>utils</pElem>
+              <pElem>sobol</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>NDEBUG</Elem>
+              <Elem>USE_SOBOL</Elem>
+            </preprocessorList>
+          </ccTool>
+        </makeTool>
+      </makefileType>
+      <item path="examples/bo_branin.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="examples/bo_cont.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="examples/bo_disc.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="examples/bo_oned.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <folder path="bayesopt/sobol">
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <folder path="bayesopt/src">
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <folder path="bayesopt/utils">
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <folder path="bayesopt/wrappers">
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <item path="include/bayesoptbase.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/bayesoptcont.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/bayesoptdisc.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/criteria_atomic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/criteria_combined.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/criteria_functors.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/dll_stuff.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/gauss_distribution.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/gaussian_process.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/gaussian_process_ml.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/gaussian_process_normal.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/hierarchical_gaussian_process.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="include/inneroptimization.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/kernel_atomic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/kernel_combined.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/kernel_functors.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/mean_atomic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/mean_combined.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/mean_functors.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/nonparametricprocess.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/parameters.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/prob_distribution.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/randgen.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/specialtypes.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/student_t_distribution.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/student_t_process_jef.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/student_t_process_nig.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sobol/sobol.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="sobol/sobol.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sobol/sobol_i4.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="sobol/sobol_i8.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/bayesoptbase.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/bayesoptcont.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/bayesoptdisc.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/criteria_combined.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/criteria_functors.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/gauss_distribution.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/gaussian_process.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/gaussian_process_ml.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/gaussian_process_normal.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/hierarchical_gaussian_process.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/inneroptimization.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/kernel_functors.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/mean_functors.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/nonparametricprocess.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/parameters.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/student_t_distribution.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/student_t_process_jef.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/student_t_process_nig.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="utils/boundingbox.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils/cholesky.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils/elementwise_ublas.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils/indexvector.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils/lhs.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils/log.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils/parser.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="utils/parser.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils/trace_ublas.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils/ublas_extra.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="utils/ublas_extra.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/bayesoptwpr.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="wrappers/bayesoptwpr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/nloptwpr.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="wrappers/nloptwpr.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

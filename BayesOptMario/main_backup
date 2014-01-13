@@ -1,0 +1,166 @@
+/*
+-------------------------------------------------------------------------
+   This file is part of BayesOpt, an efficient C++ library for 
+   Bayesian optimization.
+
+   Copyright (C) 2011-2013 Ruben Martinez-Cantin <rmcantin@unizar.es>
+ 
+   BayesOpt is free software: you can redistribute it and/or modify it 
+   under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   BayesOpt is distributed in the hope that it will be useful, but 
+   WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with BayesOpt.  If not, see <http://www.gnu.org/licenses/>.
+------------------------------------------------------------------------
+*/
+
+#include <ctime>
+#include "bayesoptwpr.h"                 // For the C API
+#include "bayesoptcont.hpp"              // For the C++ API
+#include <cstdlib>
+#include "bayesoptwpr.h"               // For the C API
+#include "bayesoptdisc.hpp"            // For the C++ API
+#include "lhs.hpp"
+#include <stdio.h>
+#include <fstream>
+using namespace std;
+
+/* Function to be used for C-API testing */
+double testFunction(unsigned int n, const double *x,
+		    double *gradient, /* NULL if not needed */
+		    void *func_data)
+{
+  return 10.0;
+}
+
+/* Class to be used for C++-API testing */
+class ExampleQuadratic: public bayesopt::ContinuousModel
+{
+ public:
+
+  ExampleQuadratic(size_t dim,bopt_params param):
+    ContinuousModel(dim,param) {}
+
+  double evaluateSample( const vectord &Xi ) 
+  {
+    double x[100];
+    for (size_t i = 0; i < Xi.size(); ++i)
+	x[i] = Xi(i);
+    return testFunction(Xi.size(),x,NULL,NULL);
+  };
+  
+  int sampleInitialPoints()
+  {
+    matrixd initPoints(5,6);
+    vectord initValues(5);
+    string line;
+    float n_value;
+    string value;
+    ifstream myfile("data2.arff");
+    int kStart = 0;
+    int kEnd = 6;
+    int k = 0;
+    int m = 0;
+    
+    if (myfile.is_open()){
+        while(getline(myfile,line)){
+            if(line[0]!='@'){
+                k = 0;
+                istringstream iss(line);
+                while ( getline(iss,value,',') ){
+                    n_value = atof(value.c_str());
+                    if(k>=kStart && k<kEnd)
+                    {
+                         initPoints(m,k) = n_value;
+                    }
+                    if(k==kEnd)initValues(m)=n_value;
+                    k++;
+                }
+                m++;
+            }
+        }
+    }
+    
+    size_t nSamples = mParameters.n_init_samples;
+    double yPoint;
+    vectord xPoint(6);
+
+    for(size_t i = 0; i < nSamples; i++)
+    {
+      xPoint = row(initPoints,i);
+      yPoint = -initValues(i);
+      mGP->addSample(xPoint,yPoint);
+    }
+
+    mGP->fitInitialSurrogate(true);
+    return 0;
+  }
+
+
+  bool checkReachability( const vectord &query )
+  { return true; };
+ 
+};
+
+
+int main(int nargs, char *args[])
+{    
+  int n = 6;                   // Number of dimensions
+  
+  // Common configuration
+  // See parameters.h for the available options
+  // If we initialize the struct with the DEFAUL_PARAMS,
+  // the we can optionally change only few of them 
+  bopt_params par = initialize_parameters_to_default();
+
+  par.kernel.hp_mean[0] = KERNEL_THETA;
+  par.kernel.hp_mean[1] = KERNEL_THETA;
+  par.kernel.hp_std[0] = 1;
+  par.kernel.hp_std[1] = 1;
+  par.kernel.n_hp = 2;
+  par.mean.coef_mean[0] = 1.0;
+  par.mean.coef_std[0] = MEAN_SIGMA;
+  par.mean.n_coef = 1;
+  par.alpha = PRIOR_ALPHA;
+  par.beta = PRIOR_BETA;
+  par.noise = DEFAULT_NOISE;
+  par.surr_name = "sStudentTProcessJef";
+  par.kernel.name = "kSum(kSEISO,kConst)";
+  par.mean.name = "mConst";
+  par.l_type = L_ML;
+  par.n_iterations = 1;       // Number of iterations
+  par.n_init_samples = 5;
+  par.verbose_level = 2;
+  /*******************************************/
+
+  clock_t start, end;
+  double diff,diff2;
+
+  std::cout << "Running C++ interface" << std::endl;
+  // Configure C++ interface
+
+  ExampleQuadratic opt(n,par);
+  vectord result(n);
+
+  // Run C++ interface
+  start = clock();
+  opt.optimize(result);
+  end = clock();
+  diff = (double)(end-start) / (double)CLOCKS_PER_SEC;
+  /*******************************************/
+
+
+
+  // Results
+  std::cout << "Final result C++: " << result << std::endl;
+  std::cout << "Elapsed time in C++: " << diff << " seconds" << std::endl;
+
+
+}
+

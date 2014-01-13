@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="89">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="." name="bayesopt">
+      <df name="bin">
+      </df>
+      <df name="cmake">
+      </df>
+      <df name="CMakeFiles">
+        <df name="bayesopt.dir">
+          <df name="sobol">
+          </df>
+          <df name="src">
+          </df>
+          <df name="utils">
+          </df>
+          <df name="wrappers">
+          </df>
+        </df>
+        <df name="CheckTypeSize">
+          <in>UINT32_T.c</in>
+        </df>
+        <df name="CMakeTmp">
+          <df name="CMakeFiles">
+            <df name="cmTryCompileExec.dir">
+            </df>
+          </df>
+        </df>
+        <df name="CompilerIdC">
+          <in>CMakeCCompilerId.c</in>
+        </df>
+        <df name="CompilerIdCXX">
+          <in>CMakeCXXCompilerId.cpp</in>
+        </df>
+      </df>
+      <df name="doxygen">
+      </df>
+      <df name="examples">
+        <df name="CMakeFiles">
+          <df name="bo_branin.dir">
+          </df>
+          <df name="bo_cont.dir">
+          </df>
+          <df name="bo_disc.dir">
+          </df>
+          <df name="bo_oned.dir">
+          </df>
+          <df name="CMakeTmp">
+            <df name="CMakeFiles">
+              <df name="cmTryCompileExec.dir">
+              </df>
+            </df>
+          </df>
+          <df name="CompilerIdC">
+            <in>CMakeCCompilerId.c</in>
+          </df>
+          <df name="CompilerIdCXX">
+            <in>CMakeCXXCompilerId.cpp</in>
+          </df>
+          <df name="Progress">
+          </df>
+        </df>
+        <in>bo_branin.cpp</in>
+        <in>bo_cont.cpp</in>
+        <in>bo_disc.cpp</in>
+        <in>bo_display.cpp</in>
+        <in>bo_oned.cpp</in>
+        <in>testchol.cpp</in>
+        <in>testparser.cpp</in>
+        <in>testrand.cpp</in>
+      </df>
+      <df name="include">
+        <in>bayesoptbase.hpp</in>
+        <in>bayesoptcont.hpp</in>
+        <in>bayesoptdisc.hpp</in>
+        <in>criteria_atomic.hpp</in>
+        <in>criteria_combined.hpp</in>
+        <in>criteria_functors.hpp</in>
+        <in>dll_stuff.h</in>
+        <in>gauss_distribution.hpp</in>
+        <in>gaussian_process.hpp</in>
+        <in>gaussian_process_ml.hpp</in>
+        <in>gaussian_process_normal.hpp</in>
+        <in>hierarchical_gaussian_process.hpp</in>
+        <in>inneroptimization.hpp</in>
+        <in>kernel_atomic.hpp</in>
+        <in>kernel_combined.hpp</in>
+        <in>kernel_functors.hpp</in>
+        <in>mean_atomic.hpp</in>
+        <in>mean_combined.hpp</in>
+        <in>mean_functors.hpp</in>
+        <in>nonparametricprocess.hpp</in>
+        <in>parameters.h</in>
+        <in>prob_distribution.hpp</in>
+        <in>randgen.hpp</in>
+        <in>specialtypes.hpp</in>
+        <in>student_t_distribution.hpp</in>
+        <in>student_t_process_jef.hpp</in>
+        <in>student_t_process_nig.hpp</in>
+      </df>
+      <df name="lib">
+      </df>
+      <df name="matlab">
+        <df name="gpml_comparison">
+          <in>gpmlnlopt.m</in>
+          <in>gpmltest.m</in>
+          <in>nei.m</in>
+          <in>neinlopt.m</in>
+        </df>
+        <df name="testfunctions">
+          <in>ackley.m</in>
+          <in>branin.m</in>
+          <in>braninhighdim.m</in>
+          <in>langermann.m</in>
+          <in>michalewicz.m</in>
+          <in>quadratic.m</in>
+          <in>rosenbrock.m</in>
+        </df>
+        <in>bayesoptcont.m</in>
+        <in>bayesoptdisc.m</in>
+        <in>bayesoptdiscmex.c</in>
+        <in>bayesoptextras.h</in>
+        <in>bayesoptmex.c</in>
+        <in>compile_matlab.m</in>
+        <in>compile_octave.m</in>
+        <in>demo_rembo.m</in>
+        <in>readlog.m</in>
+        <in>runtest.m</in>
+      </df>
+      <df name="matplotpp">
+        <in>gl2ps.c</in>
+        <in>gl2ps.h</in>
+        <in>matplotpp.cc</in>
+        <in>matplotpp.h</in>
+      </df>
+      <df name="nlopt">
+        <df name="api">
+          <in>deprecated.c</in>
+          <in>f77api.c</in>
+          <in>f77funcs.h</in>
+          <in>f77funcs_.h</in>
+          <in>general.c</in>
+          <in>nlopt-in.hpp</in>
+          <in>nlopt-internal.h</in>
+          <in>nlopt.f</in>
+          <in>nlopt.h</in>
+          <in>nlopt.hpp</in>
+          <in>optimize.c</in>
+          <in>options.c</in>
+        </df>
+        <df name="auglag">
+          <in>auglag.c</in>
+          <in>auglag.h</in>
+        </df>
+        <df name="bobyqa">
+          <in>bobyqa.c</in>
+          <in>bobyqa.h</in>
+        </df>
+        <df name="cdirect">
+          <in>cdirect.c</in>
+          <in>cdirect.h</in>
+          <in>hybrid.c</in>
+        </df>
+        <df name="CMakeFiles">
+          <df name="nlopt.dir">
+            <df name="api">
+            </df>
+            <df name="auglag">
+            </df>
+            <df name="bobyqa">
+            </df>
+            <df name="cdirect">
+            </df>
+            <df name="cobyla">
+            </df>
+            <df name="crs">
+            </df>
+            <df name="direct">
+            </df>
+            <df name="isres">
+            </df>
+            <df name="luksan">
+            </df>
+            <df name="mlsl">
+            </df>
+            <df name="mma">
+            </df>
+            <df name="neldermead">
+            </df>
+            <df name="newuoa">
+            </df>
+            <df name="praxis">
+            </df>
+            <df name="slsqp">
+            </df>
+            <df name="stogo">
+            </df>
+            <df name="util">
+            </df>
+          </df>
+        </df>
+        <df name="cobyla">
+          <in>cobyla.c</in>
+          <in>cobyla.h</in>
+        </df>
+        <df name="crs">
+          <in>crs.c</in>
+          <in>crs.h</in>
+        </df>
+        <df name="direct">
+          <in>DIRect.c</in>
+          <in>DIRparallel.c</in>
+          <in>DIRserial.c</in>
+          <in>DIRsubrout.c</in>
+          <in>direct-internal.h</in>
+          <in>direct.h</in>
+          <in>direct_wrap.c</in>
+          <in>tstc.c</in>
+        </df>
+        <df name="isres">
+          <in>isres.c</in>
+          <in>isres.h</in>
+        </df>
+        <df name="lbfgs">
+        </df>
+        <df name="luksan">
+          <in>luksan.h</in>
+          <in>mssubs.c</in>
+          <in>plip.c</in>
+          <in>plis.c</in>
+          <in>pnet.c</in>
+          <in>pssubs.c</in>
+        </df>
+        <df name="m4">
+        </df>
+        <df name="mlsl">
+          <in>mlsl.c</in>
+          <in>mlsl.h</in>
+        </df>
+        <df name="mma">
+          <in>mma.c</in>
+          <in>mma.h</in>
+        </df>
+        <df name="neldermead">
+          <in>neldermead.h</in>
+          <in>nldrmd.c</in>
+          <in>sbplx.c</in>
+        </df>
+        <df name="newuoa">
+          <in>newuoa.c</in>
+          <in>newuoa.h</in>
+        </df>
+        <df name="octave">
+          <in>NLOPT_AUGLAG.m</in>
+          <in>NLOPT_AUGLAG_EQ.m</in>
+          <in>NLOPT_GD_MLSL.m</in>
+          <in>NLOPT_GD_MLSL_LDS.m</in>
+          <in>NLOPT_GD_STOGO.m</in>
+          <in>NLOPT_GD_STOGO_RAND.m</in>
+          <in>NLOPT_GN_CRS2_LM.m</in>
+          <in>NLOPT_GN_DIRECT.m</in>
+          <in>NLOPT_GN_DIRECT_L.m</in>
+          <in>NLOPT_GN_DIRECT_L_NOSCAL.m</in>
+          <in>NLOPT_GN_DIRECT_L_RAND.m</in>
+          <in>NLOPT_GN_DIRECT_L_RAND_NOSCAL.m</in>
+          <in>NLOPT_GN_DIRECT_NOSCAL.m</in>
+          <in>NLOPT_GN_ISRES.m</in>
+          <in>NLOPT_GN_MLSL.m</in>
+          <in>NLOPT_GN_MLSL_LDS.m</in>
+          <in>NLOPT_GN_ORIG_DIRECT.m</in>
+          <in>NLOPT_GN_ORIG_DIRECT_L.m</in>
+          <in>NLOPT_G_MLSL.m</in>
+          <in>NLOPT_G_MLSL_LDS.m</in>
+          <in>NLOPT_LD_AUGLAG.m</in>
+          <in>NLOPT_LD_AUGLAG_EQ.m</in>
+          <in>NLOPT_LD_LBFGS.m</in>
+          <in>NLOPT_LD_LBFGS_NOCEDAL.m</in>
+          <in>NLOPT_LD_MMA.m</in>
+          <in>NLOPT_LD_TNEWTON.m</in>
+          <in>NLOPT_LD_TNEWTON_PRECOND.m</in>
+          <in>NLOPT_LD_TNEWTON_PRECOND_RESTART.m</in>
+          <in>NLOPT_LD_TNEWTON_RESTART.m</in>
+          <in>NLOPT_LD_VAR1.m</in>
+          <in>NLOPT_LD_VAR2.m</in>
+          <in>NLOPT_LN_AUGLAG.m</in>
+          <in>NLOPT_LN_AUGLAG_EQ.m</in>
+          <in>NLOPT_LN_BOBYQA.m</in>
+          <in>NLOPT_LN_COBYLA.m</in>
+          <in>NLOPT_LN_NELDERMEAD.m</in>
+          <in>NLOPT_LN_NEWUOA.m</in>
+          <in>NLOPT_LN_NEWUOA_BOUND.m</in>
+          <in>NLOPT_LN_PRAXIS.m</in>
+          <in>NLOPT_LN_SBPLX.m</in>
+          <in>dummy.c</in>
+          <in>nlopt_minimize.m</in>
+          <in>nlopt_minimize_constrained.m</in>
+          <in>nlopt_optimize-mex.c</in>
+          <in>nlopt_optimize-oct.cc</in>
+          <in>nlopt_optimize.m</in>
+          <in>nlopt_optimize_usage.h</in>
+        </df>
+        <df name="praxis">
+          <in>praxis.c</in>
+          <in>praxis.h</in>
+        </df>
+        <df name="slsqp">
+          <in>slsqp.c</in>
+          <in>slsqp.h</in>
+        </df>
+        <df name="stogo">
+          <in>global.cc</in>
+          <in>global.h</in>
+          <in>linalg.cc</in>
+          <in>linalg.h</in>
+          <in>local.cc</in>
+          <in>local.h</in>
+          <in>prog.cc</in>
+          <in>rosen.h</in>
+          <in>stogo.cc</in>
+          <in>stogo.h</in>
+          <in>stogo_config.h</in>
+          <in>testfun.h</in>
+          <in>testros.cc</in>
+          <in>tools.cc</in>
+          <in>tools.h</in>
+          <in>tst.cc</in>
+          <in>tstc.c</in>
+        </df>
+        <df name="swig">
+          <in>nlopt-enum-renames.i</in>
+          <in>nlopt-exceptions.i</in>
+          <in>nlopt-guile.cpp</in>
+          <in>nlopt-guile.i</in>
+          <in>nlopt-python.cpp</in>
+          <in>nlopt-python.i</in>
+          <in>nlopt.i</in>
+          <in>numpy.i</in>
+        </df>
+        <df name="test">
+          <in>testfuncs.c</in>
+          <in>testfuncs.h</in>
+          <in>testopt.cpp</in>
+        </df>
+        <df name="util">
+          <in>mt19937ar.c</in>
+          <in>nlopt-util.h</in>
+          <in>qsort_r.c</in>
+          <in>redblack.c</in>
+          <in>redblack.h</in>
+          <in>redblack_test.c</in>
+          <in>rescale.c</in>
+          <in>soboldata.h</in>
+          <in>sobolseq.c</in>
+          <in>stop.c</in>
+          <in>timer.c</in>
+        </df>
+        <in>config.h</in>
+      </df>
+      <df name="python">
+        <in>bayesopt.cpp</in>
+      </df>
+      <df name="sobol">
+        <in>sobol.cpp</in>
+        <in>sobol.hpp</in>
+        <in>sobol_i4.cpp</in>
+        <in>sobol_i8.cpp</in>
+      </df>
+      <df name="src">
+        <in>bayesoptbase.cpp</in>
+        <in>bayesoptcont.cpp</in>
+        <in>bayesoptdisc.cpp</in>
+        <in>criteria_combined.cpp</in>
+        <in>criteria_functors.cpp</in>
+        <in>gauss_distribution.cpp</in>
+        <in>gaussian_process.cpp</in>
+        <in>gaussian_process_ml.cpp</in>
+        <in>gaussian_process_normal.cpp</in>
+        <in>hierarchical_gaussian_process.cpp</in>
+        <in>inneroptimization.cpp</in>
+        <in>kernel_functors.cpp</in>
+        <in>mean_functors.cpp</in>
+        <in>nonparametricprocess.cpp</in>
+        <in>parameters.cpp</in>
+        <in>student_t_distribution.cpp</in>
+        <in>student_t_process_jef.cpp</in>
+        <in>student_t_process_nig.cpp</in>
+      </df>
+      <df name="utils">
+        <in>boundingbox.hpp</in>
+        <in>cholesky.hpp</in>
+        <in>elementwise_ublas.hpp</in>
+        <in>indexvector.hpp</in>
+        <in>lhs.hpp</in>
+        <in>log.hpp</in>
+        <in>parser.cpp</in>
+        <in>parser.hpp</in>
+        <in>trace_ublas.hpp</in>
+        <in>ublas_extra.cpp</in>
+        <in>ublas_extra.hpp</in>
+      </df>
+      <df name="wrappers">
+        <in>bayesoptwpr.cpp</in>
+        <in>bayesoptwpr.h</in>
+        <in>nloptwpr.cpp</in>
+        <in>nloptwpr.h</in>
+      </df>
+    </df>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <platform>2</platform>
+      </toolsSet>
+      <compile>
+        <compiledirpicklist>
+          <compiledirpicklistitem>.</compiledirpicklistitem>
+          <compiledirpicklistitem>${AUTO_FOLDER}</compiledirpicklistitem>
+        </compiledirpicklist>
+        <compiledir>${AUTO_FOLDER}</compiledir>
+        <compilecommandpicklist>
+          <compilecommandpicklistitem>${MAKE} ${ITEM_NAME}.o</compilecommandpicklistitem>
+          <compilecommandpicklistitem>${AUTO_COMPILE}</compilecommandpicklistitem>
+        </compilecommandpicklist>
+        <compilecommand>${AUTO_COMPILE}</compilecommand>
+      </compile>
+      <dbx_gdbdebugger version="1">
+        <gdb_pathmaps>
+        </gdb_pathmaps>
+        <gdb_interceptlist>
+          <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
+        </gdb_interceptlist>
+        <gdb_options>
+          <DebugOptions>
+          </DebugOptions>
+        </gdb_options>
+        <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>
+      </dbx_gdbdebugger>
+      <nativedebugger version="1">
+        <engine>gdb</engine>
+      </nativedebugger>
+      <runprofile version="9">
+        <runcommandpicklist>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
+        </runcommandpicklist>
+        <runcommand>"${OUTPUT_PATH}"</runcommand>
+        <rundir>.</rundir>
+        <buildfirst>false</buildfirst>
+        <terminal-type>0</terminal-type>
+        <remove-instrumentation>0</remove-instrumentation>
+        <environment>
+        </environment>
+      </runprofile>
+    </conf>
+  </confs>
+</configurationDescriptor>

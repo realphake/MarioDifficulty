@@ -1,0 +1,1 @@
+/usr/bin/g++   -O3 -DNDEBUG    CMakeFiles/bo_disc.dir/bo_disc.cpp.o  -o ../bin/bo_disc -rdynamic -L/home/stathis/Libraries/bayesopt/lib ../lib/libbayesopt.a /usr/local/lib/libnlopt.a -Wl,-rpath,/home/stathis/Libraries/bayesopt/lib 

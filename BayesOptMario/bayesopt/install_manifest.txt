@@ -1,0 +1,8 @@
+/usr/local/include/bayesoptcont.hpp
+/usr/local/include/bayesoptdisc.hpp
+/usr/local/include/bayesoptwpr.h
+/usr/local/lib/libbayesopt.a
+/usr/local/include/nlopt.hpp
+/usr/local/include/nlopt.f
+/usr/local/include/nlopt.h
+/usr/local/lib/libnlopt.a

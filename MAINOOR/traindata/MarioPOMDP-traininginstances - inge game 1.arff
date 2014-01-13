@@ -1,0 +1,62 @@
+@RELATION sander
+
+@ATTRIBUTE feature1 NUMERIC
+@ATTRIBUTE feature2 NUMERIC
+@ATTRIBUTE feature3 NUMERIC
+@ATTRIBUTE feature4 NUMERIC
+@ATTRIBUTE feature5 NUMERIC
+@ATTRIBUTE feature6 NUMERIC
+@ATTRIBUTE feature7 NUMERIC
+@ATTRIBUTE feature8 NUMERIC
+@ATTRIBUTE feature9 NUMERIC
+@ATTRIBUTE feature10 NUMERIC
+@ATTRIBUTE feature11 NUMERIC
+@ATTRIBUTE feature12 NUMERIC
+@ATTRIBUTE feature13 NUMERIC
+@ATTRIBUTE feature14 NUMERIC
+@ATTRIBUTE feature15 NUMERIC
+@ATTRIBUTE feature16 NUMERIC
+@ATTRIBUTE feature17 NUMERIC
+@ATTRIBUTE feature18 NUMERIC
+@ATTRIBUTE feature19 NUMERIC
+@ATTRIBUTE feature20 NUMERIC
+@ATTRIBUTE feature21 NUMERIC
+@ATTRIBUTE feature22 NUMERIC
+@ATTRIBUTE feature23 NUMERIC
+@ATTRIBUTE feature24 NUMERIC
+@ATTRIBUTE feature25 NUMERIC
+@ATTRIBUTE feature26 NUMERIC
+@ATTRIBUTE feature27 NUMERIC
+@ATTRIBUTE feature28 NUMERIC
+@ATTRIBUTE feature29 NUMERIC
+@ATTRIBUTE feature30 NUMERIC
+@ATTRIBUTE feature31 NUMERIC
+@ATTRIBUTE feature32 NUMERIC
+@ATTRIBUTE feature33 NUMERIC
+@ATTRIBUTE feature34 NUMERIC
+@ATTRIBUTE feature35 NUMERIC
+@ATTRIBUTE feature36 NUMERIC
+@ATTRIBUTE feature37 NUMERIC
+@ATTRIBUTE feature38 NUMERIC
+@ATTRIBUTE feature39 NUMERIC
+@ATTRIBUTE feature40 NUMERIC
+@ATTRIBUTE feature41 NUMERIC
+@ATTRIBUTE feature42 NUMERIC
+@ATTRIBUTE feature43 NUMERIC
+@ATTRIBUTE feature44 NUMERIC
+@ATTRIBUTE feature45 NUMERIC
+@ATTRIBUTE difficulty NUMERIC
+@ATTRIBUTE appropriateness {0,1}
+@ATTRIBUTE timestamp STRING
+
+@DATA
+27, 27, 9, 0, 0, 10, 3, 15, 3, 1, 2, 0, 0, 0, 0, 0, 0, 1, 0, 3, 12, 27, 0, 0, 1, 7.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 1, 0, 7, 0, 20130503_140314
+24, 24, 9, 0, 0, 11, 10, 19, 1, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 24, 0, 0, 1, 6.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 1, 0, 7, 0, 20130503_140332
+44, 44, 20, 0, 0, 21, 9, 29, 9, 2, 2, 0, 0, 0, 0, 0, 0, 1, 0, 1, 12, 0, 0, 0, 1, 18.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 7, 0, 20130503_140359
+51, 51, 20, 0, 0, 36, 2, 28, 7, 10, 14, 2, 3, 2, 1, 1, 2, 1, 0, 1, 7, 23, 0, 0, 1, 11.0, 2.0, 2.0, 0.0, 0.5, 0.0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 2, 0, 0, 0, 0, 7, 0, 20130503_140430
+15, 15, 4, 0, 0, 8, 2, 8, 1, 0, 19, 0, 6, 0, 3, 0, 4, 0, 0, 0, 18, 6, 9, 0, 1, 4.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 7, 0, 20130503_140442
+37, 37, 15, 0, 0, 0, 1, 21, 2, 8, 19, 1, 6, 0, 3, 1, 4, 0, 0, 0, 18, 20, 0, 0, 2, 8.0, 0.0, 0.0, 0.0, 0.25, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 0, 0, 0, 0, 7, 1, 20130503_140505
+48, 48, 20, 2, 1, 29, 9, 21, 6, 12, 14, 0, 7, 1, 3, 1, 5, 0, 0, 0, 12, 0, 38, 0, 1, 14.0, 0.0, 0.0, 0.0, 0.2, 0.0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 2, 0, 7, 1, 20130503_140535
+56, 56, 18, 0, 0, 21, 39, 28, 6, 9, 5, 0, 3, 1, 0, 3, 0, 0, 7, 0, 12, 0, 0, 40, 1, 14.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0, 0, 0, 3, 1, 3, 0, 0, 0, 0, 7, 1, 20130503_140609
+34, 34, 15, 0, 0, 0, 1, 17, 5, 5, 3, 0, 1, 0, 1, 0, 1, 0, 0, 0, 4, 0, 0, 0, 0, 6.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, 0, 0, 0, 0, 3, 1, 2, 0, 0, 3, 0, 7, 0, 20130503_140630
+31, 31, 10, 0, 0, 59, 0, 14, 9, 2, 14, 0, 3, 2, 1, 0, 2, 0, 0, 0, 7, 4, 26, 0, 1, 6.0, 2.0, 2.0, 0.0, 0.0, 0.0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1, 1, 20130503_140652
