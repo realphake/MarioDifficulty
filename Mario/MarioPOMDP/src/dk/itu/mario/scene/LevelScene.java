@@ -5,13 +5,12 @@ import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
-import java.io.*;
 import java.text.DecimalFormat;
 import java.util.*;
 
-import java.text.*;
 
 import Architect.ARCH_MESSAGE;
+import Architect.Architect;
 
 
 import dk.itu.mario.engine.Art;
@@ -51,6 +50,8 @@ public class LevelScene extends Scene implements SpriteContext
     public boolean paused = false;
     public int startTime = 0;
     public int timeLeft;
+    
+    public Architect arch;
 
     //    private Recorder recorder = new Recorder();
     //    private Replayer replayer = null;
@@ -419,6 +420,9 @@ public class LevelScene extends Scene implements SpriteContext
         drawStringDropShadow(g, "DIFF", 0, 3, 7);
         drawStringDropShadow(g, plannedDifficultyLevels.toString(), 0, 4, 7);
         drawStringDropShadow(g, drawCurrentLevelSegmentArrow(), 0, 5, 7);
+        
+        System.out.println(arch.params_new.ODDS_CANNONS);
+        
         //drawStringDropShadow(g, " " + m.state, 0, 4, 7);
         //drawStringDropShadow(g, "APPR", 6, 3, 7);
         //drawStringDropShadow(g, " " + m.state[1], 6, 4, 7);

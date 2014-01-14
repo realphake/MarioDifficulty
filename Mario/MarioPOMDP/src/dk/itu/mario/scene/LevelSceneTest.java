@@ -79,7 +79,7 @@ import java.util.logging.Logger;
 
         public int levelWidth = 50;
 
-	public Architect arch;
+	
 
 
 	public LevelSceneTest(GraphicsConfiguration graphicsConfiguration,
@@ -178,6 +178,7 @@ import java.util.logging.Logger;
 		
 			level = currentLevel;
 		
+                        
 			
 	                      
 
@@ -196,6 +197,7 @@ import java.util.logging.Logger;
 		//levelDifficulty = 1;
 		//plannedDifficultyLevels.add(levelDifficulty);
                 arch = new Architect();
+                level = new ArchLevel(arch.params_new);
 		level2 = new ArchLevel(arch.params_new);//using second constructor!
 		//level = new ArchLevel(100, 15, levelSeed+randomInt, levelDifficulty, levelType, arch.message);
 		plannedDifficultyLevels.add(level2.DIFFICULTY_sander);

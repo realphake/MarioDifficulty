@@ -199,7 +199,7 @@ public class ArchLevel extends Level{
                     odds[ODDS_STRAIGHT]=10;
                     totalOdds = 10;
                 }
-                
+                 
 		int t = random.nextInt(totalOdds);
                 //System.out.println(t);
                 int type = 0;

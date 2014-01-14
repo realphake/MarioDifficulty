@@ -96,10 +96,11 @@ public class Architect {
             double [] rewards = {0 ,0 ,0 ,0 ,0 ,0};
             for (int i = 0 ; i<5 ; i++)
             {
-                if(i == reward_label){
+                if(i == reward_label)
+                {
                     rewards[i] = reward_weights[i] * 0.66;
                 }
-                else if(i == reward_label +1 || i == reward_label - 1)
+                else if(i == reward_label + 1 || i == reward_label - 1)
                 {
                     rewards[i] = reward_weights[i] * 0.33;
                 }
