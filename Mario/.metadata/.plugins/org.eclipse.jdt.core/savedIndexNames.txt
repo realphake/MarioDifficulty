@@ -1,0 +1,20 @@
+INDEX VERSION 1.126+D:\Studie\workspace2\MarioDifficulty\Mario\.metadata\.plugins\org.eclipse.jdt.core
+683184654.index
+3015671029.index
+2727074504.index
+3135211632.index
+1820024274.index
+3521617142.index
+2708239607.index
+2706502329.index
+728132027.index
+3626931047.index
+4149142647.index
+384216248.index
+4018706093.index
+1075156909.index
+3256372620.index
+3534064665.index
+739078005.index
+1289652074.index
+1144188029.index

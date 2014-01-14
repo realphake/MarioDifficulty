@@ -66,7 +66,7 @@ public class Architect {
                 params_champion = new paramsPCG();
                     
                 //Socket to talk to server
-                init_socket();
+                //init_socket();
         }
         
         
@@ -111,7 +111,7 @@ public class Architect {
             System.out.println("generating new segment");
             System.out.println(Reward);
             params_new.newSeed();
-            params_new = getBayesOptNextStep();
+            //params_new = getBayesOptNextStep();
             
             //hillClimb();
             
@@ -130,7 +130,7 @@ public class Architect {
                 String spoint = new String(reply);
                 System.out.println("Received next Point of Interest : " + spoint);
                 
-                params = paramsfromstring(spoint);
+                //params = paramsfromstring(spoint);
                 
                 return params;
         }

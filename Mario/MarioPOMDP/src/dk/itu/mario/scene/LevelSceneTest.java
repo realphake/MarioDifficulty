@@ -529,8 +529,7 @@ import java.util.logging.Logger;
                             */
                         }
 			
-			public void newchunk()
-	{
+			public void newchunk() {
 		if(!gameover)
 		{
 			//System.out.println("-newchunck called");
