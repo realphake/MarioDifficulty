@@ -86,7 +86,8 @@ public class ArchLevel extends Level {
 
         designLevelSection();
 
-        if (type == LevelInterface.TYPE_CASTLE || type == LevelInterface.TYPE_UNDERGROUND) {
+        if (type == LevelInterface.TYPE_CASTLE || 
+                type == LevelInterface.TYPE_UNDERGROUND) {
             placeCeilingOverLevel();
         }
 
@@ -168,6 +169,7 @@ public class ArchLevel extends Level {
     }
 
     private int buildZone(int x, int maxLength) {
+        
         printOdds();
 
         if (totalOdds == 0) {
@@ -175,54 +177,44 @@ public class ArchLevel extends Level {
             totalOdds = 10;
         }
 
+        int blockType = findRandomBlockType();
+        odds[blockType]--;
+        totalOdds--;
+        switch (blockType) {
+            case ODDS_STRAIGHT:
+                return buildStraight(x, maxLength, false);
+            case ODDS_HILL_STRAIGHT:
+                return buildHillStraight(x, maxLength);
+            case ODDS_TUBES:
+                return buildTubes(x, maxLength);
+            case ODDS_JUMP: 
+            {
+                if (gaps < Constraints.gaps) {
+                    return buildJump(x, maxLength);
+                } else {
+                    odds[ODDS_JUMP]--;
+                    totalOdds--;
+                    return buildStraight(x, maxLength, false);
+                }
+            }
+            case ODDS_CANNONS:
+                return buildCannons(x, maxLength);
+        }
+        return 0;
+    }
+
+    private int findRandomBlockType() {
         int t = random.nextInt(totalOdds);
-        //System.out.println(t);
-        int type = 0;
+        int blockType = 0;
         int s = 0;
         for (int i = 0; i < odds.length; i++) {
             s += odds[i];
             if (t <= s) {
-                type = i;
+                blockType = i;
                 break;
             }
         }
-//                
-//                System.out.println(type);
-//                System.out.println("---------------------------");
-
-        switch (type) {
-            case ODDS_STRAIGHT: {
-                odds[ODDS_STRAIGHT]--;
-                totalOdds--;
-                return buildStraight(x, maxLength, false);
-            }
-            case ODDS_HILL_STRAIGHT: {
-                odds[ODDS_HILL_STRAIGHT]--;
-                totalOdds--;
-                return buildHillStraight(x, maxLength);
-            }
-            case ODDS_TUBES: {
-                odds[ODDS_TUBES]--;
-                totalOdds--;
-                return buildTubes(x, maxLength);
-            }
-            case ODDS_JUMP: {
-                if (gaps < Constraints.gaps) {
-                    odds[ODDS_JUMP]--;
-                    totalOdds--;
-                    return buildJump(x, maxLength);
-                } else {
-                    return buildStraight(x, maxLength, false);
-                }
-            }
-            case ODDS_CANNONS: {
-                odds[ODDS_CANNONS]--;
-                totalOdds--;
-                return buildCannons(x, maxLength);
-            }
-
-        }
-        return 0;
+        return blockType;
     }
 
     private void printOdds() {
@@ -234,26 +226,28 @@ public class ArchLevel extends Level {
 
     private int buildJump(int xo, int maxLength) {
         gaps++;
-        //jl: jump length
-        //js: the number of blocks that are available at either side for free
-        int js = 2;
-        int jl = random.nextInt(GAP_SIZE) + 2;
-        int length = js * 2 + jl;
+        int blocksAtEitherSide = 2;
+        int jumpLength = random.nextInt(GAP_SIZE) + 2;
+        int length = blocksAtEitherSide * 2 + jumpLength;
 
         boolean hasStairs = random.nextInt(3) == 0;
 
         int floor = height - 1 - random.nextInt(4);
         //run from the start x position, for the whole length
         for (int x = xo; x < xo + length; x++) {
-            if (x < xo + js || x > xo + length - js - 1) {
+            if (x < xo + blocksAtEitherSide || 
+                    x > xo + length - blocksAtEitherSide - 1) {
                 //run for all y's since we need to paint blocks upward
-                for (int y = 0; y < height; y++) {	//paint ground up until the floor
+                //paint ground up until the floor
+                for (int y = 0; y < height; y++) {
                     if (y >= floor) {
                         setBlock(x, y, GROUND);
                     } //if it is above ground, start making stairs of rocks
                     else if (hasStairs) {	//LEFT SIDE
-                        if (x < xo + js) { //we need to max it out and level because it wont
-                            //paint ground correctly unless two bricks are side by side
+                        if (x < xo + blocksAtEitherSide) { 
+                            //we need to max it out and level because it wont
+                            //paint ground correctly unless two bricks are
+                            //side by side
                             if (y >= floor - (x - xo) + 1) {
                                 setBlock(x, y, ROCK);
                             }
@@ -338,7 +332,8 @@ public class ArchLevel extends Level {
                 int l = random.nextInt(5) + 3;
                 int xxo = random.nextInt(length - l - 2) + xo + 1;
 
-                if (occupied[xxo - xo] || occupied[xxo - xo + l] || occupied[xxo - xo - 1] || occupied[xxo - xo + l + 1]) {
+                if (occupied[xxo - xo] || occupied[xxo - xo + l] || 
+                        occupied[xxo - xo - 1] || occupied[xxo - xo + l + 1]) {
                     keepGoing = false;
                 } else {
                     occupied[xxo - xo] = true;
@@ -386,15 +381,16 @@ public class ArchLevel extends Level {
             if ((random.nextInt(5) < difficulty) && ENEMIES < MAX_ENEMIES) {
                 //difficulty -=1;
 
-                int type = random.nextInt(4);
+                int enemyType = random.nextInt(4);
 
                 if (difficulty < 2) {
-                    type = Enemy.ENEMY_GOOMBA;
+                    enemyType = Enemy.ENEMY_GOOMBA;
                 } else if (difficulty < 3) {
-                    type = random.nextInt(3);
+                    enemyType = random.nextInt(3);
                 }
 
-                setSpriteTemplate(x, y, new SpriteTemplate(type, random.nextInt(10) < difficulty));
+                setSpriteTemplate(x, y, new SpriteTemplate(enemyType, 
+                        random.nextInt(10) < difficulty));
                 ENEMIES++;
             }
         }
@@ -419,7 +415,8 @@ public class ArchLevel extends Level {
             }
 
             if (x == xTube && random.nextInt(11) < difficulty + 1) {
-                setSpriteTemplate(x, tubeHeight, new SpriteTemplate(Enemy.ENEMY_FLOWER, false));
+                setSpriteTemplate(x, tubeHeight, 
+                        new SpriteTemplate(Enemy.ENEMY_FLOWER, false));
                 ENEMIES++;
             }
 
@@ -557,7 +554,8 @@ public class ArchLevel extends Level {
         blockify(this, blockMap, width + 1, height + 1);
     }
 
-    private void blockify(Level level, boolean[][] blocks, int width, int height) {
+    private void blockify(Level level, 
+            boolean[][] blocks, int width, int height) {
         int to = 0;
         if (type == LevelInterface.TYPE_CASTLE) {
             to = 4 * 2;
@@ -656,17 +654,17 @@ public class ArchLevel extends Level {
 
     @Override
     public ArchLevel clone() throws CloneNotSupportedException {
-
+        
         ArchLevel clone = new ArchLevel(width, height);
 
         clone.xExit = xExit;
         clone.yExit = yExit;
-        byte[][] map = getMap();
+        byte[][] thisMap = getMap();
         SpriteTemplate[][] st = getSpriteTemplate();
 
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                clone.setBlock(i, j, map[i][j]);
+        for (int i = 0; i < thisMap.length; i++) {
+            for (int j = 0; j < thisMap[i].length; j++) {
+                clone.setBlock(i, j, thisMap[i][j]);
                 clone.setSpriteTemplate(i, j, st[i][j]);
             }
         }
