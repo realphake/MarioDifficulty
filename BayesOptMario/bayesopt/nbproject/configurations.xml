@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="89">
+<configurationDescriptor version="90">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-    <df root="." name="bayesopt">
+    <df root="." name="0">
       <df name="examples">
         <in>bo_branin.cpp</in>
         <in>bo_cont.cpp</in>
@@ -99,7 +99,6 @@
   <confs>
     <conf name="Default" type="0">
       <toolsSet>
-        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
         <dependencyChecking>false</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
@@ -134,28 +133,28 @@
       </item>
       <item path="examples/bo_oned.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <folder path="bayesopt/sobol">
+      <folder path="0/sobol">
         <ccTool>
           <incDir>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
       </folder>
-      <folder path="bayesopt/src">
+      <folder path="0/src">
         <ccTool>
           <incDir>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
       </folder>
-      <folder path="bayesopt/utils">
+      <folder path="0/utils">
         <ccTool>
           <incDir>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
       </folder>
-      <folder path="bayesopt/wrappers">
+      <folder path="0/wrappers">
         <ccTool>
           <incDir>
             <pElem>.</pElem>

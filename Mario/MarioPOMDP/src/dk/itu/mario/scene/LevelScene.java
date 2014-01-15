@@ -421,8 +421,6 @@ public class LevelScene extends Scene implements SpriteContext
         drawStringDropShadow(g, plannedDifficultyLevels.toString(), 0, 4, 7);
         drawStringDropShadow(g, drawCurrentLevelSegmentArrow(), 0, 5, 7);
         
-        System.out.println(arch.params_new.ODDS_CANNONS);
-        
         //drawStringDropShadow(g, " " + m.state, 0, 4, 7);
         //drawStringDropShadow(g, "APPR", 6, 3, 7);
         //drawStringDropShadow(g, " " + m.state[1], 6, 4, 7);
