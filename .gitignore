@@ -5,4 +5,6 @@ MAINOOR/classes/*
 MAINOOR/dist/*
 MAINOOR/build/*
 MAINOOR/src/competition/icegic/erek/*
-
+BayesOptMario/nbproject/private/Makefile-variables.mk
+BayesOptMario/nbproject/Makefile-variables.mk
+BayesOptMario/nbproject/Makefile-impl.mk
