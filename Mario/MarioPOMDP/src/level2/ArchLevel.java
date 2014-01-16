@@ -106,9 +106,13 @@ public class ArchLevel extends Level {
     }
 
     private void designLevelSection() {
+        
+        
+        
         //create the start location
         int length = 1;
-        length += buildStraight(0, width, true);
+        System.out.println(width);
+        length += buildStraight(0, width, true, 7);
 
         //create all of the medium sections
         while (length < width - 10) {
@@ -162,38 +166,57 @@ public class ArchLevel extends Level {
     }
 
     private int buildZone(int x, int maxLength) {
+        
+        int blockType = decideOnBlockTypeRightNow();
+        int length = decideOnSectionLength(blockType, maxLength);
+        
+        switch (blockType) {
+            case ODDS_STRAIGHT:
+                return buildStraight(x, maxLength, false, length); // Length = 1d10+2
+            case ODDS_HILL_STRAIGHT:
+                return buildHillStraight(x, maxLength, length); // length 1d10+10
+            case ODDS_TUBES:
+                return buildTubes(x, maxLength, length); // Length = 5
+            case ODDS_JUMP: {
+                if (gaps < Constraints.gaps) {
+                    return buildJump(x, maxLength, length); // Length = 1d4+6
+                } else {
+                    odds[ODDS_JUMP]++;
+                    totalOdds++;
+                    return buildStraight(x, maxLength, false, length);
+                }
+            }
+            case ODDS_CANNONS:
+                return buildCannons(x, maxLength, length); // Length = 5
+        }
+        return 0;
+    }
 
+    private int decideOnBlockTypeRightNow() {
         if (totalOdds == 0) {
             odds[ODDS_STRAIGHT] = 10;
             totalOdds = 10;
         }
-
         int blockType = findRandomBlockType();
-        
         System.out.println(blockTypeToString(blockType));
-
         odds[blockType]--;
         totalOdds--;
+        return blockType;
+    }
+    
+    private int decideOnSectionLength(int blockType, int maxLength) {
+        int length = 0;
         switch (blockType) {
-            case ODDS_STRAIGHT:
-                return buildStraight(x, maxLength, false); // Length = 1d10+2
-            case ODDS_HILL_STRAIGHT:
-                return buildHillStraight(x, maxLength); // length 1d10+10
-            case ODDS_TUBES:
-                return buildTubes(x, maxLength); // Length = 5
-            case ODDS_JUMP: {
-                if (gaps < Constraints.gaps) {
-                    return buildJump(x, maxLength); // Length = 1d4+6
-                } else {
-                    odds[ODDS_JUMP]++;
-                    totalOdds++;
-                    return buildStraight(x, maxLength, false);
-                }
-            }
-            case ODDS_CANNONS:
-                return buildCannons(x, maxLength); // Length = 5
+            case ODDS_STRAIGHT: length = random.nextInt(10) + 2; break;
+            case ODDS_HILL_STRAIGHT: length = random.nextInt(10) + 10; break;
+            case ODDS_TUBES: length = 5; break; 
+            case ODDS_JUMP: length = 10; break;
+            case ODDS_CANNONS: length = 5; break;
         }
-        return 0;
+        if ( length > maxLength ) {
+            return maxLength;
+        }
+        return length;
     }
 
     private int findRandomBlockType() {
@@ -211,19 +234,12 @@ public class ArchLevel extends Level {
         return blockType;
     }
 
-    private void printOdds() {
-        for (int i = 0; i < odds.length; i++) {
-            System.out.println(odds[i]);
-        }
-        System.out.println(totalOdds);
-    }
-
-    private int buildJump(int xo, int maxLength) {
+    private int buildJump(int xo, int maxLength, int desiredLength) {
         gaps++;
         int blocksAtEitherSide = 2;
         int jumpLength = random.nextInt(GAP_SIZE) + 2;
         int length = blocksAtEitherSide * 2 + jumpLength;
-
+        
         boolean hasStairs = random.nextInt(3) == 0;
 
         int floor = height - 1 - random.nextInt(4);
@@ -258,8 +274,8 @@ public class ArchLevel extends Level {
         return length;
     }
 
-    private int buildCannons(int xo, int maxLength) {
-        int length = 5;
+    private int buildCannons(int xo, int maxLength, int desiredLength) {
+        int length = desiredLength;
         if (length > maxLength) {
             length = maxLength;
         }
@@ -295,12 +311,12 @@ public class ArchLevel extends Level {
         return length;
     }
 
-    private int buildHillStraight(int xo, int maxLength) {
-        int length = random.nextInt(10) + 10;
+    private int buildHillStraight(int xo, int maxLength, int desiredLength) {
+        int length = desiredLength;
         if (length > maxLength) {
             length = maxLength;
         }
-
+        
         int floor = height - 1 - random.nextInt(4);
         for (int x = xo; x < xo + length; x++) {
             for (int y = 0; y < height; y++) {
@@ -390,12 +406,12 @@ public class ArchLevel extends Level {
         }
     }
 
-    private int buildTubes(int xo, int maxLength) {
-        int length = 5;
+    private int buildTubes(int xo, int maxLength, int desiredLength) {
+        int length = desiredLength;
         if (length > maxLength) {
             length = maxLength;
         }
-
+        
         int floor = height - 1 - random.nextInt(4);
         int xTube = xo + 1 + random.nextInt(4);
         int tubeHeight = floor - random.nextInt(2) - 2;
@@ -437,17 +453,15 @@ public class ArchLevel extends Level {
         return length;
     }
 
-    private int buildStraight(int xo, int maxLength, boolean safe) {
-        int length = random.nextInt(10) + 2;
-
-        if (safe) {
-            length = 10 + random.nextInt(5);
-        }
+    private int buildStraight(int xo, int maxLength, 
+            boolean safe, int desiredLength) {
+        int length = desiredLength;
+        if (safe) length = 10 + random.nextInt(5);
 
         if (length > maxLength) {
             length = maxLength;
         }
-
+        
         int floor = height - 1 - random.nextInt(4);
 
         //runs from the specified x position to the length of the segment
