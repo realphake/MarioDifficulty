@@ -22,9 +22,6 @@ public class ArchLevel extends Level {
 
     public double[] playValues;
 
-    private static Random levelSeedRandom = new Random();
-    public static long lastSeed;
-
     Random random;
 
     private static final int ODDS_STRAIGHT = 0;
@@ -81,13 +78,10 @@ public class ArchLevel extends Level {
         setGlobalVariablesTo(m);
         fixOddsArrayAndCalculateTotal();
 
-        lastSeed = m.seed;
-        random = new Random(m.seed);
-
         designLevelSection();
 
-        if (type == LevelInterface.TYPE_CASTLE || 
-                type == LevelInterface.TYPE_UNDERGROUND) {
+        if (type == LevelInterface.TYPE_CASTLE
+                || type == LevelInterface.TYPE_UNDERGROUND) {
             placeCeilingOverLevel();
         }
 
@@ -117,8 +111,7 @@ public class ArchLevel extends Level {
         length += buildStraight(0, width, true);
 
         //create all of the medium sections
-        while (length < width - 10)// 64)
-        {
+        while (length < width - 10) {
             length += buildZone(length, width - length);
         }
 
@@ -144,9 +137,7 @@ public class ArchLevel extends Level {
             if (odds[i] < 0) {
                 odds[i] = 0;
             }
-
             totalOdds += odds[i];
-            //odds[i] = totalOdds - odds[i];
         }
 
         if (type != LevelInterface.TYPE_OVERGROUND) {
@@ -166,11 +157,11 @@ public class ArchLevel extends Level {
         MAX_ENEMIES = m.MAX_ENEMIES;
         MAX_COINS = m.MAX_COINS;
         GAP_SIZE = m.ODDS_JUMP;
+
+        random = new Random(m.seed);
     }
 
     private int buildZone(int x, int maxLength) {
-        
-        printOdds();
 
         if (totalOdds == 0) {
             odds[ODDS_STRAIGHT] = 10;
@@ -178,6 +169,9 @@ public class ArchLevel extends Level {
         }
 
         int blockType = findRandomBlockType();
+        
+        System.out.println(blockTypeToString(blockType));
+
         odds[blockType]--;
         totalOdds--;
         switch (blockType) {
@@ -187,8 +181,7 @@ public class ArchLevel extends Level {
                 return buildHillStraight(x, maxLength);
             case ODDS_TUBES:
                 return buildTubes(x, maxLength);
-            case ODDS_JUMP: 
-            {
+            case ODDS_JUMP: {
                 if (gaps < Constraints.gaps) {
                     return buildJump(x, maxLength);
                 } else {
@@ -214,6 +207,7 @@ public class ArchLevel extends Level {
                 break;
             }
         }
+        if ( blockType == 5 ) blockType = 0;
         return blockType;
     }
 
@@ -235,8 +229,8 @@ public class ArchLevel extends Level {
         int floor = height - 1 - random.nextInt(4);
         //run from the start x position, for the whole length
         for (int x = xo; x < xo + length; x++) {
-            if (x < xo + blocksAtEitherSide || 
-                    x > xo + length - blocksAtEitherSide - 1) {
+            if (x < xo + blocksAtEitherSide
+                    || x > xo + length - blocksAtEitherSide - 1) {
                 //run for all y's since we need to paint blocks upward
                 //paint ground up until the floor
                 for (int y = 0; y < height; y++) {
@@ -244,7 +238,7 @@ public class ArchLevel extends Level {
                         setBlock(x, y, GROUND);
                     } //if it is above ground, start making stairs of rocks
                     else if (hasStairs) {	//LEFT SIDE
-                        if (x < xo + blocksAtEitherSide) { 
+                        if (x < xo + blocksAtEitherSide) {
                             //we need to max it out and level because it wont
                             //paint ground correctly unless two bricks are
                             //side by side
@@ -332,8 +326,8 @@ public class ArchLevel extends Level {
                 int l = random.nextInt(5) + 3;
                 int xxo = random.nextInt(length - l - 2) + xo + 1;
 
-                if (occupied[xxo - xo] || occupied[xxo - xo + l] || 
-                        occupied[xxo - xo - 1] || occupied[xxo - xo + l + 1]) {
+                if (occupied[xxo - xo] || occupied[xxo - xo + l]
+                        || occupied[xxo - xo - 1] || occupied[xxo - xo + l + 1]) {
                     keepGoing = false;
                 } else {
                     occupied[xxo - xo] = true;
@@ -389,7 +383,7 @@ public class ArchLevel extends Level {
                     enemyType = random.nextInt(3);
                 }
 
-                setSpriteTemplate(x, y, new SpriteTemplate(enemyType, 
+                setSpriteTemplate(x, y, new SpriteTemplate(enemyType,
                         random.nextInt(10) < difficulty));
                 ENEMIES++;
             }
@@ -415,7 +409,7 @@ public class ArchLevel extends Level {
             }
 
             if (x == xTube && random.nextInt(11) < difficulty + 1) {
-                setSpriteTemplate(x, tubeHeight, 
+                setSpriteTemplate(x, tubeHeight,
                         new SpriteTemplate(Enemy.ENEMY_FLOWER, false));
                 ENEMIES++;
             }
@@ -554,7 +548,7 @@ public class ArchLevel extends Level {
         blockify(this, blockMap, width + 1, height + 1);
     }
 
-    private void blockify(Level level, 
+    private void blockify(Level level,
             boolean[][] blocks, int width, int height) {
         int to = 0;
         if (type == LevelInterface.TYPE_CASTLE) {
@@ -654,7 +648,7 @@ public class ArchLevel extends Level {
 
     @Override
     public ArchLevel clone() throws CloneNotSupportedException {
-        
+
         ArchLevel clone = new ArchLevel(width, height);
 
         clone.xExit = xExit;
@@ -676,6 +670,23 @@ public class ArchLevel extends Level {
 
         return clone;
 
+    }
+
+    private String blockTypeToString(int blockType) {
+        switch (blockType) {
+            case ODDS_STRAIGHT:
+                return "straight";
+            case ODDS_HILL_STRAIGHT:
+                return "hills";
+            case ODDS_TUBES:
+                return "tubes";
+            case ODDS_JUMP:
+                return "jump";
+            case ODDS_CANNONS:
+                return "cannons";
+            default: 
+                return "type not known";
+        }
     }
 
 }
