@@ -176,22 +176,22 @@ public class ArchLevel extends Level {
         totalOdds--;
         switch (blockType) {
             case ODDS_STRAIGHT:
-                return buildStraight(x, maxLength, false);
+                return buildStraight(x, maxLength, false); // Length = 1d10+2
             case ODDS_HILL_STRAIGHT:
-                return buildHillStraight(x, maxLength);
+                return buildHillStraight(x, maxLength); // length 1d10+10
             case ODDS_TUBES:
-                return buildTubes(x, maxLength);
+                return buildTubes(x, maxLength); // Length = 5
             case ODDS_JUMP: {
                 if (gaps < Constraints.gaps) {
-                    return buildJump(x, maxLength);
+                    return buildJump(x, maxLength); // Length = 1d4+6
                 } else {
-                    odds[ODDS_JUMP]--;
-                    totalOdds--;
+                    odds[ODDS_JUMP]++;
+                    totalOdds++;
                     return buildStraight(x, maxLength, false);
                 }
             }
             case ODDS_CANNONS:
-                return buildCannons(x, maxLength);
+                return buildCannons(x, maxLength); // Length = 5
         }
         return 0;
     }
