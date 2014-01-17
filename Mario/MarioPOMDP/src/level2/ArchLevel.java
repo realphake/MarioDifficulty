@@ -24,11 +24,11 @@ public class ArchLevel extends Level {
 
     Random random;
 
-    private static final int ODDS_STRAIGHT = 0;
-    private static final int ODDS_HILL_STRAIGHT = 1;
-    private static final int ODDS_TUBES = 2;
-    private static final int ODDS_JUMP = 3;
-    private static final int ODDS_CANNONS = 4;
+    private static final int STRAIGHT = 0;
+    private static final int HILL_STRAIGHT = 1;
+    private static final int TUBES = 2;
+    private static final int JUMP = 3;
+    private static final int CANNONS = 4;
 
     private static int MAX_ENEMIES;
     private static int MAX_COINS = 20;
@@ -66,7 +66,7 @@ public class ArchLevel extends Level {
             reward = 6 * ((float) this.ENEMIES / 10) + 1;
         }
         if ("jump".equals(type)) {
-            reward = 6 * ((float) this.ODDS_JUMP / 10) + 1;
+            reward = 6 * ((float) this.JUMP / 10) + 1;
         }
 
         // System.out.println("type is" + type + " and reward is " + reward);
@@ -78,7 +78,9 @@ public class ArchLevel extends Level {
         setGlobalVariablesTo(m);
         fixOddsArrayAndCalculateTotal();
 
-        designLevelSection();
+        int[] sectionBlueprints = createBlueprints();
+        designLevelSection(sectionBlueprints);
+        //designLevelSection();
 
         if (type == LevelInterface.TYPE_CASTLE
                 || type == LevelInterface.TYPE_UNDERGROUND) {
@@ -86,7 +88,11 @@ public class ArchLevel extends Level {
         }
 
         fixWalls();
-
+    }
+    
+    private int[] createBlueprints() {
+        int[] blueprint = {CANNONS,10,HILL_STRAIGHT,10,TUBES,10};
+        return blueprint;
     }
 
     private void placeCeilingOverLevel() {
@@ -105,18 +111,34 @@ public class ArchLevel extends Level {
         }
     }
 
+    private void designLevelSection(int[] blueprints) {
+        int lengthSoFar = 1;
+        lengthSoFar += buildStraight(1, width, true, 5); // Beginning section
+        for ( int i = 0; i < blueprints.length; i+=2 ) {
+            int lengthRemaining = width-lengthSoFar;
+            lengthSoFar += buildZone( lengthSoFar, lengthRemaining, 
+                    blueprints[i], blueprints[i+1]);
+        }
+        buildEndSection(lengthSoFar);
+    }
+    
     private void designLevelSection() {
 
         //create the start location
         int length = 1;
-        System.out.println(width);
         length += buildStraight(0, width, true, 7);
 
         //create all of the medium sections
         while (length < width - 10) {
-            length += buildZone(length, width - length);
+            int blockType = STRAIGHT;
+            int sectionLength = 10;
+            length += buildZone(length, width - length, 
+                    blockType, sectionLength);
         }
+        buildEndSection(length);
+    }
 
+    private void buildEndSection(int length) {
         //set the end piece
         int floor = height - 1 - random.nextInt(4);
 
@@ -143,16 +165,16 @@ public class ArchLevel extends Level {
         }
 
         if (type != LevelInterface.TYPE_OVERGROUND) {
-            odds[ODDS_HILL_STRAIGHT] = 0;
+            odds[HILL_STRAIGHT] = 0;
         }
     }
 
     private void setGlobalVariablesTo(paramsPCG m) {
-        odds[ODDS_STRAIGHT] = (int) m.ODDS_STRAIGHT;
-        odds[ODDS_HILL_STRAIGHT] = (int) m.ODDS_HILL_STRAIGHT;
-        odds[ODDS_TUBES] = (int) m.ODDS_TUBES;
-        odds[ODDS_JUMP] = (int) m.ODDS_JUMP;
-        odds[ODDS_CANNONS] = (int) m.ODDS_CANNONS;
+        odds[STRAIGHT] = (int) m.ODDS_STRAIGHT;
+        odds[HILL_STRAIGHT] = (int) m.ODDS_HILL_STRAIGHT;
+        odds[TUBES] = (int) m.ODDS_TUBES;
+        odds[JUMP] = (int) m.ODDS_JUMP;
+        odds[CANNONS] = (int) m.ODDS_CANNONS;
         difficulty = m.difficulty;
 
         //Upper Limits
@@ -163,28 +185,26 @@ public class ArchLevel extends Level {
         random = new Random(m.seed);
     }
 
-    private int buildZone(int x, int maxLength) {
-
-        int blockType = decideOnBlockTypeRightNow();
-        int length = decideOnSectionLength(blockType, maxLength);
+    private int buildZone(int x, int maxLength, 
+            int blockType, int length) {
 
         switch (blockType) {
-            case ODDS_STRAIGHT:
+            case STRAIGHT:
                 return buildStraight(x, maxLength, false, length); // Length = 1d10+2
-            case ODDS_HILL_STRAIGHT:
+            case HILL_STRAIGHT:
                 return buildHillStraight(x, maxLength, length); // length 1d10+10
-            case ODDS_TUBES:
+            case TUBES:
                 return buildTubes(x, maxLength, length); // Length = 5
-            case ODDS_JUMP: {
+            case JUMP: {
                 if (gaps < Constraints.gaps) {
                     return buildJump(x, maxLength, length); // Length = 1d4+6
                 } else {
-                    odds[ODDS_JUMP]++;
+                    odds[JUMP]++;
                     totalOdds++;
                     return buildStraight(x, maxLength, false, length);
                 }
             }
-            case ODDS_CANNONS:
+            case CANNONS:
                 return buildCannons(x, maxLength, length); // Length = 5
         }
         return 0;
@@ -192,7 +212,7 @@ public class ArchLevel extends Level {
 
     private int decideOnBlockTypeRightNow() {
         if (totalOdds == 0) {
-            odds[ODDS_STRAIGHT] = 10;
+            odds[STRAIGHT] = 10;
             totalOdds = 10;
         }
         int blockType = findRandomBlockType();
@@ -205,19 +225,19 @@ public class ArchLevel extends Level {
     private int decideOnSectionLength(int blockType, int maxLength) {
         int length = 0;
         switch (blockType) {
-            case ODDS_STRAIGHT:
+            case STRAIGHT:
                 length = random.nextInt(10) + 2;
                 break;
-            case ODDS_HILL_STRAIGHT:
+            case HILL_STRAIGHT:
                 length = random.nextInt(10) + 10;
                 break;
-            case ODDS_TUBES:
+            case TUBES:
                 length = 5;
                 break;
-            case ODDS_JUMP:
+            case JUMP:
                 length = 10;
                 break;
-            case ODDS_CANNONS:
+            case CANNONS:
                 length = 5;
                 break;
         }
@@ -703,15 +723,15 @@ public class ArchLevel extends Level {
 
     private String blockTypeToString(int blockType) {
         switch (blockType) {
-            case ODDS_STRAIGHT:
+            case STRAIGHT:
                 return "straight";
-            case ODDS_HILL_STRAIGHT:
+            case HILL_STRAIGHT:
                 return "hills";
-            case ODDS_TUBES:
+            case TUBES:
                 return "tubes";
-            case ODDS_JUMP:
+            case JUMP:
                 return "jump";
-            case ODDS_CANNONS:
+            case CANNONS:
                 return "cannons";
             default:
                 return "type not known";
