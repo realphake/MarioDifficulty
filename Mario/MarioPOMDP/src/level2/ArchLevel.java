@@ -80,7 +80,6 @@ public class ArchLevel extends Level {
 
         int[] sectionBlueprints = createBlueprints();
         designLevelSection(sectionBlueprints);
-        //designLevelSection();
 
         if (type == LevelInterface.TYPE_CASTLE
                 || type == LevelInterface.TYPE_UNDERGROUND) {
@@ -91,7 +90,16 @@ public class ArchLevel extends Level {
     }
     
     private int[] createBlueprints() {
-        int[] blueprint = {CANNONS,10,HILL_STRAIGHT,10,TUBES,10};
+        int[] levelSeed = odds;
+        int availableWidth = width-10;
+        int scale = availableWidth / totalOdds;
+        System.out.println(""+availableWidth +" / "+totalOdds+" = "+scale);
+        
+        for ( int i = 0; i < levelSeed.length; i++ ) {
+            // WHAT! COMPLETE THIS, STAT!
+        }
+        
+        int[] blueprint = {CANNONS,10,HILL_STRAIGHT,10,TUBES,10,JUMP,10};
         return blueprint;
     }
 
