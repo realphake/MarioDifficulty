@@ -10,6 +10,8 @@ import dk.itu.mario.engine.sprites.Enemy;
 
 import Architect.*;
 
+import java.util.ArrayList;
+
 public class ArchLevel extends Level {
 
     //Store information about the level
@@ -92,14 +94,22 @@ public class ArchLevel extends Level {
     private int[] createBlueprints() {
         int[] levelSeed = odds;
         int availableWidth = width-10;
-        int scale = availableWidth / totalOdds;
-        System.out.println(""+availableWidth +" / "+totalOdds+" = "+scale);
-        
+        int scale = availableWidth / totalOdds;        
+        ArrayList<Integer> blueprintTemp = new ArrayList<Integer>();
         for ( int i = 0; i < levelSeed.length; i++ ) {
-            // WHAT! COMPLETE THIS, STAT!
+            if ( levelSeed[i] != 0 ) {
+                blueprintTemp.add(i);
+                blueprintTemp.add(levelSeed[i]*scale);
+            }
         }
-        
-        int[] blueprint = {CANNONS,10,HILL_STRAIGHT,10,TUBES,10,JUMP,10};
+        return toIntArray(blueprintTemp);
+    }
+
+    private int[] toIntArray(ArrayList<Integer> blueprintTemp) {
+        int[] blueprint = new int[blueprintTemp.size()];
+        for ( int i = 0; i < blueprintTemp.size(); i++ ) {
+            blueprint[i] = blueprintTemp.get(i);
+        }
         return blueprint;
     }
 
