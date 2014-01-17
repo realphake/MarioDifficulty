@@ -106,9 +106,7 @@ public class ArchLevel extends Level {
     }
 
     private void designLevelSection() {
-        
-        
-        
+
         //create the start location
         int length = 1;
         System.out.println(width);
@@ -166,10 +164,10 @@ public class ArchLevel extends Level {
     }
 
     private int buildZone(int x, int maxLength) {
-        
+
         int blockType = decideOnBlockTypeRightNow();
         int length = decideOnSectionLength(blockType, maxLength);
-        
+
         switch (blockType) {
             case ODDS_STRAIGHT:
                 return buildStraight(x, maxLength, false, length); // Length = 1d10+2
@@ -203,17 +201,27 @@ public class ArchLevel extends Level {
         totalOdds--;
         return blockType;
     }
-    
+
     private int decideOnSectionLength(int blockType, int maxLength) {
         int length = 0;
         switch (blockType) {
-            case ODDS_STRAIGHT: length = random.nextInt(10) + 2; break;
-            case ODDS_HILL_STRAIGHT: length = random.nextInt(10) + 10; break;
-            case ODDS_TUBES: length = 5; break; 
-            case ODDS_JUMP: length = 10; break;
-            case ODDS_CANNONS: length = 5; break;
+            case ODDS_STRAIGHT:
+                length = random.nextInt(10) + 2;
+                break;
+            case ODDS_HILL_STRAIGHT:
+                length = random.nextInt(10) + 10;
+                break;
+            case ODDS_TUBES:
+                length = 5;
+                break;
+            case ODDS_JUMP:
+                length = 10;
+                break;
+            case ODDS_CANNONS:
+                length = 5;
+                break;
         }
-        if ( length > maxLength ) {
+        if (length > maxLength) {
             return maxLength;
         }
         return length;
@@ -230,16 +238,24 @@ public class ArchLevel extends Level {
                 break;
             }
         }
-        if ( blockType == 5 ) blockType = 0;
+        if (blockType == 5) {
+            blockType = 0;
+        }
         return blockType;
     }
 
     private int buildJump(int xo, int maxLength, int desiredLength) {
         gaps++;
-        int blocksAtEitherSide = 2;
+        int length = desiredLength;
+        if (length > maxLength) {
+            length = maxLength;
+        }
         int jumpLength = random.nextInt(GAP_SIZE) + 2;
-        int length = blocksAtEitherSide * 2 + jumpLength;
-        
+        if (jumpLength > length) {
+            jumpLength = length;
+        }
+        int blocksAtEitherSide = length - jumpLength;
+
         boolean hasStairs = random.nextInt(3) == 0;
 
         int floor = height - 1 - random.nextInt(4);
@@ -316,7 +332,7 @@ public class ArchLevel extends Level {
         if (length > maxLength) {
             length = maxLength;
         }
-        
+
         int floor = height - 1 - random.nextInt(4);
         for (int x = xo; x < xo + length; x++) {
             for (int y = 0; y < height; y++) {
@@ -411,7 +427,7 @@ public class ArchLevel extends Level {
         if (length > maxLength) {
             length = maxLength;
         }
-        
+
         int floor = height - 1 - random.nextInt(4);
         int xTube = xo + 1 + random.nextInt(4);
         int tubeHeight = floor - random.nextInt(2) - 2;
@@ -453,15 +469,14 @@ public class ArchLevel extends Level {
         return length;
     }
 
-    private int buildStraight(int xo, int maxLength, 
+    private int buildStraight(int xo, int maxLength,
             boolean safe, int desiredLength) {
         int length = desiredLength;
-        if (safe) length = 10 + random.nextInt(5);
 
         if (length > maxLength) {
             length = maxLength;
         }
-        
+
         int floor = height - 1 - random.nextInt(4);
 
         //runs from the specified x position to the length of the segment
@@ -698,7 +713,7 @@ public class ArchLevel extends Level {
                 return "jump";
             case ODDS_CANNONS:
                 return "cannons";
-            default: 
+            default:
                 return "type not known";
         }
     }
