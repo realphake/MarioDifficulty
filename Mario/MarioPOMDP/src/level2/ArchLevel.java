@@ -36,7 +36,6 @@ public class ArchLevel extends Level {
     private static int MAX_COINS = 20;
     private static int MAX_TURTLES = 10;
     private static int GAP_SIZE = 4;
-    private static int MAX_GAPS = 6;
 
     public int[] odds = new int[6];
 
@@ -80,7 +79,7 @@ public class ArchLevel extends Level {
         setGlobalVariablesTo(m);
         fixOddsArrayAndCalculateTotal();
 
-        int[] sectionBlueprints = createBlueprints();
+        Section[] sectionBlueprints = createBlueprints();
         designLevelSection(sectionBlueprints);
 
         if (type == LevelInterface.TYPE_CASTLE
@@ -91,22 +90,32 @@ public class ArchLevel extends Level {
         fixWalls();
     }
     
-    private int[] createBlueprints() {
+    private Section[] createBlueprints() {
         int[] levelSeed = odds;
         int availableWidth = width-10;
         int scale = availableWidth / totalOdds;        
-        ArrayList<Integer> blueprintTemp = new ArrayList<Integer>();
+        ArrayList<Section> blueprintTemp = new ArrayList<>();
         for ( int i = 0; i < levelSeed.length; i++ ) {
             if ( levelSeed[i] != 0 ) {
-                blueprintTemp.add(i);
-                blueprintTemp.add(levelSeed[i]*scale);
+                blueprintTemp.add(new Section( i, levelSeed[i]*scale ));
             }
         }
-        return toIntArray(blueprintTemp);
+        Section[] blueprint = shuffleBlueprints( listToArray(blueprintTemp) );
+        return blueprint;
+    }
+    
+    private Section[] shuffleBlueprints(Section[] blueprint) {
+        for ( int i = 0; i < blueprint.length; i++ ) {
+            int j = random.nextInt(blueprint.length);
+            Section remember = blueprint[i];
+            blueprint[i] = blueprint[j];
+            blueprint[j] = remember;
+        }
+        return blueprint;
     }
 
-    private int[] toIntArray(ArrayList<Integer> blueprintTemp) {
-        int[] blueprint = new int[blueprintTemp.size()];
+    private Section[] listToArray(ArrayList<Section> blueprintTemp) {
+        Section[] blueprint = new Section[blueprintTemp.size()];
         for ( int i = 0; i < blueprintTemp.size(); i++ ) {
             blueprint[i] = blueprintTemp.get(i);
         }
@@ -129,31 +138,15 @@ public class ArchLevel extends Level {
         }
     }
 
-    private void designLevelSection(int[] blueprints) {
+    private void designLevelSection(Section[] blueprints) {
         int lengthSoFar = 1;
         lengthSoFar += buildStraight(1, width, true, 5); // Beginning section
-        for ( int i = 0; i < blueprints.length; i+=2 ) {
+        for ( int i = 0; i < blueprints.length; i++ ) {
             int lengthRemaining = width-lengthSoFar;
             lengthSoFar += buildZone( lengthSoFar, lengthRemaining, 
-                    blueprints[i], blueprints[i+1]);
+                    blueprints[i].type, blueprints[i].length);
         }
         buildEndSection(lengthSoFar);
-    }
-    
-    private void designLevelSection() {
-
-        //create the start location
-        int length = 1;
-        length += buildStraight(0, width, true, 7);
-
-        //create all of the medium sections
-        while (length < width - 10) {
-            int blockType = STRAIGHT;
-            int sectionLength = 10;
-            length += buildZone(length, width - length, 
-                    blockType, sectionLength);
-        }
-        buildEndSection(length);
     }
 
     private void buildEndSection(int length) {
@@ -228,60 +221,6 @@ public class ArchLevel extends Level {
         return 0;
     }
 
-    private int decideOnBlockTypeRightNow() {
-        if (totalOdds == 0) {
-            odds[STRAIGHT] = 10;
-            totalOdds = 10;
-        }
-        int blockType = findRandomBlockType();
-        System.out.println(blockTypeToString(blockType));
-        odds[blockType]--;
-        totalOdds--;
-        return blockType;
-    }
-
-    private int decideOnSectionLength(int blockType, int maxLength) {
-        int length = 0;
-        switch (blockType) {
-            case STRAIGHT:
-                length = random.nextInt(10) + 2;
-                break;
-            case HILL_STRAIGHT:
-                length = random.nextInt(10) + 10;
-                break;
-            case TUBES:
-                length = 5;
-                break;
-            case JUMP:
-                length = 10;
-                break;
-            case CANNONS:
-                length = 5;
-                break;
-        }
-        if (length > maxLength) {
-            return maxLength;
-        }
-        return length;
-    }
-
-    private int findRandomBlockType() {
-        int t = random.nextInt(totalOdds);
-        int blockType = 0;
-        int s = 0;
-        for (int i = 0; i < odds.length; i++) {
-            s += odds[i];
-            if (t <= s) {
-                blockType = i;
-                break;
-            }
-        }
-        if (blockType == 5) {
-            blockType = 0;
-        }
-        return blockType;
-    }
-
     private int buildJump(int xo, int maxLength, int desiredLength) {
         gaps++;
         int length = desiredLength;
@@ -329,18 +268,17 @@ public class ArchLevel extends Level {
     }
 
     private int buildCannons(int xo, int maxLength, int desiredLength) {
-        int length = desiredLength;
-        if (length > maxLength) {
-            length = maxLength;
+        if (desiredLength > maxLength) {
+            desiredLength = maxLength;
         }
 
         int floor = height - 1 - random.nextInt(4);
         int xCannon = xo + 1 + random.nextInt(4);
-        for (int x = xo; x < xo + length; x++) {
+        for (int x = xo; x < xo + desiredLength; x++) {
             if (x > xCannon) {
                 xCannon += 2 + random.nextInt(4);
             }
-            if (xCannon == xo + length - 1) {
+            if (xCannon == xo + desiredLength - 1) {
                 xCannon += 10;
             }
             int cannonHeight = floor - random.nextInt(4) - 1;
@@ -362,7 +300,7 @@ public class ArchLevel extends Level {
             }
         }
 
-        return length;
+        return desiredLength;
     }
 
     private int buildHillStraight(int xo, int maxLength, int desiredLength) {
@@ -739,21 +677,14 @@ public class ArchLevel extends Level {
 
     }
 
-    private String blockTypeToString(int blockType) {
-        switch (blockType) {
-            case STRAIGHT:
-                return "straight";
-            case HILL_STRAIGHT:
-                return "hills";
-            case TUBES:
-                return "tubes";
-            case JUMP:
-                return "jump";
-            case CANNONS:
-                return "cannons";
-            default:
-                return "type not known";
+    private static class Section {
+
+        int type;
+        int length;
+        public Section(int t, int l) {
+            type = t; length = l;
         }
     }
+
 
 }
