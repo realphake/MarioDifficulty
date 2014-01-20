@@ -79,7 +79,8 @@ public class ArchLevel extends Level {
         setGlobalVariablesTo(m);
         fixOddsArrayAndCalculateTotal();
 
-        Section[] sectionBlueprints = createBlueprints();
+        Section[] sectionBlueprints = createBlueprints(0.1);
+        System.out.println(sectionArrayToString(sectionBlueprints));
         designLevelSection(sectionBlueprints);
 
         if (type == LevelInterface.TYPE_CASTLE
@@ -89,23 +90,25 @@ public class ArchLevel extends Level {
 
         fixWalls();
     }
-    
-    private Section[] createBlueprints() {
+
+    private Section[] createBlueprints(double epsilon) {
         int[] levelSeed = odds;
-        int availableWidth = width-10;
-        int scale = availableWidth / totalOdds;        
+        int availableWidth = width - 10;
+        int scale = availableWidth / totalOdds;
         ArrayList<Section> blueprintTemp = new ArrayList<>();
-        for ( int i = 0; i < levelSeed.length; i++ ) {
-            if ( levelSeed[i] != 0 ) {
-                blueprintTemp.add(new Section( i, levelSeed[i]*scale ));
+        for (int i = 0; i < levelSeed.length; i++) {
+            int length = levelSeed[i] * scale;
+            if (length != 0) {
+                blueprintTemp.add(new Section(i, length));
             }
         }
-        Section[] blueprint = shuffleBlueprints( listToArray(blueprintTemp) );
+
+        Section[] blueprint = shuffleBlueprints(listToArray(blueprintTemp));
         return blueprint;
     }
-    
+
     private Section[] shuffleBlueprints(Section[] blueprint) {
-        for ( int i = 0; i < blueprint.length; i++ ) {
+        for (int i = 0; i < blueprint.length; i++) {
             int j = random.nextInt(blueprint.length);
             Section remember = blueprint[i];
             blueprint[i] = blueprint[j];
@@ -116,7 +119,7 @@ public class ArchLevel extends Level {
 
     private Section[] listToArray(ArrayList<Section> blueprintTemp) {
         Section[] blueprint = new Section[blueprintTemp.size()];
-        for ( int i = 0; i < blueprintTemp.size(); i++ ) {
+        for (int i = 0; i < blueprintTemp.size(); i++) {
             blueprint[i] = blueprintTemp.get(i);
         }
         return blueprint;
@@ -141,9 +144,9 @@ public class ArchLevel extends Level {
     private void designLevelSection(Section[] blueprints) {
         int lengthSoFar = 1;
         lengthSoFar += buildStraight(1, width, true, 5); // Beginning section
-        for ( int i = 0; i < blueprints.length; i++ ) {
-            int lengthRemaining = width-lengthSoFar;
-            lengthSoFar += buildZone( lengthSoFar, lengthRemaining, 
+        for (int i = 0; i < blueprints.length; i++) {
+            int lengthRemaining = width - lengthSoFar;
+            lengthSoFar += buildZone(lengthSoFar, lengthRemaining,
                     blueprints[i].type, blueprints[i].length);
         }
         buildEndSection(lengthSoFar);
@@ -196,7 +199,7 @@ public class ArchLevel extends Level {
         random = new Random(m.seed);
     }
 
-    private int buildZone(int x, int maxLength, 
+    private int buildZone(int x, int maxLength,
             int blockType, int length) {
 
         switch (blockType) {
@@ -677,14 +680,45 @@ public class ArchLevel extends Level {
 
     }
 
+    private String sectionArrayToString(Section[] blueprint) {
+        String representation = "begin";
+        for (Section section : blueprint) {
+            representation += ", " + section.toString();
+        }
+        return representation + ", end";
+    }
+
     private static class Section {
 
         int type;
         int length;
+
         public Section(int t, int l) {
-            type = t; length = l;
+            type = t;
+            length = l;
+        }
+
+        @Override
+        public String toString() {
+            return "" + blockToString(type) + "(" + length + ")";
+        }
+
+        private String blockToString(int type) {
+            switch (type) {
+                case STRAIGHT:
+                    return "straight";
+                case HILL_STRAIGHT:
+                    return "hills";
+                case TUBES:
+                    return "tubes";
+                case JUMP:
+                    return "jump";
+                case CANNONS:
+                    return "cannons";
+                default:
+                    return "unknown type";
+            }
         }
     }
-
 
 }
