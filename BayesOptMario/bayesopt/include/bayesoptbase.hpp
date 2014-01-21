@@ -84,6 +84,30 @@ namespace bayesopt {
      * @return 0 if terminate successfully, any other value otherwise
      */  
     int stepOptimization(size_t ii);
+    
+    /** 
+     * \brief Execute ONE step the optimization process of the function defined
+     * in evaluateSample.
+     * 
+     * @see evaluateSample
+     * @see checkReachability
+     *
+     * @param ii iteration number.
+     * @return 0 if terminate successfully, any other value otherwise
+     */  
+    vectord stepOptimization1();
+    
+    /** 
+     * \brief Execute ONE step the optimization process of the function defined
+     * in evaluateSample.
+     * 
+     * @see evaluateSample
+     * @see checkReachability
+     *
+     * @param ii iteration number.
+     * @return 0 if terminate successfully, any other value otherwise
+     */  
+    int stepOptimization2(vectord next);
 
     /** 
      * Initialize the optimization process.

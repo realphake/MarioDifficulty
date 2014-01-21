@@ -1,5 +1,4 @@
-/home/stathis/Libraries/bayesopt/CMakeFiles/bayesopt.dir
-/home/stathis/Libraries/bayesopt/examples/CMakeFiles/bo_branin.dir
-/home/stathis/Libraries/bayesopt/examples/CMakeFiles/bo_cont.dir
-/home/stathis/Libraries/bayesopt/examples/CMakeFiles/bo_disc.dir
-/home/stathis/Libraries/bayesopt/examples/CMakeFiles/bo_oned.dir
+/cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles/bayesopt.dir
+/cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles/doc.dir
+/cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles/doxygen.dir
+/cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/nlopt/CMakeFiles/nlopt.dir

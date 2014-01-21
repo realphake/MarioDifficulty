@@ -7,16 +7,38 @@
       <df name="cmake">
       </df>
       <df name="CMakeFiles">
+        <df name="2.8.11.2">
+          <df name="CompilerIdC">
+            <in>CMakeCCompilerId.c</in>
+          </df>
+          <df name="CompilerIdCXX">
+            <in>CMakeCXXCompilerId.cpp</in>
+          </df>
+        </df>
         <df name="bayesopt.dir">
+          <df name="sobol">
+          </df>
+          <df name="src">
+          </df>
+          <df name="utils">
+          </df>
+          <df name="wrappers">
+          </df>
         </df>
         <df name="CheckTypeSize">
           <in>UINT32_T.c</in>
+        </df>
+        <df name="CMakeTmp">
         </df>
         <df name="CompilerIdC">
           <in>CMakeCCompilerId.c</in>
         </df>
         <df name="CompilerIdCXX">
           <in>CMakeCXXCompilerId.cpp</in>
+        </df>
+        <df name="doc.dir">
+        </df>
+        <df name="doxygen.dir">
         </df>
       </df>
       <df name="doxygen">
@@ -391,7 +413,7 @@
     <conf name="Default" type="0">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <platform>2</platform>
+        <platform>3</platform>
       </toolsSet>
       <compile>
         <compiledirpicklist>

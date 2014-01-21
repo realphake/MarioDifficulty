@@ -39,8 +39,9 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/nlopt.dir/stogo/local.cc.o"
   "CMakeFiles/nlopt.dir/stogo/stogo.cc.o"
   "CMakeFiles/nlopt.dir/stogo/tools.cc.o"
-  "../lib/libnlopt.pdb"
-  "../lib/libnlopt.a"
+  "../bin/cygnlopt.pdb"
+  "../bin/cygnlopt.dll"
+  "../lib/libnlopt.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.

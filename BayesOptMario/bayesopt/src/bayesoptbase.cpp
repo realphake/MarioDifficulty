@@ -137,6 +137,21 @@ namespace bayesopt
     plotStepData(ii,xNext,yNext);
     return 0;
   }
+  
+  vectord BayesOptBase::stepOptimization1()
+  {
+    vectord xNext(mDims);
+    nextPoint(xNext); // Find what is the next point.
+    return xNext;
+  }
+  
+  int BayesOptBase::stepOptimization2(vectord xNext)
+  {
+    double yNext = evaluateSampleInternal(xNext);
+
+    mGP->updateSurrogateModel(xNext,yNext); 
+    return 0;
+  }
 
   int BayesOptBase::optimize(vectord &bestPoint)
   {

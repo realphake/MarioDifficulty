@@ -38,28 +38,31 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake.exe
 
 # The command to remove a file.
-RM = /usr/bin/cmake -E remove -f
+RM = /usr/bin/cmake.exe -E remove -f
+
+# Escaping for special characters.
+EQUALS = =
 
 # The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake.exe
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/stathis/Libraries/bayesopt
+CMAKE_SOURCE_DIR = /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/stathis/Libraries/bayesopt
+CMAKE_BINARY_DIR = /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt
 
 #=============================================================================
 # Target rules for target CMakeFiles/bayesopt.dir
 
 # All Build rule for target.
-CMakeFiles/bayesopt.dir/all:
+CMakeFiles/bayesopt.dir/all: nlopt/CMakeFiles/nlopt.dir/all
 	$(MAKE) -f CMakeFiles/bayesopt.dir/build.make CMakeFiles/bayesopt.dir/depend
 	$(MAKE) -f CMakeFiles/bayesopt.dir/build.make CMakeFiles/bayesopt.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22
 	@echo "Built target bayesopt"
 .PHONY : CMakeFiles/bayesopt.dir/all
 
@@ -69,9 +72,9 @@ all: CMakeFiles/bayesopt.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/bayesopt.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stathis/Libraries/bayesopt/CMakeFiles 25
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles 62
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/bayesopt.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stathis/Libraries/bayesopt/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles 0
 .PHONY : CMakeFiles/bayesopt.dir/rule
 
 # Convenience name for target.
@@ -88,164 +91,115 @@ clean: CMakeFiles/bayesopt.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Directory level rules for directory examples
+# Target rules for target CMakeFiles/doc.dir
+
+# All Build rule for target.
+CMakeFiles/doc.dir/all: CMakeFiles/doxygen.dir/all
+	$(MAKE) -f CMakeFiles/doc.dir/build.make CMakeFiles/doc.dir/depend
+	$(MAKE) -f CMakeFiles/doc.dir/build.make CMakeFiles/doc.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles 
+	@echo "Built target doc"
+.PHONY : CMakeFiles/doc.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/doc.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/doc.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles 0
+.PHONY : CMakeFiles/doc.dir/rule
+
+# Convenience name for target.
+doc: CMakeFiles/doc.dir/rule
+.PHONY : doc
+
+# clean rule for target.
+CMakeFiles/doc.dir/clean:
+	$(MAKE) -f CMakeFiles/doc.dir/build.make CMakeFiles/doc.dir/clean
+.PHONY : CMakeFiles/doc.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/doc.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/doxygen.dir
+
+# All Build rule for target.
+CMakeFiles/doxygen.dir/all:
+	$(MAKE) -f CMakeFiles/doxygen.dir/build.make CMakeFiles/doxygen.dir/depend
+	$(MAKE) -f CMakeFiles/doxygen.dir/build.make CMakeFiles/doxygen.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles  23
+	@echo "Built target doxygen"
+.PHONY : CMakeFiles/doxygen.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/doxygen.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/doxygen.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles 0
+.PHONY : CMakeFiles/doxygen.dir/rule
+
+# Convenience name for target.
+doxygen: CMakeFiles/doxygen.dir/rule
+.PHONY : doxygen
+
+# clean rule for target.
+CMakeFiles/doxygen.dir/clean:
+	$(MAKE) -f CMakeFiles/doxygen.dir/build.make CMakeFiles/doxygen.dir/clean
+.PHONY : CMakeFiles/doxygen.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/doxygen.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory nlopt
 
 # Convenience name for "all" pass in the directory.
-examples/all: examples/CMakeFiles/bo_branin.dir/all
-examples/all: examples/CMakeFiles/bo_cont.dir/all
-examples/all: examples/CMakeFiles/bo_disc.dir/all
-examples/all: examples/CMakeFiles/bo_oned.dir/all
-.PHONY : examples/all
+nlopt/all: nlopt/CMakeFiles/nlopt.dir/all
+.PHONY : nlopt/all
 
 # Convenience name for "clean" pass in the directory.
-examples/clean: examples/CMakeFiles/bo_branin.dir/clean
-examples/clean: examples/CMakeFiles/bo_cont.dir/clean
-examples/clean: examples/CMakeFiles/bo_disc.dir/clean
-examples/clean: examples/CMakeFiles/bo_oned.dir/clean
-.PHONY : examples/clean
+nlopt/clean: nlopt/CMakeFiles/nlopt.dir/clean
+.PHONY : nlopt/clean
 
 # Convenience name for "preinstall" pass in the directory.
-examples/preinstall:
-.PHONY : examples/preinstall
+nlopt/preinstall:
+.PHONY : nlopt/preinstall
 
 #=============================================================================
-# Target rules for target examples/CMakeFiles/bo_branin.dir
+# Target rules for target nlopt/CMakeFiles/nlopt.dir
 
 # All Build rule for target.
-examples/CMakeFiles/bo_branin.dir/all: CMakeFiles/bayesopt.dir/all
-	$(MAKE) -f examples/CMakeFiles/bo_branin.dir/build.make examples/CMakeFiles/bo_branin.dir/depend
-	$(MAKE) -f examples/CMakeFiles/bo_branin.dir/build.make examples/CMakeFiles/bo_branin.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles  26
-	@echo "Built target bo_branin"
-.PHONY : examples/CMakeFiles/bo_branin.dir/all
+nlopt/CMakeFiles/nlopt.dir/all:
+	$(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/depend
+	$(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles  24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63
+	@echo "Built target nlopt"
+.PHONY : nlopt/CMakeFiles/nlopt.dir/all
 
 # Include target in all.
-all: examples/CMakeFiles/bo_branin.dir/all
+all: nlopt/CMakeFiles/nlopt.dir/all
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-examples/CMakeFiles/bo_branin.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stathis/Libraries/bayesopt/CMakeFiles 26
-	$(MAKE) -f CMakeFiles/Makefile2 examples/CMakeFiles/bo_branin.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stathis/Libraries/bayesopt/CMakeFiles 0
-.PHONY : examples/CMakeFiles/bo_branin.dir/rule
+nlopt/CMakeFiles/nlopt.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles 40
+	$(MAKE) -f CMakeFiles/Makefile2 nlopt/CMakeFiles/nlopt.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles 0
+.PHONY : nlopt/CMakeFiles/nlopt.dir/rule
 
 # Convenience name for target.
-bo_branin: examples/CMakeFiles/bo_branin.dir/rule
-.PHONY : bo_branin
+nlopt: nlopt/CMakeFiles/nlopt.dir/rule
+.PHONY : nlopt
 
 # clean rule for target.
-examples/CMakeFiles/bo_branin.dir/clean:
-	$(MAKE) -f examples/CMakeFiles/bo_branin.dir/build.make examples/CMakeFiles/bo_branin.dir/clean
-.PHONY : examples/CMakeFiles/bo_branin.dir/clean
+nlopt/CMakeFiles/nlopt.dir/clean:
+	$(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/clean
+.PHONY : nlopt/CMakeFiles/nlopt.dir/clean
 
 # clean rule for target.
-clean: examples/CMakeFiles/bo_branin.dir/clean
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target examples/CMakeFiles/bo_cont.dir
-
-# All Build rule for target.
-examples/CMakeFiles/bo_cont.dir/all: CMakeFiles/bayesopt.dir/all
-	$(MAKE) -f examples/CMakeFiles/bo_cont.dir/build.make examples/CMakeFiles/bo_cont.dir/depend
-	$(MAKE) -f examples/CMakeFiles/bo_cont.dir/build.make examples/CMakeFiles/bo_cont.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles  27
-	@echo "Built target bo_cont"
-.PHONY : examples/CMakeFiles/bo_cont.dir/all
-
-# Include target in all.
-all: examples/CMakeFiles/bo_cont.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-examples/CMakeFiles/bo_cont.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stathis/Libraries/bayesopt/CMakeFiles 26
-	$(MAKE) -f CMakeFiles/Makefile2 examples/CMakeFiles/bo_cont.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stathis/Libraries/bayesopt/CMakeFiles 0
-.PHONY : examples/CMakeFiles/bo_cont.dir/rule
-
-# Convenience name for target.
-bo_cont: examples/CMakeFiles/bo_cont.dir/rule
-.PHONY : bo_cont
-
-# clean rule for target.
-examples/CMakeFiles/bo_cont.dir/clean:
-	$(MAKE) -f examples/CMakeFiles/bo_cont.dir/build.make examples/CMakeFiles/bo_cont.dir/clean
-.PHONY : examples/CMakeFiles/bo_cont.dir/clean
-
-# clean rule for target.
-clean: examples/CMakeFiles/bo_cont.dir/clean
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target examples/CMakeFiles/bo_disc.dir
-
-# All Build rule for target.
-examples/CMakeFiles/bo_disc.dir/all: CMakeFiles/bayesopt.dir/all
-	$(MAKE) -f examples/CMakeFiles/bo_disc.dir/build.make examples/CMakeFiles/bo_disc.dir/depend
-	$(MAKE) -f examples/CMakeFiles/bo_disc.dir/build.make examples/CMakeFiles/bo_disc.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles  28
-	@echo "Built target bo_disc"
-.PHONY : examples/CMakeFiles/bo_disc.dir/all
-
-# Include target in all.
-all: examples/CMakeFiles/bo_disc.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-examples/CMakeFiles/bo_disc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stathis/Libraries/bayesopt/CMakeFiles 26
-	$(MAKE) -f CMakeFiles/Makefile2 examples/CMakeFiles/bo_disc.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stathis/Libraries/bayesopt/CMakeFiles 0
-.PHONY : examples/CMakeFiles/bo_disc.dir/rule
-
-# Convenience name for target.
-bo_disc: examples/CMakeFiles/bo_disc.dir/rule
-.PHONY : bo_disc
-
-# clean rule for target.
-examples/CMakeFiles/bo_disc.dir/clean:
-	$(MAKE) -f examples/CMakeFiles/bo_disc.dir/build.make examples/CMakeFiles/bo_disc.dir/clean
-.PHONY : examples/CMakeFiles/bo_disc.dir/clean
-
-# clean rule for target.
-clean: examples/CMakeFiles/bo_disc.dir/clean
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target examples/CMakeFiles/bo_oned.dir
-
-# All Build rule for target.
-examples/CMakeFiles/bo_oned.dir/all: CMakeFiles/bayesopt.dir/all
-	$(MAKE) -f examples/CMakeFiles/bo_oned.dir/build.make examples/CMakeFiles/bo_oned.dir/depend
-	$(MAKE) -f examples/CMakeFiles/bo_oned.dir/build.make examples/CMakeFiles/bo_oned.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles  29
-	@echo "Built target bo_oned"
-.PHONY : examples/CMakeFiles/bo_oned.dir/all
-
-# Include target in all.
-all: examples/CMakeFiles/bo_oned.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-examples/CMakeFiles/bo_oned.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stathis/Libraries/bayesopt/CMakeFiles 26
-	$(MAKE) -f CMakeFiles/Makefile2 examples/CMakeFiles/bo_oned.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stathis/Libraries/bayesopt/CMakeFiles 0
-.PHONY : examples/CMakeFiles/bo_oned.dir/rule
-
-# Convenience name for target.
-bo_oned: examples/CMakeFiles/bo_oned.dir/rule
-.PHONY : bo_oned
-
-# clean rule for target.
-examples/CMakeFiles/bo_oned.dir/clean:
-	$(MAKE) -f examples/CMakeFiles/bo_oned.dir/build.make examples/CMakeFiles/bo_oned.dir/clean
-.PHONY : examples/CMakeFiles/bo_oned.dir/clean
-
-# clean rule for target.
-clean: examples/CMakeFiles/bo_oned.dir/clean
+clean: nlopt/CMakeFiles/nlopt.dir/clean
 .PHONY : clean
 
 #=============================================================================

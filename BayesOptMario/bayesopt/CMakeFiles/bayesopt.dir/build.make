@@ -26,19 +26,22 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake.exe
 
 # The command to remove a file.
-RM = /usr/bin/cmake -E remove -f
+RM = /usr/bin/cmake.exe -E remove -f
+
+# Escaping for special characters.
+EQUALS = =
 
 # The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake.exe
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/stathis/Libraries/bayesopt
+CMAKE_SOURCE_DIR = /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/stathis/Libraries/bayesopt
+CMAKE_BINARY_DIR = /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt
 
 # Include any dependencies generated for this target.
 include CMakeFiles/bayesopt.dir/depend.make
@@ -51,17 +54,17 @@ include CMakeFiles/bayesopt.dir/flags.make
 
 CMakeFiles/bayesopt.dir/src/bayesoptcont.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/src/bayesoptcont.cpp.o: src/bayesoptcont.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/src/bayesoptcont.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/bayesoptcont.cpp.o -c /home/stathis/Libraries/bayesopt/src/bayesoptcont.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/bayesoptcont.cpp.o -c src/bayesoptcont.cpp
 
 CMakeFiles/bayesopt.dir/src/bayesoptcont.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/src/bayesoptcont.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/src/bayesoptcont.cpp > CMakeFiles/bayesopt.dir/src/bayesoptcont.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E src/bayesoptcont.cpp > CMakeFiles/bayesopt.dir/src/bayesoptcont.cpp.i
 
 CMakeFiles/bayesopt.dir/src/bayesoptcont.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/src/bayesoptcont.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/src/bayesoptcont.cpp -o CMakeFiles/bayesopt.dir/src/bayesoptcont.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S src/bayesoptcont.cpp -o CMakeFiles/bayesopt.dir/src/bayesoptcont.cpp.s
 
 CMakeFiles/bayesopt.dir/src/bayesoptcont.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/src/bayesoptcont.cpp.o.requires
@@ -74,17 +77,17 @@ CMakeFiles/bayesopt.dir/src/bayesoptcont.cpp.o.provides.build: CMakeFiles/bayeso
 
 CMakeFiles/bayesopt.dir/src/bayesoptdisc.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/src/bayesoptdisc.cpp.o: src/bayesoptdisc.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/src/bayesoptdisc.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/bayesoptdisc.cpp.o -c /home/stathis/Libraries/bayesopt/src/bayesoptdisc.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/bayesoptdisc.cpp.o -c src/bayesoptdisc.cpp
 
 CMakeFiles/bayesopt.dir/src/bayesoptdisc.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/src/bayesoptdisc.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/src/bayesoptdisc.cpp > CMakeFiles/bayesopt.dir/src/bayesoptdisc.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E src/bayesoptdisc.cpp > CMakeFiles/bayesopt.dir/src/bayesoptdisc.cpp.i
 
 CMakeFiles/bayesopt.dir/src/bayesoptdisc.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/src/bayesoptdisc.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/src/bayesoptdisc.cpp -o CMakeFiles/bayesopt.dir/src/bayesoptdisc.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S src/bayesoptdisc.cpp -o CMakeFiles/bayesopt.dir/src/bayesoptdisc.cpp.s
 
 CMakeFiles/bayesopt.dir/src/bayesoptdisc.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/src/bayesoptdisc.cpp.o.requires
@@ -97,17 +100,17 @@ CMakeFiles/bayesopt.dir/src/bayesoptdisc.cpp.o.provides.build: CMakeFiles/bayeso
 
 CMakeFiles/bayesopt.dir/src/bayesoptbase.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/src/bayesoptbase.cpp.o: src/bayesoptbase.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/src/bayesoptbase.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/bayesoptbase.cpp.o -c /home/stathis/Libraries/bayesopt/src/bayesoptbase.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/bayesoptbase.cpp.o -c src/bayesoptbase.cpp
 
 CMakeFiles/bayesopt.dir/src/bayesoptbase.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/src/bayesoptbase.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/src/bayesoptbase.cpp > CMakeFiles/bayesopt.dir/src/bayesoptbase.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E src/bayesoptbase.cpp > CMakeFiles/bayesopt.dir/src/bayesoptbase.cpp.i
 
 CMakeFiles/bayesopt.dir/src/bayesoptbase.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/src/bayesoptbase.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/src/bayesoptbase.cpp -o CMakeFiles/bayesopt.dir/src/bayesoptbase.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S src/bayesoptbase.cpp -o CMakeFiles/bayesopt.dir/src/bayesoptbase.cpp.s
 
 CMakeFiles/bayesopt.dir/src/bayesoptbase.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/src/bayesoptbase.cpp.o.requires
@@ -120,17 +123,17 @@ CMakeFiles/bayesopt.dir/src/bayesoptbase.cpp.o.provides.build: CMakeFiles/bayeso
 
 CMakeFiles/bayesopt.dir/src/inneroptimization.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/src/inneroptimization.cpp.o: src/inneroptimization.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/src/inneroptimization.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/inneroptimization.cpp.o -c /home/stathis/Libraries/bayesopt/src/inneroptimization.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/inneroptimization.cpp.o -c src/inneroptimization.cpp
 
 CMakeFiles/bayesopt.dir/src/inneroptimization.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/src/inneroptimization.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/src/inneroptimization.cpp > CMakeFiles/bayesopt.dir/src/inneroptimization.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E src/inneroptimization.cpp > CMakeFiles/bayesopt.dir/src/inneroptimization.cpp.i
 
 CMakeFiles/bayesopt.dir/src/inneroptimization.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/src/inneroptimization.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/src/inneroptimization.cpp -o CMakeFiles/bayesopt.dir/src/inneroptimization.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S src/inneroptimization.cpp -o CMakeFiles/bayesopt.dir/src/inneroptimization.cpp.s
 
 CMakeFiles/bayesopt.dir/src/inneroptimization.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/src/inneroptimization.cpp.o.requires
@@ -143,17 +146,17 @@ CMakeFiles/bayesopt.dir/src/inneroptimization.cpp.o.provides.build: CMakeFiles/b
 
 CMakeFiles/bayesopt.dir/src/nonparametricprocess.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/src/nonparametricprocess.cpp.o: src/nonparametricprocess.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/src/nonparametricprocess.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/nonparametricprocess.cpp.o -c /home/stathis/Libraries/bayesopt/src/nonparametricprocess.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/nonparametricprocess.cpp.o -c src/nonparametricprocess.cpp
 
 CMakeFiles/bayesopt.dir/src/nonparametricprocess.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/src/nonparametricprocess.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/src/nonparametricprocess.cpp > CMakeFiles/bayesopt.dir/src/nonparametricprocess.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E src/nonparametricprocess.cpp > CMakeFiles/bayesopt.dir/src/nonparametricprocess.cpp.i
 
 CMakeFiles/bayesopt.dir/src/nonparametricprocess.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/src/nonparametricprocess.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/src/nonparametricprocess.cpp -o CMakeFiles/bayesopt.dir/src/nonparametricprocess.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S src/nonparametricprocess.cpp -o CMakeFiles/bayesopt.dir/src/nonparametricprocess.cpp.s
 
 CMakeFiles/bayesopt.dir/src/nonparametricprocess.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/src/nonparametricprocess.cpp.o.requires
@@ -166,17 +169,17 @@ CMakeFiles/bayesopt.dir/src/nonparametricprocess.cpp.o.provides.build: CMakeFile
 
 CMakeFiles/bayesopt.dir/src/hierarchical_gaussian_process.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/src/hierarchical_gaussian_process.cpp.o: src/hierarchical_gaussian_process.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_6)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/src/hierarchical_gaussian_process.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/hierarchical_gaussian_process.cpp.o -c /home/stathis/Libraries/bayesopt/src/hierarchical_gaussian_process.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/hierarchical_gaussian_process.cpp.o -c src/hierarchical_gaussian_process.cpp
 
 CMakeFiles/bayesopt.dir/src/hierarchical_gaussian_process.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/src/hierarchical_gaussian_process.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/src/hierarchical_gaussian_process.cpp > CMakeFiles/bayesopt.dir/src/hierarchical_gaussian_process.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E src/hierarchical_gaussian_process.cpp > CMakeFiles/bayesopt.dir/src/hierarchical_gaussian_process.cpp.i
 
 CMakeFiles/bayesopt.dir/src/hierarchical_gaussian_process.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/src/hierarchical_gaussian_process.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/src/hierarchical_gaussian_process.cpp -o CMakeFiles/bayesopt.dir/src/hierarchical_gaussian_process.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S src/hierarchical_gaussian_process.cpp -o CMakeFiles/bayesopt.dir/src/hierarchical_gaussian_process.cpp.s
 
 CMakeFiles/bayesopt.dir/src/hierarchical_gaussian_process.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/src/hierarchical_gaussian_process.cpp.o.requires
@@ -189,17 +192,17 @@ CMakeFiles/bayesopt.dir/src/hierarchical_gaussian_process.cpp.o.provides.build: 
 
 CMakeFiles/bayesopt.dir/src/gaussian_process.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/src/gaussian_process.cpp.o: src/gaussian_process.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_7)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/src/gaussian_process.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/gaussian_process.cpp.o -c /home/stathis/Libraries/bayesopt/src/gaussian_process.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/gaussian_process.cpp.o -c src/gaussian_process.cpp
 
 CMakeFiles/bayesopt.dir/src/gaussian_process.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/src/gaussian_process.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/src/gaussian_process.cpp > CMakeFiles/bayesopt.dir/src/gaussian_process.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E src/gaussian_process.cpp > CMakeFiles/bayesopt.dir/src/gaussian_process.cpp.i
 
 CMakeFiles/bayesopt.dir/src/gaussian_process.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/src/gaussian_process.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/src/gaussian_process.cpp -o CMakeFiles/bayesopt.dir/src/gaussian_process.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S src/gaussian_process.cpp -o CMakeFiles/bayesopt.dir/src/gaussian_process.cpp.s
 
 CMakeFiles/bayesopt.dir/src/gaussian_process.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/src/gaussian_process.cpp.o.requires
@@ -212,17 +215,17 @@ CMakeFiles/bayesopt.dir/src/gaussian_process.cpp.o.provides.build: CMakeFiles/ba
 
 CMakeFiles/bayesopt.dir/src/gaussian_process_ml.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/src/gaussian_process_ml.cpp.o: src/gaussian_process_ml.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_8)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/src/gaussian_process_ml.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/gaussian_process_ml.cpp.o -c /home/stathis/Libraries/bayesopt/src/gaussian_process_ml.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/gaussian_process_ml.cpp.o -c src/gaussian_process_ml.cpp
 
 CMakeFiles/bayesopt.dir/src/gaussian_process_ml.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/src/gaussian_process_ml.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/src/gaussian_process_ml.cpp > CMakeFiles/bayesopt.dir/src/gaussian_process_ml.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E src/gaussian_process_ml.cpp > CMakeFiles/bayesopt.dir/src/gaussian_process_ml.cpp.i
 
 CMakeFiles/bayesopt.dir/src/gaussian_process_ml.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/src/gaussian_process_ml.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/src/gaussian_process_ml.cpp -o CMakeFiles/bayesopt.dir/src/gaussian_process_ml.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S src/gaussian_process_ml.cpp -o CMakeFiles/bayesopt.dir/src/gaussian_process_ml.cpp.s
 
 CMakeFiles/bayesopt.dir/src/gaussian_process_ml.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/src/gaussian_process_ml.cpp.o.requires
@@ -235,17 +238,17 @@ CMakeFiles/bayesopt.dir/src/gaussian_process_ml.cpp.o.provides.build: CMakeFiles
 
 CMakeFiles/bayesopt.dir/src/gaussian_process_normal.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/src/gaussian_process_normal.cpp.o: src/gaussian_process_normal.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_9)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/src/gaussian_process_normal.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/gaussian_process_normal.cpp.o -c /home/stathis/Libraries/bayesopt/src/gaussian_process_normal.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/gaussian_process_normal.cpp.o -c src/gaussian_process_normal.cpp
 
 CMakeFiles/bayesopt.dir/src/gaussian_process_normal.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/src/gaussian_process_normal.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/src/gaussian_process_normal.cpp > CMakeFiles/bayesopt.dir/src/gaussian_process_normal.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E src/gaussian_process_normal.cpp > CMakeFiles/bayesopt.dir/src/gaussian_process_normal.cpp.i
 
 CMakeFiles/bayesopt.dir/src/gaussian_process_normal.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/src/gaussian_process_normal.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/src/gaussian_process_normal.cpp -o CMakeFiles/bayesopt.dir/src/gaussian_process_normal.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S src/gaussian_process_normal.cpp -o CMakeFiles/bayesopt.dir/src/gaussian_process_normal.cpp.s
 
 CMakeFiles/bayesopt.dir/src/gaussian_process_normal.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/src/gaussian_process_normal.cpp.o.requires
@@ -258,17 +261,17 @@ CMakeFiles/bayesopt.dir/src/gaussian_process_normal.cpp.o.provides.build: CMakeF
 
 CMakeFiles/bayesopt.dir/src/student_t_process_jef.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/src/student_t_process_jef.cpp.o: src/student_t_process_jef.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_10)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_10)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/src/student_t_process_jef.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/student_t_process_jef.cpp.o -c /home/stathis/Libraries/bayesopt/src/student_t_process_jef.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/student_t_process_jef.cpp.o -c src/student_t_process_jef.cpp
 
 CMakeFiles/bayesopt.dir/src/student_t_process_jef.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/src/student_t_process_jef.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/src/student_t_process_jef.cpp > CMakeFiles/bayesopt.dir/src/student_t_process_jef.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E src/student_t_process_jef.cpp > CMakeFiles/bayesopt.dir/src/student_t_process_jef.cpp.i
 
 CMakeFiles/bayesopt.dir/src/student_t_process_jef.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/src/student_t_process_jef.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/src/student_t_process_jef.cpp -o CMakeFiles/bayesopt.dir/src/student_t_process_jef.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S src/student_t_process_jef.cpp -o CMakeFiles/bayesopt.dir/src/student_t_process_jef.cpp.s
 
 CMakeFiles/bayesopt.dir/src/student_t_process_jef.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/src/student_t_process_jef.cpp.o.requires
@@ -281,17 +284,17 @@ CMakeFiles/bayesopt.dir/src/student_t_process_jef.cpp.o.provides.build: CMakeFil
 
 CMakeFiles/bayesopt.dir/src/student_t_process_nig.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/src/student_t_process_nig.cpp.o: src/student_t_process_nig.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_11)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_11)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/src/student_t_process_nig.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/student_t_process_nig.cpp.o -c /home/stathis/Libraries/bayesopt/src/student_t_process_nig.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/student_t_process_nig.cpp.o -c src/student_t_process_nig.cpp
 
 CMakeFiles/bayesopt.dir/src/student_t_process_nig.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/src/student_t_process_nig.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/src/student_t_process_nig.cpp > CMakeFiles/bayesopt.dir/src/student_t_process_nig.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E src/student_t_process_nig.cpp > CMakeFiles/bayesopt.dir/src/student_t_process_nig.cpp.i
 
 CMakeFiles/bayesopt.dir/src/student_t_process_nig.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/src/student_t_process_nig.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/src/student_t_process_nig.cpp -o CMakeFiles/bayesopt.dir/src/student_t_process_nig.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S src/student_t_process_nig.cpp -o CMakeFiles/bayesopt.dir/src/student_t_process_nig.cpp.s
 
 CMakeFiles/bayesopt.dir/src/student_t_process_nig.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/src/student_t_process_nig.cpp.o.requires
@@ -304,17 +307,17 @@ CMakeFiles/bayesopt.dir/src/student_t_process_nig.cpp.o.provides.build: CMakeFil
 
 CMakeFiles/bayesopt.dir/src/parameters.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/src/parameters.cpp.o: src/parameters.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_12)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_12)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/src/parameters.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/parameters.cpp.o -c /home/stathis/Libraries/bayesopt/src/parameters.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/parameters.cpp.o -c src/parameters.cpp
 
 CMakeFiles/bayesopt.dir/src/parameters.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/src/parameters.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/src/parameters.cpp > CMakeFiles/bayesopt.dir/src/parameters.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E src/parameters.cpp > CMakeFiles/bayesopt.dir/src/parameters.cpp.i
 
 CMakeFiles/bayesopt.dir/src/parameters.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/src/parameters.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/src/parameters.cpp -o CMakeFiles/bayesopt.dir/src/parameters.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S src/parameters.cpp -o CMakeFiles/bayesopt.dir/src/parameters.cpp.s
 
 CMakeFiles/bayesopt.dir/src/parameters.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/src/parameters.cpp.o.requires
@@ -327,17 +330,17 @@ CMakeFiles/bayesopt.dir/src/parameters.cpp.o.provides.build: CMakeFiles/bayesopt
 
 CMakeFiles/bayesopt.dir/src/kernel_functors.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/src/kernel_functors.cpp.o: src/kernel_functors.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_13)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_13)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/src/kernel_functors.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/kernel_functors.cpp.o -c /home/stathis/Libraries/bayesopt/src/kernel_functors.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/kernel_functors.cpp.o -c src/kernel_functors.cpp
 
 CMakeFiles/bayesopt.dir/src/kernel_functors.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/src/kernel_functors.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/src/kernel_functors.cpp > CMakeFiles/bayesopt.dir/src/kernel_functors.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E src/kernel_functors.cpp > CMakeFiles/bayesopt.dir/src/kernel_functors.cpp.i
 
 CMakeFiles/bayesopt.dir/src/kernel_functors.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/src/kernel_functors.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/src/kernel_functors.cpp -o CMakeFiles/bayesopt.dir/src/kernel_functors.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S src/kernel_functors.cpp -o CMakeFiles/bayesopt.dir/src/kernel_functors.cpp.s
 
 CMakeFiles/bayesopt.dir/src/kernel_functors.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/src/kernel_functors.cpp.o.requires
@@ -350,17 +353,17 @@ CMakeFiles/bayesopt.dir/src/kernel_functors.cpp.o.provides.build: CMakeFiles/bay
 
 CMakeFiles/bayesopt.dir/src/criteria_functors.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/src/criteria_functors.cpp.o: src/criteria_functors.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_14)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_14)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/src/criteria_functors.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/criteria_functors.cpp.o -c /home/stathis/Libraries/bayesopt/src/criteria_functors.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/criteria_functors.cpp.o -c src/criteria_functors.cpp
 
 CMakeFiles/bayesopt.dir/src/criteria_functors.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/src/criteria_functors.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/src/criteria_functors.cpp > CMakeFiles/bayesopt.dir/src/criteria_functors.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E src/criteria_functors.cpp > CMakeFiles/bayesopt.dir/src/criteria_functors.cpp.i
 
 CMakeFiles/bayesopt.dir/src/criteria_functors.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/src/criteria_functors.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/src/criteria_functors.cpp -o CMakeFiles/bayesopt.dir/src/criteria_functors.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S src/criteria_functors.cpp -o CMakeFiles/bayesopt.dir/src/criteria_functors.cpp.s
 
 CMakeFiles/bayesopt.dir/src/criteria_functors.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/src/criteria_functors.cpp.o.requires
@@ -373,17 +376,17 @@ CMakeFiles/bayesopt.dir/src/criteria_functors.cpp.o.provides.build: CMakeFiles/b
 
 CMakeFiles/bayesopt.dir/src/criteria_combined.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/src/criteria_combined.cpp.o: src/criteria_combined.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_15)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_15)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/src/criteria_combined.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/criteria_combined.cpp.o -c /home/stathis/Libraries/bayesopt/src/criteria_combined.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/criteria_combined.cpp.o -c src/criteria_combined.cpp
 
 CMakeFiles/bayesopt.dir/src/criteria_combined.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/src/criteria_combined.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/src/criteria_combined.cpp > CMakeFiles/bayesopt.dir/src/criteria_combined.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E src/criteria_combined.cpp > CMakeFiles/bayesopt.dir/src/criteria_combined.cpp.i
 
 CMakeFiles/bayesopt.dir/src/criteria_combined.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/src/criteria_combined.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/src/criteria_combined.cpp -o CMakeFiles/bayesopt.dir/src/criteria_combined.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S src/criteria_combined.cpp -o CMakeFiles/bayesopt.dir/src/criteria_combined.cpp.s
 
 CMakeFiles/bayesopt.dir/src/criteria_combined.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/src/criteria_combined.cpp.o.requires
@@ -396,17 +399,17 @@ CMakeFiles/bayesopt.dir/src/criteria_combined.cpp.o.provides.build: CMakeFiles/b
 
 CMakeFiles/bayesopt.dir/src/mean_functors.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/src/mean_functors.cpp.o: src/mean_functors.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_16)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_16)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/src/mean_functors.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/mean_functors.cpp.o -c /home/stathis/Libraries/bayesopt/src/mean_functors.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/mean_functors.cpp.o -c src/mean_functors.cpp
 
 CMakeFiles/bayesopt.dir/src/mean_functors.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/src/mean_functors.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/src/mean_functors.cpp > CMakeFiles/bayesopt.dir/src/mean_functors.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E src/mean_functors.cpp > CMakeFiles/bayesopt.dir/src/mean_functors.cpp.i
 
 CMakeFiles/bayesopt.dir/src/mean_functors.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/src/mean_functors.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/src/mean_functors.cpp -o CMakeFiles/bayesopt.dir/src/mean_functors.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S src/mean_functors.cpp -o CMakeFiles/bayesopt.dir/src/mean_functors.cpp.s
 
 CMakeFiles/bayesopt.dir/src/mean_functors.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/src/mean_functors.cpp.o.requires
@@ -419,17 +422,17 @@ CMakeFiles/bayesopt.dir/src/mean_functors.cpp.o.provides.build: CMakeFiles/bayes
 
 CMakeFiles/bayesopt.dir/src/gauss_distribution.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/src/gauss_distribution.cpp.o: src/gauss_distribution.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_17)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_17)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/src/gauss_distribution.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/gauss_distribution.cpp.o -c /home/stathis/Libraries/bayesopt/src/gauss_distribution.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/gauss_distribution.cpp.o -c src/gauss_distribution.cpp
 
 CMakeFiles/bayesopt.dir/src/gauss_distribution.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/src/gauss_distribution.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/src/gauss_distribution.cpp > CMakeFiles/bayesopt.dir/src/gauss_distribution.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E src/gauss_distribution.cpp > CMakeFiles/bayesopt.dir/src/gauss_distribution.cpp.i
 
 CMakeFiles/bayesopt.dir/src/gauss_distribution.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/src/gauss_distribution.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/src/gauss_distribution.cpp -o CMakeFiles/bayesopt.dir/src/gauss_distribution.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S src/gauss_distribution.cpp -o CMakeFiles/bayesopt.dir/src/gauss_distribution.cpp.s
 
 CMakeFiles/bayesopt.dir/src/gauss_distribution.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/src/gauss_distribution.cpp.o.requires
@@ -442,17 +445,17 @@ CMakeFiles/bayesopt.dir/src/gauss_distribution.cpp.o.provides.build: CMakeFiles/
 
 CMakeFiles/bayesopt.dir/src/student_t_distribution.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/src/student_t_distribution.cpp.o: src/student_t_distribution.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_18)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_18)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/src/student_t_distribution.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/student_t_distribution.cpp.o -c /home/stathis/Libraries/bayesopt/src/student_t_distribution.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/src/student_t_distribution.cpp.o -c src/student_t_distribution.cpp
 
 CMakeFiles/bayesopt.dir/src/student_t_distribution.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/src/student_t_distribution.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/src/student_t_distribution.cpp > CMakeFiles/bayesopt.dir/src/student_t_distribution.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E src/student_t_distribution.cpp > CMakeFiles/bayesopt.dir/src/student_t_distribution.cpp.i
 
 CMakeFiles/bayesopt.dir/src/student_t_distribution.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/src/student_t_distribution.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/src/student_t_distribution.cpp -o CMakeFiles/bayesopt.dir/src/student_t_distribution.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S src/student_t_distribution.cpp -o CMakeFiles/bayesopt.dir/src/student_t_distribution.cpp.s
 
 CMakeFiles/bayesopt.dir/src/student_t_distribution.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/src/student_t_distribution.cpp.o.requires
@@ -465,17 +468,17 @@ CMakeFiles/bayesopt.dir/src/student_t_distribution.cpp.o.provides.build: CMakeFi
 
 CMakeFiles/bayesopt.dir/wrappers/nloptwpr.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/wrappers/nloptwpr.cpp.o: wrappers/nloptwpr.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_19)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_19)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/wrappers/nloptwpr.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/wrappers/nloptwpr.cpp.o -c /home/stathis/Libraries/bayesopt/wrappers/nloptwpr.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/wrappers/nloptwpr.cpp.o -c wrappers/nloptwpr.cpp
 
 CMakeFiles/bayesopt.dir/wrappers/nloptwpr.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/wrappers/nloptwpr.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/wrappers/nloptwpr.cpp > CMakeFiles/bayesopt.dir/wrappers/nloptwpr.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E wrappers/nloptwpr.cpp > CMakeFiles/bayesopt.dir/wrappers/nloptwpr.cpp.i
 
 CMakeFiles/bayesopt.dir/wrappers/nloptwpr.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/wrappers/nloptwpr.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/wrappers/nloptwpr.cpp -o CMakeFiles/bayesopt.dir/wrappers/nloptwpr.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S wrappers/nloptwpr.cpp -o CMakeFiles/bayesopt.dir/wrappers/nloptwpr.cpp.s
 
 CMakeFiles/bayesopt.dir/wrappers/nloptwpr.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/wrappers/nloptwpr.cpp.o.requires
@@ -488,17 +491,17 @@ CMakeFiles/bayesopt.dir/wrappers/nloptwpr.cpp.o.provides.build: CMakeFiles/bayes
 
 CMakeFiles/bayesopt.dir/wrappers/bayesoptwpr.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/wrappers/bayesoptwpr.cpp.o: wrappers/bayesoptwpr.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_20)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_20)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/wrappers/bayesoptwpr.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/wrappers/bayesoptwpr.cpp.o -c /home/stathis/Libraries/bayesopt/wrappers/bayesoptwpr.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/wrappers/bayesoptwpr.cpp.o -c wrappers/bayesoptwpr.cpp
 
 CMakeFiles/bayesopt.dir/wrappers/bayesoptwpr.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/wrappers/bayesoptwpr.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/wrappers/bayesoptwpr.cpp > CMakeFiles/bayesopt.dir/wrappers/bayesoptwpr.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E wrappers/bayesoptwpr.cpp > CMakeFiles/bayesopt.dir/wrappers/bayesoptwpr.cpp.i
 
 CMakeFiles/bayesopt.dir/wrappers/bayesoptwpr.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/wrappers/bayesoptwpr.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/wrappers/bayesoptwpr.cpp -o CMakeFiles/bayesopt.dir/wrappers/bayesoptwpr.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S wrappers/bayesoptwpr.cpp -o CMakeFiles/bayesopt.dir/wrappers/bayesoptwpr.cpp.s
 
 CMakeFiles/bayesopt.dir/wrappers/bayesoptwpr.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/wrappers/bayesoptwpr.cpp.o.requires
@@ -511,17 +514,17 @@ CMakeFiles/bayesopt.dir/wrappers/bayesoptwpr.cpp.o.provides.build: CMakeFiles/ba
 
 CMakeFiles/bayesopt.dir/utils/parser.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/utils/parser.cpp.o: utils/parser.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_21)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_21)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/utils/parser.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/utils/parser.cpp.o -c /home/stathis/Libraries/bayesopt/utils/parser.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/utils/parser.cpp.o -c utils/parser.cpp
 
 CMakeFiles/bayesopt.dir/utils/parser.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/utils/parser.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/utils/parser.cpp > CMakeFiles/bayesopt.dir/utils/parser.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E utils/parser.cpp > CMakeFiles/bayesopt.dir/utils/parser.cpp.i
 
 CMakeFiles/bayesopt.dir/utils/parser.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/utils/parser.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/utils/parser.cpp -o CMakeFiles/bayesopt.dir/utils/parser.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S utils/parser.cpp -o CMakeFiles/bayesopt.dir/utils/parser.cpp.s
 
 CMakeFiles/bayesopt.dir/utils/parser.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/utils/parser.cpp.o.requires
@@ -534,17 +537,17 @@ CMakeFiles/bayesopt.dir/utils/parser.cpp.o.provides.build: CMakeFiles/bayesopt.d
 
 CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.o: CMakeFiles/bayesopt.dir/flags.make
 CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.o: utils/ublas_extra.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_22)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_22)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.o -c /home/stathis/Libraries/bayesopt/utils/ublas_extra.cpp
+	/usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.o -c utils/ublas_extra.cpp
 
 CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/utils/ublas_extra.cpp > CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.i
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E utils/ublas_extra.cpp > CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.i
 
 CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/utils/ublas_extra.cpp -o CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.s
+	/usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S utils/ublas_extra.cpp -o CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.s
 
 CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.o.requires:
 .PHONY : CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.o.requires
@@ -554,75 +557,6 @@ CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.o.provides: CMakeFiles/bayesopt.di
 .PHONY : CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.o.provides
 
 CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.o.provides.build: CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.o
-
-CMakeFiles/bayesopt.dir/sobol/sobol.cpp.o: CMakeFiles/bayesopt.dir/flags.make
-CMakeFiles/bayesopt.dir/sobol/sobol.cpp.o: sobol/sobol.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_23)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/sobol/sobol.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/sobol/sobol.cpp.o -c /home/stathis/Libraries/bayesopt/sobol/sobol.cpp
-
-CMakeFiles/bayesopt.dir/sobol/sobol.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/sobol/sobol.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/sobol/sobol.cpp > CMakeFiles/bayesopt.dir/sobol/sobol.cpp.i
-
-CMakeFiles/bayesopt.dir/sobol/sobol.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/sobol/sobol.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/sobol/sobol.cpp -o CMakeFiles/bayesopt.dir/sobol/sobol.cpp.s
-
-CMakeFiles/bayesopt.dir/sobol/sobol.cpp.o.requires:
-.PHONY : CMakeFiles/bayesopt.dir/sobol/sobol.cpp.o.requires
-
-CMakeFiles/bayesopt.dir/sobol/sobol.cpp.o.provides: CMakeFiles/bayesopt.dir/sobol/sobol.cpp.o.requires
-	$(MAKE) -f CMakeFiles/bayesopt.dir/build.make CMakeFiles/bayesopt.dir/sobol/sobol.cpp.o.provides.build
-.PHONY : CMakeFiles/bayesopt.dir/sobol/sobol.cpp.o.provides
-
-CMakeFiles/bayesopt.dir/sobol/sobol.cpp.o.provides.build: CMakeFiles/bayesopt.dir/sobol/sobol.cpp.o
-
-CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.o: CMakeFiles/bayesopt.dir/flags.make
-CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.o: sobol/sobol_i4.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_24)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.o -c /home/stathis/Libraries/bayesopt/sobol/sobol_i4.cpp
-
-CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/sobol/sobol_i4.cpp > CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.i
-
-CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/sobol/sobol_i4.cpp -o CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.s
-
-CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.o.requires:
-.PHONY : CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.o.requires
-
-CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.o.provides: CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.o.requires
-	$(MAKE) -f CMakeFiles/bayesopt.dir/build.make CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.o.provides.build
-.PHONY : CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.o.provides
-
-CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.o.provides.build: CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.o
-
-CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.o: CMakeFiles/bayesopt.dir/flags.make
-CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.o: sobol/sobol_i8.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_25)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.o -c /home/stathis/Libraries/bayesopt/sobol/sobol_i8.cpp
-
-CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/sobol/sobol_i8.cpp > CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.i
-
-CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/sobol/sobol_i8.cpp -o CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.s
-
-CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.o.requires:
-.PHONY : CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.o.requires
-
-CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.o.provides: CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.o.requires
-	$(MAKE) -f CMakeFiles/bayesopt.dir/build.make CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.o.provides.build
-.PHONY : CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.o.provides
-
-CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.o.provides.build: CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.o
 
 # Object files for target bayesopt
 bayesopt_OBJECTS = \
@@ -647,47 +581,41 @@ bayesopt_OBJECTS = \
 "CMakeFiles/bayesopt.dir/wrappers/nloptwpr.cpp.o" \
 "CMakeFiles/bayesopt.dir/wrappers/bayesoptwpr.cpp.o" \
 "CMakeFiles/bayesopt.dir/utils/parser.cpp.o" \
-"CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.o" \
-"CMakeFiles/bayesopt.dir/sobol/sobol.cpp.o" \
-"CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.o" \
-"CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.o"
+"CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.o"
 
 # External object files for target bayesopt
 bayesopt_EXTERNAL_OBJECTS =
 
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/src/bayesoptcont.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/src/bayesoptdisc.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/src/bayesoptbase.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/src/inneroptimization.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/src/nonparametricprocess.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/src/hierarchical_gaussian_process.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/src/gaussian_process.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/src/gaussian_process_ml.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/src/gaussian_process_normal.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/src/student_t_process_jef.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/src/student_t_process_nig.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/src/parameters.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/src/kernel_functors.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/src/criteria_functors.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/src/criteria_combined.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/src/mean_functors.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/src/gauss_distribution.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/src/student_t_distribution.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/wrappers/nloptwpr.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/wrappers/bayesoptwpr.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/utils/parser.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/sobol/sobol.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.o
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/build.make
-lib/libbayesopt.a: CMakeFiles/bayesopt.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX static library lib/libbayesopt.a"
-	$(CMAKE_COMMAND) -P CMakeFiles/bayesopt.dir/cmake_clean_target.cmake
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/src/bayesoptcont.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/src/bayesoptdisc.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/src/bayesoptbase.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/src/inneroptimization.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/src/nonparametricprocess.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/src/hierarchical_gaussian_process.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/src/gaussian_process.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/src/gaussian_process_ml.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/src/gaussian_process_normal.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/src/student_t_process_jef.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/src/student_t_process_nig.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/src/parameters.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/src/kernel_functors.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/src/criteria_functors.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/src/criteria_combined.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/src/mean_functors.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/src/gauss_distribution.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/src/student_t_distribution.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/wrappers/nloptwpr.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/wrappers/bayesoptwpr.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/utils/parser.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.o
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/build.make
+bin/cygbayesopt.dll: lib/libnlopt.dll.a
+bin/cygbayesopt.dll: CMakeFiles/bayesopt.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX shared library bin/cygbayesopt.dll"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/bayesopt.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-CMakeFiles/bayesopt.dir/build: lib/libbayesopt.a
+CMakeFiles/bayesopt.dir/build: bin/cygbayesopt.dll
 .PHONY : CMakeFiles/bayesopt.dir/build
 
 CMakeFiles/bayesopt.dir/requires: CMakeFiles/bayesopt.dir/src/bayesoptcont.cpp.o.requires
@@ -712,9 +640,6 @@ CMakeFiles/bayesopt.dir/requires: CMakeFiles/bayesopt.dir/wrappers/nloptwpr.cpp.
 CMakeFiles/bayesopt.dir/requires: CMakeFiles/bayesopt.dir/wrappers/bayesoptwpr.cpp.o.requires
 CMakeFiles/bayesopt.dir/requires: CMakeFiles/bayesopt.dir/utils/parser.cpp.o.requires
 CMakeFiles/bayesopt.dir/requires: CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.o.requires
-CMakeFiles/bayesopt.dir/requires: CMakeFiles/bayesopt.dir/sobol/sobol.cpp.o.requires
-CMakeFiles/bayesopt.dir/requires: CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.o.requires
-CMakeFiles/bayesopt.dir/requires: CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.o.requires
 .PHONY : CMakeFiles/bayesopt.dir/requires
 
 CMakeFiles/bayesopt.dir/clean:
@@ -722,6 +647,6 @@ CMakeFiles/bayesopt.dir/clean:
 .PHONY : CMakeFiles/bayesopt.dir/clean
 
 CMakeFiles/bayesopt.dir/depend:
-	cd /home/stathis/Libraries/bayesopt && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/stathis/Libraries/bayesopt /home/stathis/Libraries/bayesopt /home/stathis/Libraries/bayesopt /home/stathis/Libraries/bayesopt /home/stathis/Libraries/bayesopt/CMakeFiles/bayesopt.dir/DependInfo.cmake --color=$(COLOR)
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles/bayesopt.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/bayesopt.dir/depend
 

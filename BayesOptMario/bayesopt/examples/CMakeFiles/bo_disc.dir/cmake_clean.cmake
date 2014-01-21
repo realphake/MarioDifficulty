@@ -1,7 +1,8 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/bo_disc.dir/bo_disc.cpp.o"
   "../bin/bo_disc.pdb"
-  "../bin/bo_disc"
+  "../bin/bo_disc.exe"
+  "../lib/libbo_disc.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.

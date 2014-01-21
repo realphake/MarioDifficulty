@@ -29,7 +29,6 @@
 #include "lhs.hpp"
 #include <stdio.h>
 #include <fstream>
-#include <zmq.h>
 #include <unistd.h>
 #include <string.h>
 #include <assert.h>
@@ -59,9 +58,6 @@ class marioBayesOpt: public bayesopt::ContinuousModel
 
   marioBayesOpt(size_t dim,bopt_params param,string training):
     ContinuousModel(dim,param) {
-    context = zmq_ctx_new ();
-    requester = zmq_socket (context, ZMQ_REQ);
-    zmq_connect (requester,"tcp://localhost:5555");
     Training = training;
 
   }
@@ -76,10 +72,6 @@ class marioBayesOpt: public bayesopt::ContinuousModel
         
     string message = int_array_to_string(x,6);
     printf ("Sending Point ...\n");
-    cout<<message<<endl;
-    zmq_send (requester, message.c_str(), 50, 0);
-    zmq_recv (requester, buffer, 10, 0);
-    cout<<buffer;
     printf ("Received Reward\n");
     printf ("%s\n",buffer);
     

@@ -26,19 +26,22 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake.exe
 
 # The command to remove a file.
-RM = /usr/bin/cmake -E remove -f
+RM = /usr/bin/cmake.exe -E remove -f
+
+# Escaping for special characters.
+EQUALS = =
 
 # The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake.exe
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/stathis/Libraries/bayesopt
+CMAKE_SOURCE_DIR = /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/stathis/Libraries/bayesopt
+CMAKE_BINARY_DIR = /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt
 
 # Include any dependencies generated for this target.
 include nlopt/CMakeFiles/nlopt.dir/depend.make
@@ -51,17 +54,17 @@ include nlopt/CMakeFiles/nlopt.dir/flags.make
 
 nlopt/CMakeFiles/nlopt.dir/direct/DIRect.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/direct/DIRect.c.o: nlopt/direct/DIRect.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/direct/DIRect.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/direct/DIRect.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/direct/DIRect.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/direct/DIRect.c.o   -c direct/DIRect.c
 
 nlopt/CMakeFiles/nlopt.dir/direct/DIRect.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/direct/DIRect.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/direct/DIRect.c > CMakeFiles/nlopt.dir/direct/DIRect.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E direct/DIRect.c > CMakeFiles/nlopt.dir/direct/DIRect.c.i
 
 nlopt/CMakeFiles/nlopt.dir/direct/DIRect.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/direct/DIRect.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/direct/DIRect.c -o CMakeFiles/nlopt.dir/direct/DIRect.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S direct/DIRect.c -o CMakeFiles/nlopt.dir/direct/DIRect.c.s
 
 nlopt/CMakeFiles/nlopt.dir/direct/DIRect.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/direct/DIRect.c.o.requires
@@ -74,17 +77,17 @@ nlopt/CMakeFiles/nlopt.dir/direct/DIRect.c.o.provides.build: nlopt/CMakeFiles/nl
 
 nlopt/CMakeFiles/nlopt.dir/direct/direct_wrap.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/direct/direct_wrap.c.o: nlopt/direct/direct_wrap.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/direct/direct_wrap.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/direct/direct_wrap.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/direct/direct_wrap.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/direct/direct_wrap.c.o   -c direct/direct_wrap.c
 
 nlopt/CMakeFiles/nlopt.dir/direct/direct_wrap.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/direct/direct_wrap.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/direct/direct_wrap.c > CMakeFiles/nlopt.dir/direct/direct_wrap.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E direct/direct_wrap.c > CMakeFiles/nlopt.dir/direct/direct_wrap.c.i
 
 nlopt/CMakeFiles/nlopt.dir/direct/direct_wrap.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/direct/direct_wrap.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/direct/direct_wrap.c -o CMakeFiles/nlopt.dir/direct/direct_wrap.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S direct/direct_wrap.c -o CMakeFiles/nlopt.dir/direct/direct_wrap.c.s
 
 nlopt/CMakeFiles/nlopt.dir/direct/direct_wrap.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/direct/direct_wrap.c.o.requires
@@ -97,17 +100,17 @@ nlopt/CMakeFiles/nlopt.dir/direct/direct_wrap.c.o.provides.build: nlopt/CMakeFil
 
 nlopt/CMakeFiles/nlopt.dir/direct/DIRserial.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/direct/DIRserial.c.o: nlopt/direct/DIRserial.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/direct/DIRserial.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/direct/DIRserial.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/direct/DIRserial.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/direct/DIRserial.c.o   -c direct/DIRserial.c
 
 nlopt/CMakeFiles/nlopt.dir/direct/DIRserial.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/direct/DIRserial.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/direct/DIRserial.c > CMakeFiles/nlopt.dir/direct/DIRserial.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E direct/DIRserial.c > CMakeFiles/nlopt.dir/direct/DIRserial.c.i
 
 nlopt/CMakeFiles/nlopt.dir/direct/DIRserial.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/direct/DIRserial.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/direct/DIRserial.c -o CMakeFiles/nlopt.dir/direct/DIRserial.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S direct/DIRserial.c -o CMakeFiles/nlopt.dir/direct/DIRserial.c.s
 
 nlopt/CMakeFiles/nlopt.dir/direct/DIRserial.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/direct/DIRserial.c.o.requires
@@ -120,17 +123,17 @@ nlopt/CMakeFiles/nlopt.dir/direct/DIRserial.c.o.provides.build: nlopt/CMakeFiles
 
 nlopt/CMakeFiles/nlopt.dir/direct/DIRsubrout.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/direct/DIRsubrout.c.o: nlopt/direct/DIRsubrout.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/direct/DIRsubrout.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/direct/DIRsubrout.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/direct/DIRsubrout.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/direct/DIRsubrout.c.o   -c direct/DIRsubrout.c
 
 nlopt/CMakeFiles/nlopt.dir/direct/DIRsubrout.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/direct/DIRsubrout.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/direct/DIRsubrout.c > CMakeFiles/nlopt.dir/direct/DIRsubrout.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E direct/DIRsubrout.c > CMakeFiles/nlopt.dir/direct/DIRsubrout.c.i
 
 nlopt/CMakeFiles/nlopt.dir/direct/DIRsubrout.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/direct/DIRsubrout.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/direct/DIRsubrout.c -o CMakeFiles/nlopt.dir/direct/DIRsubrout.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S direct/DIRsubrout.c -o CMakeFiles/nlopt.dir/direct/DIRsubrout.c.s
 
 nlopt/CMakeFiles/nlopt.dir/direct/DIRsubrout.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/direct/DIRsubrout.c.o.requires
@@ -143,17 +146,17 @@ nlopt/CMakeFiles/nlopt.dir/direct/DIRsubrout.c.o.provides.build: nlopt/CMakeFile
 
 nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.o: nlopt/cdirect/cdirect.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/cdirect/cdirect.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/cdirect/cdirect.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/cdirect/cdirect.c.o   -c cdirect/cdirect.c
 
 nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/cdirect/cdirect.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/cdirect/cdirect.c > CMakeFiles/nlopt.dir/cdirect/cdirect.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E cdirect/cdirect.c > CMakeFiles/nlopt.dir/cdirect/cdirect.c.i
 
 nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/cdirect/cdirect.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/cdirect/cdirect.c -o CMakeFiles/nlopt.dir/cdirect/cdirect.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S cdirect/cdirect.c -o CMakeFiles/nlopt.dir/cdirect/cdirect.c.s
 
 nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.o.requires
@@ -166,17 +169,17 @@ nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.o.provides.build: nlopt/CMakeFiles/
 
 nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.o: nlopt/cdirect/hybrid.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_6)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/cdirect/hybrid.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/cdirect/hybrid.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/cdirect/hybrid.c.o   -c cdirect/hybrid.c
 
 nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/cdirect/hybrid.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/cdirect/hybrid.c > CMakeFiles/nlopt.dir/cdirect/hybrid.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E cdirect/hybrid.c > CMakeFiles/nlopt.dir/cdirect/hybrid.c.i
 
 nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/cdirect/hybrid.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/cdirect/hybrid.c -o CMakeFiles/nlopt.dir/cdirect/hybrid.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S cdirect/hybrid.c -o CMakeFiles/nlopt.dir/cdirect/hybrid.c.s
 
 nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.o.requires
@@ -189,17 +192,17 @@ nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.o.provides.build: nlopt/CMakeFiles/n
 
 nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.o: nlopt/praxis/praxis.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_7)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/praxis/praxis.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/praxis/praxis.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/praxis/praxis.c.o   -c praxis/praxis.c
 
 nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/praxis/praxis.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/praxis/praxis.c > CMakeFiles/nlopt.dir/praxis/praxis.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E praxis/praxis.c > CMakeFiles/nlopt.dir/praxis/praxis.c.i
 
 nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/praxis/praxis.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/praxis/praxis.c -o CMakeFiles/nlopt.dir/praxis/praxis.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S praxis/praxis.c -o CMakeFiles/nlopt.dir/praxis/praxis.c.s
 
 nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.o.requires
@@ -212,17 +215,17 @@ nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.o.provides.build: nlopt/CMakeFiles/nl
 
 nlopt/CMakeFiles/nlopt.dir/luksan/plis.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/luksan/plis.c.o: nlopt/luksan/plis.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_8)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/luksan/plis.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/luksan/plis.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/luksan/plis.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/luksan/plis.c.o   -c luksan/plis.c
 
 nlopt/CMakeFiles/nlopt.dir/luksan/plis.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/luksan/plis.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/luksan/plis.c > CMakeFiles/nlopt.dir/luksan/plis.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E luksan/plis.c > CMakeFiles/nlopt.dir/luksan/plis.c.i
 
 nlopt/CMakeFiles/nlopt.dir/luksan/plis.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/luksan/plis.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/luksan/plis.c -o CMakeFiles/nlopt.dir/luksan/plis.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S luksan/plis.c -o CMakeFiles/nlopt.dir/luksan/plis.c.s
 
 nlopt/CMakeFiles/nlopt.dir/luksan/plis.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/luksan/plis.c.o.requires
@@ -235,17 +238,17 @@ nlopt/CMakeFiles/nlopt.dir/luksan/plis.c.o.provides.build: nlopt/CMakeFiles/nlop
 
 nlopt/CMakeFiles/nlopt.dir/luksan/plip.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/luksan/plip.c.o: nlopt/luksan/plip.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_9)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/luksan/plip.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/luksan/plip.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/luksan/plip.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/luksan/plip.c.o   -c luksan/plip.c
 
 nlopt/CMakeFiles/nlopt.dir/luksan/plip.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/luksan/plip.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/luksan/plip.c > CMakeFiles/nlopt.dir/luksan/plip.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E luksan/plip.c > CMakeFiles/nlopt.dir/luksan/plip.c.i
 
 nlopt/CMakeFiles/nlopt.dir/luksan/plip.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/luksan/plip.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/luksan/plip.c -o CMakeFiles/nlopt.dir/luksan/plip.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S luksan/plip.c -o CMakeFiles/nlopt.dir/luksan/plip.c.s
 
 nlopt/CMakeFiles/nlopt.dir/luksan/plip.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/luksan/plip.c.o.requires
@@ -258,17 +261,17 @@ nlopt/CMakeFiles/nlopt.dir/luksan/plip.c.o.provides.build: nlopt/CMakeFiles/nlop
 
 nlopt/CMakeFiles/nlopt.dir/luksan/pnet.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/luksan/pnet.c.o: nlopt/luksan/pnet.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_10)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_10)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/luksan/pnet.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/luksan/pnet.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/luksan/pnet.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/luksan/pnet.c.o   -c luksan/pnet.c
 
 nlopt/CMakeFiles/nlopt.dir/luksan/pnet.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/luksan/pnet.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/luksan/pnet.c > CMakeFiles/nlopt.dir/luksan/pnet.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E luksan/pnet.c > CMakeFiles/nlopt.dir/luksan/pnet.c.i
 
 nlopt/CMakeFiles/nlopt.dir/luksan/pnet.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/luksan/pnet.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/luksan/pnet.c -o CMakeFiles/nlopt.dir/luksan/pnet.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S luksan/pnet.c -o CMakeFiles/nlopt.dir/luksan/pnet.c.s
 
 nlopt/CMakeFiles/nlopt.dir/luksan/pnet.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/luksan/pnet.c.o.requires
@@ -281,17 +284,17 @@ nlopt/CMakeFiles/nlopt.dir/luksan/pnet.c.o.provides.build: nlopt/CMakeFiles/nlop
 
 nlopt/CMakeFiles/nlopt.dir/luksan/mssubs.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/luksan/mssubs.c.o: nlopt/luksan/mssubs.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_11)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_11)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/luksan/mssubs.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/luksan/mssubs.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/luksan/mssubs.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/luksan/mssubs.c.o   -c luksan/mssubs.c
 
 nlopt/CMakeFiles/nlopt.dir/luksan/mssubs.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/luksan/mssubs.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/luksan/mssubs.c > CMakeFiles/nlopt.dir/luksan/mssubs.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E luksan/mssubs.c > CMakeFiles/nlopt.dir/luksan/mssubs.c.i
 
 nlopt/CMakeFiles/nlopt.dir/luksan/mssubs.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/luksan/mssubs.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/luksan/mssubs.c -o CMakeFiles/nlopt.dir/luksan/mssubs.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S luksan/mssubs.c -o CMakeFiles/nlopt.dir/luksan/mssubs.c.s
 
 nlopt/CMakeFiles/nlopt.dir/luksan/mssubs.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/luksan/mssubs.c.o.requires
@@ -304,17 +307,17 @@ nlopt/CMakeFiles/nlopt.dir/luksan/mssubs.c.o.provides.build: nlopt/CMakeFiles/nl
 
 nlopt/CMakeFiles/nlopt.dir/luksan/pssubs.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/luksan/pssubs.c.o: nlopt/luksan/pssubs.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_12)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_12)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/luksan/pssubs.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/luksan/pssubs.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/luksan/pssubs.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/luksan/pssubs.c.o   -c luksan/pssubs.c
 
 nlopt/CMakeFiles/nlopt.dir/luksan/pssubs.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/luksan/pssubs.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/luksan/pssubs.c > CMakeFiles/nlopt.dir/luksan/pssubs.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E luksan/pssubs.c > CMakeFiles/nlopt.dir/luksan/pssubs.c.i
 
 nlopt/CMakeFiles/nlopt.dir/luksan/pssubs.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/luksan/pssubs.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/luksan/pssubs.c -o CMakeFiles/nlopt.dir/luksan/pssubs.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S luksan/pssubs.c -o CMakeFiles/nlopt.dir/luksan/pssubs.c.s
 
 nlopt/CMakeFiles/nlopt.dir/luksan/pssubs.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/luksan/pssubs.c.o.requires
@@ -327,17 +330,17 @@ nlopt/CMakeFiles/nlopt.dir/luksan/pssubs.c.o.provides.build: nlopt/CMakeFiles/nl
 
 nlopt/CMakeFiles/nlopt.dir/crs/crs.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/crs/crs.c.o: nlopt/crs/crs.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_13)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_13)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/crs/crs.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/crs/crs.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/crs/crs.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/crs/crs.c.o   -c crs/crs.c
 
 nlopt/CMakeFiles/nlopt.dir/crs/crs.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/crs/crs.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/crs/crs.c > CMakeFiles/nlopt.dir/crs/crs.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E crs/crs.c > CMakeFiles/nlopt.dir/crs/crs.c.i
 
 nlopt/CMakeFiles/nlopt.dir/crs/crs.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/crs/crs.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/crs/crs.c -o CMakeFiles/nlopt.dir/crs/crs.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S crs/crs.c -o CMakeFiles/nlopt.dir/crs/crs.c.s
 
 nlopt/CMakeFiles/nlopt.dir/crs/crs.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/crs/crs.c.o.requires
@@ -350,17 +353,17 @@ nlopt/CMakeFiles/nlopt.dir/crs/crs.c.o.provides.build: nlopt/CMakeFiles/nlopt.di
 
 nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.o: nlopt/mlsl/mlsl.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_14)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_14)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/mlsl/mlsl.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/mlsl/mlsl.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/mlsl/mlsl.c.o   -c mlsl/mlsl.c
 
 nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/mlsl/mlsl.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/mlsl/mlsl.c > CMakeFiles/nlopt.dir/mlsl/mlsl.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E mlsl/mlsl.c > CMakeFiles/nlopt.dir/mlsl/mlsl.c.i
 
 nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/mlsl/mlsl.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/mlsl/mlsl.c -o CMakeFiles/nlopt.dir/mlsl/mlsl.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S mlsl/mlsl.c -o CMakeFiles/nlopt.dir/mlsl/mlsl.c.s
 
 nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.o.requires
@@ -373,17 +376,17 @@ nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.o.provides.build: nlopt/CMakeFiles/nlopt.
 
 nlopt/CMakeFiles/nlopt.dir/mma/mma.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/mma/mma.c.o: nlopt/mma/mma.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_15)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_15)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/mma/mma.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/mma/mma.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/mma/mma.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/mma/mma.c.o   -c mma/mma.c
 
 nlopt/CMakeFiles/nlopt.dir/mma/mma.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/mma/mma.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/mma/mma.c > CMakeFiles/nlopt.dir/mma/mma.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E mma/mma.c > CMakeFiles/nlopt.dir/mma/mma.c.i
 
 nlopt/CMakeFiles/nlopt.dir/mma/mma.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/mma/mma.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/mma/mma.c -o CMakeFiles/nlopt.dir/mma/mma.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S mma/mma.c -o CMakeFiles/nlopt.dir/mma/mma.c.s
 
 nlopt/CMakeFiles/nlopt.dir/mma/mma.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/mma/mma.c.o.requires
@@ -396,17 +399,17 @@ nlopt/CMakeFiles/nlopt.dir/mma/mma.c.o.provides.build: nlopt/CMakeFiles/nlopt.di
 
 nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.o: nlopt/cobyla/cobyla.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_16)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_16)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/cobyla/cobyla.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/cobyla/cobyla.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/cobyla/cobyla.c.o   -c cobyla/cobyla.c
 
 nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/cobyla/cobyla.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/cobyla/cobyla.c > CMakeFiles/nlopt.dir/cobyla/cobyla.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E cobyla/cobyla.c > CMakeFiles/nlopt.dir/cobyla/cobyla.c.i
 
 nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/cobyla/cobyla.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/cobyla/cobyla.c -o CMakeFiles/nlopt.dir/cobyla/cobyla.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S cobyla/cobyla.c -o CMakeFiles/nlopt.dir/cobyla/cobyla.c.s
 
 nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.o.requires
@@ -419,17 +422,17 @@ nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.o.provides.build: nlopt/CMakeFiles/nl
 
 nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.o: nlopt/newuoa/newuoa.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_17)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_17)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/newuoa/newuoa.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/newuoa/newuoa.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/newuoa/newuoa.c.o   -c newuoa/newuoa.c
 
 nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/newuoa/newuoa.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/newuoa/newuoa.c > CMakeFiles/nlopt.dir/newuoa/newuoa.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E newuoa/newuoa.c > CMakeFiles/nlopt.dir/newuoa/newuoa.c.i
 
 nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/newuoa/newuoa.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/newuoa/newuoa.c -o CMakeFiles/nlopt.dir/newuoa/newuoa.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S newuoa/newuoa.c -o CMakeFiles/nlopt.dir/newuoa/newuoa.c.s
 
 nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.o.requires
@@ -442,17 +445,17 @@ nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.o.provides.build: nlopt/CMakeFiles/nl
 
 nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.o: nlopt/neldermead/nldrmd.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_18)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_18)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/neldermead/nldrmd.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/neldermead/nldrmd.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/neldermead/nldrmd.c.o   -c neldermead/nldrmd.c
 
 nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/neldermead/nldrmd.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/neldermead/nldrmd.c > CMakeFiles/nlopt.dir/neldermead/nldrmd.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E neldermead/nldrmd.c > CMakeFiles/nlopt.dir/neldermead/nldrmd.c.i
 
 nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/neldermead/nldrmd.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/neldermead/nldrmd.c -o CMakeFiles/nlopt.dir/neldermead/nldrmd.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S neldermead/nldrmd.c -o CMakeFiles/nlopt.dir/neldermead/nldrmd.c.s
 
 nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.o.requires
@@ -465,17 +468,17 @@ nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.o.provides.build: nlopt/CMakeFile
 
 nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.o: nlopt/neldermead/sbplx.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_19)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_19)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/neldermead/sbplx.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/neldermead/sbplx.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/neldermead/sbplx.c.o   -c neldermead/sbplx.c
 
 nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/neldermead/sbplx.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/neldermead/sbplx.c > CMakeFiles/nlopt.dir/neldermead/sbplx.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E neldermead/sbplx.c > CMakeFiles/nlopt.dir/neldermead/sbplx.c.i
 
 nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/neldermead/sbplx.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/neldermead/sbplx.c -o CMakeFiles/nlopt.dir/neldermead/sbplx.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S neldermead/sbplx.c -o CMakeFiles/nlopt.dir/neldermead/sbplx.c.s
 
 nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.o.requires
@@ -488,17 +491,17 @@ nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.o.provides.build: nlopt/CMakeFiles
 
 nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.o: nlopt/auglag/auglag.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_20)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_20)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/auglag/auglag.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/auglag/auglag.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/auglag/auglag.c.o   -c auglag/auglag.c
 
 nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/auglag/auglag.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/auglag/auglag.c > CMakeFiles/nlopt.dir/auglag/auglag.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E auglag/auglag.c > CMakeFiles/nlopt.dir/auglag/auglag.c.i
 
 nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/auglag/auglag.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/auglag/auglag.c -o CMakeFiles/nlopt.dir/auglag/auglag.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S auglag/auglag.c -o CMakeFiles/nlopt.dir/auglag/auglag.c.s
 
 nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.o.requires
@@ -511,17 +514,17 @@ nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.o.provides.build: nlopt/CMakeFiles/nl
 
 nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.o: nlopt/bobyqa/bobyqa.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_21)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_21)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/bobyqa/bobyqa.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.o   -c bobyqa/bobyqa.c
 
 nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/bobyqa/bobyqa.c > CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E bobyqa/bobyqa.c > CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.i
 
 nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/bobyqa/bobyqa.c -o CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S bobyqa/bobyqa.c -o CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.s
 
 nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.o.requires
@@ -534,17 +537,17 @@ nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.o.provides.build: nlopt/CMakeFiles/nl
 
 nlopt/CMakeFiles/nlopt.dir/isres/isres.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/isres/isres.c.o: nlopt/isres/isres.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_22)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_22)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/isres/isres.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/isres/isres.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/isres/isres.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/isres/isres.c.o   -c isres/isres.c
 
 nlopt/CMakeFiles/nlopt.dir/isres/isres.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/isres/isres.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/isres/isres.c > CMakeFiles/nlopt.dir/isres/isres.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E isres/isres.c > CMakeFiles/nlopt.dir/isres/isres.c.i
 
 nlopt/CMakeFiles/nlopt.dir/isres/isres.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/isres/isres.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/isres/isres.c -o CMakeFiles/nlopt.dir/isres/isres.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S isres/isres.c -o CMakeFiles/nlopt.dir/isres/isres.c.s
 
 nlopt/CMakeFiles/nlopt.dir/isres/isres.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/isres/isres.c.o.requires
@@ -557,17 +560,17 @@ nlopt/CMakeFiles/nlopt.dir/isres/isres.c.o.provides.build: nlopt/CMakeFiles/nlop
 
 nlopt/CMakeFiles/nlopt.dir/slsqp/slsqp.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/slsqp/slsqp.c.o: nlopt/slsqp/slsqp.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_23)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_23)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/slsqp/slsqp.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/slsqp/slsqp.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/slsqp/slsqp.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/slsqp/slsqp.c.o   -c slsqp/slsqp.c
 
 nlopt/CMakeFiles/nlopt.dir/slsqp/slsqp.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/slsqp/slsqp.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/slsqp/slsqp.c > CMakeFiles/nlopt.dir/slsqp/slsqp.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E slsqp/slsqp.c > CMakeFiles/nlopt.dir/slsqp/slsqp.c.i
 
 nlopt/CMakeFiles/nlopt.dir/slsqp/slsqp.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/slsqp/slsqp.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/slsqp/slsqp.c -o CMakeFiles/nlopt.dir/slsqp/slsqp.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S slsqp/slsqp.c -o CMakeFiles/nlopt.dir/slsqp/slsqp.c.s
 
 nlopt/CMakeFiles/nlopt.dir/slsqp/slsqp.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/slsqp/slsqp.c.o.requires
@@ -580,17 +583,17 @@ nlopt/CMakeFiles/nlopt.dir/slsqp/slsqp.c.o.provides.build: nlopt/CMakeFiles/nlop
 
 nlopt/CMakeFiles/nlopt.dir/api/general.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/api/general.c.o: nlopt/api/general.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_24)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_24)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/api/general.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/api/general.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/api/general.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/api/general.c.o   -c api/general.c
 
 nlopt/CMakeFiles/nlopt.dir/api/general.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/api/general.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/api/general.c > CMakeFiles/nlopt.dir/api/general.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E api/general.c > CMakeFiles/nlopt.dir/api/general.c.i
 
 nlopt/CMakeFiles/nlopt.dir/api/general.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/api/general.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/api/general.c -o CMakeFiles/nlopt.dir/api/general.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S api/general.c -o CMakeFiles/nlopt.dir/api/general.c.s
 
 nlopt/CMakeFiles/nlopt.dir/api/general.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/api/general.c.o.requires
@@ -603,17 +606,17 @@ nlopt/CMakeFiles/nlopt.dir/api/general.c.o.provides.build: nlopt/CMakeFiles/nlop
 
 nlopt/CMakeFiles/nlopt.dir/api/options.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/api/options.c.o: nlopt/api/options.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_25)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_25)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/api/options.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/api/options.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/api/options.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/api/options.c.o   -c api/options.c
 
 nlopt/CMakeFiles/nlopt.dir/api/options.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/api/options.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/api/options.c > CMakeFiles/nlopt.dir/api/options.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E api/options.c > CMakeFiles/nlopt.dir/api/options.c.i
 
 nlopt/CMakeFiles/nlopt.dir/api/options.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/api/options.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/api/options.c -o CMakeFiles/nlopt.dir/api/options.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S api/options.c -o CMakeFiles/nlopt.dir/api/options.c.s
 
 nlopt/CMakeFiles/nlopt.dir/api/options.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/api/options.c.o.requires
@@ -626,17 +629,17 @@ nlopt/CMakeFiles/nlopt.dir/api/options.c.o.provides.build: nlopt/CMakeFiles/nlop
 
 nlopt/CMakeFiles/nlopt.dir/api/optimize.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/api/optimize.c.o: nlopt/api/optimize.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_26)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_26)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/api/optimize.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/api/optimize.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/api/optimize.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/api/optimize.c.o   -c api/optimize.c
 
 nlopt/CMakeFiles/nlopt.dir/api/optimize.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/api/optimize.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/api/optimize.c > CMakeFiles/nlopt.dir/api/optimize.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E api/optimize.c > CMakeFiles/nlopt.dir/api/optimize.c.i
 
 nlopt/CMakeFiles/nlopt.dir/api/optimize.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/api/optimize.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/api/optimize.c -o CMakeFiles/nlopt.dir/api/optimize.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S api/optimize.c -o CMakeFiles/nlopt.dir/api/optimize.c.s
 
 nlopt/CMakeFiles/nlopt.dir/api/optimize.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/api/optimize.c.o.requires
@@ -649,17 +652,17 @@ nlopt/CMakeFiles/nlopt.dir/api/optimize.c.o.provides.build: nlopt/CMakeFiles/nlo
 
 nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.o: nlopt/api/deprecated.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_27)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_27)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/api/deprecated.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/api/deprecated.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/api/deprecated.c.o   -c api/deprecated.c
 
 nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/api/deprecated.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/api/deprecated.c > CMakeFiles/nlopt.dir/api/deprecated.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E api/deprecated.c > CMakeFiles/nlopt.dir/api/deprecated.c.i
 
 nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/api/deprecated.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/api/deprecated.c -o CMakeFiles/nlopt.dir/api/deprecated.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S api/deprecated.c -o CMakeFiles/nlopt.dir/api/deprecated.c.s
 
 nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.o.requires
@@ -672,17 +675,17 @@ nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.o.provides.build: nlopt/CMakeFiles/n
 
 nlopt/CMakeFiles/nlopt.dir/api/f77api.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/api/f77api.c.o: nlopt/api/f77api.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_28)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_28)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/api/f77api.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/api/f77api.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/api/f77api.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/api/f77api.c.o   -c api/f77api.c
 
 nlopt/CMakeFiles/nlopt.dir/api/f77api.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/api/f77api.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/api/f77api.c > CMakeFiles/nlopt.dir/api/f77api.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E api/f77api.c > CMakeFiles/nlopt.dir/api/f77api.c.i
 
 nlopt/CMakeFiles/nlopt.dir/api/f77api.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/api/f77api.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/api/f77api.c -o CMakeFiles/nlopt.dir/api/f77api.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S api/f77api.c -o CMakeFiles/nlopt.dir/api/f77api.c.s
 
 nlopt/CMakeFiles/nlopt.dir/api/f77api.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/api/f77api.c.o.requires
@@ -695,17 +698,17 @@ nlopt/CMakeFiles/nlopt.dir/api/f77api.c.o.provides.build: nlopt/CMakeFiles/nlopt
 
 nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.o: nlopt/util/mt19937ar.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_29)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_29)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/util/mt19937ar.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/util/mt19937ar.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/util/mt19937ar.c.o   -c util/mt19937ar.c
 
 nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/util/mt19937ar.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/util/mt19937ar.c > CMakeFiles/nlopt.dir/util/mt19937ar.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E util/mt19937ar.c > CMakeFiles/nlopt.dir/util/mt19937ar.c.i
 
 nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/util/mt19937ar.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/util/mt19937ar.c -o CMakeFiles/nlopt.dir/util/mt19937ar.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S util/mt19937ar.c -o CMakeFiles/nlopt.dir/util/mt19937ar.c.s
 
 nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.o.requires
@@ -718,17 +721,17 @@ nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.o.provides.build: nlopt/CMakeFiles/n
 
 nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.o: nlopt/util/sobolseq.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_30)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_30)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/util/sobolseq.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/util/sobolseq.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/util/sobolseq.c.o   -c util/sobolseq.c
 
 nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/util/sobolseq.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/util/sobolseq.c > CMakeFiles/nlopt.dir/util/sobolseq.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E util/sobolseq.c > CMakeFiles/nlopt.dir/util/sobolseq.c.i
 
 nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/util/sobolseq.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/util/sobolseq.c -o CMakeFiles/nlopt.dir/util/sobolseq.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S util/sobolseq.c -o CMakeFiles/nlopt.dir/util/sobolseq.c.s
 
 nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.o.requires
@@ -741,17 +744,17 @@ nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.o.provides.build: nlopt/CMakeFiles/nl
 
 nlopt/CMakeFiles/nlopt.dir/util/timer.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/util/timer.c.o: nlopt/util/timer.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_31)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_31)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/util/timer.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/util/timer.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/util/timer.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/util/timer.c.o   -c util/timer.c
 
 nlopt/CMakeFiles/nlopt.dir/util/timer.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/util/timer.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/util/timer.c > CMakeFiles/nlopt.dir/util/timer.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E util/timer.c > CMakeFiles/nlopt.dir/util/timer.c.i
 
 nlopt/CMakeFiles/nlopt.dir/util/timer.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/util/timer.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/util/timer.c -o CMakeFiles/nlopt.dir/util/timer.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S util/timer.c -o CMakeFiles/nlopt.dir/util/timer.c.s
 
 nlopt/CMakeFiles/nlopt.dir/util/timer.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/util/timer.c.o.requires
@@ -764,17 +767,17 @@ nlopt/CMakeFiles/nlopt.dir/util/timer.c.o.provides.build: nlopt/CMakeFiles/nlopt
 
 nlopt/CMakeFiles/nlopt.dir/util/stop.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/util/stop.c.o: nlopt/util/stop.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_32)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_32)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/util/stop.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/util/stop.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/util/stop.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/util/stop.c.o   -c util/stop.c
 
 nlopt/CMakeFiles/nlopt.dir/util/stop.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/util/stop.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/util/stop.c > CMakeFiles/nlopt.dir/util/stop.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E util/stop.c > CMakeFiles/nlopt.dir/util/stop.c.i
 
 nlopt/CMakeFiles/nlopt.dir/util/stop.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/util/stop.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/util/stop.c -o CMakeFiles/nlopt.dir/util/stop.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S util/stop.c -o CMakeFiles/nlopt.dir/util/stop.c.s
 
 nlopt/CMakeFiles/nlopt.dir/util/stop.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/util/stop.c.o.requires
@@ -787,17 +790,17 @@ nlopt/CMakeFiles/nlopt.dir/util/stop.c.o.provides.build: nlopt/CMakeFiles/nlopt.
 
 nlopt/CMakeFiles/nlopt.dir/util/redblack.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/util/redblack.c.o: nlopt/util/redblack.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_33)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_33)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/util/redblack.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/util/redblack.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/util/redblack.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/util/redblack.c.o   -c util/redblack.c
 
 nlopt/CMakeFiles/nlopt.dir/util/redblack.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/util/redblack.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/util/redblack.c > CMakeFiles/nlopt.dir/util/redblack.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E util/redblack.c > CMakeFiles/nlopt.dir/util/redblack.c.i
 
 nlopt/CMakeFiles/nlopt.dir/util/redblack.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/util/redblack.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/util/redblack.c -o CMakeFiles/nlopt.dir/util/redblack.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S util/redblack.c -o CMakeFiles/nlopt.dir/util/redblack.c.s
 
 nlopt/CMakeFiles/nlopt.dir/util/redblack.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/util/redblack.c.o.requires
@@ -810,17 +813,17 @@ nlopt/CMakeFiles/nlopt.dir/util/redblack.c.o.provides.build: nlopt/CMakeFiles/nl
 
 nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.o: nlopt/util/qsort_r.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_34)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_34)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/util/qsort_r.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/util/qsort_r.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/util/qsort_r.c.o   -c util/qsort_r.c
 
 nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/util/qsort_r.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/util/qsort_r.c > CMakeFiles/nlopt.dir/util/qsort_r.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E util/qsort_r.c > CMakeFiles/nlopt.dir/util/qsort_r.c.i
 
 nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/util/qsort_r.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/util/qsort_r.c -o CMakeFiles/nlopt.dir/util/qsort_r.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S util/qsort_r.c -o CMakeFiles/nlopt.dir/util/qsort_r.c.s
 
 nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.o.requires
@@ -833,17 +836,17 @@ nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.o.provides.build: nlopt/CMakeFiles/nlo
 
 nlopt/CMakeFiles/nlopt.dir/util/rescale.c.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/util/rescale.c.o: nlopt/util/rescale.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_35)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_35)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object nlopt/CMakeFiles/nlopt.dir/util/rescale.c.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/util/rescale.c.o   -c /home/stathis/Libraries/bayesopt/nlopt/util/rescale.c
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/util/rescale.c.o   -c util/rescale.c
 
 nlopt/CMakeFiles/nlopt.dir/util/rescale.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/nlopt.dir/util/rescale.c.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/util/rescale.c > CMakeFiles/nlopt.dir/util/rescale.c.i
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -E util/rescale.c > CMakeFiles/nlopt.dir/util/rescale.c.i
 
 nlopt/CMakeFiles/nlopt.dir/util/rescale.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/nlopt.dir/util/rescale.c.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/gcc  $(C_DEFINES) $(C_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/util/rescale.c -o CMakeFiles/nlopt.dir/util/rescale.c.s
+	cd nlopt && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -fPIC -S util/rescale.c -o CMakeFiles/nlopt.dir/util/rescale.c.s
 
 nlopt/CMakeFiles/nlopt.dir/util/rescale.c.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/util/rescale.c.o.requires
@@ -856,17 +859,17 @@ nlopt/CMakeFiles/nlopt.dir/util/rescale.c.o.provides.build: nlopt/CMakeFiles/nlo
 
 nlopt/CMakeFiles/nlopt.dir/stogo/global.cc.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/stogo/global.cc.o: nlopt/stogo/global.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_36)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_36)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object nlopt/CMakeFiles/nlopt.dir/stogo/global.cc.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/stogo/global.cc.o -c /home/stathis/Libraries/bayesopt/nlopt/stogo/global.cc
+	cd nlopt && /usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/stogo/global.cc.o -c stogo/global.cc
 
 nlopt/CMakeFiles/nlopt.dir/stogo/global.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/nlopt.dir/stogo/global.cc.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/stogo/global.cc > CMakeFiles/nlopt.dir/stogo/global.cc.i
+	cd nlopt && /usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E stogo/global.cc > CMakeFiles/nlopt.dir/stogo/global.cc.i
 
 nlopt/CMakeFiles/nlopt.dir/stogo/global.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/nlopt.dir/stogo/global.cc.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/stogo/global.cc -o CMakeFiles/nlopt.dir/stogo/global.cc.s
+	cd nlopt && /usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S stogo/global.cc -o CMakeFiles/nlopt.dir/stogo/global.cc.s
 
 nlopt/CMakeFiles/nlopt.dir/stogo/global.cc.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/stogo/global.cc.o.requires
@@ -879,17 +882,17 @@ nlopt/CMakeFiles/nlopt.dir/stogo/global.cc.o.provides.build: nlopt/CMakeFiles/nl
 
 nlopt/CMakeFiles/nlopt.dir/stogo/linalg.cc.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/stogo/linalg.cc.o: nlopt/stogo/linalg.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_37)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_37)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object nlopt/CMakeFiles/nlopt.dir/stogo/linalg.cc.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/stogo/linalg.cc.o -c /home/stathis/Libraries/bayesopt/nlopt/stogo/linalg.cc
+	cd nlopt && /usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/stogo/linalg.cc.o -c stogo/linalg.cc
 
 nlopt/CMakeFiles/nlopt.dir/stogo/linalg.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/nlopt.dir/stogo/linalg.cc.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/stogo/linalg.cc > CMakeFiles/nlopt.dir/stogo/linalg.cc.i
+	cd nlopt && /usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E stogo/linalg.cc > CMakeFiles/nlopt.dir/stogo/linalg.cc.i
 
 nlopt/CMakeFiles/nlopt.dir/stogo/linalg.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/nlopt.dir/stogo/linalg.cc.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/stogo/linalg.cc -o CMakeFiles/nlopt.dir/stogo/linalg.cc.s
+	cd nlopt && /usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S stogo/linalg.cc -o CMakeFiles/nlopt.dir/stogo/linalg.cc.s
 
 nlopt/CMakeFiles/nlopt.dir/stogo/linalg.cc.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/stogo/linalg.cc.o.requires
@@ -902,17 +905,17 @@ nlopt/CMakeFiles/nlopt.dir/stogo/linalg.cc.o.provides.build: nlopt/CMakeFiles/nl
 
 nlopt/CMakeFiles/nlopt.dir/stogo/local.cc.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/stogo/local.cc.o: nlopt/stogo/local.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_38)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_38)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object nlopt/CMakeFiles/nlopt.dir/stogo/local.cc.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/stogo/local.cc.o -c /home/stathis/Libraries/bayesopt/nlopt/stogo/local.cc
+	cd nlopt && /usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/stogo/local.cc.o -c stogo/local.cc
 
 nlopt/CMakeFiles/nlopt.dir/stogo/local.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/nlopt.dir/stogo/local.cc.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/stogo/local.cc > CMakeFiles/nlopt.dir/stogo/local.cc.i
+	cd nlopt && /usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E stogo/local.cc > CMakeFiles/nlopt.dir/stogo/local.cc.i
 
 nlopt/CMakeFiles/nlopt.dir/stogo/local.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/nlopt.dir/stogo/local.cc.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/stogo/local.cc -o CMakeFiles/nlopt.dir/stogo/local.cc.s
+	cd nlopt && /usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S stogo/local.cc -o CMakeFiles/nlopt.dir/stogo/local.cc.s
 
 nlopt/CMakeFiles/nlopt.dir/stogo/local.cc.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/stogo/local.cc.o.requires
@@ -925,17 +928,17 @@ nlopt/CMakeFiles/nlopt.dir/stogo/local.cc.o.provides.build: nlopt/CMakeFiles/nlo
 
 nlopt/CMakeFiles/nlopt.dir/stogo/stogo.cc.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/stogo/stogo.cc.o: nlopt/stogo/stogo.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_39)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_39)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object nlopt/CMakeFiles/nlopt.dir/stogo/stogo.cc.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/stogo/stogo.cc.o -c /home/stathis/Libraries/bayesopt/nlopt/stogo/stogo.cc
+	cd nlopt && /usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/stogo/stogo.cc.o -c stogo/stogo.cc
 
 nlopt/CMakeFiles/nlopt.dir/stogo/stogo.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/nlopt.dir/stogo/stogo.cc.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/stogo/stogo.cc > CMakeFiles/nlopt.dir/stogo/stogo.cc.i
+	cd nlopt && /usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E stogo/stogo.cc > CMakeFiles/nlopt.dir/stogo/stogo.cc.i
 
 nlopt/CMakeFiles/nlopt.dir/stogo/stogo.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/nlopt.dir/stogo/stogo.cc.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/stogo/stogo.cc -o CMakeFiles/nlopt.dir/stogo/stogo.cc.s
+	cd nlopt && /usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S stogo/stogo.cc -o CMakeFiles/nlopt.dir/stogo/stogo.cc.s
 
 nlopt/CMakeFiles/nlopt.dir/stogo/stogo.cc.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/stogo/stogo.cc.o.requires
@@ -948,17 +951,17 @@ nlopt/CMakeFiles/nlopt.dir/stogo/stogo.cc.o.provides.build: nlopt/CMakeFiles/nlo
 
 nlopt/CMakeFiles/nlopt.dir/stogo/tools.cc.o: nlopt/CMakeFiles/nlopt.dir/flags.make
 nlopt/CMakeFiles/nlopt.dir/stogo/tools.cc.o: nlopt/stogo/tools.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/stathis/Libraries/bayesopt/CMakeFiles $(CMAKE_PROGRESS_40)
+	$(CMAKE_COMMAND) -E cmake_progress_report /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles $(CMAKE_PROGRESS_40)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object nlopt/CMakeFiles/nlopt.dir/stogo/tools.cc.o"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/stogo/tools.cc.o -c /home/stathis/Libraries/bayesopt/nlopt/stogo/tools.cc
+	cd nlopt && /usr/bin/c++.exe   $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -o CMakeFiles/nlopt.dir/stogo/tools.cc.o -c stogo/tools.cc
 
 nlopt/CMakeFiles/nlopt.dir/stogo/tools.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/nlopt.dir/stogo/tools.cc.i"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E /home/stathis/Libraries/bayesopt/nlopt/stogo/tools.cc > CMakeFiles/nlopt.dir/stogo/tools.cc.i
+	cd nlopt && /usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -E stogo/tools.cc > CMakeFiles/nlopt.dir/stogo/tools.cc.i
 
 nlopt/CMakeFiles/nlopt.dir/stogo/tools.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/nlopt.dir/stogo/tools.cc.s"
-	cd /home/stathis/Libraries/bayesopt/nlopt && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S /home/stathis/Libraries/bayesopt/nlopt/stogo/tools.cc -o CMakeFiles/nlopt.dir/stogo/tools.cc.s
+	cd nlopt && /usr/bin/c++.exe  $(CXX_DEFINES) $(CXX_FLAGS) -fPIC -S stogo/tools.cc -o CMakeFiles/nlopt.dir/stogo/tools.cc.s
 
 nlopt/CMakeFiles/nlopt.dir/stogo/tools.cc.o.requires:
 .PHONY : nlopt/CMakeFiles/nlopt.dir/stogo/tools.cc.o.requires
@@ -1015,54 +1018,53 @@ nlopt_OBJECTS = \
 # External object files for target nlopt
 nlopt_EXTERNAL_OBJECTS =
 
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/direct/DIRect.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/direct/direct_wrap.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/direct/DIRserial.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/direct/DIRsubrout.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/luksan/plis.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/luksan/plip.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/luksan/pnet.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/luksan/mssubs.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/luksan/pssubs.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/crs/crs.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/mma/mma.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/isres/isres.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/slsqp/slsqp.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/api/general.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/api/options.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/api/optimize.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/api/f77api.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/util/timer.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/util/stop.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/util/redblack.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/util/rescale.c.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/stogo/global.cc.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/stogo/linalg.cc.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/stogo/local.cc.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/stogo/stogo.cc.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/stogo/tools.cc.o
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/build.make
-lib/libnlopt.a: nlopt/CMakeFiles/nlopt.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX static library ../lib/libnlopt.a"
-	cd /home/stathis/Libraries/bayesopt/nlopt && $(CMAKE_COMMAND) -P CMakeFiles/nlopt.dir/cmake_clean_target.cmake
-	cd /home/stathis/Libraries/bayesopt/nlopt && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/nlopt.dir/link.txt --verbose=$(VERBOSE)
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/direct/DIRect.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/direct/direct_wrap.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/direct/DIRserial.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/direct/DIRsubrout.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/luksan/plis.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/luksan/plip.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/luksan/pnet.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/luksan/mssubs.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/luksan/pssubs.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/crs/crs.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/mma/mma.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/isres/isres.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/slsqp/slsqp.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/api/general.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/api/options.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/api/optimize.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/api/f77api.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/util/timer.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/util/stop.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/util/redblack.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/util/rescale.c.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/stogo/global.cc.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/stogo/linalg.cc.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/stogo/local.cc.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/stogo/stogo.cc.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/stogo/tools.cc.o
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/build.make
+bin/cygnlopt.dll: nlopt/CMakeFiles/nlopt.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX shared library ../bin/cygnlopt.dll"
+	cd nlopt && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/nlopt.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-nlopt/CMakeFiles/nlopt.dir/build: lib/libnlopt.a
+nlopt/CMakeFiles/nlopt.dir/build: bin/cygnlopt.dll
 .PHONY : nlopt/CMakeFiles/nlopt.dir/build
 
 nlopt/CMakeFiles/nlopt.dir/requires: nlopt/CMakeFiles/nlopt.dir/direct/DIRect.c.o.requires
@@ -1108,10 +1110,10 @@ nlopt/CMakeFiles/nlopt.dir/requires: nlopt/CMakeFiles/nlopt.dir/stogo/tools.cc.o
 .PHONY : nlopt/CMakeFiles/nlopt.dir/requires
 
 nlopt/CMakeFiles/nlopt.dir/clean:
-	cd /home/stathis/Libraries/bayesopt/nlopt && $(CMAKE_COMMAND) -P CMakeFiles/nlopt.dir/cmake_clean.cmake
+	cd nlopt && $(CMAKE_COMMAND) -P CMakeFiles/nlopt.dir/cmake_clean.cmake
 .PHONY : nlopt/CMakeFiles/nlopt.dir/clean
 
 nlopt/CMakeFiles/nlopt.dir/depend:
-	cd /home/stathis/Libraries/bayesopt && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/stathis/Libraries/bayesopt /home/stathis/Libraries/bayesopt/nlopt /home/stathis/Libraries/bayesopt /home/stathis/Libraries/bayesopt/nlopt /home/stathis/Libraries/bayesopt/nlopt/CMakeFiles/nlopt.dir/DependInfo.cmake --color=$(COLOR)
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/nlopt /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/nlopt /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/nlopt/CMakeFiles/nlopt.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : nlopt/CMakeFiles/nlopt.dir/depend
 

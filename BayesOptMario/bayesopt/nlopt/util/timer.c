@@ -33,6 +33,9 @@
 # endif
 #endif
 
+#include <sys/time.h>
+#include <time.h>
+
 #if defined(_WIN32) || defined(__WIN32__)
 #  include <windows.h>    
 #endif

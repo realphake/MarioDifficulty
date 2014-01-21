@@ -1,4 +1,6 @@
 FILE(REMOVE_RECURSE
+  "doc/html"
+  "doc/latex"
   "CMakeFiles/bayesopt.dir/src/bayesoptcont.cpp.o"
   "CMakeFiles/bayesopt.dir/src/bayesoptdisc.cpp.o"
   "CMakeFiles/bayesopt.dir/src/bayesoptbase.cpp.o"
@@ -21,11 +23,9 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/bayesopt.dir/wrappers/bayesoptwpr.cpp.o"
   "CMakeFiles/bayesopt.dir/utils/parser.cpp.o"
   "CMakeFiles/bayesopt.dir/utils/ublas_extra.cpp.o"
-  "CMakeFiles/bayesopt.dir/sobol/sobol.cpp.o"
-  "CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.o"
-  "CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.o"
-  "lib/libbayesopt.pdb"
-  "lib/libbayesopt.a"
+  "bin/cygbayesopt.pdb"
+  "bin/cygbayesopt.dll"
+  "lib/libbayesopt.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.

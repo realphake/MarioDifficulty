@@ -30,19 +30,22 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake.exe
 
 # The command to remove a file.
-RM = /usr/bin/cmake -E remove -f
+RM = /usr/bin/cmake.exe -E remove -f
+
+# Escaping for special characters.
+EQUALS = =
 
 # The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake.exe
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/stathis/Libraries/bayesopt
+CMAKE_SOURCE_DIR = /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/stathis/Libraries/bayesopt
+CMAKE_BINARY_DIR = /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -50,7 +53,7 @@ CMAKE_BINARY_DIR = /home/stathis/Libraries/bayesopt
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/bin/ccmake.exe -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -60,19 +63,19 @@ edit_cache/fast: edit_cache
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
+	/usr/bin/cmake.exe -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
+	/usr/bin/cmake.exe -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/usr/bin/cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
@@ -82,7 +85,7 @@ install/local/fast: install/local
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/usr/bin/cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
@@ -101,7 +104,7 @@ list_install_components/fast: list_install_components
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/bin/cmake.exe -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -110,9 +113,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stathis/Libraries/bayesopt/CMakeFiles /home/stathis/Libraries/bayesopt/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stathis/Libraries/bayesopt/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -153,128 +156,43 @@ bayesopt/fast:
 .PHONY : bayesopt/fast
 
 #=============================================================================
-# Target rules for targets named bo_branin
+# Target rules for targets named doc
 
 # Build rule for target.
-bo_branin: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 bo_branin
-.PHONY : bo_branin
+doc: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 doc
+.PHONY : doc
 
 # fast build rule for target.
-bo_branin/fast:
-	$(MAKE) -f examples/CMakeFiles/bo_branin.dir/build.make examples/CMakeFiles/bo_branin.dir/build
-.PHONY : bo_branin/fast
+doc/fast:
+	$(MAKE) -f CMakeFiles/doc.dir/build.make CMakeFiles/doc.dir/build
+.PHONY : doc/fast
 
 #=============================================================================
-# Target rules for targets named bo_cont
+# Target rules for targets named doxygen
 
 # Build rule for target.
-bo_cont: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 bo_cont
-.PHONY : bo_cont
+doxygen: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 doxygen
+.PHONY : doxygen
 
 # fast build rule for target.
-bo_cont/fast:
-	$(MAKE) -f examples/CMakeFiles/bo_cont.dir/build.make examples/CMakeFiles/bo_cont.dir/build
-.PHONY : bo_cont/fast
+doxygen/fast:
+	$(MAKE) -f CMakeFiles/doxygen.dir/build.make CMakeFiles/doxygen.dir/build
+.PHONY : doxygen/fast
 
 #=============================================================================
-# Target rules for targets named bo_disc
+# Target rules for targets named nlopt
 
 # Build rule for target.
-bo_disc: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 bo_disc
-.PHONY : bo_disc
+nlopt: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 nlopt
+.PHONY : nlopt
 
 # fast build rule for target.
-bo_disc/fast:
-	$(MAKE) -f examples/CMakeFiles/bo_disc.dir/build.make examples/CMakeFiles/bo_disc.dir/build
-.PHONY : bo_disc/fast
-
-#=============================================================================
-# Target rules for targets named bo_oned
-
-# Build rule for target.
-bo_oned: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 bo_oned
-.PHONY : bo_oned
-
-# fast build rule for target.
-bo_oned/fast:
-	$(MAKE) -f examples/CMakeFiles/bo_oned.dir/build.make examples/CMakeFiles/bo_oned.dir/build
-.PHONY : bo_oned/fast
-
-sobol/sobol.o: sobol/sobol.cpp.o
-.PHONY : sobol/sobol.o
-
-# target to build an object file
-sobol/sobol.cpp.o:
-	$(MAKE) -f CMakeFiles/bayesopt.dir/build.make CMakeFiles/bayesopt.dir/sobol/sobol.cpp.o
-.PHONY : sobol/sobol.cpp.o
-
-sobol/sobol.i: sobol/sobol.cpp.i
-.PHONY : sobol/sobol.i
-
-# target to preprocess a source file
-sobol/sobol.cpp.i:
-	$(MAKE) -f CMakeFiles/bayesopt.dir/build.make CMakeFiles/bayesopt.dir/sobol/sobol.cpp.i
-.PHONY : sobol/sobol.cpp.i
-
-sobol/sobol.s: sobol/sobol.cpp.s
-.PHONY : sobol/sobol.s
-
-# target to generate assembly for a file
-sobol/sobol.cpp.s:
-	$(MAKE) -f CMakeFiles/bayesopt.dir/build.make CMakeFiles/bayesopt.dir/sobol/sobol.cpp.s
-.PHONY : sobol/sobol.cpp.s
-
-sobol/sobol_i4.o: sobol/sobol_i4.cpp.o
-.PHONY : sobol/sobol_i4.o
-
-# target to build an object file
-sobol/sobol_i4.cpp.o:
-	$(MAKE) -f CMakeFiles/bayesopt.dir/build.make CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.o
-.PHONY : sobol/sobol_i4.cpp.o
-
-sobol/sobol_i4.i: sobol/sobol_i4.cpp.i
-.PHONY : sobol/sobol_i4.i
-
-# target to preprocess a source file
-sobol/sobol_i4.cpp.i:
-	$(MAKE) -f CMakeFiles/bayesopt.dir/build.make CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.i
-.PHONY : sobol/sobol_i4.cpp.i
-
-sobol/sobol_i4.s: sobol/sobol_i4.cpp.s
-.PHONY : sobol/sobol_i4.s
-
-# target to generate assembly for a file
-sobol/sobol_i4.cpp.s:
-	$(MAKE) -f CMakeFiles/bayesopt.dir/build.make CMakeFiles/bayesopt.dir/sobol/sobol_i4.cpp.s
-.PHONY : sobol/sobol_i4.cpp.s
-
-sobol/sobol_i8.o: sobol/sobol_i8.cpp.o
-.PHONY : sobol/sobol_i8.o
-
-# target to build an object file
-sobol/sobol_i8.cpp.o:
-	$(MAKE) -f CMakeFiles/bayesopt.dir/build.make CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.o
-.PHONY : sobol/sobol_i8.cpp.o
-
-sobol/sobol_i8.i: sobol/sobol_i8.cpp.i
-.PHONY : sobol/sobol_i8.i
-
-# target to preprocess a source file
-sobol/sobol_i8.cpp.i:
-	$(MAKE) -f CMakeFiles/bayesopt.dir/build.make CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.i
-.PHONY : sobol/sobol_i8.cpp.i
-
-sobol/sobol_i8.s: sobol/sobol_i8.cpp.s
-.PHONY : sobol/sobol_i8.s
-
-# target to generate assembly for a file
-sobol/sobol_i8.cpp.s:
-	$(MAKE) -f CMakeFiles/bayesopt.dir/build.make CMakeFiles/bayesopt.dir/sobol/sobol_i8.cpp.s
-.PHONY : sobol/sobol_i8.cpp.s
+nlopt/fast:
+	$(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/build
+.PHONY : nlopt/fast
 
 src/bayesoptbase.o: src/bayesoptbase.cpp.o
 .PHONY : src/bayesoptbase.o
@@ -811,25 +729,15 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... bayesopt"
+	@echo "... doc"
+	@echo "... doxygen"
 	@echo "... edit_cache"
 	@echo "... install"
 	@echo "... install/local"
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... bo_branin"
-	@echo "... bo_cont"
-	@echo "... bo_disc"
-	@echo "... bo_oned"
-	@echo "... sobol/sobol.o"
-	@echo "... sobol/sobol.i"
-	@echo "... sobol/sobol.s"
-	@echo "... sobol/sobol_i4.o"
-	@echo "... sobol/sobol_i4.i"
-	@echo "... sobol/sobol_i4.s"
-	@echo "... sobol/sobol_i8.o"
-	@echo "... sobol/sobol_i8.i"
-	@echo "... sobol/sobol_i8.s"
+	@echo "... nlopt"
 	@echo "... src/bayesoptbase.o"
 	@echo "... src/bayesoptbase.i"
 	@echo "... src/bayesoptbase.s"

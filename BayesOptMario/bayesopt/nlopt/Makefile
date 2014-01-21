@@ -30,19 +30,22 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake.exe
 
 # The command to remove a file.
-RM = /usr/bin/cmake -E remove -f
+RM = /usr/bin/cmake.exe -E remove -f
+
+# Escaping for special characters.
+EQUALS = =
 
 # The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake.exe
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/stathis/Libraries/bayesopt
+CMAKE_SOURCE_DIR = /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/stathis/Libraries/bayesopt
+CMAKE_BINARY_DIR = /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -50,7 +53,7 @@ CMAKE_BINARY_DIR = /home/stathis/Libraries/bayesopt
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/bin/ccmake.exe -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -60,19 +63,19 @@ edit_cache/fast: edit_cache
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
+	/usr/bin/cmake.exe -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
+	/usr/bin/cmake.exe -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/usr/bin/cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
@@ -82,7 +85,7 @@ install/local/fast: install/local
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/usr/bin/cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
@@ -101,7 +104,7 @@ list_install_components/fast: list_install_components
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/bin/cmake.exe -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -110,14 +113,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/stathis/Libraries/bayesopt && $(CMAKE_COMMAND) -E cmake_progress_start /home/stathis/Libraries/bayesopt/CMakeFiles /home/stathis/Libraries/bayesopt/nlopt/CMakeFiles/progress.marks
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f CMakeFiles/Makefile2 nlopt/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stathis/Libraries/bayesopt/CMakeFiles 0
+	cd .. && $(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/nlopt/CMakeFiles/progress.marks
+	cd .. && $(MAKE) -f CMakeFiles/Makefile2 nlopt/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f CMakeFiles/Makefile2 nlopt/clean
+	cd .. && $(MAKE) -f CMakeFiles/Makefile2 nlopt/clean
 .PHONY : clean
 
 # The main clean target
@@ -126,22 +129,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f CMakeFiles/Makefile2 nlopt/preinstall
+	cd .. && $(MAKE) -f CMakeFiles/Makefile2 nlopt/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f CMakeFiles/Makefile2 nlopt/preinstall
+	cd .. && $(MAKE) -f CMakeFiles/Makefile2 nlopt/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/stathis/Libraries/bayesopt && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd .. && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 nlopt/CMakeFiles/nlopt.dir/rule:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f CMakeFiles/Makefile2 nlopt/CMakeFiles/nlopt.dir/rule
+	cd .. && $(MAKE) -f CMakeFiles/Makefile2 nlopt/CMakeFiles/nlopt.dir/rule
 .PHONY : nlopt/CMakeFiles/nlopt.dir/rule
 
 # Convenience name for target.
@@ -150,7 +153,7 @@ nlopt: nlopt/CMakeFiles/nlopt.dir/rule
 
 # fast build rule for target.
 nlopt/fast:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/build
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/build
 .PHONY : nlopt/fast
 
 api/deprecated.o: api/deprecated.c.o
@@ -158,7 +161,7 @@ api/deprecated.o: api/deprecated.c.o
 
 # target to build an object file
 api/deprecated.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.o
 .PHONY : api/deprecated.c.o
 
 api/deprecated.i: api/deprecated.c.i
@@ -166,7 +169,7 @@ api/deprecated.i: api/deprecated.c.i
 
 # target to preprocess a source file
 api/deprecated.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.i
 .PHONY : api/deprecated.c.i
 
 api/deprecated.s: api/deprecated.c.s
@@ -174,7 +177,7 @@ api/deprecated.s: api/deprecated.c.s
 
 # target to generate assembly for a file
 api/deprecated.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/deprecated.c.s
 .PHONY : api/deprecated.c.s
 
 api/f77api.o: api/f77api.c.o
@@ -182,7 +185,7 @@ api/f77api.o: api/f77api.c.o
 
 # target to build an object file
 api/f77api.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/f77api.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/f77api.c.o
 .PHONY : api/f77api.c.o
 
 api/f77api.i: api/f77api.c.i
@@ -190,7 +193,7 @@ api/f77api.i: api/f77api.c.i
 
 # target to preprocess a source file
 api/f77api.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/f77api.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/f77api.c.i
 .PHONY : api/f77api.c.i
 
 api/f77api.s: api/f77api.c.s
@@ -198,7 +201,7 @@ api/f77api.s: api/f77api.c.s
 
 # target to generate assembly for a file
 api/f77api.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/f77api.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/f77api.c.s
 .PHONY : api/f77api.c.s
 
 api/general.o: api/general.c.o
@@ -206,7 +209,7 @@ api/general.o: api/general.c.o
 
 # target to build an object file
 api/general.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/general.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/general.c.o
 .PHONY : api/general.c.o
 
 api/general.i: api/general.c.i
@@ -214,7 +217,7 @@ api/general.i: api/general.c.i
 
 # target to preprocess a source file
 api/general.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/general.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/general.c.i
 .PHONY : api/general.c.i
 
 api/general.s: api/general.c.s
@@ -222,7 +225,7 @@ api/general.s: api/general.c.s
 
 # target to generate assembly for a file
 api/general.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/general.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/general.c.s
 .PHONY : api/general.c.s
 
 api/optimize.o: api/optimize.c.o
@@ -230,7 +233,7 @@ api/optimize.o: api/optimize.c.o
 
 # target to build an object file
 api/optimize.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/optimize.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/optimize.c.o
 .PHONY : api/optimize.c.o
 
 api/optimize.i: api/optimize.c.i
@@ -238,7 +241,7 @@ api/optimize.i: api/optimize.c.i
 
 # target to preprocess a source file
 api/optimize.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/optimize.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/optimize.c.i
 .PHONY : api/optimize.c.i
 
 api/optimize.s: api/optimize.c.s
@@ -246,7 +249,7 @@ api/optimize.s: api/optimize.c.s
 
 # target to generate assembly for a file
 api/optimize.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/optimize.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/optimize.c.s
 .PHONY : api/optimize.c.s
 
 api/options.o: api/options.c.o
@@ -254,7 +257,7 @@ api/options.o: api/options.c.o
 
 # target to build an object file
 api/options.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/options.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/options.c.o
 .PHONY : api/options.c.o
 
 api/options.i: api/options.c.i
@@ -262,7 +265,7 @@ api/options.i: api/options.c.i
 
 # target to preprocess a source file
 api/options.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/options.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/options.c.i
 .PHONY : api/options.c.i
 
 api/options.s: api/options.c.s
@@ -270,7 +273,7 @@ api/options.s: api/options.c.s
 
 # target to generate assembly for a file
 api/options.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/options.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/api/options.c.s
 .PHONY : api/options.c.s
 
 auglag/auglag.o: auglag/auglag.c.o
@@ -278,7 +281,7 @@ auglag/auglag.o: auglag/auglag.c.o
 
 # target to build an object file
 auglag/auglag.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.o
 .PHONY : auglag/auglag.c.o
 
 auglag/auglag.i: auglag/auglag.c.i
@@ -286,7 +289,7 @@ auglag/auglag.i: auglag/auglag.c.i
 
 # target to preprocess a source file
 auglag/auglag.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.i
 .PHONY : auglag/auglag.c.i
 
 auglag/auglag.s: auglag/auglag.c.s
@@ -294,7 +297,7 @@ auglag/auglag.s: auglag/auglag.c.s
 
 # target to generate assembly for a file
 auglag/auglag.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/auglag/auglag.c.s
 .PHONY : auglag/auglag.c.s
 
 bobyqa/bobyqa.o: bobyqa/bobyqa.c.o
@@ -302,7 +305,7 @@ bobyqa/bobyqa.o: bobyqa/bobyqa.c.o
 
 # target to build an object file
 bobyqa/bobyqa.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.o
 .PHONY : bobyqa/bobyqa.c.o
 
 bobyqa/bobyqa.i: bobyqa/bobyqa.c.i
@@ -310,7 +313,7 @@ bobyqa/bobyqa.i: bobyqa/bobyqa.c.i
 
 # target to preprocess a source file
 bobyqa/bobyqa.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.i
 .PHONY : bobyqa/bobyqa.c.i
 
 bobyqa/bobyqa.s: bobyqa/bobyqa.c.s
@@ -318,7 +321,7 @@ bobyqa/bobyqa.s: bobyqa/bobyqa.c.s
 
 # target to generate assembly for a file
 bobyqa/bobyqa.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/bobyqa/bobyqa.c.s
 .PHONY : bobyqa/bobyqa.c.s
 
 cdirect/cdirect.o: cdirect/cdirect.c.o
@@ -326,7 +329,7 @@ cdirect/cdirect.o: cdirect/cdirect.c.o
 
 # target to build an object file
 cdirect/cdirect.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.o
 .PHONY : cdirect/cdirect.c.o
 
 cdirect/cdirect.i: cdirect/cdirect.c.i
@@ -334,7 +337,7 @@ cdirect/cdirect.i: cdirect/cdirect.c.i
 
 # target to preprocess a source file
 cdirect/cdirect.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.i
 .PHONY : cdirect/cdirect.c.i
 
 cdirect/cdirect.s: cdirect/cdirect.c.s
@@ -342,7 +345,7 @@ cdirect/cdirect.s: cdirect/cdirect.c.s
 
 # target to generate assembly for a file
 cdirect/cdirect.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/cdirect/cdirect.c.s
 .PHONY : cdirect/cdirect.c.s
 
 cdirect/hybrid.o: cdirect/hybrid.c.o
@@ -350,7 +353,7 @@ cdirect/hybrid.o: cdirect/hybrid.c.o
 
 # target to build an object file
 cdirect/hybrid.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.o
 .PHONY : cdirect/hybrid.c.o
 
 cdirect/hybrid.i: cdirect/hybrid.c.i
@@ -358,7 +361,7 @@ cdirect/hybrid.i: cdirect/hybrid.c.i
 
 # target to preprocess a source file
 cdirect/hybrid.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.i
 .PHONY : cdirect/hybrid.c.i
 
 cdirect/hybrid.s: cdirect/hybrid.c.s
@@ -366,7 +369,7 @@ cdirect/hybrid.s: cdirect/hybrid.c.s
 
 # target to generate assembly for a file
 cdirect/hybrid.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/cdirect/hybrid.c.s
 .PHONY : cdirect/hybrid.c.s
 
 cobyla/cobyla.o: cobyla/cobyla.c.o
@@ -374,7 +377,7 @@ cobyla/cobyla.o: cobyla/cobyla.c.o
 
 # target to build an object file
 cobyla/cobyla.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.o
 .PHONY : cobyla/cobyla.c.o
 
 cobyla/cobyla.i: cobyla/cobyla.c.i
@@ -382,7 +385,7 @@ cobyla/cobyla.i: cobyla/cobyla.c.i
 
 # target to preprocess a source file
 cobyla/cobyla.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.i
 .PHONY : cobyla/cobyla.c.i
 
 cobyla/cobyla.s: cobyla/cobyla.c.s
@@ -390,7 +393,7 @@ cobyla/cobyla.s: cobyla/cobyla.c.s
 
 # target to generate assembly for a file
 cobyla/cobyla.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/cobyla/cobyla.c.s
 .PHONY : cobyla/cobyla.c.s
 
 crs/crs.o: crs/crs.c.o
@@ -398,7 +401,7 @@ crs/crs.o: crs/crs.c.o
 
 # target to build an object file
 crs/crs.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/crs/crs.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/crs/crs.c.o
 .PHONY : crs/crs.c.o
 
 crs/crs.i: crs/crs.c.i
@@ -406,7 +409,7 @@ crs/crs.i: crs/crs.c.i
 
 # target to preprocess a source file
 crs/crs.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/crs/crs.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/crs/crs.c.i
 .PHONY : crs/crs.c.i
 
 crs/crs.s: crs/crs.c.s
@@ -414,7 +417,7 @@ crs/crs.s: crs/crs.c.s
 
 # target to generate assembly for a file
 crs/crs.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/crs/crs.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/crs/crs.c.s
 .PHONY : crs/crs.c.s
 
 direct/DIRect.o: direct/DIRect.c.o
@@ -422,7 +425,7 @@ direct/DIRect.o: direct/DIRect.c.o
 
 # target to build an object file
 direct/DIRect.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/DIRect.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/DIRect.c.o
 .PHONY : direct/DIRect.c.o
 
 direct/DIRect.i: direct/DIRect.c.i
@@ -430,7 +433,7 @@ direct/DIRect.i: direct/DIRect.c.i
 
 # target to preprocess a source file
 direct/DIRect.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/DIRect.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/DIRect.c.i
 .PHONY : direct/DIRect.c.i
 
 direct/DIRect.s: direct/DIRect.c.s
@@ -438,7 +441,7 @@ direct/DIRect.s: direct/DIRect.c.s
 
 # target to generate assembly for a file
 direct/DIRect.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/DIRect.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/DIRect.c.s
 .PHONY : direct/DIRect.c.s
 
 direct/DIRserial.o: direct/DIRserial.c.o
@@ -446,7 +449,7 @@ direct/DIRserial.o: direct/DIRserial.c.o
 
 # target to build an object file
 direct/DIRserial.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/DIRserial.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/DIRserial.c.o
 .PHONY : direct/DIRserial.c.o
 
 direct/DIRserial.i: direct/DIRserial.c.i
@@ -454,7 +457,7 @@ direct/DIRserial.i: direct/DIRserial.c.i
 
 # target to preprocess a source file
 direct/DIRserial.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/DIRserial.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/DIRserial.c.i
 .PHONY : direct/DIRserial.c.i
 
 direct/DIRserial.s: direct/DIRserial.c.s
@@ -462,7 +465,7 @@ direct/DIRserial.s: direct/DIRserial.c.s
 
 # target to generate assembly for a file
 direct/DIRserial.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/DIRserial.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/DIRserial.c.s
 .PHONY : direct/DIRserial.c.s
 
 direct/DIRsubrout.o: direct/DIRsubrout.c.o
@@ -470,7 +473,7 @@ direct/DIRsubrout.o: direct/DIRsubrout.c.o
 
 # target to build an object file
 direct/DIRsubrout.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/DIRsubrout.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/DIRsubrout.c.o
 .PHONY : direct/DIRsubrout.c.o
 
 direct/DIRsubrout.i: direct/DIRsubrout.c.i
@@ -478,7 +481,7 @@ direct/DIRsubrout.i: direct/DIRsubrout.c.i
 
 # target to preprocess a source file
 direct/DIRsubrout.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/DIRsubrout.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/DIRsubrout.c.i
 .PHONY : direct/DIRsubrout.c.i
 
 direct/DIRsubrout.s: direct/DIRsubrout.c.s
@@ -486,7 +489,7 @@ direct/DIRsubrout.s: direct/DIRsubrout.c.s
 
 # target to generate assembly for a file
 direct/DIRsubrout.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/DIRsubrout.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/DIRsubrout.c.s
 .PHONY : direct/DIRsubrout.c.s
 
 direct/direct_wrap.o: direct/direct_wrap.c.o
@@ -494,7 +497,7 @@ direct/direct_wrap.o: direct/direct_wrap.c.o
 
 # target to build an object file
 direct/direct_wrap.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/direct_wrap.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/direct_wrap.c.o
 .PHONY : direct/direct_wrap.c.o
 
 direct/direct_wrap.i: direct/direct_wrap.c.i
@@ -502,7 +505,7 @@ direct/direct_wrap.i: direct/direct_wrap.c.i
 
 # target to preprocess a source file
 direct/direct_wrap.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/direct_wrap.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/direct_wrap.c.i
 .PHONY : direct/direct_wrap.c.i
 
 direct/direct_wrap.s: direct/direct_wrap.c.s
@@ -510,7 +513,7 @@ direct/direct_wrap.s: direct/direct_wrap.c.s
 
 # target to generate assembly for a file
 direct/direct_wrap.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/direct_wrap.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/direct/direct_wrap.c.s
 .PHONY : direct/direct_wrap.c.s
 
 isres/isres.o: isres/isres.c.o
@@ -518,7 +521,7 @@ isres/isres.o: isres/isres.c.o
 
 # target to build an object file
 isres/isres.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/isres/isres.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/isres/isres.c.o
 .PHONY : isres/isres.c.o
 
 isres/isres.i: isres/isres.c.i
@@ -526,7 +529,7 @@ isres/isres.i: isres/isres.c.i
 
 # target to preprocess a source file
 isres/isres.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/isres/isres.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/isres/isres.c.i
 .PHONY : isres/isres.c.i
 
 isres/isres.s: isres/isres.c.s
@@ -534,7 +537,7 @@ isres/isres.s: isres/isres.c.s
 
 # target to generate assembly for a file
 isres/isres.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/isres/isres.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/isres/isres.c.s
 .PHONY : isres/isres.c.s
 
 luksan/mssubs.o: luksan/mssubs.c.o
@@ -542,7 +545,7 @@ luksan/mssubs.o: luksan/mssubs.c.o
 
 # target to build an object file
 luksan/mssubs.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/mssubs.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/mssubs.c.o
 .PHONY : luksan/mssubs.c.o
 
 luksan/mssubs.i: luksan/mssubs.c.i
@@ -550,7 +553,7 @@ luksan/mssubs.i: luksan/mssubs.c.i
 
 # target to preprocess a source file
 luksan/mssubs.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/mssubs.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/mssubs.c.i
 .PHONY : luksan/mssubs.c.i
 
 luksan/mssubs.s: luksan/mssubs.c.s
@@ -558,7 +561,7 @@ luksan/mssubs.s: luksan/mssubs.c.s
 
 # target to generate assembly for a file
 luksan/mssubs.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/mssubs.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/mssubs.c.s
 .PHONY : luksan/mssubs.c.s
 
 luksan/plip.o: luksan/plip.c.o
@@ -566,7 +569,7 @@ luksan/plip.o: luksan/plip.c.o
 
 # target to build an object file
 luksan/plip.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/plip.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/plip.c.o
 .PHONY : luksan/plip.c.o
 
 luksan/plip.i: luksan/plip.c.i
@@ -574,7 +577,7 @@ luksan/plip.i: luksan/plip.c.i
 
 # target to preprocess a source file
 luksan/plip.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/plip.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/plip.c.i
 .PHONY : luksan/plip.c.i
 
 luksan/plip.s: luksan/plip.c.s
@@ -582,7 +585,7 @@ luksan/plip.s: luksan/plip.c.s
 
 # target to generate assembly for a file
 luksan/plip.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/plip.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/plip.c.s
 .PHONY : luksan/plip.c.s
 
 luksan/plis.o: luksan/plis.c.o
@@ -590,7 +593,7 @@ luksan/plis.o: luksan/plis.c.o
 
 # target to build an object file
 luksan/plis.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/plis.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/plis.c.o
 .PHONY : luksan/plis.c.o
 
 luksan/plis.i: luksan/plis.c.i
@@ -598,7 +601,7 @@ luksan/plis.i: luksan/plis.c.i
 
 # target to preprocess a source file
 luksan/plis.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/plis.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/plis.c.i
 .PHONY : luksan/plis.c.i
 
 luksan/plis.s: luksan/plis.c.s
@@ -606,7 +609,7 @@ luksan/plis.s: luksan/plis.c.s
 
 # target to generate assembly for a file
 luksan/plis.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/plis.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/plis.c.s
 .PHONY : luksan/plis.c.s
 
 luksan/pnet.o: luksan/pnet.c.o
@@ -614,7 +617,7 @@ luksan/pnet.o: luksan/pnet.c.o
 
 # target to build an object file
 luksan/pnet.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/pnet.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/pnet.c.o
 .PHONY : luksan/pnet.c.o
 
 luksan/pnet.i: luksan/pnet.c.i
@@ -622,7 +625,7 @@ luksan/pnet.i: luksan/pnet.c.i
 
 # target to preprocess a source file
 luksan/pnet.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/pnet.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/pnet.c.i
 .PHONY : luksan/pnet.c.i
 
 luksan/pnet.s: luksan/pnet.c.s
@@ -630,7 +633,7 @@ luksan/pnet.s: luksan/pnet.c.s
 
 # target to generate assembly for a file
 luksan/pnet.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/pnet.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/pnet.c.s
 .PHONY : luksan/pnet.c.s
 
 luksan/pssubs.o: luksan/pssubs.c.o
@@ -638,7 +641,7 @@ luksan/pssubs.o: luksan/pssubs.c.o
 
 # target to build an object file
 luksan/pssubs.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/pssubs.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/pssubs.c.o
 .PHONY : luksan/pssubs.c.o
 
 luksan/pssubs.i: luksan/pssubs.c.i
@@ -646,7 +649,7 @@ luksan/pssubs.i: luksan/pssubs.c.i
 
 # target to preprocess a source file
 luksan/pssubs.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/pssubs.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/pssubs.c.i
 .PHONY : luksan/pssubs.c.i
 
 luksan/pssubs.s: luksan/pssubs.c.s
@@ -654,7 +657,7 @@ luksan/pssubs.s: luksan/pssubs.c.s
 
 # target to generate assembly for a file
 luksan/pssubs.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/pssubs.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/luksan/pssubs.c.s
 .PHONY : luksan/pssubs.c.s
 
 mlsl/mlsl.o: mlsl/mlsl.c.o
@@ -662,7 +665,7 @@ mlsl/mlsl.o: mlsl/mlsl.c.o
 
 # target to build an object file
 mlsl/mlsl.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.o
 .PHONY : mlsl/mlsl.c.o
 
 mlsl/mlsl.i: mlsl/mlsl.c.i
@@ -670,7 +673,7 @@ mlsl/mlsl.i: mlsl/mlsl.c.i
 
 # target to preprocess a source file
 mlsl/mlsl.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.i
 .PHONY : mlsl/mlsl.c.i
 
 mlsl/mlsl.s: mlsl/mlsl.c.s
@@ -678,7 +681,7 @@ mlsl/mlsl.s: mlsl/mlsl.c.s
 
 # target to generate assembly for a file
 mlsl/mlsl.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/mlsl/mlsl.c.s
 .PHONY : mlsl/mlsl.c.s
 
 mma/mma.o: mma/mma.c.o
@@ -686,7 +689,7 @@ mma/mma.o: mma/mma.c.o
 
 # target to build an object file
 mma/mma.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/mma/mma.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/mma/mma.c.o
 .PHONY : mma/mma.c.o
 
 mma/mma.i: mma/mma.c.i
@@ -694,7 +697,7 @@ mma/mma.i: mma/mma.c.i
 
 # target to preprocess a source file
 mma/mma.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/mma/mma.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/mma/mma.c.i
 .PHONY : mma/mma.c.i
 
 mma/mma.s: mma/mma.c.s
@@ -702,7 +705,7 @@ mma/mma.s: mma/mma.c.s
 
 # target to generate assembly for a file
 mma/mma.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/mma/mma.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/mma/mma.c.s
 .PHONY : mma/mma.c.s
 
 neldermead/nldrmd.o: neldermead/nldrmd.c.o
@@ -710,7 +713,7 @@ neldermead/nldrmd.o: neldermead/nldrmd.c.o
 
 # target to build an object file
 neldermead/nldrmd.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.o
 .PHONY : neldermead/nldrmd.c.o
 
 neldermead/nldrmd.i: neldermead/nldrmd.c.i
@@ -718,7 +721,7 @@ neldermead/nldrmd.i: neldermead/nldrmd.c.i
 
 # target to preprocess a source file
 neldermead/nldrmd.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.i
 .PHONY : neldermead/nldrmd.c.i
 
 neldermead/nldrmd.s: neldermead/nldrmd.c.s
@@ -726,7 +729,7 @@ neldermead/nldrmd.s: neldermead/nldrmd.c.s
 
 # target to generate assembly for a file
 neldermead/nldrmd.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/neldermead/nldrmd.c.s
 .PHONY : neldermead/nldrmd.c.s
 
 neldermead/sbplx.o: neldermead/sbplx.c.o
@@ -734,7 +737,7 @@ neldermead/sbplx.o: neldermead/sbplx.c.o
 
 # target to build an object file
 neldermead/sbplx.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.o
 .PHONY : neldermead/sbplx.c.o
 
 neldermead/sbplx.i: neldermead/sbplx.c.i
@@ -742,7 +745,7 @@ neldermead/sbplx.i: neldermead/sbplx.c.i
 
 # target to preprocess a source file
 neldermead/sbplx.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.i
 .PHONY : neldermead/sbplx.c.i
 
 neldermead/sbplx.s: neldermead/sbplx.c.s
@@ -750,7 +753,7 @@ neldermead/sbplx.s: neldermead/sbplx.c.s
 
 # target to generate assembly for a file
 neldermead/sbplx.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/neldermead/sbplx.c.s
 .PHONY : neldermead/sbplx.c.s
 
 newuoa/newuoa.o: newuoa/newuoa.c.o
@@ -758,7 +761,7 @@ newuoa/newuoa.o: newuoa/newuoa.c.o
 
 # target to build an object file
 newuoa/newuoa.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.o
 .PHONY : newuoa/newuoa.c.o
 
 newuoa/newuoa.i: newuoa/newuoa.c.i
@@ -766,7 +769,7 @@ newuoa/newuoa.i: newuoa/newuoa.c.i
 
 # target to preprocess a source file
 newuoa/newuoa.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.i
 .PHONY : newuoa/newuoa.c.i
 
 newuoa/newuoa.s: newuoa/newuoa.c.s
@@ -774,7 +777,7 @@ newuoa/newuoa.s: newuoa/newuoa.c.s
 
 # target to generate assembly for a file
 newuoa/newuoa.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/newuoa/newuoa.c.s
 .PHONY : newuoa/newuoa.c.s
 
 praxis/praxis.o: praxis/praxis.c.o
@@ -782,7 +785,7 @@ praxis/praxis.o: praxis/praxis.c.o
 
 # target to build an object file
 praxis/praxis.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.o
 .PHONY : praxis/praxis.c.o
 
 praxis/praxis.i: praxis/praxis.c.i
@@ -790,7 +793,7 @@ praxis/praxis.i: praxis/praxis.c.i
 
 # target to preprocess a source file
 praxis/praxis.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.i
 .PHONY : praxis/praxis.c.i
 
 praxis/praxis.s: praxis/praxis.c.s
@@ -798,7 +801,7 @@ praxis/praxis.s: praxis/praxis.c.s
 
 # target to generate assembly for a file
 praxis/praxis.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/praxis/praxis.c.s
 .PHONY : praxis/praxis.c.s
 
 slsqp/slsqp.o: slsqp/slsqp.c.o
@@ -806,7 +809,7 @@ slsqp/slsqp.o: slsqp/slsqp.c.o
 
 # target to build an object file
 slsqp/slsqp.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/slsqp/slsqp.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/slsqp/slsqp.c.o
 .PHONY : slsqp/slsqp.c.o
 
 slsqp/slsqp.i: slsqp/slsqp.c.i
@@ -814,7 +817,7 @@ slsqp/slsqp.i: slsqp/slsqp.c.i
 
 # target to preprocess a source file
 slsqp/slsqp.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/slsqp/slsqp.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/slsqp/slsqp.c.i
 .PHONY : slsqp/slsqp.c.i
 
 slsqp/slsqp.s: slsqp/slsqp.c.s
@@ -822,7 +825,7 @@ slsqp/slsqp.s: slsqp/slsqp.c.s
 
 # target to generate assembly for a file
 slsqp/slsqp.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/slsqp/slsqp.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/slsqp/slsqp.c.s
 .PHONY : slsqp/slsqp.c.s
 
 stogo/global.o: stogo/global.cc.o
@@ -830,7 +833,7 @@ stogo/global.o: stogo/global.cc.o
 
 # target to build an object file
 stogo/global.cc.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/global.cc.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/global.cc.o
 .PHONY : stogo/global.cc.o
 
 stogo/global.i: stogo/global.cc.i
@@ -838,7 +841,7 @@ stogo/global.i: stogo/global.cc.i
 
 # target to preprocess a source file
 stogo/global.cc.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/global.cc.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/global.cc.i
 .PHONY : stogo/global.cc.i
 
 stogo/global.s: stogo/global.cc.s
@@ -846,7 +849,7 @@ stogo/global.s: stogo/global.cc.s
 
 # target to generate assembly for a file
 stogo/global.cc.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/global.cc.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/global.cc.s
 .PHONY : stogo/global.cc.s
 
 stogo/linalg.o: stogo/linalg.cc.o
@@ -854,7 +857,7 @@ stogo/linalg.o: stogo/linalg.cc.o
 
 # target to build an object file
 stogo/linalg.cc.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/linalg.cc.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/linalg.cc.o
 .PHONY : stogo/linalg.cc.o
 
 stogo/linalg.i: stogo/linalg.cc.i
@@ -862,7 +865,7 @@ stogo/linalg.i: stogo/linalg.cc.i
 
 # target to preprocess a source file
 stogo/linalg.cc.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/linalg.cc.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/linalg.cc.i
 .PHONY : stogo/linalg.cc.i
 
 stogo/linalg.s: stogo/linalg.cc.s
@@ -870,7 +873,7 @@ stogo/linalg.s: stogo/linalg.cc.s
 
 # target to generate assembly for a file
 stogo/linalg.cc.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/linalg.cc.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/linalg.cc.s
 .PHONY : stogo/linalg.cc.s
 
 stogo/local.o: stogo/local.cc.o
@@ -878,7 +881,7 @@ stogo/local.o: stogo/local.cc.o
 
 # target to build an object file
 stogo/local.cc.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/local.cc.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/local.cc.o
 .PHONY : stogo/local.cc.o
 
 stogo/local.i: stogo/local.cc.i
@@ -886,7 +889,7 @@ stogo/local.i: stogo/local.cc.i
 
 # target to preprocess a source file
 stogo/local.cc.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/local.cc.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/local.cc.i
 .PHONY : stogo/local.cc.i
 
 stogo/local.s: stogo/local.cc.s
@@ -894,7 +897,7 @@ stogo/local.s: stogo/local.cc.s
 
 # target to generate assembly for a file
 stogo/local.cc.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/local.cc.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/local.cc.s
 .PHONY : stogo/local.cc.s
 
 stogo/stogo.o: stogo/stogo.cc.o
@@ -902,7 +905,7 @@ stogo/stogo.o: stogo/stogo.cc.o
 
 # target to build an object file
 stogo/stogo.cc.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/stogo.cc.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/stogo.cc.o
 .PHONY : stogo/stogo.cc.o
 
 stogo/stogo.i: stogo/stogo.cc.i
@@ -910,7 +913,7 @@ stogo/stogo.i: stogo/stogo.cc.i
 
 # target to preprocess a source file
 stogo/stogo.cc.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/stogo.cc.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/stogo.cc.i
 .PHONY : stogo/stogo.cc.i
 
 stogo/stogo.s: stogo/stogo.cc.s
@@ -918,7 +921,7 @@ stogo/stogo.s: stogo/stogo.cc.s
 
 # target to generate assembly for a file
 stogo/stogo.cc.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/stogo.cc.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/stogo.cc.s
 .PHONY : stogo/stogo.cc.s
 
 stogo/tools.o: stogo/tools.cc.o
@@ -926,7 +929,7 @@ stogo/tools.o: stogo/tools.cc.o
 
 # target to build an object file
 stogo/tools.cc.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/tools.cc.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/tools.cc.o
 .PHONY : stogo/tools.cc.o
 
 stogo/tools.i: stogo/tools.cc.i
@@ -934,7 +937,7 @@ stogo/tools.i: stogo/tools.cc.i
 
 # target to preprocess a source file
 stogo/tools.cc.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/tools.cc.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/tools.cc.i
 .PHONY : stogo/tools.cc.i
 
 stogo/tools.s: stogo/tools.cc.s
@@ -942,7 +945,7 @@ stogo/tools.s: stogo/tools.cc.s
 
 # target to generate assembly for a file
 stogo/tools.cc.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/tools.cc.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/stogo/tools.cc.s
 .PHONY : stogo/tools.cc.s
 
 util/mt19937ar.o: util/mt19937ar.c.o
@@ -950,7 +953,7 @@ util/mt19937ar.o: util/mt19937ar.c.o
 
 # target to build an object file
 util/mt19937ar.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.o
 .PHONY : util/mt19937ar.c.o
 
 util/mt19937ar.i: util/mt19937ar.c.i
@@ -958,7 +961,7 @@ util/mt19937ar.i: util/mt19937ar.c.i
 
 # target to preprocess a source file
 util/mt19937ar.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.i
 .PHONY : util/mt19937ar.c.i
 
 util/mt19937ar.s: util/mt19937ar.c.s
@@ -966,7 +969,7 @@ util/mt19937ar.s: util/mt19937ar.c.s
 
 # target to generate assembly for a file
 util/mt19937ar.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/mt19937ar.c.s
 .PHONY : util/mt19937ar.c.s
 
 util/qsort_r.o: util/qsort_r.c.o
@@ -974,7 +977,7 @@ util/qsort_r.o: util/qsort_r.c.o
 
 # target to build an object file
 util/qsort_r.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.o
 .PHONY : util/qsort_r.c.o
 
 util/qsort_r.i: util/qsort_r.c.i
@@ -982,7 +985,7 @@ util/qsort_r.i: util/qsort_r.c.i
 
 # target to preprocess a source file
 util/qsort_r.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.i
 .PHONY : util/qsort_r.c.i
 
 util/qsort_r.s: util/qsort_r.c.s
@@ -990,7 +993,7 @@ util/qsort_r.s: util/qsort_r.c.s
 
 # target to generate assembly for a file
 util/qsort_r.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/qsort_r.c.s
 .PHONY : util/qsort_r.c.s
 
 util/redblack.o: util/redblack.c.o
@@ -998,7 +1001,7 @@ util/redblack.o: util/redblack.c.o
 
 # target to build an object file
 util/redblack.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/redblack.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/redblack.c.o
 .PHONY : util/redblack.c.o
 
 util/redblack.i: util/redblack.c.i
@@ -1006,7 +1009,7 @@ util/redblack.i: util/redblack.c.i
 
 # target to preprocess a source file
 util/redblack.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/redblack.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/redblack.c.i
 .PHONY : util/redblack.c.i
 
 util/redblack.s: util/redblack.c.s
@@ -1014,7 +1017,7 @@ util/redblack.s: util/redblack.c.s
 
 # target to generate assembly for a file
 util/redblack.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/redblack.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/redblack.c.s
 .PHONY : util/redblack.c.s
 
 util/rescale.o: util/rescale.c.o
@@ -1022,7 +1025,7 @@ util/rescale.o: util/rescale.c.o
 
 # target to build an object file
 util/rescale.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/rescale.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/rescale.c.o
 .PHONY : util/rescale.c.o
 
 util/rescale.i: util/rescale.c.i
@@ -1030,7 +1033,7 @@ util/rescale.i: util/rescale.c.i
 
 # target to preprocess a source file
 util/rescale.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/rescale.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/rescale.c.i
 .PHONY : util/rescale.c.i
 
 util/rescale.s: util/rescale.c.s
@@ -1038,7 +1041,7 @@ util/rescale.s: util/rescale.c.s
 
 # target to generate assembly for a file
 util/rescale.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/rescale.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/rescale.c.s
 .PHONY : util/rescale.c.s
 
 util/sobolseq.o: util/sobolseq.c.o
@@ -1046,7 +1049,7 @@ util/sobolseq.o: util/sobolseq.c.o
 
 # target to build an object file
 util/sobolseq.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.o
 .PHONY : util/sobolseq.c.o
 
 util/sobolseq.i: util/sobolseq.c.i
@@ -1054,7 +1057,7 @@ util/sobolseq.i: util/sobolseq.c.i
 
 # target to preprocess a source file
 util/sobolseq.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.i
 .PHONY : util/sobolseq.c.i
 
 util/sobolseq.s: util/sobolseq.c.s
@@ -1062,7 +1065,7 @@ util/sobolseq.s: util/sobolseq.c.s
 
 # target to generate assembly for a file
 util/sobolseq.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/sobolseq.c.s
 .PHONY : util/sobolseq.c.s
 
 util/stop.o: util/stop.c.o
@@ -1070,7 +1073,7 @@ util/stop.o: util/stop.c.o
 
 # target to build an object file
 util/stop.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/stop.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/stop.c.o
 .PHONY : util/stop.c.o
 
 util/stop.i: util/stop.c.i
@@ -1078,7 +1081,7 @@ util/stop.i: util/stop.c.i
 
 # target to preprocess a source file
 util/stop.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/stop.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/stop.c.i
 .PHONY : util/stop.c.i
 
 util/stop.s: util/stop.c.s
@@ -1086,7 +1089,7 @@ util/stop.s: util/stop.c.s
 
 # target to generate assembly for a file
 util/stop.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/stop.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/stop.c.s
 .PHONY : util/stop.c.s
 
 util/timer.o: util/timer.c.o
@@ -1094,7 +1097,7 @@ util/timer.o: util/timer.c.o
 
 # target to build an object file
 util/timer.c.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/timer.c.o
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/timer.c.o
 .PHONY : util/timer.c.o
 
 util/timer.i: util/timer.c.i
@@ -1102,7 +1105,7 @@ util/timer.i: util/timer.c.i
 
 # target to preprocess a source file
 util/timer.c.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/timer.c.i
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/timer.c.i
 .PHONY : util/timer.c.i
 
 util/timer.s: util/timer.c.s
@@ -1110,7 +1113,7 @@ util/timer.s: util/timer.c.s
 
 # target to generate assembly for a file
 util/timer.c.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/timer.c.s
+	cd .. && $(MAKE) -f nlopt/CMakeFiles/nlopt.dir/build.make nlopt/CMakeFiles/nlopt.dir/util/timer.c.s
 .PHONY : util/timer.c.s
 
 # Help Target
@@ -1257,6 +1260,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/stathis/Libraries/bayesopt && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd .. && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

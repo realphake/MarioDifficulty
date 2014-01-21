@@ -30,19 +30,22 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake.exe
 
 # The command to remove a file.
-RM = /usr/bin/cmake -E remove -f
+RM = /usr/bin/cmake.exe -E remove -f
+
+# Escaping for special characters.
+EQUALS = =
 
 # The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake.exe
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/stathis/Libraries/bayesopt
+CMAKE_SOURCE_DIR = /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/stathis/Libraries/bayesopt
+CMAKE_BINARY_DIR = /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -50,7 +53,7 @@ CMAKE_BINARY_DIR = /home/stathis/Libraries/bayesopt
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/bin/ccmake.exe -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -60,19 +63,19 @@ edit_cache/fast: edit_cache
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
+	/usr/bin/cmake.exe -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
+	/usr/bin/cmake.exe -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/usr/bin/cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
@@ -82,7 +85,7 @@ install/local/fast: install/local
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/usr/bin/cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
@@ -101,7 +104,7 @@ list_install_components/fast: list_install_components
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/bin/cmake.exe -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -110,14 +113,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/stathis/Libraries/bayesopt && $(CMAKE_COMMAND) -E cmake_progress_start /home/stathis/Libraries/bayesopt/CMakeFiles /home/stathis/Libraries/bayesopt/examples/CMakeFiles/progress.marks
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f CMakeFiles/Makefile2 examples/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/stathis/Libraries/bayesopt/CMakeFiles 0
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/examples/CMakeFiles/progress.marks
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f CMakeFiles/Makefile2 examples/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f CMakeFiles/Makefile2 examples/clean
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f CMakeFiles/Makefile2 examples/clean
 .PHONY : clean
 
 # The main clean target
@@ -126,22 +129,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f CMakeFiles/Makefile2 examples/preinstall
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f CMakeFiles/Makefile2 examples/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f CMakeFiles/Makefile2 examples/preinstall
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f CMakeFiles/Makefile2 examples/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/stathis/Libraries/bayesopt && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 examples/CMakeFiles/bo_branin.dir/rule:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f CMakeFiles/Makefile2 examples/CMakeFiles/bo_branin.dir/rule
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f CMakeFiles/Makefile2 examples/CMakeFiles/bo_branin.dir/rule
 .PHONY : examples/CMakeFiles/bo_branin.dir/rule
 
 # Convenience name for target.
@@ -150,12 +153,12 @@ bo_branin: examples/CMakeFiles/bo_branin.dir/rule
 
 # fast build rule for target.
 bo_branin/fast:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_branin.dir/build.make examples/CMakeFiles/bo_branin.dir/build
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_branin.dir/build.make examples/CMakeFiles/bo_branin.dir/build
 .PHONY : bo_branin/fast
 
 # Convenience name for target.
 examples/CMakeFiles/bo_cont.dir/rule:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f CMakeFiles/Makefile2 examples/CMakeFiles/bo_cont.dir/rule
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f CMakeFiles/Makefile2 examples/CMakeFiles/bo_cont.dir/rule
 .PHONY : examples/CMakeFiles/bo_cont.dir/rule
 
 # Convenience name for target.
@@ -164,12 +167,12 @@ bo_cont: examples/CMakeFiles/bo_cont.dir/rule
 
 # fast build rule for target.
 bo_cont/fast:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_cont.dir/build.make examples/CMakeFiles/bo_cont.dir/build
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_cont.dir/build.make examples/CMakeFiles/bo_cont.dir/build
 .PHONY : bo_cont/fast
 
 # Convenience name for target.
 examples/CMakeFiles/bo_disc.dir/rule:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f CMakeFiles/Makefile2 examples/CMakeFiles/bo_disc.dir/rule
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f CMakeFiles/Makefile2 examples/CMakeFiles/bo_disc.dir/rule
 .PHONY : examples/CMakeFiles/bo_disc.dir/rule
 
 # Convenience name for target.
@@ -178,12 +181,12 @@ bo_disc: examples/CMakeFiles/bo_disc.dir/rule
 
 # fast build rule for target.
 bo_disc/fast:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_disc.dir/build.make examples/CMakeFiles/bo_disc.dir/build
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_disc.dir/build.make examples/CMakeFiles/bo_disc.dir/build
 .PHONY : bo_disc/fast
 
 # Convenience name for target.
 examples/CMakeFiles/bo_oned.dir/rule:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f CMakeFiles/Makefile2 examples/CMakeFiles/bo_oned.dir/rule
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f CMakeFiles/Makefile2 examples/CMakeFiles/bo_oned.dir/rule
 .PHONY : examples/CMakeFiles/bo_oned.dir/rule
 
 # Convenience name for target.
@@ -192,7 +195,7 @@ bo_oned: examples/CMakeFiles/bo_oned.dir/rule
 
 # fast build rule for target.
 bo_oned/fast:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_oned.dir/build.make examples/CMakeFiles/bo_oned.dir/build
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_oned.dir/build.make examples/CMakeFiles/bo_oned.dir/build
 .PHONY : bo_oned/fast
 
 bo_branin.o: bo_branin.cpp.o
@@ -200,7 +203,7 @@ bo_branin.o: bo_branin.cpp.o
 
 # target to build an object file
 bo_branin.cpp.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_branin.dir/build.make examples/CMakeFiles/bo_branin.dir/bo_branin.cpp.o
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_branin.dir/build.make examples/CMakeFiles/bo_branin.dir/bo_branin.cpp.o
 .PHONY : bo_branin.cpp.o
 
 bo_branin.i: bo_branin.cpp.i
@@ -208,7 +211,7 @@ bo_branin.i: bo_branin.cpp.i
 
 # target to preprocess a source file
 bo_branin.cpp.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_branin.dir/build.make examples/CMakeFiles/bo_branin.dir/bo_branin.cpp.i
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_branin.dir/build.make examples/CMakeFiles/bo_branin.dir/bo_branin.cpp.i
 .PHONY : bo_branin.cpp.i
 
 bo_branin.s: bo_branin.cpp.s
@@ -216,7 +219,7 @@ bo_branin.s: bo_branin.cpp.s
 
 # target to generate assembly for a file
 bo_branin.cpp.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_branin.dir/build.make examples/CMakeFiles/bo_branin.dir/bo_branin.cpp.s
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_branin.dir/build.make examples/CMakeFiles/bo_branin.dir/bo_branin.cpp.s
 .PHONY : bo_branin.cpp.s
 
 bo_cont.o: bo_cont.cpp.o
@@ -224,7 +227,7 @@ bo_cont.o: bo_cont.cpp.o
 
 # target to build an object file
 bo_cont.cpp.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_cont.dir/build.make examples/CMakeFiles/bo_cont.dir/bo_cont.cpp.o
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_cont.dir/build.make examples/CMakeFiles/bo_cont.dir/bo_cont.cpp.o
 .PHONY : bo_cont.cpp.o
 
 bo_cont.i: bo_cont.cpp.i
@@ -232,7 +235,7 @@ bo_cont.i: bo_cont.cpp.i
 
 # target to preprocess a source file
 bo_cont.cpp.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_cont.dir/build.make examples/CMakeFiles/bo_cont.dir/bo_cont.cpp.i
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_cont.dir/build.make examples/CMakeFiles/bo_cont.dir/bo_cont.cpp.i
 .PHONY : bo_cont.cpp.i
 
 bo_cont.s: bo_cont.cpp.s
@@ -240,7 +243,7 @@ bo_cont.s: bo_cont.cpp.s
 
 # target to generate assembly for a file
 bo_cont.cpp.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_cont.dir/build.make examples/CMakeFiles/bo_cont.dir/bo_cont.cpp.s
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_cont.dir/build.make examples/CMakeFiles/bo_cont.dir/bo_cont.cpp.s
 .PHONY : bo_cont.cpp.s
 
 bo_disc.o: bo_disc.cpp.o
@@ -248,7 +251,7 @@ bo_disc.o: bo_disc.cpp.o
 
 # target to build an object file
 bo_disc.cpp.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_disc.dir/build.make examples/CMakeFiles/bo_disc.dir/bo_disc.cpp.o
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_disc.dir/build.make examples/CMakeFiles/bo_disc.dir/bo_disc.cpp.o
 .PHONY : bo_disc.cpp.o
 
 bo_disc.i: bo_disc.cpp.i
@@ -256,7 +259,7 @@ bo_disc.i: bo_disc.cpp.i
 
 # target to preprocess a source file
 bo_disc.cpp.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_disc.dir/build.make examples/CMakeFiles/bo_disc.dir/bo_disc.cpp.i
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_disc.dir/build.make examples/CMakeFiles/bo_disc.dir/bo_disc.cpp.i
 .PHONY : bo_disc.cpp.i
 
 bo_disc.s: bo_disc.cpp.s
@@ -264,7 +267,7 @@ bo_disc.s: bo_disc.cpp.s
 
 # target to generate assembly for a file
 bo_disc.cpp.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_disc.dir/build.make examples/CMakeFiles/bo_disc.dir/bo_disc.cpp.s
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_disc.dir/build.make examples/CMakeFiles/bo_disc.dir/bo_disc.cpp.s
 .PHONY : bo_disc.cpp.s
 
 bo_oned.o: bo_oned.cpp.o
@@ -272,7 +275,7 @@ bo_oned.o: bo_oned.cpp.o
 
 # target to build an object file
 bo_oned.cpp.o:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_oned.dir/build.make examples/CMakeFiles/bo_oned.dir/bo_oned.cpp.o
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_oned.dir/build.make examples/CMakeFiles/bo_oned.dir/bo_oned.cpp.o
 .PHONY : bo_oned.cpp.o
 
 bo_oned.i: bo_oned.cpp.i
@@ -280,7 +283,7 @@ bo_oned.i: bo_oned.cpp.i
 
 # target to preprocess a source file
 bo_oned.cpp.i:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_oned.dir/build.make examples/CMakeFiles/bo_oned.dir/bo_oned.cpp.i
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_oned.dir/build.make examples/CMakeFiles/bo_oned.dir/bo_oned.cpp.i
 .PHONY : bo_oned.cpp.i
 
 bo_oned.s: bo_oned.cpp.s
@@ -288,7 +291,7 @@ bo_oned.s: bo_oned.cpp.s
 
 # target to generate assembly for a file
 bo_oned.cpp.s:
-	cd /home/stathis/Libraries/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_oned.dir/build.make examples/CMakeFiles/bo_oned.dir/bo_oned.cpp.s
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(MAKE) -f examples/CMakeFiles/bo_oned.dir/build.make examples/CMakeFiles/bo_oned.dir/bo_oned.cpp.s
 .PHONY : bo_oned.cpp.s
 
 # Help Target
@@ -330,6 +333,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/stathis/Libraries/bayesopt && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

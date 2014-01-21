@@ -59,7 +59,7 @@
 #define HAVE_MEMORY_H
 
 /* Define to 1 if you have the `qsort_r' function. */
-#define HAVE_QSORT_R
+/* #undef HAVE_QSORT_R */
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H

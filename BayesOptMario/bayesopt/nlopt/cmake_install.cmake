@@ -1,4 +1,4 @@
-# Install script for directory: /home/stathis/Libraries/bayesopt/nlopt
+# Install script for directory: /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/nlopt
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -27,20 +27,21 @@ IF(NOT CMAKE_INSTALL_COMPONENT)
   ENDIF(COMPONENT)
 ENDIF(NOT CMAKE_INSTALL_COMPONENT)
 
-# Install shared libraries without execute permission?
-IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
-  SET(CMAKE_INSTALL_SO_NO_EXE "1")
-ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
-
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE FILE FILES
-    "/home/stathis/Libraries/bayesopt/nlopt/./api/nlopt.hpp"
-    "/home/stathis/Libraries/bayesopt/nlopt/./api/nlopt.f"
-    "/home/stathis/Libraries/bayesopt/nlopt/./api/nlopt.h"
+    "/cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/nlopt/./api/nlopt.hpp"
+    "/cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/nlopt/./api/nlopt.f"
+    "/cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/nlopt/./api/nlopt.h"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/stathis/Libraries/bayesopt/lib/libnlopt.a")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY OPTIONAL FILES "/cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/lib/libnlopt.dll.a")
+  IF(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libnlopt.dll.a" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libnlopt.dll.a")
+    IF(CMAKE_INSTALL_DO_STRIP)
+      EXECUTE_PROCESS(COMMAND "/usr/bin/strip.exe" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libnlopt.dll.a")
+    ENDIF(CMAKE_INSTALL_DO_STRIP)
+  ENDIF()
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 

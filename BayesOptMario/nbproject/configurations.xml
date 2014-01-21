@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>BayesOpt_IMPL.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -12,7 +13,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>main.cpp</itemPath>
+      <itemPath>BayesOpt_IMPL.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -39,7 +40,6 @@
           <incDir>
             <pElem>../../Libraries/bayesopt/include</pElem>
             <pElem>../../Libraries/bayesopt/utils</pElem>
-            <pElem>../../Libraries/zeromq-3.2.4/include</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -50,32 +50,40 @@
           <linkerLibItems>
             <linkerLibLibItem>bayesopt</linkerLibLibItem>
             <linkerLibLibItem>nlopt</linkerLibLibItem>
-            <linkerLibLibItem>zmq</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      <item path="BayesOpt_IMPL.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="BayesOpt_IMPL.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
-    <conf name="Release" type="1">
+    <conf name="Release" type="2">
       <toolsSet>
-        <compilerSet>default</compilerSet>
+        <compilerSet>MinGW|MinGW</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>
           <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>.</pElem>
+            <pElem>E:/Apps/Java/jdk1.7.0_45/include/win32</pElem>
+            <pElem>E:/Apps/Java/jdk1.7.0_45/include</pElem>
+          </incDir>
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <architecture>1</architecture>
           <incDir>
             <pElem>bayesopt/wrappers</pElem>
             <pElem>bayesopt/include</pElem>
             <pElem>bayesopt</pElem>
             <pElem>bayesopt/utils</pElem>
             <pElem>../bayesLibs/lib</pElem>
-            <pElem>../../zmq/zeromq-4.0.1/include</pElem>
+            <pElem>E:/Apps/boost_1_55_0</pElem>
+            <pElem>.</pElem>
           </incDir>
         </ccTool>
         <fortranCompilerTool>
@@ -92,14 +100,14 @@
             <pElem>lib</pElem>
           </linkerDynSerch>
           <linkerLibItems>
-            <linkerLibLibItem>bayesopt</linkerLibLibItem>
             <linkerLibLibItem>nlopt</linkerLibLibItem>
-            <linkerLibLibItem>zmq</linkerLibLibItem>
-            <linkerLibLibItem>zmq</linkerLibLibItem>
+            <linkerLibLibItem>bayesopt</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      <item path="BayesOpt_IMPL.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="BayesOpt_IMPL.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

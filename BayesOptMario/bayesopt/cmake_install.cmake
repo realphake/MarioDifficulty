@@ -1,4 +1,4 @@
-# Install script for directory: /home/stathis/Libraries/bayesopt
+# Install script for directory: /cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -27,26 +27,27 @@ IF(NOT CMAKE_INSTALL_COMPONENT)
   ENDIF(COMPONENT)
 ENDIF(NOT CMAKE_INSTALL_COMPONENT)
 
-# Install shared libraries without execute permission?
-IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
-  SET(CMAKE_INSTALL_SO_NO_EXE "1")
-ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
-
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE FILE FILES
-    "/home/stathis/Libraries/bayesopt/./include/bayesoptcont.hpp"
-    "/home/stathis/Libraries/bayesopt/./include/bayesoptdisc.hpp"
-    "/home/stathis/Libraries/bayesopt/./wrappers/bayesoptwpr.h"
+    "/cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/./include/bayesoptcont.hpp"
+    "/cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/./include/bayesoptdisc.hpp"
+    "/cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/./wrappers/bayesoptwpr.h"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/stathis/Libraries/bayesopt/lib/libbayesopt.a")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY OPTIONAL FILES "/cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/lib/libbayesopt.dll.a")
+  IF(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libbayesopt.dll.a" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libbayesopt.dll.a")
+    IF(CMAKE_INSTALL_DO_STRIP)
+      EXECUTE_PROCESS(COMMAND "/usr/bin/strip.exe" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libbayesopt.dll.a")
+    ENDIF(CMAKE_INSTALL_DO_STRIP)
+  ENDIF()
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  INCLUDE("/home/stathis/Libraries/bayesopt/examples/cmake_install.cmake")
+  INCLUDE("/cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/nlopt/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 
@@ -56,7 +57,7 @@ ELSE(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 ENDIF(CMAKE_INSTALL_COMPONENT)
 
-FILE(WRITE "/home/stathis/Libraries/bayesopt/${CMAKE_INSTALL_MANIFEST}" "")
+FILE(WRITE "/cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/${CMAKE_INSTALL_MANIFEST}" "")
 FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  FILE(APPEND "/home/stathis/Libraries/bayesopt/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  FILE(APPEND "/cygdrive/f/gitrepos/MarioDifficulty/BayesOptMario/bayesopt/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 ENDFOREACH(file)
