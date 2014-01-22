@@ -67,7 +67,7 @@ public class Architect {
                 params_champion = new paramsPCG();
                     
                 // Socket to talk to server
-                init_socket();
+                //init_socket();
         }
         
         
@@ -119,7 +119,7 @@ public class Architect {
             //System.out.println(Reward);
             params_new.newSeed();
             //params_new = hillClimb();
-            params_new = getBayesOptNextStep();
+            //params_new = getBayesOptNextStep();
             
             //System.out.println(params_new.ODDS_STRAIGHT + " | " + params_new.ODDS_HILL_STRAIGHT + " | " + params_new.ODDS_TUBES + " | " + params_new.ODDS_JUMP + " | " + params_new.ODDS_CANNONS + " | " + params_new.difficulty + " | ");
 

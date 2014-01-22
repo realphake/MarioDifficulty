@@ -407,25 +407,32 @@ public class DifficultyRecorder
         JLabel labelChallenge = new JLabel("Experienced challenge:");
         
         // Hashtables are obsolete collections but it won't accept a HashMap...
-        Hashtable labelTable = new Hashtable();
-        labelTable.put(new Integer(1), new JLabel("Low") );
-        labelTable.put(new Integer(4), new JLabel("Medium") );
-        labelTable.put(new Integer(7), new JLabel("High") );
+        Hashtable labelTableEandF = new Hashtable();
+        labelTableEandF.put(new Integer(1), new JLabel("None") );
+        labelTableEandF.put(new Integer(3), new JLabel("Some") );
+        labelTableEandF.put(new Integer(5), new JLabel("A Lot") );
         
-        final JSlider sliderEngagement = new JSlider(1, 7);
+        Hashtable labelTableChallenge = new Hashtable();
+        labelTableChallenge.put(new Integer(1), new JLabel("Too Low") );
+        labelTableChallenge.put(new Integer(3), new JLabel("Just Right") );
+        labelTableChallenge.put(new Integer(5), new JLabel("Too High") );
+        
+        
+        
+        final JSlider sliderEngagement = new JSlider(1, 5);
         sliderEngagement.setMajorTickSpacing(1);
         sliderEngagement.setPaintTicks(true);
-        sliderEngagement.setLabelTable(labelTable);
+        sliderEngagement.setLabelTable(labelTableEandF);
         sliderEngagement.setPaintLabels(true);
-        final JSlider sliderFrustration = new JSlider(1, 7);
+        final JSlider sliderFrustration = new JSlider(1, 5);
         sliderFrustration.setMajorTickSpacing(1);
         sliderFrustration.setPaintTicks(true);
-        sliderFrustration.setLabelTable(labelTable);
+        sliderFrustration.setLabelTable(labelTableEandF);
         sliderFrustration.setPaintLabels(true);
-        final JSlider sliderChallenge = new JSlider(1, 7);
+        final JSlider sliderChallenge = new JSlider(1, 5);
         sliderChallenge.setMajorTickSpacing(1);
         sliderChallenge.setPaintTicks(true);
-        sliderChallenge.setLabelTable(labelTable);
+        sliderChallenge.setLabelTable(labelTableChallenge);
         sliderChallenge.setPaintLabels(true);
         
         GridBagConstraints c = new GridBagConstraints();

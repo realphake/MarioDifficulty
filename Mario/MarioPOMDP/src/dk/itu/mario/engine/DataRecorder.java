@@ -1027,9 +1027,10 @@ public class DataRecorder {
                 // gap task
                 //float custom_task = m.ODDS_JUMP/10;
                 
-                float custom_task = level.getCustomRewards("coin");
+                // Difficulty estimation Here -DE1
+                // float custom_task = level.getCustomRewards("coin");
                 
-                POMDPmetrics += (int)custom_task + ", "; //currently random for testing purposes - should be input with actual data in training process
+                POMDPmetrics += segment_diff + ", "; //currently random for testing purposes - should be input with actual data in training process
                 
                 //Add date + time stamp
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
@@ -1067,6 +1068,7 @@ public class DataRecorder {
 	private void writePOMDP(String detailedLogName) {
             try
             {
+                //System.out.println(detailedLogName);
                 String filename= "../../MAINOOR/MarioPOMDP-testinstances.arff";
                 FileWriter fw = new FileWriter(filename,true); //the true will append the new data
                 fw.write(detailedLogName); //appends the string to the file
