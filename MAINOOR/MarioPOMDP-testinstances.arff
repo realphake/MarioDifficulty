@@ -61,9 +61,9 @@
 @ATTRIBUTE playValue-5 NUMERIC
 
 %OLD-@ATTRIBUTE appropriateness {0,1}
-@ATTRIBUTE label-engagement {1,2,3,4,5}
-@ATTRIBUTE label-frustration {1,2,3,4,5}
-@ATTRIBUTE label-challenge {1,2,3,4,5}
+@ATTRIBUTE label-engagement {1,2,3,4,5,6,7}
+@ATTRIBUTE label-frustration {1,2,3,4,5,6,7}
+@ATTRIBUTE label-challenge NUMERIC
 
 @ATTRIBUTE timestamp STRING
 
