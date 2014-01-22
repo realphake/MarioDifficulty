@@ -37,7 +37,7 @@ public class paramsPCG {
     
     public  paramsPCG(){
         
-        width = 50;
+        width = 60;
         height = 15;
         
         newSeed();
