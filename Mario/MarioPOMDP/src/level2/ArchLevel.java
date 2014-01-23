@@ -53,6 +53,11 @@ public class ArchLevel extends Level {
         this(m.width, m.height);
         this.createArchLevel(m);
     }
+    
+    public int sectionTypeAtCoordinate( int xCoord ) {
+        return 0; // WHAAAT
+        // return -1 if unknown
+    }
 
     public float getCustomRewards(String type) {
         float reward = 0;
@@ -60,14 +65,14 @@ public class ArchLevel extends Level {
             reward = 5;
         }
         if ("turtle".equals(type)) {
-            reward = 6 * ((float) this.MAX_TURTLES / 10) + 1;
+            reward = 6 * ((float) MAX_TURTLES / 10) + 1;
         }
 
         if ("enemy".equals(type)) {
             reward = 6 * ((float) this.ENEMIES / 10) + 1;
         }
         if ("jump".equals(type)) {
-            reward = 6 * ((float) this.JUMP / 10) + 1;
+            reward = 6 * ((float) JUMP / 10) + 1;
         }
 
         // System.out.println("type is" + type + " and reward is " + reward);
@@ -79,7 +84,7 @@ public class ArchLevel extends Level {
         setGlobalVariablesTo(m);
         fixOddsArrayAndCalculateTotal();
 
-        Section[] sectionBlueprints = createBlueprints(0.1);
+        Section[] sectionBlueprints = createBlueprints();
         System.out.println(sectionArrayToString(sectionBlueprints));
         designLevelSection(sectionBlueprints);
 
@@ -91,16 +96,13 @@ public class ArchLevel extends Level {
         fixWalls();
     }
 
-    private Section[] createBlueprints(double epsilon) {
+    private Section[] createBlueprints() {
         int[] levelSeed = odds;
-        int availableWidth = width - 10;
-        int scale = availableWidth / totalOdds;
         ArrayList<Section> blueprintTemp = new ArrayList<>();
-        for (int i = 0; i < levelSeed.length; i++) {
-            int length = levelSeed[i] * scale;
-            if (length != 0) {
-                blueprintTemp.add(new Section(i, length));
-            }
+        for (int i = 0; i < levelSeed.length - 1; i++) {
+            int difficult = levelSeed[i];
+            blueprintTemp.add(new Section(i, 10, difficult));
+
         }
 
         Section[] blueprint = shuffleBlueprints(listToArray(blueprintTemp));
@@ -144,10 +146,10 @@ public class ArchLevel extends Level {
     private void designLevelSection(Section[] blueprints) {
         int lengthSoFar = 1;
         lengthSoFar += buildStraight(1, width, true, 5); // Beginning section
-        for (int i = 0; i < blueprints.length; i++) {
+        for (Section blueprint : blueprints) {
             int lengthRemaining = width - lengthSoFar;
             lengthSoFar += buildZone(lengthSoFar, lengthRemaining,
-                    blueprints[i].type, blueprints[i].length);
+                    blueprint.type, blueprint.length, blueprint.difficulty);
         }
         buildEndSection(lengthSoFar);
     }
@@ -200,8 +202,7 @@ public class ArchLevel extends Level {
     }
 
     private int buildZone(int x, int maxLength,
-            int blockType, int length) {
-
+            int blockType, int length, int diffic) {
         switch (blockType) {
             case STRAIGHT:
                 return buildStraight(x, maxLength, false, length); // Length = 1d10+2
@@ -211,7 +212,7 @@ public class ArchLevel extends Level {
                 return buildTubes(x, maxLength, length); // Length = 5
             case JUMP: {
                 if (gaps < Constraints.gaps) {
-                    return buildJump(x, maxLength, length); // Length = 1d4+6
+                    return buildJump(x, maxLength, length, diffic);
                 } else {
                     odds[JUMP]++;
                     totalOdds++;
@@ -219,18 +220,19 @@ public class ArchLevel extends Level {
                 }
             }
             case CANNONS:
-                return buildCannons(x, maxLength, length); // Length = 5
+                return buildCannons(x, maxLength, length, diffic);
         }
         return 0;
     }
 
-    private int buildJump(int xo, int maxLength, int desiredLength) {
+    private int buildJump(int xo, int maxLength, int desiredLength, int diffic) {
         gaps++;
         int length = desiredLength;
         if (length > maxLength) {
             length = maxLength;
         }
-        int jumpLength = random.nextInt(GAP_SIZE) + 2;
+
+        int jumpLength = diffic + 1; // jump length = 1 to 6
         if (jumpLength > length) {
             jumpLength = length;
         }
@@ -270,16 +272,32 @@ public class ArchLevel extends Level {
         return length;
     }
 
-    private int buildCannons(int xo, int maxLength, int desiredLength) {
+    private int buildCannons(int xo, int maxLength,
+            int desiredLength, int diffic) {
         if (desiredLength > maxLength) {
             desiredLength = maxLength;
         }
-
         int floor = height - 1 - random.nextInt(4);
-        int xCannon = xo + 1 + random.nextInt(4);
+        
+        int spaceBetween = 6 - diffic;
+        int xCannon = xo + spaceBetween - 1;
+        if (diffic == 5) {
+            xCannon = xo;
+            spaceBetween = 2;
+        }
+        if (diffic == 0) {
+            xCannon = xo + 10;
+        }
+        putTheseCannonsInLevel(xo, desiredLength, xCannon, spaceBetween, floor);
+
+        return desiredLength;
+    }
+
+    private void putTheseCannonsInLevel(int xo, int desiredLength, int xCannon, 
+            int spaceBetween, int floor) {
         for (int x = xo; x < xo + desiredLength; x++) {
             if (x > xCannon) {
-                xCannon += 2 + random.nextInt(4);
+                xCannon += spaceBetween;
             }
             if (xCannon == xo + desiredLength - 1) {
                 xCannon += 10;
@@ -302,8 +320,6 @@ public class ArchLevel extends Level {
                 }
             }
         }
-
-        return desiredLength;
     }
 
     private int buildHillStraight(int xo, int maxLength, int desiredLength) {
@@ -692,15 +708,17 @@ public class ArchLevel extends Level {
 
         int type;
         int length;
+        int difficulty;
 
-        public Section(int t, int l) {
+        public Section(int t, int l, int d) {
             type = t;
             length = l;
+            difficulty = d;
         }
 
         @Override
         public String toString() {
-            return "" + blockToString(type) + "(" + length + ")";
+            return "" + blockToString(type) + "(" + length +","+difficulty+ ")";
         }
 
         private String blockToString(int type) {

@@ -57,7 +57,6 @@ public class Architect {
         public int type;
         public double[] reward_weights;
         public double reward_label;
-                
 	
 	public Architect()
 	{
