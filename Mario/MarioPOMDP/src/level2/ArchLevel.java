@@ -53,6 +53,11 @@ public class ArchLevel extends Level {
         this(m.width, m.height);
         this.createArchLevel(m);
     }
+    
+    public int sectionTypeAtCoordinate( int xCoord ) {
+        return 0; // WHAAAT
+        // return -1 if unknown
+    }
 
     public float getCustomRewards(String type) {
         float reward = 0;
