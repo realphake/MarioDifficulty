@@ -146,6 +146,7 @@ public class MarioComponent extends JComponent implements Runnable, KeyListener,
     public void pause() {
         System.out.println("Pausing and reseting Key presses.");
         resetKeys();
+		paused = true;
     }
 
     public void resume() {
