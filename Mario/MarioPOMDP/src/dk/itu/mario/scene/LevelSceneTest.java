@@ -589,8 +589,16 @@ public class LevelSceneTest extends LevelScene {
             ;////System.out.println("-------- Swapping level segment --------");
             ;////System.out.println("----------------------------------------");
 
-                        //Write to log + get observation string for calculating appropriateness
-            //String observation_str = "32, 32, 24, 0, 0, 28, 2, 19, 5, 23, 30, 1, 5, 5, 5, 1, 1, 1, 0, 0, 4, 23, 0, 0, 2, 16.0, 2.0, 1.0, 0.0, 1.0, 0.0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1";
+            
+            
+            // Estimate difficulty offset -GO (Gradient Optimization of any type)
+            // Determine Explore/Exploit -EE
+            // IF train:
+            //      explore with a certain pattern, maybe startpoint and a pattern based on that
+            // IF online:
+            //      Explore based on epsilon
+            //      Exploit otherwise
+
             // Difficulty Popup here -DP1
             System.out.println("pausing");
             arch.Observations = recorder.fillGamePlayMetrics(getUserChallenge(), verbose); //write metrics at swapping to new level segment

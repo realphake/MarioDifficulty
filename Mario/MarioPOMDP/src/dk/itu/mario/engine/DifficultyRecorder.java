@@ -471,6 +471,34 @@ public class DifficultyRecorder
         c.insets = new Insets(50,215,0,0);
         dc.add(buttonSubmit, c);
         
+        /* //Add a hotkey for submit
+        // *****************************************************
+        ActionMap actionMap = new ActionMapUIResource();
+        actionMap.put("action_save", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Save action performed.");
+            }
+        });
+        actionMap.put("action_exit", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Exit action performed.");
+            }
+        });
+
+        InputMap keyMap = new ComponentInputMap(p);
+        keyMap.put(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S,
+                java.awt.Event.CTRL_MASK), "action_save");
+        keyMap.put(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q,
+                java.awt.Event.CTRL_MASK), "action_exit");
+        SwingUtilities.replaceUIActionMap(p, actionMap);
+        SwingUtilities.replaceUIInputMap(p, JComponent.WHEN_IN_FOCUSED_WINDOW,
+                keyMap);
+        // *****************************************************
+        */
+        
+        
         // Action when the button 'Submit' is clicked 
         buttonSubmit.addActionListener(new ActionListener()
         {
