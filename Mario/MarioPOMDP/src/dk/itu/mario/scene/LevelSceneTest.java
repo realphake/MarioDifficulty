@@ -74,6 +74,8 @@ public class LevelSceneTest extends LevelScene {
     public RandomForest RF = new RandomForest();
     public Instances RF_trainingInstances;
     public Instances RF_testInstances;
+    
+    public boolean training = true;
 
     public int levelWidth = 50;
 
@@ -91,11 +93,10 @@ public class LevelSceneTest extends LevelScene {
             //System.exit(0);
         }
 
-		//System.out.println("");
         //System.out.println("----------------------------------------");
         //System.out.println("---------- Initialising game -----------");
         //System.out.println("----------------------------------------");
-		//valueArrayList.add(startVector);//add start vector for gaussian
+
         //Track planned difficuly levels for each level segment
         currentLevelSegment = 0;
         nextSegmentAlreadyGenerated = false;
@@ -111,6 +112,7 @@ public class LevelSceneTest extends LevelScene {
         //System.out.println("");
         //System.out.println("Initialising player model with training instances...");                       
         //Loop through training instances
+        /*
         for (int i = 0; i < RF_trainingInstances.numInstances(); i++) {
             //Calculate reward for selected instance, add reward to appropriate player models, and update display of average accumulate reward
             Instance trainingInstance = selectTrainingInstance(i);
@@ -121,6 +123,7 @@ public class LevelSceneTest extends LevelScene {
             updatePlayerModel();
             //displayReceivedRewards();
         }
+        */
 
 		//m.DIFFICULTY = arch.message.DIFFICULTY*3+1; //arch.message.DIFFICULTY is initialised with 1 in Architect\state
         //m.DIFFICULTY = setAction(); //set action using Softmax
@@ -552,7 +555,7 @@ public class LevelSceneTest extends LevelScene {
 			//System.out.println("-newchunck called");
 
             //Somehow update the next levels parameters(ex. hill climbing)
-            arch.update();
+            arch.update(training);
 
             //Note: Using other constructor of ArchLevel, using recorder and valueList as inputs
             level2 = new ArchLevel(arch.params_new);
@@ -596,15 +599,6 @@ public class LevelSceneTest extends LevelScene {
             ;////System.out.println("-------- Swapping level segment --------");
             ;////System.out.println("----------------------------------------");
 
-            
-            
-            // Estimate difficulty offset -GO (Gradient Optimization of any type)
-            // Determine Explore/Exploit -EE
-            // IF train:
-            //      explore with a certain pattern, maybe startpoint and a pattern based on that
-            // IF online:
-            //      Explore based on epsilon
-            //      Exploit otherwise
 
             // Difficulty Popup here -DP1
             System.out.println("pausing");
@@ -621,20 +615,16 @@ public class LevelSceneTest extends LevelScene {
             plannedDifficultyLevels.add(levelDifficulty); //more efficient code as if statement has become redundant
             recorder.levelScene.resetTime();
             
-            // here u are in level 3
             recorder.reset();
             recorder.startTime();
-            recorder.level = level3;
 
             for (int i = 0; i < level.width; i++) {
                 if (i < level2.width) {
                     level2.map[i] = level.map[i];
-                    // level2.data[i] = level.data[i];
                     level2.spriteTemplates[i] = level.spriteTemplates[i];
 
                 } else {
                     level3.map[k] = level.map[i];
-                    // level3.data[k] = level.data[i];
                     level3.spriteTemplates[k] = level.spriteTemplates[i];
                     k++;
                 }
@@ -642,26 +632,22 @@ public class LevelSceneTest extends LevelScene {
             }
 
             newchunk();
+            recorder.level = level2;
             fixborders();
             k = 0;
 
             for (int i = 0; i < level.width; i++) {
                 if (i < level3.width) {
-                    level.map[i] = level3.map[i];
-                    // level.data[i] = level3.data[i];
-
+                    level.map[i] = level3.map[i];;
                     level.spriteTemplates[i] = level3.spriteTemplates[i];
-
                 } else {
                     level.map[i] = level2.map[k];
-                    // level.data[i] = level2.data[k];
                     level.spriteTemplates[i] = level2.spriteTemplates[k];
                     k++;
                 }
 
             }
             for (int i = 0; i < sprites.size(); i++) {
-                //if(sprites.get(i).x < level2.width)sprites.get(i).release();
                 sprites.get(i).x = sprites.get(i).x - level2.width * 16;
             }
             try {

@@ -31,6 +31,7 @@ public class ArchLevel extends Level {
     private static final int TUBES = 2;
     private static final int JUMP = 3;
     private static final int CANNONS = 4;
+    private static final int GAPS = 5;
 
     private static int MAX_ENEMIES;
     private static int MAX_COINS = 20;
@@ -193,6 +194,7 @@ public class ArchLevel extends Level {
         odds[TUBES] = (int) m.ODDS_TUBES;
         odds[JUMP] = (int) m.ODDS_JUMP;
         odds[CANNONS] = (int) m.ODDS_CANNONS;
+        odds[GAPS] = (int) m.GAP_SIZE;
         difficulty = m.difficulty;
 
         //Upper Limits
@@ -694,7 +696,7 @@ public class ArchLevel extends Level {
         clone.ENEMIES = ENEMIES;
         clone.COINS = COINS;
         
-        clone.odds = odds;
+        clone.odds = odds.clone();
 
         return clone;
 

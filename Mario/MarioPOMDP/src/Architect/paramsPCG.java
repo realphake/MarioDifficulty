@@ -42,10 +42,10 @@ public class paramsPCG {
         
         newSeed();
         
-        ODDS_STRAIGHT = 5  ; //(1-5)
-        ODDS_HILL_STRAIGHT = 5;//(1-5)
-        ODDS_TUBES = 5 ;//(1-5)
-        ODDS_JUMP = 1;//(1-5)
+        ODDS_STRAIGHT = 2  ; //(1-5)
+        ODDS_HILL_STRAIGHT = 2;//(1-5)
+        ODDS_TUBES = 2 ;//(1-5)
+        ODDS_JUMP = 2;//(1-5)
         ODDS_CANNONS = 2;//(1-5)
         difficulty = 2;//(1-5)
         
@@ -86,6 +86,22 @@ public class paramsPCG {
         return c;
     }
     
+    public void randomizeParameters(){
+        ODDS_STRAIGHT = randomGenerator.nextInt(5)+1; //(1-5)
+        ODDS_HILL_STRAIGHT = randomGenerator.nextInt(5)+1;//(1-5)
+        ODDS_TUBES = randomGenerator.nextInt(5)+1;//(1-5)
+        ODDS_JUMP = randomGenerator.nextInt(5)+1;//(1-5)
+        ODDS_CANNONS = randomGenerator.nextInt(5)+1;//(1-5)
+        GAP_SIZE = randomGenerator.nextInt(4)+2;//(2-5)
+    }
     
+    public void incrementAll(){
+        ODDS_STRAIGHT = ODDS_STRAIGHT%5+1; //(1-5)
+        ODDS_HILL_STRAIGHT = ODDS_HILL_STRAIGHT%5+1;//(1-5)
+        ODDS_TUBES = ODDS_TUBES%5+1;//(1-5)
+        ODDS_JUMP = ODDS_JUMP%5+1;//(1-5)
+        ODDS_CANNONS = ODDS_CANNONS%5+1;//(1-5)
+        GAP_SIZE = (GAP_SIZE -1)%4+2;//(2-5)
+    }
     
 }
