@@ -104,4 +104,69 @@ public class paramsPCG {
         GAP_SIZE = (GAP_SIZE -1)%4+2;//(2-5)
     }
     
+    public void clampValues(){
+        if (ODDS_STRAIGHT > 5){
+            ODDS_STRAIGHT = 5; //(1-5)
+        } else if (ODDS_STRAIGHT < 1){
+            ODDS_STRAIGHT = 1; //(1-5)
+        }
+        if (ODDS_HILL_STRAIGHT > 5){
+            ODDS_HILL_STRAIGHT = 5; //(1-5)
+        } else if (ODDS_HILL_STRAIGHT < 1){
+            ODDS_HILL_STRAIGHT = 1; //(1-5)
+        }
+        if (ODDS_TUBES > 5){
+            ODDS_TUBES = 5; //(1-5)
+        } else if (ODDS_TUBES < 1){
+            ODDS_TUBES = 1; //(1-5)
+        }
+        if (ODDS_JUMP > 5){
+            ODDS_JUMP = 5; //(1-5)
+        } else if (ODDS_JUMP < 1){
+            ODDS_JUMP = 1; //(1-5)
+        }
+        if (GAP_SIZE > 5){
+            GAP_SIZE = 5; //(2-5)
+        } else if (GAP_SIZE < 2){
+            GAP_SIZE = 2; //(2-5)
+        }
+    }
+    
+    public int[] getSettingsInt(){
+        return new int[]{   ODDS_STRAIGHT,
+                            ODDS_HILL_STRAIGHT,
+                            ODDS_TUBES,
+                            ODDS_JUMP,
+                            ODDS_CANNONS,
+                            GAP_SIZE};
+    }
+    
+    public double[] getSettingsDouble(){
+        return new double[]{ODDS_STRAIGHT,
+                            ODDS_HILL_STRAIGHT,
+                            ODDS_TUBES,
+                            ODDS_JUMP,
+                            ODDS_CANNONS,
+                            GAP_SIZE};
+    }
+    
+    public void setSettingsInt(int[] settings){
+        ODDS_STRAIGHT = settings[0];
+        ODDS_HILL_STRAIGHT = settings[1];
+        ODDS_TUBES = settings[2];
+        ODDS_JUMP = settings[3];
+        ODDS_CANNONS = settings[4];
+        GAP_SIZE = settings[5];
+        clampValues();
+    }
+    
+    public void adjustSettingsInt(int[] settings){
+        ODDS_STRAIGHT += settings[0];
+        ODDS_HILL_STRAIGHT += settings[1];
+        ODDS_TUBES += settings[2];
+        ODDS_JUMP += settings[3];
+        ODDS_CANNONS += settings[4];
+        GAP_SIZE += settings[5];
+        clampValues();
+    }
 }

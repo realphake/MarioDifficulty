@@ -4,6 +4,7 @@
  */
 package Architect;
 
+import Statistics.WekaFunctions;
 import dk.itu.mario.MarioInterface.GamePlay;
 import java.util.ArrayList;
 import java.util.Random;
@@ -21,7 +22,7 @@ public class Architect {
     public double Reward_old;
 
     //Observations
-    public GamePlay Observations;
+    public GamePlay Obs;
 
     //hill climbing parameters
     public int re = 50; //Probability the champion is re-evaluated
@@ -38,7 +39,10 @@ public class Architect {
     public double stepSize;
     public double alpha = 0.8;
     
+    // Hill climbing Linear Regression
     public int chunksGenerated = 0;
+    public int epsilon = 50;
+    public double difficultyAdjustment;
 
     //level generation parameters
     public ArrayList<paramsPCG> paramHistory;
@@ -49,6 +53,7 @@ public class Architect {
     public int first = 1;
     //helpers
     Random randomGenerator = new Random();
+    WekaFunctions sFunctions = new WekaFunctions();
 
     ZMQ.Context context = ZMQ.context(1);
     ZMQ.Socket socket = context.socket(ZMQ.REP);
@@ -80,6 +85,117 @@ public class Architect {
         return p;
 
     }
+    
+    public int[] changeParamsBasedOnStats( double currentDiffEstimate ){
+        System.out.println("Estimate difficulty and change parameters");
+        // Get ready for a lot of ugly if statements
+        // experienced = 0.1    Guess based on personal experience
+        // average = 0.3        Guess based on personal experience
+        // We estimate how well the player goes past the level
+        // if totallefttime is very small the player is considered experienced
+        double diffEstimate = 0;
+        int[] paramchanges = new int[6];
+        double[] lrRatio = new double[5];
+        double[] runPerc = new double[5];
+        int[] deaths = new int[5];
+        lrRatio[0] = (double)Obs.totalLeftTimeStraight/
+                                Obs.totalRightTimeStraight;
+        lrRatio[1] = (double)Obs.totalLeftTimeHills/
+                                Obs.totalRightTimeHills;
+        lrRatio[2] = (double)Obs.totalLeftTimeTubes/
+                                Obs.totalRightTimeTubes;
+        lrRatio[3] = (double)Obs.totalLeftTimeJump/
+                                Obs.totalRightTimeJump;
+        lrRatio[4] = (double)Obs.totalLeftTimeCannons/
+                                Obs.totalRightTimeCannons;
+        // We estimate willingness of risk taking by runtime percentage
+        // estimate of strong risk taking is 0.8 as cutoff
+        runPerc[0]  = (double)Obs.totalRunTimeStraight/
+                                (Obs.totalLeftTimeStraight+
+                                Obs.totalRightTimeStraight);
+        runPerc[1]  = (double)Obs.totalRunTimeHills/
+                                (Obs.totalLeftTimeHills+
+                                Obs.totalRightTimeHills);
+        runPerc[2]  = (double)Obs.totalRunTimeTubes/
+                                (Obs.totalLeftTimeTubes+
+                                Obs.totalRightTimeTubes);
+        runPerc[3]  = (double)Obs.totalRunTimeJump/
+                                (Obs.totalLeftTimeJump+
+                                Obs.totalRightTimeJump);
+        runPerc[4]  = (double)Obs.totalRunTimeCannons/
+                                (Obs.totalLeftTimeCannons+
+                                Obs.totalRightTimeCannons);
+        // Deaths per section
+        deaths[0] = Obs.timesOfDeathByArmoredTurtle+
+                    Obs.timesOfDeathByGoomba+
+                    Obs.timesOfDeathByGreenTurtle+
+                    Obs.timesOfDeathByRedTurtle;
+        deaths[1] = deaths[0];
+        deaths[2] = Obs.timesOfDeathByJumpFlower+Obs.timesOfDeathByChompFlower;
+        deaths[3] = (int)Obs.timesOfDeathByFallingIntoGap;
+        deaths[4] = Obs.timesOfDeathByCannonBall;
+        
+        // Dying to one type with low risk taking should result in a decrease
+        // of that parameter
+        // while a lrRatio of 0.1 or less should increase by 2. except when the player was small a lot
+        // and a lrRatio of 0.1-0.3 should increase by 1. except when the player was small a lot
+        // lrRatio of > 0.3 and low running perc and death decreases the difficulty by a lot
+        for (int i = 0;i<5;i++){
+            if (lrRatio[i] < 0.1){
+                if(runPerc[i] > 0.8 && deaths[i] == 0) paramchanges[i] = 2;
+                else if (deaths[i] == 0) paramchanges[i] = 1;
+                else if (deaths[i] > 0) paramchanges[i] = -1;
+            } else if (lrRatio[i] < 0.3){
+                if(runPerc[i] > 0.8 && deaths[i] == 0) paramchanges[i] = 1;
+                else if (deaths[i] > 0) paramchanges[i] = -1;
+                else paramchanges[i] = 0;
+            } else {
+                if(runPerc[i] > 0.8 && deaths[i] == 0) paramchanges[i] = 1;
+                else if (deaths[i] == 0) paramchanges[i] = 0;
+                else if (runPerc[i] > 0.8 && deaths[i] > 0) paramchanges[i] = -1;
+                else if (deaths[i] > 0) paramchanges[i] = -2;
+            }
+            diffEstimate += 0.25 * paramchanges[i];
+        }
+        System.out.println("Parameter changes = "+paramchanges.toString());
+        difficultyAdjustment = (diffEstimate + currentDiffEstimate) * 0.5; //update belief for difficulty adjustment
+        return paramchanges;
+    }
+    
+    public int[] findBestEstimate(){
+        System.out.println("Finding best estimate for adjustment "+difficultyAdjustment+".");
+        double[] bestResult = new double[6];
+        double[] currentSettings = params_new.getSettingsDouble();
+        double target = 3+difficultyAdjustment;
+        double minDifference = 10;
+        double diff;
+        
+        // Basic limited grid search for now
+        // should have some sort of gradient optimization for larger areas
+        // or a direct lookup from weka (don't know if it exists)
+        for (int i = 0;i<(int)(difficultyAdjustment*6);i++){
+            if (difficultyAdjustment > 0 && currentSettings[i%6] != 5){
+                //positive difficultyAdjustment
+                currentSettings[i%6]+= 1;
+            } else if (difficultyAdjustment < 0 && currentSettings[i%6] != 1){
+                // negative difficultyAdjustment
+                currentSettings[i%6]-= 1;
+            }
+            // get the predicted values for difficulty
+            diff = Math.abs(target - sFunctions.predict(currentSettings));
+            if(diff < minDifference){
+                minDifference = diff;
+                bestResult = currentSettings.clone();
+            }
+        }
+        
+        return new int[]{   (int)bestResult[0],
+                            (int)bestResult[1],
+                            (int)bestResult[2],
+                            (int)bestResult[3],
+                            (int)bestResult[4],
+                            (int)bestResult[5]};
+    }
 
     public void update(boolean training) {
         
@@ -87,18 +203,30 @@ public class Architect {
         // Determine Explore/Exploit -EE
         // IF train:
         //      explore with a certain pattern, maybe startpoint and a pattern based on that
+        params_old = params_new.copy();
         if(training){
-            params_old = params_new.copy();
             if(chunksGenerated % 5 == 0){
                 params_new.randomizeParameters();
             } else {
                 params_new.incrementAll();
             }
-            chunksGenerated++;
+        } else {
+        // IF online: epsilon greedy
+            // Explore based on epsilon
+            if ((difficultyAdjustment >= 1 || difficultyAdjustment <= -1) 
+                    && randomGenerator.nextInt(100) < epsilon){
+                params_new.setSettingsInt(findBestEstimate());
+            } else {
+            //Exploit otherwise   
+                // increment or decrement based on stats from Observations
+                params_new.adjustSettingsInt(changeParamsBasedOnStats(difficultyAdjustment));
+                // or
+                // take the champion params
+            }
         }
-        // IF online:
-        //      Explore based on epsilon
-        //      Exploit otherwise            
+        chunksGenerated++;
+        
+                 
 
             // Update the reward given the latest observations
         // note : the observations get updated externaly in the LevelSceneTest Class at every swap()
@@ -242,8 +370,8 @@ public class Architect {
     }
 
     public void heuristic_update() {
-        System.out.println(Observations.jumpsNumber);
-        params_new.seed = Observations.jumpsNumber;
+        System.out.println(Obs.jumpsNumber);
+        params_new.seed = Obs.jumpsNumber;
 //           
 //                p.newVectorCount += 1; //a new vector is added
 //                    newPlayValues[0] += -0.5+recorder.tr();

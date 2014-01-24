@@ -81,32 +81,32 @@ public class DataRecorder {
             endLeftTime;
 
     /**
-     * Switching variables to record for Straight areas
+     * variables to record for Straight areas
      */
     private int totalRightTimeStraight,
             totalLeftTimeStraight,
             totalRunTimeStraight;
 
     /**
-     * Switching variables to record for Jump areas
+     * variables to record for Jump areas
      */
     private int totalRightTimeJump,
             totalLeftTimeJump,
             totalRunTimeJump;
     /**
-     * Switching variables to record for Tubes areas
+     * variables to record for Tubes areas
      */
     private int totalRightTimeTubes,
             totalLeftTimeTubes,
             totalRunTimeTubes;
     /**
-     * Switching variables to record for Hills areas
+     * variables to record for Hills areas
      */
     private int totalRightTimeHills,
             totalLeftTimeHills,
             totalRunTimeHills;
     /**
-     * Switching variables to record for Cannons areas
+     * variables to record for Cannons areas
      */
     private int totalRightTimeCannons,
             totalLeftTimeCannons,
@@ -980,6 +980,23 @@ public class DataRecorder {
         gpm.JumpFlowersKilled = kills[SpriteTemplate.JUMP_FLOWER];
         gpm.CannonBallKilled = kills[SpriteTemplate.CANNON_BALL];
         gpm.ChompFlowersKilled = kills[SpriteTemplate.CHOMP_FLOWER];
+        
+        
+        gpm.totalRightTimeStraight = getTotalRunTimeForSection(STRAIGHT);
+        gpm.totalLeftTimeStraight = getTotalRightTimeForSection(STRAIGHT);
+        gpm.totalRunTimeStraight = getTotalLeftTimeForSection(STRAIGHT);
+        gpm.totalRightTimeJump = getTotalRunTimeForSection(JUMP);
+        gpm.totalLeftTimeJump = getTotalRightTimeForSection(JUMP);
+        gpm.totalRunTimeJump = getTotalLeftTimeForSection(JUMP);
+        gpm.totalRightTimeTubes = getTotalRunTimeForSection(TUBES);
+        gpm.totalLeftTimeTubes = getTotalRightTimeForSection(TUBES);
+        gpm.totalRunTimeTubes = getTotalLeftTimeForSection(TUBES);
+        gpm.totalRightTimeHills = getTotalRunTimeForSection(HILL_STRAIGHT);
+        gpm.totalLeftTimeHills = getTotalRightTimeForSection(HILL_STRAIGHT);
+        gpm.totalRunTimeHills = getTotalLeftTimeForSection(HILL_STRAIGHT);
+        gpm.totalRightTimeCannons = getTotalRunTimeForSection(CANNONS);
+        gpm.totalLeftTimeCannons = getTotalRightTimeForSection(CANNONS);
+        gpm.totalRunTimeCannons = getTotalLeftTimeForSection(CANNONS);
 
         //Verbose debugging output
         if (verbose) {

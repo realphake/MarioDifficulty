@@ -602,7 +602,7 @@ public class LevelSceneTest extends LevelScene {
 
             // Difficulty Popup here -DP1
             System.out.println("pausing");
-            arch.Observations = recorder.fillGamePlayMetrics(getUserOpinion(), verbose); //write metrics at swapping to new level segment
+            arch.Obs = recorder.fillGamePlayMetrics(getUserOpinion(), verbose); //write metrics at swapping to new level segment
             //Load test instances and select last instance for classification
             //Update in which level segment the player currently is
             //arch.reward_label = level3.getCustomRewards("coin");
@@ -776,7 +776,7 @@ public class LevelSceneTest extends LevelScene {
                     Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 }
             }
-            arch.Observations = recorder.fillGamePlayMetrics(dr, verbose); //write metrics at swapping to new level segment
+            arch.Obs = recorder.fillGamePlayMetrics(dr, verbose); //write metrics at swapping to new level segment
         }
         marioComponent.win();
     }
@@ -795,7 +795,7 @@ public class LevelSceneTest extends LevelScene {
                         Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                     }
                 }
-                arch.Observations = recorder.fillGamePlayMetrics(dr, verbose); //write metrics at swapping to new level segment
+                arch.Obs = recorder.fillGamePlayMetrics(dr, verbose); //write metrics at swapping to new level segment
             }
             marioComponent.lose();
         } else // mario still has lives to play :)--> have a new beginning
@@ -813,7 +813,7 @@ public class LevelSceneTest extends LevelScene {
                         }
                     }
                 }
-                arch.Observations = recorder.fillGamePlayMetrics(dr, verbose); //write metrics at swapping to new level segment
+                arch.Obs = recorder.fillGamePlayMetrics(dr, verbose); //write metrics at swapping to new level segment
             }
             Mario.lives--;
             reset();
