@@ -1,0 +1,86 @@
+@RELATION sander
+
+@ATTRIBUTE feature01-completiontime NUMERIC
+@ATTRIBUTE feature02-totaltime NUMERIC
+
+@ATTRIBUTE feature03-timesjumped NUMERIC
+@ATTRIBUTE feature04-totalducktime NUMERIC
+@ATTRIBUTE feature05-timesducked NUMERIC
+@ATTRIBUTE feature06-totalruntime NUMERIC
+@ATTRIBUTE feature07-timesrun NUMERIC
+@ATTRIBUTE feature08-totalrighttime NUMERIC
+@ATTRIBUTE feature09-totallefttime NUMERIC
+
+@ATTRIBUTE feature10-coinscollected NUMERIC
+@ATTRIBUTE feature11-levelcoins NUMERIC
+
+@ATTRIBUTE feature12-blocksemptydestroyed NUMERIC
+@ATTRIBUTE feature13-levelblocksempty NUMERIC
+@ATTRIBUTE feature14-blockscoindestroyed NUMERIC
+@ATTRIBUTE feature15-blockcoins NUMERIC
+@ATTRIBUTE feature16-blockspowerdestroyed NUMERIC
+@ATTRIBUTE feature17-levelblockspower NUMERIC
+@ATTRIBUTE feature18-shellsunleashed NUMERIC
+@ATTRIBUTE feature19-killsfire NUMERIC
+@ATTRIBUTE feature20-killsshell NUMERIC
+@ATTRIBUTE feature21-emenies NUMERIC
+
+@ATTRIBUTE feature22-totallittletime NUMERIC
+@ATTRIBUTE feature23-totallargetime NUMERIC
+@ATTRIBUTE feature24-totalfiretime NUMERIC
+@ATTRIBUTE feature25-switchedpower NUMERIC
+@ATTRIBUTE feature26-aimlessJumps NUMERIC
+@ATTRIBUTE feature27-perc-blocksdestroyed NUMERIC
+@ATTRIBUTE feature28-perc-coinblocksdestroyed NUMERIC
+@ATTRIBUTE feature29-perc-emptyblocksdestroyed NUMERIC
+@ATTRIBUTE feature30-perc-powerblocksdestroyed NUMERIC
+
+@ATTRIBUTE feature31-deaths-gap NUMERIC
+@ATTRIBUTE feature32-deaths-red-turtle NUMERIC
+@ATTRIBUTE feature33-deaths-green-turtle NUMERIC
+@ATTRIBUTE feature34-deaths-goomba NUMERIC
+@ATTRIBUTE feature35-deaths-armored-turle NUMERIC
+@ATTRIBUTE feature36-deaths-jump-flower NUMERIC
+@ATTRIBUTE feature37-deaths-cannon-ball NUMERIC
+@ATTRIBUTE feature38-deaths-chomp-flower NUMERIC
+
+@ATTRIBUTE feature39-kills-red-turtle NUMERIC
+@ATTRIBUTE feature40-kills-green-turtle NUMERIC
+@ATTRIBUTE feature41-kills-goomba NUMERIC
+@ATTRIBUTE feature42-kills-armored-turtle NUMERIC
+@ATTRIBUTE feature43-kills-jump-flower NUMERIC
+@ATTRIBUTE feature44-kills-cannon-ball NUMERIC
+@ATTRIBUTE feature45-kills-chomp-flower NUMERIC
+
+@ATTRIBUTE feature-straight-totalruntime NUMERIC
+@ATTRIBUTE feature-straight-totalrighttime NUMERIC
+@ATTRIBUTE feature-straight-totallefttime NUMERIC
+@ATTRIBUTE feature-hills-totalruntime NUMERIC
+@ATTRIBUTE feature-hills-totalrighttime NUMERIC
+@ATTRIBUTE feature-hills-totallefttime NUMERIC
+@ATTRIBUTE feature-jump-totalruntime NUMERIC
+@ATTRIBUTE feature-jump-totalrighttime NUMERIC
+@ATTRIBUTE feature-jump-totallefttime NUMERIC
+@ATTRIBUTE feature-tubes-totalruntime NUMERIC
+@ATTRIBUTE feature-tubes-totalrighttime NUMERIC
+@ATTRIBUTE feature-tubes-totallefttime NUMERIC
+@ATTRIBUTE feature-cannons-totalruntime NUMERIC
+@ATTRIBUTE feature-cannons-totalrighttime NUMERIC
+@ATTRIBUTE feature-cannons-totallefttime NUMERIC
+
+@ATTRIBUTE parameter-straight NUMERIC
+@ATTRIBUTE parameter-hills NUMERIC
+@ATTRIBUTE parameter-tubes NUMERIC
+@ATTRIBUTE parameter-jump NUMERIC
+@ATTRIBUTE parameter-cannons NUMERIC
+@ATTRIBUTE parameter-gap NUMERIC
+
+
+@ATTRIBUTE label-engagement NUMERIC
+@ATTRIBUTE label-frustration NUMERIC
+@ATTRIBUTE label-challenge NUMERIC
+
+@ATTRIBUTE timestamp STRING
+
+%1,  2,  3, 4, 5, 6, 7,  8, 9, 10,11,12,13,14,15,16,17,18,19,20,21, 22,23,24,25,   26,  27,  28,  29,  30,  31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52, 53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70
+@DATA

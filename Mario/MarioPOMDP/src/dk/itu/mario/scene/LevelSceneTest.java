@@ -407,7 +407,7 @@ public class LevelSceneTest extends LevelScene {
         return fDistribution;
     }
 
-    public int getUserChallenge() {
+    public DifficultyRecorder getUserOpinion() {
         dr.startRecordDifficulty(false);
         while (!dr.isFinished()) {
             try {
@@ -416,7 +416,14 @@ public class LevelSceneTest extends LevelScene {
                 Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
         }
-        return dr.challenge;
+        return dr;
+    }
+    
+    public int getCurrentSectionType(int xcoord){
+        // returns 0-4 for section types
+        // returns -1 if the coordinate is < 0
+        //      meaning that the mario sprite is on the previous chunk
+        return level2.sectionTypeAtCoordinate(xcoord - level3.map.length);
     }
 
     public int getDifficulty() {
@@ -581,8 +588,8 @@ public class LevelSceneTest extends LevelScene {
         //The background info should change aswell                       
 
         if (mario.x > (level2.width * 16 + level3.width * 16 * 0.79)) {
-            marioComponent.pause();
             recorder.endTime();
+            marioComponent.pause();
             //Swapping level segment
             ;////System.out.println("");
             ;////System.out.println("----------------------------------------");
@@ -601,11 +608,11 @@ public class LevelSceneTest extends LevelScene {
 
             // Difficulty Popup here -DP1
             System.out.println("pausing");
-            arch.Observations = recorder.fillGamePlayMetrics(getUserChallenge(), verbose); //write metrics at swapping to new level segment
+            arch.Observations = recorder.fillGamePlayMetrics(getUserOpinion(), verbose); //write metrics at swapping to new level segment
             //Load test instances and select last instance for classification
             //Update in which level segment the player currently is
-            arch.reward_label = level3.getCustomRewards("coin");
-            arch.reward_weights = classifyInstance();
+            //arch.reward_label = level3.getCustomRewards("coin");
+            //arch.reward_weights = classifyInstance();
             currentLevelSegment++;
 
             nextSegmentAlreadyGenerated = false;
@@ -656,6 +663,11 @@ public class LevelSceneTest extends LevelScene {
             for (int i = 0; i < sprites.size(); i++) {
                 //if(sprites.get(i).x < level2.width)sprites.get(i).release();
                 sprites.get(i).x = sprites.get(i).x - level2.width * 16;
+            }
+            try {
+                    Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
             marioComponent.resume();
         }
@@ -778,7 +790,7 @@ public class LevelSceneTest extends LevelScene {
                     Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 }
             }
-            arch.Observations = recorder.fillGamePlayMetrics(getDifficulty(), verbose); //write metrics at swapping to new level segment
+            arch.Observations = recorder.fillGamePlayMetrics(dr, verbose); //write metrics at swapping to new level segment
         }
         marioComponent.win();
     }
@@ -797,7 +809,7 @@ public class LevelSceneTest extends LevelScene {
                         Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                     }
                 }
-                arch.Observations = recorder.fillGamePlayMetrics(getDifficulty(), verbose); //write metrics at swapping to new level segment
+                arch.Observations = recorder.fillGamePlayMetrics(dr, verbose); //write metrics at swapping to new level segment
             }
             marioComponent.lose();
         } else // mario still has lives to play :)--> have a new beginning
@@ -815,7 +827,7 @@ public class LevelSceneTest extends LevelScene {
                         }
                     }
                 }
-                arch.Observations = recorder.fillGamePlayMetrics(getDifficulty(), verbose); //write metrics at swapping to new level segment
+                arch.Observations = recorder.fillGamePlayMetrics(dr, verbose); //write metrics at swapping to new level segment
             }
             Mario.lives--;
             reset();

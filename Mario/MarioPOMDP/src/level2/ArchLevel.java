@@ -55,6 +55,8 @@ public class ArchLevel extends Level {
     }
     
     public int sectionTypeAtCoordinate( int xCoord ) {
+        // xCoord is the coordinate for this map only
+        if(xCoord < 0) return -1; // if mario is on the previous map chunk
         return 0; // WHAAAT
         // return -1 if unknown
     }
@@ -691,6 +693,8 @@ public class ArchLevel extends Level {
         clone.BLOCKS_POWER = BLOCKS_POWER;
         clone.ENEMIES = ENEMIES;
         clone.COINS = COINS;
+        
+        clone.odds = odds;
 
         return clone;
 

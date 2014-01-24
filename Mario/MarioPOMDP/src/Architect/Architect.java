@@ -90,6 +90,7 @@ public class Architect {
             // note : the observations get updated externaly in the LevelSceneTest Class at every swap()
             //getAppropriatenessToUser(); 
             //paramHistory.add(params_new.copy());
+            /*
             Reward = 0;
             
             double [] rewards = {0 ,0 ,0 ,0 ,0 ,0};
@@ -110,6 +111,7 @@ public class Architect {
             }
             System.out.println("generating new segment");
             System.out.println(Reward);
+            */
             params_new.newSeed();
             //params_new = getBayesOptNextStep();
             
