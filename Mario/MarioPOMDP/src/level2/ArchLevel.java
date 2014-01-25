@@ -45,6 +45,8 @@ public class ArchLevel extends Level {
     private int difficulty;
     private int type;
     private int gaps;
+    
+    ArrayList<GameSection> gameSections = new ArrayList<>();
 
     public ArchLevel(int width, int height) {
         super(width, height);
@@ -57,10 +59,13 @@ public class ArchLevel extends Level {
     }
     
     public int sectionTypeAtCoordinate( int xCoord ) {
-        // xCoord is the coordinate for this map only
-        if(xCoord < 0) return -1; // if mario is on the previous map chunk
-        return 0; // WHAAAT
-        // return -1 if unknown
+        for (GameSection gs : gameSections) {
+            if ( xCoord < gs.xEnd && xCoord >= gs.xStart ) {
+                return gs.blockType;
+            }
+        }
+        return -1;
+        
     }
 
     public float getCustomRewards(String type) {
@@ -208,6 +213,8 @@ public class ArchLevel extends Level {
 
     private int buildZone(int x, int maxLength,
             int blockType, int length, int diffic) {
+        
+        gameSections.add(new GameSection(x, x+length, blockType));
         switch (blockType) {
             case STRAIGHT:
                 return buildStraight(x, maxLength, false, length); // Length = 1d10+2
@@ -743,6 +750,19 @@ public class ArchLevel extends Level {
                 default:
                     return "unknown type";
             }
+        }
+    }
+
+    private static class GameSection {
+
+        int xStart;
+        int xEnd;
+        int blockType;
+        
+        public GameSection(int xs, int xe, int bt) {
+            xStart = xs;
+            xEnd = xe;
+            blockType = bt;
         }
     }
 
