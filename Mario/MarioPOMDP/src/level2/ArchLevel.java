@@ -53,6 +53,7 @@ public class ArchLevel extends Level {
     public ArchLevel(paramsPCG m) {
         this(m.width, m.height);
         this.createArchLevel(m);
+        //Test commit.
     }
     
     public int sectionTypeAtCoordinate( int xCoord ) {
