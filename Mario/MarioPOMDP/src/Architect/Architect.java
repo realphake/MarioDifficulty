@@ -41,7 +41,7 @@ public class Architect {
     
     // Hill climbing Linear Regression
     public int chunksGenerated = 0;
-    public int epsilon = 50;
+    public int epsilon = 100;
     public double difficultyAdjustment;
 
     //level generation parameters
@@ -67,6 +67,7 @@ public class Architect {
         params_new = new paramsPCG();
         params_old = new paramsPCG();
         params_champion = new paramsPCG();
+        sFunctions.loadModel("../../MAINOOR/traindata/LinRegressionModel.model");
 
                 //Socket to talk to server
         //init_socket();
@@ -88,6 +89,7 @@ public class Architect {
     
     public int[] changeParamsBasedOnStats( double currentDiffEstimate ){
         System.out.println("Estimate difficulty and change parameters");
+        System.out.println("Difficulty adjustment before: "+difficultyAdjustment);
         // Get ready for a lot of ugly if statements
         // experienced = 0.1    Guess based on personal experience
         // average = 0.3        Guess based on personal experience
@@ -109,7 +111,7 @@ public class Architect {
         lrRatio[4] = (double)Obs.totalLeftTimeCannons/
                                 Obs.totalRightTimeCannons;
         // We estimate willingness of risk taking by runtime percentage
-        // estimate of strong risk taking is 0.8 as cutoff
+        // strong risk taking cutoff is 0.8
         runPerc[0]  = (double)Obs.totalRunTimeStraight/
                                 (Obs.totalLeftTimeStraight+
                                 Obs.totalRightTimeStraight);
@@ -140,6 +142,8 @@ public class Architect {
         // while a lrRatio of 0.1 or less should increase by 2. except when the player was small a lot
         // and a lrRatio of 0.1-0.3 should increase by 1. except when the player was small a lot
         // lrRatio of > 0.3 and low running perc and death decreases the difficulty by a lot
+        // ******** needs improvement
+        // more subtle changes, 
         for (int i = 0;i<5;i++){
             if (lrRatio[i] < 0.1){
                 if(runPerc[i] > 0.8 && deaths[i] == 0) paramchanges[i] = 2;
@@ -156,9 +160,16 @@ public class Architect {
                 else if (deaths[i] > 0) paramchanges[i] = -2;
             }
             diffEstimate += 0.25 * paramchanges[i];
+            
         }
-        System.out.println("Parameter changes = "+paramchanges.toString());
+        System.out.println("Parameter changes = "+  paramchanges[0]+", "+
+                                                    paramchanges[1]+", "+
+                                                    paramchanges[2]+", "+
+                                                    paramchanges[3]+", "+
+                                                    paramchanges[4]+", "+
+                                                    paramchanges[5]);
         difficultyAdjustment = (diffEstimate + currentDiffEstimate) * 0.5; //update belief for difficulty adjustment
+        System.out.println("Difficulty adjustment after: "+difficultyAdjustment);
         return paramchanges;
     }
     

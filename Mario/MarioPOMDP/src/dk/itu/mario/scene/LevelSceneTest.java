@@ -161,9 +161,8 @@ public class LevelSceneTest extends LevelScene {
         //plannedDifficultyLevels.add(levelDifficulty); //as this level segment seems not to be used, only add difficulties of actually created segments
         {
             currentLevel = new RandomLevel(levelWidth, 15, levelSeed, levelDifficulty, levelType); //it's my impression this level segment is not directly used, perhaps overwritten elsewhere?
+            level = currentLevel;
         }                        //width used to be 200
-
-        level = currentLevel;
 
         paused = false;
         Sprite.spriteContext = this;
@@ -180,7 +179,6 @@ public class LevelSceneTest extends LevelScene {
         //levelDifficulty = 1;
         //plannedDifficultyLevels.add(levelDifficulty);
         arch = new Architect();
-        level = new ArchLevel(arch.params_new);
         level2 = new ArchLevel(arch.params_new);//using second constructor!
         //level = new ArchLevel(100, 15, levelSeed+randomInt, levelDifficulty, levelType, arch.message);
         plannedDifficultyLevels.add(level2.DIFFICULTY_sander);
@@ -776,7 +774,6 @@ public class LevelSceneTest extends LevelScene {
                     Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 }
             }
-            arch.Obs = recorder.fillGamePlayMetrics(dr, verbose); //write metrics at swapping to new level segment
         }
         marioComponent.win();
     }
@@ -795,7 +792,6 @@ public class LevelSceneTest extends LevelScene {
                         Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                     }
                 }
-                arch.Obs = recorder.fillGamePlayMetrics(dr, verbose); //write metrics at swapping to new level segment
             }
             marioComponent.lose();
         } else // mario still has lives to play :)--> have a new beginning

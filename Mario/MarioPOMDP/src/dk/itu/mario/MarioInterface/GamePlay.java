@@ -58,7 +58,7 @@ public class GamePlay implements Serializable {
     public int JumpFlowersKilled; //number of Jump Flower Mario killed
     public int ChompFlowersKilled; //number of Chomp Flower Mario killed
 
-    public int  totalRightTimeStraight,
+    public double  totalRightTimeStraight,
                 totalLeftTimeStraight,
                 totalRunTimeStraight,
                 totalRightTimeJump,

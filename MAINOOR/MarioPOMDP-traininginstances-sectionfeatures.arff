@@ -55,15 +55,19 @@
 @ATTRIBUTE feature-straight-totalruntime NUMERIC
 @ATTRIBUTE feature-straight-totalrighttime NUMERIC
 @ATTRIBUTE feature-straight-totallefttime NUMERIC
+
 @ATTRIBUTE feature-hills-totalruntime NUMERIC
 @ATTRIBUTE feature-hills-totalrighttime NUMERIC
 @ATTRIBUTE feature-hills-totallefttime NUMERIC
+
 @ATTRIBUTE feature-jump-totalruntime NUMERIC
 @ATTRIBUTE feature-jump-totalrighttime NUMERIC
 @ATTRIBUTE feature-jump-totallefttime NUMERIC
+
 @ATTRIBUTE feature-tubes-totalruntime NUMERIC
 @ATTRIBUTE feature-tubes-totalrighttime NUMERIC
 @ATTRIBUTE feature-tubes-totallefttime NUMERIC
+
 @ATTRIBUTE feature-cannons-totalruntime NUMERIC
 @ATTRIBUTE feature-cannons-totalrighttime NUMERIC
 @ATTRIBUTE feature-cannons-totallefttime NUMERIC
