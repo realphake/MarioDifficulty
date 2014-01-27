@@ -4,6 +4,7 @@
  */
 package Architect;
 
+import Onlinedata.MainSendRequest;
 import Statistics.WekaFunctions;
 import dk.itu.mario.MarioInterface.GamePlay;
 import java.util.ArrayList;
@@ -67,10 +68,20 @@ public class Architect {
         params_new = new paramsPCG();
         params_old = new paramsPCG();
         params_champion = new paramsPCG();
-        sFunctions.loadModel("../../MAINOOR/traindata/LinRegressionModel.model");
-
-                //Socket to talk to server
-        //init_socket();
+    }
+    
+    public Architect(boolean training, MainSendRequest request) {
+        params_new = new paramsPCG();
+        params_old = new paramsPCG();
+        params_champion = new paramsPCG();
+        
+        if (!training){
+            request.downloadData();
+            sFunctions.loadTrainInstance(request.download);
+            sFunctions.buildLRcls();
+            // or load basic model
+            //sFunctions.loadModel("../../MAINOOR/traindata/LinRegressionModel.model");
+        }
     }
 
     public paramsPCG paramsfromstring(String spoint) {

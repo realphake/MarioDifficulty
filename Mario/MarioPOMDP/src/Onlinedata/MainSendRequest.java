@@ -24,43 +24,32 @@ import org.apache.http.util.EntityUtils;
 
 public class MainSendRequest {
 
-    static String uploadurl
+    public static String uploadurl
             = "http://mariodb-uvaproject.rhcloud.com/uploads/";
-    static String downloadurl
+    public static String downloadurl
             = "http://mariodb-uvaproject.rhcloud.com/uploads/trainingfile.arff";
-    static String message = "change this";
+    public static String upload = "";
+    public String download = "";
 
-    public String download;
-    public String upload;
 
     public void downloadData() {
         try {
             CloseableHttpClient httpclient = HttpClients.createDefault();
-            //StringEntity clientEntity = new StringEntity(message,
-            //        ContentType.create("plain/text", Consts.UTF_8));
-
             HttpGet httpget = new HttpGet(downloadurl);
-            //httppost.setEntity(clientEntity);
-
             CloseableHttpResponse response = httpclient.execute(httpget);
             try {
                 response = httpclient.execute(httpget);
                 HttpEntity serverEntity = response.getEntity();
                 if (serverEntity != null) {
+                    System.out.println("Found file at adress: "+downloadurl);
                     long len = serverEntity.getContentLength();
-                    if (len != -1 && len < 2048) {
-                        download = EntityUtils.toString(serverEntity);
-                        System.out.println(download);
-                    } else {
-                        // Stream content out
-                    }
+                    System.out.println("Length is "+len);
+                    download = EntityUtils.toString(serverEntity);
+                    System.out.println(download);
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(MainSendRequest.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ParseException ex) {
+            } catch (    IOException | ParseException ex) {
                 Logger.getLogger(MainSendRequest.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
-
                 response.close();
             }
             httpclient.close();
@@ -70,17 +59,14 @@ public class MainSendRequest {
 
     }
 
-    public void uploadData() {
-        message = upload;
+    public void uploadData(String toBeUploaded) {
+        upload = toBeUploaded;
         try {
             CloseableHttpClient httpclient = HttpClients.createDefault();
-            //Instantiate an HttpClient
             StringEntity cliententity = new StringEntity(upload,
                     ContentType.create("plain/text", Consts.UTF_8));
-
             HttpPost httppost = new HttpPost(uploadurl);
             httppost.setEntity(cliententity);
-
             CloseableHttpResponse response = httpclient.execute(httppost);
             try {
                 response = httpclient.execute(httppost);
@@ -93,9 +79,7 @@ public class MainSendRequest {
                         // Stream content out
                     }
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(MainSendRequest.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ParseException ex) {
+            } catch (    IOException | ParseException ex) {
                 Logger.getLogger(MainSendRequest.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 response.close();
@@ -109,8 +93,8 @@ public class MainSendRequest {
 
     public static void main(String[] args) {
         MainSendRequest req = new MainSendRequest();
-        req.upload = "see if this is uploaded, 1, 2, 3,4 ,5, 67";
-        req.uploadData();
         req.downloadData();
+        // use this to send specific data to the server
+        
     }
 }

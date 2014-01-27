@@ -4,6 +4,7 @@ package dk.itu.mario.engine;
 //import org.apache.log4j.BasicConfigurator;
 //import org.apache.log4j.NDC;
 import Architect.ARCH_MESSAGE;
+import Onlinedata.MainSendRequest;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -935,7 +936,7 @@ public class DataRecorder {
         System.out.print("\n");
     }
 
-    public GamePlay fillGamePlayMetrics(DifficultyRecorder userOpinion, boolean verbose) {
+    public GamePlay fillGamePlayMetrics(DifficultyRecorder userOpinion, boolean verbose, MainSendRequest request, boolean online) {
         //fillGamePlayMetrics
         //-at the moment, only called at swapping to new level segment
         //-should also be called in LevelSceneTest.winActions() + deathActions()
@@ -1069,7 +1070,9 @@ public class DataRecorder {
         }
 
         //Write metric to file in weird hexformat
-        gpm.write("player.txt");
+        if(!online){
+            gpm.write("player.txt");
+        }
 
         // for Architect
         gpm.k_T = kT();
@@ -1185,8 +1188,11 @@ public class DataRecorder {
         POMDPmetrics += "\n"; //new line
 
         //Write metrics relevant for POMDP to sander.txt file
-        writePOMDP(POMDPmetrics);
-
+        if(online){
+            request.uploadData(POMDPmetrics);
+        } else {
+            writePOMDP(POMDPmetrics);
+        }
         //Write detailedLog that lists jump actions and other barely relevant stuff
         //;//System.out.println(detailedLog);
         //write(detailedLog);
