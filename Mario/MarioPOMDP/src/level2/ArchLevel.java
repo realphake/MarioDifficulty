@@ -154,7 +154,7 @@ public class ArchLevel extends Level {
 
     private void designLevelSection(Section[] blueprints) {
         int lengthSoFar = 1;
-        lengthSoFar += buildStraight(1, width, true, 5); // Beginning section
+        lengthSoFar += buildStraight(1, width, true, 5, 0); // Beginning section
         for (Section blueprint : blueprints) {
             int lengthRemaining = width - lengthSoFar;
             lengthSoFar += buildZone(lengthSoFar, lengthRemaining,
@@ -217,9 +217,9 @@ public class ArchLevel extends Level {
         gameSections.add(new GameSection(x, x+length, blockType));
         switch (blockType) {
             case STRAIGHT:
-                return buildStraight(x, maxLength, false, length); // Length = 1d10+2
+                return buildStraight(x, maxLength, false, length, diffic);
             case HILL_STRAIGHT:
-                return buildHillStraight(x, maxLength, length); // length 1d10+10
+                return buildHillStraight(x, maxLength, length, diffic);
             case TUBES:
                 return buildTubes(x, maxLength, length); // Length = 5
             case JUMP: {
@@ -228,7 +228,7 @@ public class ArchLevel extends Level {
                 } else {
                     odds[JUMP]++;
                     totalOdds++;
-                    return buildStraight(x, maxLength, false, length);
+                    return buildStraight(x, maxLength, false, length, diffic);
                 }
             }
             case CANNONS:
@@ -334,7 +334,8 @@ public class ArchLevel extends Level {
         }
     }
 
-    private int buildHillStraight(int xo, int maxLength, int desiredLength) {
+    private int buildHillStraight(int xo, int maxLength, 
+            int desiredLength, int diffic) {
         int length = desiredLength;
         if (length > maxLength) {
             length = maxLength;
@@ -349,7 +350,7 @@ public class ArchLevel extends Level {
             }
         }
 
-        addEnemyLine(xo + 0, xo + length - 0, floor - 1);
+        addEnemyLine(xo + 0, xo + length - 0, floor - 1, diffic);
 
         int h = floor;
 
@@ -371,9 +372,9 @@ public class ArchLevel extends Level {
                 } else {
                     occupied[xxo - xo] = true;
                     occupied[xxo - xo + l] = true;
-                    addEnemyLine(xxo, xxo + l, h - 1);
+                    addEnemyLine(xxo, xxo + l, h - 1, diffic);
                     if (random.nextInt(4) == 0) {
-                        decorate(xxo - 1, xxo + l + 1, h);
+                        decorate(xxo - 1, xxo + l + 1, h, diffic);
                         keepGoing = false;
                     }
                     for (int x = xxo; x < xxo + l; x++) {
@@ -409,24 +410,27 @@ public class ArchLevel extends Level {
         return length;
     }
 
-    private void addEnemyLine(int x0, int x1, int y) {
+    private void addEnemyLine(int x0, int x1, int y, int diffic) {
         for (int x = x0; x < x1; x += 5) {
             if ((random.nextInt(5) < difficulty) && ENEMIES < MAX_ENEMIES) {
-                //difficulty -=1;
-
-                int enemyType = random.nextInt(4);
-
-                if (difficulty < 2) {
-                    enemyType = Enemy.ENEMY_GOOMBA;
-                } else if (difficulty < 3) {
-                    enemyType = random.nextInt(3);
-                }
+                int enemyType = chooseEnemyType();
 
                 setSpriteTemplate(x, y, new SpriteTemplate(enemyType,
                         random.nextInt(10) < difficulty));
                 ENEMIES++;
             }
         }
+    }
+
+    private int chooseEnemyType() {
+        //difficulty -=1;
+        int enemyType = random.nextInt(4);
+        if (difficulty < 2) {
+            enemyType = Enemy.ENEMY_GOOMBA;
+        } else if (difficulty < 3) {
+            enemyType = random.nextInt(3);
+        }
+        return enemyType;
     }
 
     private int buildTubes(int xo, int maxLength, int desiredLength) {
@@ -477,7 +481,7 @@ public class ArchLevel extends Level {
     }
 
     private int buildStraight(int xo, int maxLength,
-            boolean safe, int desiredLength) {
+            boolean safe, int desiredLength, int diffic) {
         int length = desiredLength;
 
         if (length > maxLength) {
@@ -497,14 +501,14 @@ public class ArchLevel extends Level {
 
         if (!safe) {
             if (length > 5) {
-                decorate(xo, xo + length, floor);
+                decorate(xo, xo + length, floor, diffic);
             }
         }
 
         return length;
     }
 
-    private void decorate(int xStart, int xLength, int floor) {
+    private void decorate(int xStart, int xLength, int floor, int diffic) {
         //if its at the very top, just return
         if (floor < 1) {
             return;
@@ -512,7 +516,7 @@ public class ArchLevel extends Level {
         boolean rocks = true;
 
         //add an enemy line above the box
-        addEnemyLine(xStart + 1, xLength - 1, floor - 1);
+        addEnemyLine(xStart + 1, xLength - 1, floor - 1, diffic);
 
         int s = random.nextInt(4);
         int e = random.nextInt(4);
