@@ -1,5 +1,7 @@
 package dk.itu.mario.engine;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -26,8 +28,8 @@ import javax.swing.JTextField;
  * Used to prompt the player for demographic questions and how he perceives
  * difficulty through the game.
  */
-public class DifficultyRecorder
-{
+public class DifficultyRecorder {
+
     private JFrame frame;
     private MarioComponent mariocomponent; // Stored to access game thread variables
     private boolean recordAfterDeath = false; // Record after each death?
@@ -45,31 +47,43 @@ public class DifficultyRecorder
     public int challenge = 0;
     public static final int LOG_APPEND = 0;
     public static final int LOG_PREPEND = 1;
-        
-    private DifficultyRecorder() {}
- 
+
+    private DifficultyRecorder() {
+    }
+
     /* 
-    * Private intern class only loaded into memory once at the first call.
-    * Thread safe.
-    */
-    private static class DifficultyRecorderHolder
-    {		
-	private final static DifficultyRecorder instance = new DifficultyRecorder();
+     * Private intern class only loaded into memory once at the first call.
+     * Thread safe.
+     */
+    private static class DifficultyRecorderHolder {
+
+        private final static DifficultyRecorder instance = new DifficultyRecorder();
     }
- 
-    public static DifficultyRecorder getInstance()
-    {
-	return DifficultyRecorderHolder.instance;
+
+    public static DifficultyRecorder getInstance() {
+        return DifficultyRecorderHolder.instance;
     }
-    
+
     public JFrame getFrame() {
         return frame;
+    }
+
+    public void removeMinMaxClose(Component comp) {
+        if (comp instanceof AbstractButton) {
+            comp.getParent().remove(comp);
+        }
+        if (comp instanceof Container) {
+            Component[] comps = ((Container) comp).getComponents();
+            for (int x = 0, y = comps.length; x < y; x++) {
+                removeMinMaxClose(comps[x]);
+            }
+        }
     }
 
     public void setFrame(JFrame frame) {
         this.frame = frame;
     }
-    
+
     public void setLogStrategy(int logStrategy) {
         this.logStrategy = logStrategy;
     }
@@ -77,11 +91,11 @@ public class DifficultyRecorder
     public void setRecordAfterDeath(boolean recordAfterDeath) {
         this.recordAfterDeath = recordAfterDeath;
     }
-        
+
     public boolean isRecordAfterDeath() {
         return recordAfterDeath;
     }
-    
+
     public MarioComponent getMariocomponent() {
         return mariocomponent;
     }
@@ -89,21 +103,19 @@ public class DifficultyRecorder
     public void setMariocomponent(MarioComponent mariocomponent) {
         this.mariocomponent = mariocomponent;
     }
-    
+
     public boolean isFinished() {
         return finished;
     }
-    
+
     /*
      * Append or preprend (depending on the logstrategy)
      * saved metrics to the existing pomdp string.
      */
-    public String fillPOMDPMetrics(String pomdp, boolean putFirstQuestions)
-    {
+    public String fillPOMDPMetrics(String pomdp, boolean putFirstQuestions) {
         String tmp = "";
-        
-        if (putFirstQuestions)
-        {
+
+        if (putFirstQuestions) {
             tmp += age + ", ";
             tmp += nationality + ", ";
             tmp += gender + ", ";
@@ -111,72 +123,72 @@ public class DifficultyRecorder
             tmp += hasPlayedMarioBefore + ", ";
             tmp += hoursPerWeek;
         }
-        
-            if (putFirstQuestions)
-                tmp += ", ";
-            tmp += engagement + ", ";
-            tmp += frustration + ", ";
-            tmp += challenge;
-        
-        if (logStrategy == LOG_APPEND)
-            pomdp += ", " + tmp;
-        else
-            pomdp = tmp + ", " + pomdp;
 
-        
+        if (putFirstQuestions) {
+            tmp += ", ";
+        }
+        tmp += engagement + ", ";
+        tmp += frustration + ", ";
+        tmp += challenge;
+
+        if (logStrategy == LOG_APPEND) {
+            pomdp += ", " + tmp;
+        } else {
+            pomdp = tmp + ", " + pomdp;
+        }
+
         return pomdp;
     }
-    
+
     /*
      * Create a new window to ask the questions
      * If true then ask demographic questions, if false then ask difficulty
      * questions.
      */
-    public void startRecordDifficulty(boolean isFirstQuestions)
-    {
+    public void startRecordDifficulty(boolean isFirstQuestions) {
         finished = false;
         startTime = System.nanoTime(); // Beginning of the recording
-        
+
         // Create new frame on top of the main window
         JFrame tempFrame = new JFrame("Measuring Perceived Difficulty");
-        DisplayerComponent dc = new DisplayerComponent(this.frame.getWidth(), this.frame.getHeight());
-        
+        tempFrame.setUndecorated(true);
+        DisplayerComponent dc = new DisplayerComponent(this.frame.getWidth()+10, this.frame.getHeight()+10);
+
         //this.mariocomponent.pause();
         setFrame(tempFrame);
         tempFrame.setContentPane(dc);
         tempFrame.setResizable(false);
-	//tempFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        //tempFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         tempFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 // Do nothing. User has to submit his answers.
             }
         });
-	tempFrame.pack();
-        
+        tempFrame.pack();
+
         if (isFirstQuestions) {
             loadFirstQuestions(dc);
         } else {
             loadSwapLevelQuestions(dc);
         }
-        
+
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	tempFrame.setLocation((screenSize.width-frame.getWidth())/2, (screenSize.height-frame.getHeight())/2);
-	tempFrame.setVisible(true);
+        tempFrame.setLocation((screenSize.width - frame.getWidth()) / 2, (screenSize.height - frame.getHeight()) / 2);
+        tempFrame.setVisible(true);
     }
-    
+
     /*
      * Stop recording difficulty. Destroy the window and resume the game.
      */
-    private void stopRecordDifficulty()
-    {
+    private void stopRecordDifficulty() {
         System.out.println("-Finished recording difficulty");
-        System.out.println("-nationality="+nationality+" age="+age+" gender="+gender+
-                " hasPlayedVideoGame="+hasPlayedVideoGame+" hasPlayedMarioBefore="+hasPlayedMarioBefore+
-                " hoursPerWeek="+hoursPerWeek+" engagement="+engagement+
-                " frustration="+frustration+" challenge="+challenge);
+        System.out.println("-nationality=" + nationality + " age=" + age + " gender=" + gender
+                + " hasPlayedVideoGame=" + hasPlayedVideoGame + " hasPlayedMarioBefore=" + hasPlayedMarioBefore
+                + " hoursPerWeek=" + hoursPerWeek + " engagement=" + engagement
+                + " frustration=" + frustration + " challenge=" + challenge);
         this.frame.dispose();
-        
+
         /* It's not possible to stop the game's timer...
          * We trick it by saving how long the game was stopped and add this
          * time to the startTime mainthread variable. The tick counter is therefor
@@ -187,15 +199,14 @@ public class DifficultyRecorder
         this.mariocomponent.resume();
         finished = true;
     }
-    
+
     /*
      * Method in charge of displaying demographic questions in the newly
      * created window 'dc'.
      */
-    private void loadFirstQuestions(DisplayerComponent dc)
-    {
+    private void loadFirstQuestions(DisplayerComponent dc) {
         JButton buttonSubmit = new JButton("Submit");
-        
+
         JLabel labelGreetings = new JLabel("Hey there! Before playing,");
         JLabel labelGreetings2 = new JLabel("please answer these questions and click submit.");
         JLabel labelNationality = new JLabel("Nationality:");
@@ -205,71 +216,70 @@ public class DifficultyRecorder
         JLabel labelHasPlayedMarioBefore = new JLabel("Have you already played Super Mario?");
         JLabel labelHoursPerWeek = new JLabel("How many hours do you generally");
         JLabel labelHoursPerWeek2 = new JLabel("spend playing video games per week?");
-        
+
         final JTextField textNationality = new JTextField(10);
         final JTextField textAge = new JTextField(2);
-        
+
         ButtonGroup groupGender = new ButtonGroup();
         final JRadioButton buttonGenderMale = new JRadioButton("Male");
         final JRadioButton buttonGenderFemale = new JRadioButton("Female");
-        
+
         ButtonGroup groupHasPlayedVideoGame = new ButtonGroup();
         final JRadioButton buttonHasPlayedVideoGameYes = new JRadioButton("Yes");
         final JRadioButton buttonHasPlayedVideoGameNo = new JRadioButton("No");
-        
+
         ButtonGroup groupHasPlayedMarioBefore = new ButtonGroup();
         final JRadioButton buttonHasPlayedMarioBeforeYes = new JRadioButton("Yes");
         final JRadioButton buttonHasPlayedMarioBeforeNo = new JRadioButton("No");
-        
+
         final ButtonGroup groupHoursPerWeek = new ButtonGroup();
         final JRadioButton buttonHoursPerWeekInt1 = new JRadioButton("0-5");
         final JRadioButton buttonHoursPerWeekInt2 = new JRadioButton("5-10");
         final JRadioButton buttonHoursPerWeekInt3 = new JRadioButton("10-15");
         final JRadioButton buttonHoursPerWeekInt4 = new JRadioButton("15-20");
         final JRadioButton buttonHoursPerWeekInt5 = new JRadioButton("20+");
-        
-        GridBagConstraints c = new GridBagConstraints();
- 
-        // ---------------------------------------------------------------------
 
+        GridBagConstraints c = new GridBagConstraints();
+
+        // ---------------------------------------------------------------------
         groupGender.add(buttonGenderMale);
         groupGender.add(buttonGenderFemale);
-        
+
         groupHasPlayedVideoGame.add(buttonHasPlayedVideoGameYes);
         groupHasPlayedVideoGame.add(buttonHasPlayedVideoGameNo);
-        
+
         groupHasPlayedMarioBefore.add(buttonHasPlayedMarioBeforeYes);
         groupHasPlayedMarioBefore.add(buttonHasPlayedMarioBeforeNo);
-        
+
         groupHoursPerWeek.add(buttonHoursPerWeekInt1);
-        groupHoursPerWeek.add(buttonHoursPerWeekInt2);        
+        groupHoursPerWeek.add(buttonHoursPerWeekInt2);
         groupHoursPerWeek.add(buttonHoursPerWeekInt3);
         groupHoursPerWeek.add(buttonHoursPerWeekInt4);
         groupHoursPerWeek.add(buttonHoursPerWeekInt5);
-        
+
         /*
          * Grid system. See GridBagLayout documentation.
          */
         c.gridx = 0;
         c.gridy = 0;
-        c.insets = new Insets(0,0,0,0); // Padding
+        c.insets = new Insets(0, 0, 0, 0); // Padding
         dc.add(labelGreetings, c);
         c.gridy = 1;
         dc.add(labelGreetings2, c);
-        
+
         c.gridx = 0;
         c.gridy = 2;
-        c.insets = new Insets(25,0,0,0);
+        c.insets = new Insets(25, 0, 0, 0);
         dc.add(labelNationality, c);
         c.gridx = 1;
         dc.add(textNationality, c);
-        
+
         c.gridx = 0;
         c.gridy = 3;
         dc.add(labelAge, c);
         c.gridx = 1;
         dc.add(textAge, c);
-        
+
         c.gridx = 0;
         c.gridy = 4;
         dc.add(labelGender, c);
@@ -279,11 +289,11 @@ public class DifficultyRecorder
         dc.add(buttonGenderMale, c);
         c.gridx = 2;
         dc.add(buttonGenderFemale, c);
-        
+
         c.gridx = 0;
         c.gridy = 5;
         c.anchor = GridBagConstraints.CENTER;
-        c.insets = new Insets(15,0,0,0);
+        c.insets = new Insets(15, 0, 0, 0);
         dc.add(labelHasPlayedVideoGame, c);
         c.gridx = 1;
         c.anchor = GridBagConstraints.LINE_START;
@@ -291,11 +301,11 @@ public class DifficultyRecorder
         dc.add(buttonHasPlayedVideoGameYes, c);
         c.gridx = 2;
         dc.add(buttonHasPlayedVideoGameNo, c);
-        
+
         c.gridx = 0;
         c.gridy = 6;
         c.anchor = GridBagConstraints.CENTER;
-        c.insets = new Insets(15,0,0,0);
+        c.insets = new Insets(15, 0, 0, 0);
         dc.add(labelHasPlayedMarioBefore, c);
         c.gridx = 1;
         c.anchor = GridBagConstraints.LINE_START;
@@ -303,11 +313,11 @@ public class DifficultyRecorder
         dc.add(buttonHasPlayedMarioBeforeYes, c);
         c.gridx = 2;
         dc.add(buttonHasPlayedMarioBeforeNo, c);
-        
+
         c.gridx = 0;
         c.gridy = 7;
         c.anchor = GridBagConstraints.CENTER;
-        c.insets = new Insets(15,0,0,0);
+        c.insets = new Insets(15, 0, 0, 0);
         dc.add(labelHoursPerWeek, c);
         c.gridx = 1;
         c.anchor = GridBagConstraints.LINE_START;
@@ -318,7 +328,7 @@ public class DifficultyRecorder
         c.gridy = 8;
         c.gridx = 0;
         c.anchor = GridBagConstraints.CENTER;
-        c.insets = new Insets(0,0,0,0);
+        c.insets = new Insets(0, 0, 0, 0);
         dc.add(labelHoursPerWeek2, c);
         c.gridx = 1;
         c.anchor = GridBagConstraints.LINE_START;
@@ -329,96 +339,98 @@ public class DifficultyRecorder
         c.gridy = 9;
         c.gridx = 1;
         dc.add(buttonHoursPerWeekInt5, c);
-        
+
         c.gridx = 0;
         c.gridy = 10;
-        c.insets = new Insets(50,230,0,0);
+        c.insets = new Insets(50, 230, 0, 0);
         dc.add(buttonSubmit, c);
-        
+
         // Action when the button 'Submit' is clicked
-        buttonSubmit.addActionListener(new ActionListener()
-        {
+        buttonSubmit.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent arg0)
-            {
-                if (textAge.getText() != null)
+            public void actionPerformed(ActionEvent arg0) {
+                if (textAge.getText() != null) {
                     try {
                         age = Integer.parseInt(textAge.getText());
                     } catch (Exception ex) {
                         System.out.println(ex);
                         return;
                     }
-                else
+                } else {
                     return;
-                
-                if (buttonGenderMale.isSelected())
+                }
+
+                if (buttonGenderMale.isSelected()) {
                     gender = 0;
-                else if (buttonGenderFemale.isSelected())
+                } else if (buttonGenderFemale.isSelected()) {
                     gender = 1;
-                else
+                } else {
                     return;
-                
-                if (textNationality.getText() != null)
+                }
+
+                if (textNationality.getText() != null) {
                     nationality = textNationality.getText();
-                else
+                } else {
                     return;
-                
-                if (buttonHasPlayedVideoGameYes.isSelected())
+                }
+
+                if (buttonHasPlayedVideoGameYes.isSelected()) {
                     hasPlayedVideoGame = 1;
-                else if (buttonHasPlayedVideoGameNo.isSelected())
+                } else if (buttonHasPlayedVideoGameNo.isSelected()) {
                     hasPlayedVideoGame = 0;
-                else
+                } else {
                     return;
-                
-                if (buttonHasPlayedMarioBeforeYes.isSelected())
+                }
+
+                if (buttonHasPlayedMarioBeforeYes.isSelected()) {
                     hasPlayedMarioBefore = 1;
-                else if (buttonHasPlayedMarioBeforeNo.isSelected())
+                } else if (buttonHasPlayedMarioBeforeNo.isSelected()) {
                     hasPlayedMarioBefore = 0;
-                else
+                } else {
                     return;
-                
-                for (Enumeration<AbstractButton> buttons = groupHoursPerWeek.getElements(); buttons.hasMoreElements();)
-                {
+                }
+
+                for (Enumeration<AbstractButton> buttons = groupHoursPerWeek.getElements(); buttons.hasMoreElements();) {
                     // 1 to 5 depending on the selected button
                     hoursPerWeek++;
                     AbstractButton button = buttons.nextElement();
-                    if (button.isSelected())
+                    if (button.isSelected()) {
                         break;
+                    }
                 }
-                
-                if (nationality.length() <= 2)
+
+                if (nationality.length() <= 2) {
                     stopRecordDifficulty();
+                }
             }
         });
     }
-    
+
     /*
      * Method in charge of displaying difficulty questions in the newly
      * created window 'dc'.
      */
-    private void loadSwapLevelQuestions(DisplayerComponent dc)
-    {
+    private void loadSwapLevelQuestions(DisplayerComponent dc) {
         JButton buttonSubmit = new JButton("Submit");
-        
-        JLabel labelGreetings = new JLabel("Hey again! This time,");
-        JLabel labelGreetings2 = new JLabel("please answer the questions before continuing.");
+
+        JLabel labelGreetings = new JLabel("Hello again!");
+        JLabel labelGreetings2 = new JLabel("Please answer the questions before continuing.");
         JLabel labelEngagement = new JLabel("Experienced engagement:");
         JLabel labelFrustration = new JLabel("Experienced frustration:");
         JLabel labelChallenge = new JLabel("Experienced challenge:");
-        
+        JLabel labelInfo1 = new JLabel("After clicking the submit button the game will");
+        JLabel labelInfo2 = new JLabel("continue after a small moment of delay, so be ready!");
         // Hashtables are obsolete collections but it won't accept a HashMap...
         Hashtable labelTableEandF = new Hashtable();
-        labelTableEandF.put(new Integer(1), new JLabel("None") );
-        labelTableEandF.put(new Integer(3), new JLabel("Some") );
-        labelTableEandF.put(new Integer(5), new JLabel("A Lot") );
-        
+        labelTableEandF.put(new Integer(1), new JLabel("None"));
+        labelTableEandF.put(new Integer(3), new JLabel("Some"));
+        labelTableEandF.put(new Integer(5), new JLabel("A Lot"));
+
         Hashtable labelTableChallenge = new Hashtable();
-        labelTableChallenge.put(new Integer(1), new JLabel("Too Low") );
-        labelTableChallenge.put(new Integer(3), new JLabel("Just Right") );
-        labelTableChallenge.put(new Integer(5), new JLabel("Too High") );
-        
-        
-        
+        labelTableChallenge.put(new Integer(1), new JLabel("Too Low"));
+        labelTableChallenge.put(new Integer(3), new JLabel("Just Right"));
+        labelTableChallenge.put(new Integer(5), new JLabel("Too High"));
+
         final JSlider sliderEngagement = new JSlider(1, 5);
         sliderEngagement.setMajorTickSpacing(1);
         sliderEngagement.setPaintTicks(true);
@@ -434,96 +446,95 @@ public class DifficultyRecorder
         sliderChallenge.setPaintTicks(true);
         sliderChallenge.setLabelTable(labelTableChallenge);
         sliderChallenge.setPaintLabels(true);
-        
+
         GridBagConstraints c = new GridBagConstraints();
-        
+
         // ---------------------------------------------------------------------
-        
         c.gridx = 0;
         c.gridy = 0;
-        c.insets = new Insets(0,0,0,0);
+        c.insets = new Insets(0, 0, 0, 0);
         dc.add(labelGreetings, c);
         c.gridy = 1;
-        c.insets = new Insets(0,0,50,0);
+        c.insets = new Insets(0, 0, 50, 0);
         dc.add(labelGreetings2, c);
-        
+
         c.gridy = 2;
         c.gridx = 0;
-        c.insets = new Insets(15,0,0,0);
+        c.insets = new Insets(15, 0, 0, 0);
         dc.add(labelEngagement, c);
         c.gridx = 1;
         dc.add(sliderEngagement, c);
-        
+
         c.gridy = 3;
         c.gridx = 0;
         dc.add(labelFrustration, c);
         c.gridx = 1;
         dc.add(sliderFrustration, c);
-        
+
         c.gridy = 4;
         c.gridx = 0;
         dc.add(labelChallenge, c);
         c.gridx = 1;
         dc.add(sliderChallenge, c);
-        
-        c.gridx = 0;
-        c.gridy = 5;
-        c.insets = new Insets(50,215,0,0);
-        dc.add(buttonSubmit, c);
-        
-        /* //Add a hotkey for submit
-        // *****************************************************
-        ActionMap actionMap = new ActionMapUIResource();
-        actionMap.put("action_save", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Save action performed.");
-            }
-        });
-        actionMap.put("action_exit", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Exit action performed.");
-            }
-        });
 
-        InputMap keyMap = new ComponentInputMap(p);
-        keyMap.put(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S,
-                java.awt.Event.CTRL_MASK), "action_save");
-        keyMap.put(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q,
-                java.awt.Event.CTRL_MASK), "action_exit");
-        SwingUtilities.replaceUIActionMap(p, actionMap);
-        SwingUtilities.replaceUIInputMap(p, JComponent.WHEN_IN_FOCUSED_WINDOW,
-                keyMap);
-        // *****************************************************
-        */
-        
-        
+        c.gridx = 0;
+        c.gridy = 7;
+        dc.add(labelInfo1, c);
+        c.gridy = 8;
+        c.insets = new Insets(0, 0, 50, 0);
+        dc.add(labelInfo2, c);
+        c.gridy = 8;
+        c.insets = new Insets(50, 215, 0, 0);
+        dc.add(buttonSubmit, c);
+
+        /* //Add a hotkey for submit
+         // *****************************************************
+         ActionMap actionMap = new ActionMapUIResource();
+         actionMap.put("action_save", new AbstractAction() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+         System.out.println("Save action performed.");
+         }
+         });
+         actionMap.put("action_exit", new AbstractAction() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+         System.out.println("Exit action performed.");
+         }
+         });
+
+         InputMap keyMap = new ComponentInputMap(p);
+         keyMap.put(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S,
+         java.awt.Event.CTRL_MASK), "action_save");
+         keyMap.put(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q,
+         java.awt.Event.CTRL_MASK), "action_exit");
+         SwingUtilities.replaceUIActionMap(p, actionMap);
+         SwingUtilities.replaceUIInputMap(p, JComponent.WHEN_IN_FOCUSED_WINDOW,
+         keyMap);
+         // *****************************************************
+         */
         // Action when the button 'Submit' is clicked 
-        buttonSubmit.addActionListener(new ActionListener()
-        {
+        buttonSubmit.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent arg0)
-            {
+            public void actionPerformed(ActionEvent arg0) {
                 engagement = sliderEngagement.getValue();
                 frustration = sliderFrustration.getValue();
                 challenge = sliderChallenge.getValue();
-                
+
                 stopRecordDifficulty();
             }
         });
     }
-    
+
     /*
      * Class used as the content of the newly created JFrame.
      * Uses GridBagLayout to displays the widgets.
      */
-    private class DisplayerComponent extends JPanel
-    {
+    private class DisplayerComponent extends JPanel {
+
         private int width, height;
-        
-        public DisplayerComponent(int width, int height)
-        {
+
+        public DisplayerComponent(int width, int height) {
             this.setLayout(new GridBagLayout());
             this.setFocusable(true);
             this.setEnabled(true);
@@ -534,6 +545,6 @@ public class DifficultyRecorder
             setMinimumSize(size);
             setMaximumSize(size);
         }
-        
+
     }
 }

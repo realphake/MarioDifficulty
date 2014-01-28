@@ -26,6 +26,8 @@ import java.util.Random;
 
 public class DataRecorder {
 
+    private String id = "ID" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime())+randomNumber(111, 999);
+    
     private static final int STRAIGHT = 0;
     private static final int HILL_STRAIGHT = 1;
     private static final int TUBES = 2;
@@ -1177,7 +1179,10 @@ public class DataRecorder {
 
         //Add date + time stamp
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-        POMDPmetrics += timeStamp;
+        POMDPmetrics += timeStamp  + ", ";;
+        POMDPmetrics += id;
+        
+        
 
         //Write observation string without ending \n to gpm.POMDPmetrics
         gpm.POMDPmetrics = POMDPmetrics;
@@ -1189,7 +1194,7 @@ public class DataRecorder {
 
         //Write metrics relevant for POMDP to sander.txt file
         if(online){
-            request.uploadData(POMDPmetrics);
+            request.uploadData("trainingfile.arff", POMDPmetrics);
         } else {
             writePOMDP(POMDPmetrics);
         }

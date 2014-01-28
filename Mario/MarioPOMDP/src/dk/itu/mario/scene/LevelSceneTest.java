@@ -739,7 +739,7 @@ public class LevelSceneTest extends LevelScene {
                     }
                 }
             }
-            Mario.lives--;
+            //Mario.lives--; //Infinite amount of lives
             reset();
         }
     }
@@ -903,7 +903,7 @@ public class LevelSceneTest extends LevelScene {
         sprites.add(mario);
         startTime = 1;
 
-        timeLeft = 200 * 15;
+        resetTime();
 
         tick = 0;
 

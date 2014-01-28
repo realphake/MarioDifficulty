@@ -341,7 +341,7 @@ public class Enemy extends Sprite
                 winged = false;
                 hPic = -hPic;
                 yPicO = -yPicO + 16;
-
+                world.mario.incrementEnemyKilled();
                 if(world.recorder != null)
                 	world.recorder.shellKillRecord(this);
 
@@ -375,7 +375,7 @@ public class Enemy extends Sprite
                 hPic = -hPic;
                 yPicO = -yPicO + 16;
 
-
+                world.mario.incrementEnemyKilled();
                 if(world.recorder != null)
                 	world.recorder.fireKillRecord(this);
 

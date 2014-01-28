@@ -328,7 +328,7 @@ public class Shell extends Sprite
         xa = -facing * 2;
         ya = -5;
         deadTime = 100;
-
+        world.mario.incrementEnemyKilled();
         if(world.recorder != null)
         	world.recorder.killRecord(this);
     }

@@ -76,7 +76,7 @@ public class Architect {
         params_champion = new paramsPCG();
         
         if (!training){
-            request.downloadData();
+            request.downloadData("trainingfile.arff");
             sFunctions.loadTrainInstance(request.download);
             sFunctions.buildLRcls();
             // or load basic model
@@ -227,7 +227,7 @@ public class Architect {
         //      explore with a certain pattern, maybe startpoint and a pattern based on that
         params_old = params_new.copy();
         if(training){
-            if(chunksGenerated % 5 == 0){
+            if(chunksGenerated % 6 == 0){
                 params_new.randomizeParameters();
             } else {
                 params_new.incrementAll();

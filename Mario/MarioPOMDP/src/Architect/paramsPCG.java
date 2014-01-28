@@ -18,11 +18,11 @@ public class paramsPCG {
     public int seed;
     
     
-    public int ODDS_STRAIGHT ; //(1-10)
-    public int ODDS_HILL_STRAIGHT ;//(1-10)
-    public int ODDS_TUBES ;//(1-10)
-    public int ODDS_JUMP ;//(1-10)
-    public int ODDS_CANNONS ;//(1-10)
+    public int ODDS_STRAIGHT ; //(0-5)
+    public int ODDS_HILL_STRAIGHT ;//(0-5)
+    public int ODDS_TUBES ;//(0-5)
+    public int ODDS_JUMP ;//(0-5)
+    public int ODDS_CANNONS ;//(0-5)
     public int difficulty;
     
     
@@ -43,12 +43,12 @@ public class paramsPCG {
         
         newSeed();
         
-        ODDS_STRAIGHT = 2  ; //(1-5)
-        ODDS_HILL_STRAIGHT = 2;//(1-5)
-        ODDS_TUBES = 2 ;//(1-5)
-        ODDS_JUMP = 2;//(1-5)
-        ODDS_CANNONS = 2;//(1-5)
-        difficulty = 2;//(1-5)
+        ODDS_STRAIGHT = 2  ; //(0-5)
+        ODDS_HILL_STRAIGHT = 2;//(0-5)
+        ODDS_TUBES = 2 ;//(0-5)
+        ODDS_JUMP = 2;//(0-5)
+        ODDS_CANNONS = 2;//(0-5)
+        difficulty = 2;//(0-5)
         
         GAP_SIZE = 5; //(2-5)
         MAX_COINS = 5;//(10-100)
@@ -88,48 +88,48 @@ public class paramsPCG {
     }
     
     public void randomizeParameters(){
-        ODDS_STRAIGHT = randomGenerator.nextInt(5)+1; //(1-5)
-        ODDS_HILL_STRAIGHT = randomGenerator.nextInt(5)+1;//(1-5)
-        ODDS_TUBES = randomGenerator.nextInt(5)+1;//(1-5)
-        ODDS_JUMP = randomGenerator.nextInt(5)+1;//(1-5)
-        ODDS_CANNONS = randomGenerator.nextInt(5)+1;//(1-5)
+        ODDS_STRAIGHT = randomGenerator.nextInt(6); //(0-5)
+        ODDS_HILL_STRAIGHT = randomGenerator.nextInt(6);//(0-5)
+        ODDS_TUBES = randomGenerator.nextInt(6);//(0-5)
+        ODDS_JUMP = randomGenerator.nextInt(6);//(0-5)
+        ODDS_CANNONS = randomGenerator.nextInt(6);//(0-5)
         GAP_SIZE = randomGenerator.nextInt(4)+2;//(2-5)
     }
     
     public void incrementAll(){
-        ODDS_STRAIGHT = ODDS_STRAIGHT%5+1; //(1-5)
-        ODDS_HILL_STRAIGHT = ODDS_HILL_STRAIGHT%5+1;//(1-5)
-        ODDS_TUBES = ODDS_TUBES%5+1;//(1-5)
-        ODDS_JUMP = ODDS_JUMP%5+1;//(1-5)
-        ODDS_CANNONS = ODDS_CANNONS%5+1;//(1-5)
+        ODDS_STRAIGHT = (ODDS_STRAIGHT+1)%6; //(0-5)
+        ODDS_HILL_STRAIGHT = (ODDS_HILL_STRAIGHT+1)%6;//(0-5)
+        ODDS_TUBES = (ODDS_TUBES+1)%6;//(0-5)
+        ODDS_JUMP = (ODDS_JUMP+1)%6;//(0-5)
+        ODDS_CANNONS = (ODDS_CANNONS+1)%6;//(0-5)
         GAP_SIZE = (GAP_SIZE -1)%4+2;//(2-5)
     }
     
     public void clampValues(){
         if (ODDS_STRAIGHT > 5){
-            ODDS_STRAIGHT = 5; //(1-5)
-        } else if (ODDS_STRAIGHT < 1){
-            ODDS_STRAIGHT = 1; //(1-5)
+            ODDS_STRAIGHT = 5; //(0-5)
+        } else if (ODDS_STRAIGHT < 0){
+            ODDS_STRAIGHT = 0; //(0-5)
         }
         if (ODDS_HILL_STRAIGHT > 5){
-            ODDS_HILL_STRAIGHT = 5; //(1-5)
-        } else if (ODDS_HILL_STRAIGHT < 1){
-            ODDS_HILL_STRAIGHT = 1; //(1-5)
+            ODDS_HILL_STRAIGHT = 5; //(0-5)
+        } else if (ODDS_HILL_STRAIGHT < 0){
+            ODDS_HILL_STRAIGHT = 0; //(0-5)
         }
         if (ODDS_TUBES > 5){
-            ODDS_TUBES = 5; //(1-5)
-        } else if (ODDS_TUBES < 1){
-            ODDS_TUBES = 1; //(1-5)
+            ODDS_TUBES = 5; //(0-5)
+        } else if (ODDS_TUBES < 0){
+            ODDS_TUBES = 0; //(0-5)
         }
         if (ODDS_JUMP > 5){
-            ODDS_JUMP = 5; //(1-5)
-        } else if (ODDS_JUMP < 1){
-            ODDS_JUMP = 1; //(1-5)
+            ODDS_JUMP = 5; //(0-5)
+        } else if (ODDS_JUMP < 0){
+            ODDS_JUMP = 0; //(0-5)
         }
         if (ODDS_CANNONS > 5){
-            ODDS_CANNONS = 5; //(1-5)
-        } else if (ODDS_CANNONS < 1){
-            ODDS_CANNONS = 1; //(1-5)
+            ODDS_CANNONS = 5; //(0-5)
+        } else if (ODDS_CANNONS < 0){
+            ODDS_CANNONS = 0; //(0-5)
         }
         if (GAP_SIZE > 5){
             GAP_SIZE = 5; //(2-5)

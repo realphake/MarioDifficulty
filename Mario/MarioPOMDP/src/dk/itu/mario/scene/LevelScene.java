@@ -50,6 +50,7 @@ public class LevelScene extends Scene implements SpriteContext
     public boolean paused = false;
     public int startTime = 0;
     public int timeLeft;
+    public static int timeUsed;
     
     public Architect arch;
 
@@ -344,6 +345,7 @@ public class LevelScene extends Scene implements SpriteContext
 
     private DecimalFormat df = new DecimalFormat("00");
     private DecimalFormat df2 = new DecimalFormat("000");
+    private DecimalFormat df6 = new DecimalFormat("000000");
 
     public void render(Graphics g, float alpha)
     {
@@ -390,37 +392,48 @@ public class LevelScene extends Scene implements SpriteContext
         ////////////END OF SPRITE RENDERING
 
         //Draw standard MARIO gameplay informatiom
-        drawStringDropShadow(g, "MARIO", 0, 0, 7);
-        drawStringDropShadow(g, " " + df.format(Mario.lives), 0, 1, 7);
+        //drawStringDropShadow(g, "MARIO", 0, 0, 7);
+        //drawStringDropShadow(g, " " + df.format(Mario.lives), 0, 1, 7);
         //drawStringDropShadow(g, "MARIO " + df.format(Mario.lives), 0, 0, 7);     
-
-        drawStringDropShadow(g, "COIN", 8, 0, 7);
-        drawStringDropShadow(g, " " + df.format(Mario.coins), 8, 1, 7);
+        
+        drawStringDropShadow(g, "ENEMIES", 2, 0, 7);
+        drawStringDropShadow(g, "  " + df2.format(Mario.enemieskilled), 2, 1, 7);
+        
+        drawStringDropShadow(g, "COINS", 12, 0, 7);
+        drawStringDropShadow(g, " " + df2.format(Mario.coins), 12, 1, 7);
         //drawStringDropShadow(g, "COIN", 14, 0, 7);
         //drawStringDropShadow(g, " " + df.format(Mario.coins), 14, 1, 7);
         
         //drawStringDropShadow(g, "WORLD", 24, 0, 7);
         //drawStringDropShadow(g, " " + Mario.levelString, 24, 1, 7);
 
-        drawStringDropShadow(g, "TIME", 15, 0, 7);
+        drawStringDropShadow(g, "TIME", 20, 0, 7);
         //drawStringDropShadow(g, "TIME", 35, 0, 7);
         int time = (timeLeft+15-1)/15;
         if (time<0) time = 0;
-        drawStringDropShadow(g, " " + df2.format(time), 15, 1, 7);
+        drawStringDropShadow(g, " " + df2.format(time), 20, 1, 7);
         //drawStringDropShadow(g, " " + df2.format(time), 35, 1, 7);
 
         //Draw player model as consisting of received rewards
+        /*
         DecimalFormat df = new DecimalFormat("#.##");       
         drawStringDropShadow(g, "PLAYER MODEL", 25, 0, 7);
         drawStringDropShadow(g, " " + df.format(playerModel[0]), 25, 1, 7); //get average rewards received when using difficulty level 1 for this specific player
         drawStringDropShadow(g, " " + df.format(playerModel[1]), 30, 1, 7); //get average rewards received when using difficulty level 4 for this specific player
         drawStringDropShadow(g, " " + df.format(playerModel[2]), 35, 1, 7); //get average rewards received when using difficulty level 7 for this specific player
+        */
         
+        drawStringDropShadow(g, "SEGMENTS", 27, 0, 7);
+        drawStringDropShadow(g, "CLEARED: " + arch.chunksGenerated, 27, 1, 7);
+        drawStringDropShadow(g, "TOTAL", 27, 2, 7);
+        drawStringDropShadow(g, "TIME: " + df6.format(timeUsed/15), 27, 3, 7);
+        
+        /*
         //Draw general POMDP statistics
         drawStringDropShadow(g, "DIFF", 0, 3, 7);
         drawStringDropShadow(g, plannedDifficultyLevels.toString(), 0, 4, 7);
         drawStringDropShadow(g, drawCurrentLevelSegmentArrow(), 0, 5, 7);
-        
+        */
         //drawStringDropShadow(g, " " + m.state, 0, 4, 7);
         //drawStringDropShadow(g, "APPR", 6, 3, 7);
         //drawStringDropShadow(g, " " + m.state[1], 6, 4, 7);
@@ -523,9 +536,7 @@ public class LevelScene extends Scene implements SpriteContext
         drawStringDropShadow(g, "R", 22, 3, 7);
         drawStringDropShadow(g, " " + df.format(m.Reward), 22, 4, 7);
         */             
-        
         renderDirectionArrow(g);
-
 
         if (startTime > 0)
         {
@@ -939,6 +950,7 @@ public class LevelScene extends Scene implements SpriteContext
 
     public void resetTime()
     {
+        timeUsed += 3000 - timeLeft;
     	timeLeft = 200*15;
     }
     

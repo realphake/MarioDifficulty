@@ -24,15 +24,16 @@ import org.apache.http.util.EntityUtils;
 
 public class MainSendRequest {
 
-    public static String uploadurl
+    public static String baseurl
             = "http://mariodb-uvaproject.rhcloud.com/uploads/";
-    public static String downloadurl
-            = "http://mariodb-uvaproject.rhcloud.com/uploads/trainingfile.arff";
     public static String upload = "";
+    public static String uploadurl = "";
+    public static String downloadurl = "";
     public String download = "";
 
 
-    public void downloadData() {
+    public void downloadData(String filename) {
+        downloadurl = baseurl+filename;
         try {
             CloseableHttpClient httpclient = HttpClients.createDefault();
             HttpGet httpget = new HttpGet(downloadurl);
@@ -59,8 +60,9 @@ public class MainSendRequest {
 
     }
 
-    public void uploadData(String toBeUploaded) {
-        upload = toBeUploaded;
+    public void uploadData(String filename, String toBeUploaded) {
+        upload = filename + ";" + toBeUploaded;
+        uploadurl = baseurl;
         try {
             CloseableHttpClient httpclient = HttpClients.createDefault();
             StringEntity cliententity = new StringEntity(upload,
@@ -69,7 +71,6 @@ public class MainSendRequest {
             httppost.setEntity(cliententity);
             CloseableHttpResponse response = httpclient.execute(httppost);
             try {
-                response = httpclient.execute(httppost);
                 HttpEntity serverentity = response.getEntity();
                 if (serverentity != null) {
                     long len = serverentity.getContentLength();
@@ -93,7 +94,8 @@ public class MainSendRequest {
 
     public static void main(String[] args) {
         MainSendRequest req = new MainSendRequest();
-        req.downloadData();
+        //req.uploadData("trainingfile.arff", "it works");
+        //req.downloadData("trainingfile.arff");
         // use this to send specific data to the server
         
     }

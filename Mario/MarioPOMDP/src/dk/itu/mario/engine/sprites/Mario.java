@@ -17,6 +17,7 @@ public class Mario extends Sprite {
     public static String levelString = "none";
     public static int gainedMushrooms;
     public static int gainedFlowers;
+    public static int enemieskilled = 0;
 
     public static void resetStatic() {
         large = false;
@@ -139,6 +140,10 @@ public class Mario extends Sprite {
         newFire = Mario.fire;
 
         blink(true);
+    }
+    
+    public void incrementEnemyKilled(){
+        enemieskilled += 1;
     }
 
     public void move() {
@@ -684,7 +689,9 @@ public class Mario extends Sprite {
         onGround = false;
         sliding = false;
         invulnerableTime = 1;
-
+        if(!enemy.winged){
+            incrementEnemyKilled();
+        }
         if (world.recorder != null) {
             world.recorder.killStompRecord(enemy);
         }
@@ -904,7 +911,7 @@ public class Mario extends Sprite {
         onGround = false;
         sliding = false;
         invulnerableTime = 1;
-
+        incrementEnemyKilled();
         if (world.recorder != null) {
             world.recorder.killStompRecord(bill);
         }
