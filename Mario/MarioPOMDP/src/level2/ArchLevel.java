@@ -153,7 +153,7 @@ public class ArchLevel extends Level {
 
     private void designLevelSection(Section[] blueprints) {
         int lengthSoFar = 1;
-        lengthSoFar += buildStraight(1, width, true, 5, 0); // Beginning section
+        lengthSoFar += buildStraight(1, width, true, 15, 0); // Beginning section
         for (Section blueprint : blueprints) {
             int lengthRemaining = width - lengthSoFar;
             lengthSoFar += buildZone(lengthSoFar, lengthRemaining,
