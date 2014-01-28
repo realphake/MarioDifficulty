@@ -45,7 +45,7 @@ public class ArchLevel extends Level {
     private int difficulty;
     private int type;
     private int gaps;
-    
+
     ArrayList<GameSection> gameSections = new ArrayList<>();
 
     public ArchLevel(int width, int height) {
@@ -57,15 +57,15 @@ public class ArchLevel extends Level {
         this.createArchLevel(m);
         //Test commit.
     }
-    
-    public int sectionTypeAtCoordinate( int xCoord ) {
+
+    public int sectionTypeAtCoordinate(int xCoord) {
         for (GameSection gs : gameSections) {
-            if ( xCoord < gs.xEnd && xCoord >= gs.xStart ) {
+            if (xCoord < gs.xEnd && xCoord >= gs.xStart) {
                 return gs.blockType;
             }
         }
         return -1;
-        
+
     }
 
     public float getCustomRewards(String type) {
@@ -212,8 +212,8 @@ public class ArchLevel extends Level {
 
     private int buildZone(int x, int maxLength,
             int blockType, int length, int diffic) {
-        
-        gameSections.add(new GameSection(x, x+length, blockType));
+
+        gameSections.add(new GameSection(x, x + length, blockType));
         switch (blockType) {
             case STRAIGHT:
                 return buildStraight(x, maxLength, false, length, diffic);
@@ -289,22 +289,22 @@ public class ArchLevel extends Level {
             desiredLength = maxLength;
         }
         int floor = height - 1 - random.nextInt(4);
+
+        // Decide on the space between two cannons.
+        int spaceBetween = 15;
+        if (diffic != 0) spaceBetween = desiredLength / diffic;
+        else spaceBetween = 3 * desiredLength; // SORTA UGLY HACK
+
+        // Decide on the position of the first cannon.
+        int xCannon = xo + (spaceBetween / 2);
+        if ( diffic == 4 ) xCannon = xo + (spaceBetween / 2) +1; // FUGLY HACK
         
-        int spaceBetween = 6 - diffic;
-        int xCannon = xo + spaceBetween - 1;
-        if (diffic == 5) {
-            xCannon = xo;
-            spaceBetween = 2;
-        }
-        if (diffic == 0) {
-            xCannon = xo + 10;
-        }
         putTheseCannonsInLevel(xo, desiredLength, xCannon, spaceBetween, floor);
 
         return desiredLength;
     }
 
-    private void putTheseCannonsInLevel(int xo, int desiredLength, int xCannon, 
+    private void putTheseCannonsInLevel(int xo, int desiredLength, int xCannon,
             int spaceBetween, int floor) {
         for (int x = xo; x < xo + desiredLength; x++) {
             if (x > xCannon) {
@@ -333,7 +333,7 @@ public class ArchLevel extends Level {
         }
     }
 
-    private int buildHillStraight(int xo, int maxLength, 
+    private int buildHillStraight(int xo, int maxLength,
             int desiredLength, int diffic) {
         int length = desiredLength;
         if (length > maxLength) {
@@ -436,9 +436,8 @@ public class ArchLevel extends Level {
         if (length > maxLength) {
             length = maxLength;
         }
-        
-        // # of tubes is diffic+1?
 
+        // # of tubes is diffic+1?
         int floor = height - 1 - random.nextInt(4);
         int xTube = xo + 1 + random.nextInt(4);
         int tubeHeight = floor - random.nextInt(2) - 2;
@@ -707,7 +706,7 @@ public class ArchLevel extends Level {
         clone.BLOCKS_POWER = BLOCKS_POWER;
         clone.ENEMIES = ENEMIES;
         clone.COINS = COINS;
-        
+
         clone.odds = odds.clone();
 
         return clone;
@@ -736,7 +735,7 @@ public class ArchLevel extends Level {
 
         @Override
         public String toString() {
-            return "" + blockToString(type) + "(" + length +","+difficulty+ ")";
+            return "" + blockToString(type) + "(" + length + "," + difficulty + ")";
         }
 
         private String blockToString(int type) {
@@ -762,7 +761,7 @@ public class ArchLevel extends Level {
         int xStart;
         int xEnd;
         int blockType;
-        
+
         public GameSection(int xs, int xe, int bt) {
             xStart = xs;
             xEnd = xe;
