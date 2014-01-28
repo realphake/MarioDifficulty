@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 import Architect.*;
+import Onlinedata.MainSendRequest;
 
 import weka.core.Instance;
 import weka.core.Instances;
@@ -75,9 +76,13 @@ public class LevelSceneTest extends LevelScene {
     public Instances RF_trainingInstances;
     public Instances RF_testInstances;
     
-    public boolean training = true;
+    
 
     public int levelWidth = 50;
+    
+    public boolean training = true;
+    MainSendRequest request = new MainSendRequest();
+    boolean online = true;
 
     public LevelSceneTest(GraphicsConfiguration graphicsConfiguration,
             MarioComponent renderer, long seed, int levelDifficulty, int type) {
@@ -100,100 +105,23 @@ public class LevelSceneTest extends LevelScene {
         //Track planned difficuly levels for each level segment
         currentLevelSegment = 0;
         nextSegmentAlreadyGenerated = false;
-
-        //Load training instances from ARFF file
-        boolean verbose = false;
-        System.out.println("HEEEEEEEEEEEERE");
-        loadTrainingInstances(verbose);
-
-		//Fill kernels with training data
-        //fillKernels();
-		//Init player model with average rewards based on historic data (i.e., from training instances)
-        //System.out.println("");
-        //System.out.println("Initialising player model with training instances...");                       
-        //Loop through training instances
-        /*
-        for (int i = 0; i < RF_trainingInstances.numInstances(); i++) {
-            //Calculate reward for selected instance, add reward to appropriate player models, and update display of average accumulate reward
-            Instance trainingInstance = selectTrainingInstance(i);
-            boolean doBernoulliRewards = false;
-            boolean isTrainingInstance = true;
-            verbose = false;
-            updateReward(trainingInstance, doBernoulliRewards, isTrainingInstance, verbose); //update reward in playerModelDiff1,4,7
-            updatePlayerModel();
-            //displayReceivedRewards();
-        }
-        */
-
-		//m.DIFFICULTY = arch.message.DIFFICULTY*3+1; //arch.message.DIFFICULTY is initialised with 1 in Architect\state
-        //m.DIFFICULTY = setAction(); //set action using Softmax
-        //m.state = getDifficulty(); //function return m.DIFFICULTY
-        //m.state[1] = randomNumber(0,3); //initial appropriateness measurement is random at the moment
-        //System.out.println("");
-        //System.out.println("Initialising game...");
-        ////System.out.println("-levelDifficulty: " + levelDifficulty);
-        ////System.out.println("-arch.message.DIFFICULTY: " + arch.message.DIFFICULTY);
-        ////System.out.println("-m.DIFFICULTY: " + m.DIFFICULTY);
-        ////System.out.println("-m.state: " + m.state);
-        //System.out.println("-initialising two level segments with play vector: " + Arrays.toString(this.valueList[valueList.length-1]) );
-		//TEST - Set next action using Softmax
-        //setAction(); //sets m.bestAction
-		//TEST - Get probability of appropriateness
-        //String observation_str = "32, 32, 24, 0, 0, 28, 2, 19, 5, 23, 30, 1, 5, 5, 5, 1, 1, 1, 0, 0, 4, 23, 0, 0, 2, 16.0, 2.0, 1.0, 0.0, 1.0, 0.0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1";
-        //getProbsAppropriateness(observation_str, true);
-		//TEST - Update reward in player models
-        ////System.out.println("-reward function has been initialised"); //is now initialised to 0 in setPlayerModel()
-        //String observation_str = "32, 32, 24, 0, 0, 28, 2, 19, 5, 23, 30, 1, 5, 5, 5, 1, 1, 1, 0, 0, 4, 23, 0, 0, 2, 16.0, 2.0, 1.0, 0.0, 1.0, 0.0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1";
-        //updateReward(observation_str);                       
-        //Generate base level?
-        if (level == null) /*if(isCustom){
-         CustomizedLevelGenerator clg = new CustomizedLevelGenerator();
-         GamePlay gp = new GamePlay();
-         gp = gp.read("player.txt");
-         currentLevel = (Level)clg.generateLevel(gp);
-
-         //You can use the following commands if you want to benefit from
-         //	the interface containing detailed information
-         String detailedInfo = FileHandler.readFile("DetailedInfo.txt");
-
-         }
-         else*/ //levelDifficulty = 1;
-        //plannedDifficultyLevels.add(levelDifficulty); //as this level segment seems not to be used, only add difficulties of actually created segments
-        {
-            currentLevel = new RandomLevel(levelWidth, 15, levelSeed, levelDifficulty, levelType); //it's my impression this level segment is not directly used, perhaps overwritten elsewhere?
-        }                        //width used to be 200
-
-        level = currentLevel;
-
+        
         paused = false;
         Sprite.spriteContext = this;
         sprites.clear();
 
         Random randomGenerator = new Random();
         int randomInt = randomGenerator.nextInt(100);
-		//level = LevelGenerator.createLevel(320, 15, levelSeed+randomInt, levelDifficulty, levelType);
-        //randomInt = randomGenerator.nextInt(100);
-        //level2 = new CustomizedLevel(100, 15, levelSeed+randomInt , levelDifficulty , levelType,arch.message);
 
-		//levelDifficulty = m.DIFFICULTY; - this is good, but let's use the same function everywhere to get the difficulty, so:
-        //levelDifficulty = getDifficulty();
-        //levelDifficulty = 1;
-        //plannedDifficultyLevels.add(levelDifficulty);
-        arch = new Architect();
-        level = new ArchLevel(arch.params_new);
-        level2 = new ArchLevel(arch.params_new);//using second constructor!
-        //level = new ArchLevel(100, 15, levelSeed+randomInt, levelDifficulty, levelType, arch.message);
+        arch = new Architect(training, request);
+        level2 = new ArchLevel(arch.params_new);
         plannedDifficultyLevels.add(level2.DIFFICULTY_sander);
 
-		//level2 = new ArchLevel(100, 15, levelSeed+randomInt , levelDifficulty , levelType,arch.message);
-        //level2 = new RandomLevel(100, 15, levelSeed+randomInt , levelDifficulty , levelType);
         randomInt = randomGenerator.nextInt(100);
         arch.params_new.seed = randomInt;
-		// level3 = new CustomizedLevel(100, 15, levelSeed+randomInt , levelDifficulty,levelType,arch.message);
-        //level3 = new RandomLevel(100, 15, levelSeed+randomInt , levelDifficulty , levelType);
-        //plannedDifficultyLevels.add(levelDifficulty);
-        level3 = new ArchLevel(arch.params_new);//using second constructor!
-        //level3 = new ArchLevel(100, 15, levelSeed+randomInt, levelDifficulty, levelType, arch.message);
+
+        level3 = new ArchLevel(arch.params_new);
+
         plannedDifficultyLevels.add(level3.DIFFICULTY_sander);
 
         fixborders();
@@ -253,6 +181,7 @@ public class LevelSceneTest extends LevelScene {
         gameStarted = false;
     }
 
+    // Locally for Random Forest Classifier -- Currently Unused
     public void loadTrainingInstances(boolean verbose) {
         try {
             //Load training instances into data
@@ -602,7 +531,7 @@ public class LevelSceneTest extends LevelScene {
 
             // Difficulty Popup here -DP1
             System.out.println("pausing");
-            arch.Obs = recorder.fillGamePlayMetrics(getUserOpinion(), verbose); //write metrics at swapping to new level segment
+            arch.Obs = recorder.fillGamePlayMetrics(getUserOpinion(), verbose, request, online); //write metrics at swapping to new level segment
             //Load test instances and select last instance for classification
             //Update in which level segment the player currently is
             //arch.reward_label = level3.getCustomRewards("coin");
@@ -776,7 +705,6 @@ public class LevelSceneTest extends LevelScene {
                     Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 }
             }
-            arch.Obs = recorder.fillGamePlayMetrics(dr, verbose); //write metrics at swapping to new level segment
         }
         marioComponent.win();
     }
@@ -795,13 +723,10 @@ public class LevelSceneTest extends LevelScene {
                         Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                     }
                 }
-                arch.Obs = recorder.fillGamePlayMetrics(dr, verbose); //write metrics at swapping to new level segment
             }
             marioComponent.lose();
         } else // mario still has lives to play :)--> have a new beginning
         {
-					//mario.x = 5; 
-            //mario.y = 5;
             if (recorder != null) {
                 if (dr.isRecordAfterDeath()) {
                     dr.startRecordDifficulty(false);
@@ -813,7 +738,6 @@ public class LevelSceneTest extends LevelScene {
                         }
                     }
                 }
-                arch.Obs = recorder.fillGamePlayMetrics(dr, verbose); //write metrics at swapping to new level segment
             }
             Mario.lives--;
             reset();

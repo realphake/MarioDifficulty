@@ -125,6 +125,11 @@ public class paramsPCG {
         } else if (ODDS_JUMP < 1){
             ODDS_JUMP = 1; //(1-5)
         }
+        if (ODDS_CANNONS > 5){
+            ODDS_CANNONS = 5; //(1-5)
+        } else if (ODDS_CANNONS < 1){
+            ODDS_CANNONS = 1; //(1-5)
+        }
         if (GAP_SIZE > 5){
             GAP_SIZE = 5; //(2-5)
         } else if (GAP_SIZE < 2){

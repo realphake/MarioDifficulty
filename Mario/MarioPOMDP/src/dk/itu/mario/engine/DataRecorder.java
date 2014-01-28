@@ -4,6 +4,7 @@ package dk.itu.mario.engine;
 //import org.apache.log4j.BasicConfigurator;
 //import org.apache.log4j.NDC;
 import Architect.ARCH_MESSAGE;
+import Onlinedata.MainSendRequest;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -30,6 +31,8 @@ public class DataRecorder {
     private static final int TUBES = 2;
     private static final int JUMP = 3;
     private static final int CANNONS = 4;
+    
+    private static final int MAX_TIME = 3000;
 
     public boolean recording = true;
     public ArchLevel level;
@@ -285,7 +288,7 @@ public class DataRecorder {
     public void startTime() {
         if (timeStopped == true) {
             timeStopped = false;
-            timeStart = 2982 - levelScene.timeLeft;
+            timeStart = MAX_TIME - levelScene.timeLeft;
             detailedLog += "StartTime = " + timeStart;
             detailedLog += "\n";
         }
@@ -298,7 +301,7 @@ public class DataRecorder {
         if (timeStopped == false) {
             timeStopped = true;
 
-            timeEnd = 2982 - levelScene.timeLeft;
+            timeEnd = MAX_TIME - levelScene.timeLeft;
             totalTime += timeEnd - timeStart;
             //System.out.println("******************************************");
             //System.out.println("tt:" + totalTime);
@@ -352,25 +355,25 @@ public class DataRecorder {
     }
 
     public void startRightMoveRecord() {
-        startRightTime = 2982 - levelScene.timeLeft;
+        startRightTime = MAX_TIME - levelScene.timeLeft;
         direction = 1;
     }
 
     public void startSectionRightMoveRecord() {
-        startRightTimeNewSection = 2982 - levelScene.timeLeft;
+        startRightTimeNewSection = MAX_TIME - levelScene.timeLeft;
     }
 
     public void startLeftMoveRecord() {
-        startLeftTime = 2982 - levelScene.timeLeft;
+        startLeftTime = MAX_TIME - levelScene.timeLeft;
         direction = -1;
     }
 
     public void startSectionLeftMoveRecord() {
-        startLeftTimeNewSection = 2982 - levelScene.timeLeft;
+        startLeftTimeNewSection = MAX_TIME - levelScene.timeLeft;
     }
 
     public void endRightMoveRecord() {
-        endRightTime = 2982 - levelScene.timeLeft;
+        endRightTime = MAX_TIME - levelScene.timeLeft;
 
         totalRightTime += endRightTime - startRightTime;
         detailedLog += "RightMove: StTime = " + startRightTime + " EdTime = " + totalRightTime;
@@ -378,7 +381,7 @@ public class DataRecorder {
     }
 
     public void endSectionRightMoveRecord(int sectionType) {
-        endRightTimeNewSection = 2982 - levelScene.timeLeft;
+        endRightTimeNewSection = MAX_TIME - levelScene.timeLeft;
 
         switch (sectionType) {
             case STRAIGHT:
@@ -400,7 +403,7 @@ public class DataRecorder {
     }
 
     public void endLeftMoveRecord() {
-        endLeftTime = 2982 - levelScene.timeLeft;
+        endLeftTime = MAX_TIME - levelScene.timeLeft;
 
         totalLeftTime += endLeftTime - startLeftTime;
         detailedLog += "LeftMove: StTime = " + startLeftTime + " EdTime = " + totalLeftTime;
@@ -409,7 +412,7 @@ public class DataRecorder {
     }
 
     public void endSectionLeftMoveRecord(int sectionType) {
-        endLeftTimeNewSection = 2982 - levelScene.timeLeft;
+        endLeftTimeNewSection = MAX_TIME - levelScene.timeLeft;
 
         switch (sectionType) {
             case STRAIGHT:
@@ -434,7 +437,7 @@ public class DataRecorder {
         if (!levelScene.mario.ducking) {
             timesDucked++;
 
-            startDuckTime = 2982 - levelScene.timeLeft;
+            startDuckTime = MAX_TIME - levelScene.timeLeft;
 
             //System.out.println("START DUCK");
         }
@@ -442,7 +445,7 @@ public class DataRecorder {
 
     public void endDuckRecord() {
         if (levelScene.mario.ducking) {
-            endDuckTime = 2982 - levelScene.timeLeft;
+            endDuckTime = MAX_TIME - levelScene.timeLeft;
 
             totalDuckTime += endDuckTime - startDuckTime;
 
@@ -463,7 +466,7 @@ public class DataRecorder {
             switchedPower++;
 
             //System.out.println("------------------- "+switchedPower+" -------------------");
-            startLittleTime = 2982 - levelScene.timeLeft;
+            startLittleTime = MAX_TIME - levelScene.timeLeft;
 
             //System.out.println("LITTLE START: " + startLittleTime);
         }
@@ -472,7 +475,7 @@ public class DataRecorder {
     public void endLittleRecord() {
         if (littleRecording) {
             littleRecording = false;
-            endLittleTime = 2982 - levelScene.timeLeft;
+            endLittleTime = MAX_TIME - levelScene.timeLeft;
 
             totalLittleTime += endLittleTime - startLittleTime;
 
@@ -488,13 +491,13 @@ public class DataRecorder {
         switchedPower++;
 
         //System.out.println("------------------- "+switchedPower+" -------------------");
-        startLargeTime = 2982 - levelScene.timeLeft;
+        startLargeTime = MAX_TIME - levelScene.timeLeft;
 
         //System.out.println("LARGE START");
     }
 
     public void endLargeRecord() {
-        endLargeTime = 2982 - levelScene.timeLeft;
+        endLargeTime = MAX_TIME - levelScene.timeLeft;
 
         totalLargeTime += endLargeTime - startLargeTime;
 
@@ -508,13 +511,13 @@ public class DataRecorder {
         switchedPower++;
 
         //System.out.println("------------------- "+switchedPower+" -------------------");
-        startFireTime = 2982 - levelScene.timeLeft;
+        startFireTime = MAX_TIME - levelScene.timeLeft;
 
         //System.out.println("FIRE START");
     }
 
     public void endFireRecord() {
-        endFireTime = 2982 - levelScene.timeLeft;
+        endFireTime = MAX_TIME - levelScene.timeLeft;
 
         totalFireTime += endFireTime - startFireTime;
 
@@ -527,21 +530,27 @@ public class DataRecorder {
         if (!levelScene.mario.running) {
             timesRun++;
 
-            startRunTime = 2982 - levelScene.timeLeft;
+            startRunTime = MAX_TIME - levelScene.timeLeft;
 
             //System.out.println("START RUN");
         }
     }
 
     public void startSectionRunningRecord() {
-        startRunTimeNewSection = 2982 - levelScene.timeLeft;
+        if (!levelScene.mario.running) {
+            startRunTimeNewSection = MAX_TIME - levelScene.timeLeft;
+        }
+    }
+    
+    public void resumeSectionRunningRecord() {
+        startRunTimeNewSection = MAX_TIME - levelScene.timeLeft;
     }
 
     public void endRunningRecord() {
         if (levelScene.mario.running) {
 
             //System.out.println("END RUN");
-            endRunTime = 2982 - levelScene.timeLeft;
+            endRunTime = MAX_TIME - levelScene.timeLeft;
 
             totalRunTime += endRunTime - startRunTime;
 
@@ -553,7 +562,7 @@ public class DataRecorder {
 
     public void endSectionRunningRecord(int sectionType) {
         if (levelScene.mario.running) {
-            endRunTimeNewSection = 2982 - levelScene.timeLeft;
+            endRunTimeNewSection = MAX_TIME - levelScene.timeLeft;
 
             switch (sectionType) {
                 case STRAIGHT:
@@ -579,13 +588,13 @@ public class DataRecorder {
         killRecord(sprite);
         int enemyType = 0;
         if (sprite instanceof FlowerEnemy) {
-            detailedLog += "FireKill:  EnemyType = FlowerEnemy  time = " + (2982 - levelScene.timeLeft);
+            detailedLog += "FireKill:  EnemyType = FlowerEnemy  time = " + (MAX_TIME - levelScene.timeLeft);
             detailedLog += "\n";
         } else if (sprite instanceof BulletBill) {// cannon shot
         } else if (sprite instanceof Shell) {
         } else if (sprite instanceof Enemy) {
             Enemy enemy = (Enemy) sprite;
-            detailedLog += "FireKill:  EnemyType =" + enemy.type + "time = " + (2982 - levelScene.timeLeft);
+            detailedLog += "FireKill:  EnemyType =" + enemy.type + "time = " + (MAX_TIME - levelScene.timeLeft);
             detailedLog += "\n";
         }
         fireKills++;
@@ -595,15 +604,15 @@ public class DataRecorder {
     public void shellKillRecord(Sprite sprite) {
         killRecord(sprite);
         if (sprite instanceof FlowerEnemy) {
-            detailedLog += "ShellKill:  EnemyType = FlowerEnemy time = " + (2982 - levelScene.timeLeft);
+            detailedLog += "ShellKill:  EnemyType = FlowerEnemy time = " + (MAX_TIME - levelScene.timeLeft);
             detailedLog += "\n";
         } else if (sprite instanceof BulletBill) {//cannon shot
         } else if (sprite instanceof Shell) {
-            detailedLog += "ShellKill:  EnemyType = Turtle time = " + (2982 - levelScene.timeLeft);
+            detailedLog += "ShellKill:  EnemyType = Turtle time = " + (MAX_TIME - levelScene.timeLeft);
             detailedLog += "\n";
         } else if (sprite instanceof Enemy) {
             Enemy enemy = (Enemy) sprite;
-            detailedLog += "ShellKill:  EnemyType = " + enemy.type + " time = " + (2982 - levelScene.timeLeft);
+            detailedLog += "ShellKill:  EnemyType = " + enemy.type + " time = " + (MAX_TIME - levelScene.timeLeft);
             detailedLog += "\n";
         }
 
@@ -620,17 +629,17 @@ public class DataRecorder {
     public void killStompRecord(Sprite sprite) {
         killRecord(sprite);
         if (sprite instanceof FlowerEnemy) {
-            detailedLog += "StompKill:  EnemyType = FlowerEnemy time = " + (2982 - levelScene.timeLeft);
+            detailedLog += "StompKill:  EnemyType = FlowerEnemy time = " + (MAX_TIME - levelScene.timeLeft);
             detailedLog += "\n";
 
         } else if (sprite instanceof BulletBill) {// cannon shot
-            detailedLog += "StompKill:  EnemyType = BulletBill time = " + (2982 - levelScene.timeLeft);
+            detailedLog += "StompKill:  EnemyType = BulletBill time = " + (MAX_TIME - levelScene.timeLeft);
             detailedLog += "\n";
         } else if (sprite instanceof Shell) {
-//			levelScene.levelRecorder.enemyR.interact.add(new DataEntry(EnemyRecorder.GREEN_TURTLE, EnemyRecorder.UNLEASHED, 2982 - levelScene.timeLeft,x,y));
+//			levelScene.levelRecorder.enemyR.interact.add(new DataEntry(EnemyRecorder.GREEN_TURTLE, EnemyRecorder.UNLEASHED, MAX_TIME - levelScene.timeLeft,x,y));
         } else if (sprite instanceof Enemy) {
             Enemy enemy = (Enemy) sprite;
-            detailedLog += "StompKill:  EnemyType = " + enemy.type + " time = " + (2982 - levelScene.timeLeft);
+            detailedLog += "StompKill:  EnemyType = " + enemy.type + " time = " + (MAX_TIME - levelScene.timeLeft);
             detailedLog += "\n";
 
         }
@@ -662,13 +671,13 @@ public class DataRecorder {
     }
 
     public void blockCoinDestroyRecord() {
-        detailedLog += "BlockCoinDestroy:  time = " + (2982 - levelScene.timeLeft);
+        detailedLog += "BlockCoinDestroy:  time = " + (MAX_TIME - levelScene.timeLeft);
         detailedLog += "\n";
         blocksCoinDestroyed++;
     }
 
     public void blockPowerDestroyRecord() {
-        detailedLog += "BlockPowerDestroy:  time = " + (2982 - levelScene.timeLeft);
+        detailedLog += "BlockPowerDestroy:  time = " + (MAX_TIME - levelScene.timeLeft);
         detailedLog += "\n";
         blocksPowerDestroyed++;
     }
@@ -714,7 +723,7 @@ public class DataRecorder {
     public void shellUnleashedRecord() {
         shellsUnleashed++;
         //System.out.println(" shell unleased");
-        detailedLog += "UnleashShell:  time = " + (2982 - levelScene.timeLeft);
+        detailedLog += "UnleashShell:  time = " + (MAX_TIME - levelScene.timeLeft);
         detailedLog += "\n";
     }
 
@@ -729,14 +738,14 @@ public class DataRecorder {
     public void recordJump() {
         if (isInAir) {
             timesJumped++;
-            startJumpTime = 2982 - levelScene.timeLeft;
+            startJumpTime = MAX_TIME - levelScene.timeLeft;
         }
     }
 
     public void recordJumpLand() {
         if (isInAir) {
             isInAir = false;
-            endJumpTime = 2982 - levelScene.timeLeft;
+            endJumpTime = MAX_TIME - levelScene.timeLeft;
 
             totalJumpTime += endJumpTime - startJumpTime;
 
@@ -746,13 +755,17 @@ public class DataRecorder {
     }
 
     public void recordCoin() {
-        detailedLog += "CollectCoin:  time = " + (2982 - levelScene.timeLeft);
+        detailedLog += "CollectCoin:  time = " + (MAX_TIME - levelScene.timeLeft);
         detailedLog += "\n";
         collectedCoins++;
     }
 
     private int convertTime(int time) {
-        return (int) Math.floor((time + 15 - 1) / 15);
+        return (int) Math.floor(time / 15);
+    }
+    
+    private double convertTimeTwoDecimals(int time) {
+        return Math.round((double)time*100.0 / 15)/100.0;
     }
 
     public void printAll() {
@@ -923,7 +936,7 @@ public class DataRecorder {
         System.out.print("\n");
     }
 
-    public GamePlay fillGamePlayMetrics(DifficultyRecorder userOpinion, boolean verbose) {
+    public GamePlay fillGamePlayMetrics(DifficultyRecorder userOpinion, boolean verbose, MainSendRequest request, boolean online) {
         //fillGamePlayMetrics
         //-at the moment, only called at swapping to new level segment
         //-should also be called in LevelSceneTest.winActions() + deathActions()
@@ -982,21 +995,21 @@ public class DataRecorder {
         gpm.ChompFlowersKilled = kills[SpriteTemplate.CHOMP_FLOWER];
         
         
-        gpm.totalRightTimeStraight = getTotalRunTimeForSection(STRAIGHT);
-        gpm.totalLeftTimeStraight = getTotalRightTimeForSection(STRAIGHT);
-        gpm.totalRunTimeStraight = getTotalLeftTimeForSection(STRAIGHT);
-        gpm.totalRightTimeJump = getTotalRunTimeForSection(JUMP);
-        gpm.totalLeftTimeJump = getTotalRightTimeForSection(JUMP);
-        gpm.totalRunTimeJump = getTotalLeftTimeForSection(JUMP);
-        gpm.totalRightTimeTubes = getTotalRunTimeForSection(TUBES);
-        gpm.totalLeftTimeTubes = getTotalRightTimeForSection(TUBES);
-        gpm.totalRunTimeTubes = getTotalLeftTimeForSection(TUBES);
-        gpm.totalRightTimeHills = getTotalRunTimeForSection(HILL_STRAIGHT);
-        gpm.totalLeftTimeHills = getTotalRightTimeForSection(HILL_STRAIGHT);
-        gpm.totalRunTimeHills = getTotalLeftTimeForSection(HILL_STRAIGHT);
-        gpm.totalRightTimeCannons = getTotalRunTimeForSection(CANNONS);
-        gpm.totalLeftTimeCannons = getTotalRightTimeForSection(CANNONS);
-        gpm.totalRunTimeCannons = getTotalLeftTimeForSection(CANNONS);
+        gpm.totalRightTimeStraight = getTotalRightTimeForSection(STRAIGHT);
+        gpm.totalLeftTimeStraight = getTotalLeftTimeForSection(STRAIGHT);
+        gpm.totalRunTimeStraight = getTotalRunTimeForSection(STRAIGHT);
+        gpm.totalRightTimeJump = getTotalRightTimeForSection(JUMP);
+        gpm.totalLeftTimeJump = getTotalLeftTimeForSection(JUMP);
+        gpm.totalRunTimeJump = getTotalRunTimeForSection(JUMP);
+        gpm.totalRightTimeTubes = getTotalRightTimeForSection(TUBES);
+        gpm.totalLeftTimeTubes = getTotalLeftTimeForSection(TUBES);
+        gpm.totalRunTimeTubes = getTotalRunTimeForSection(TUBES);
+        gpm.totalRightTimeHills = getTotalRightTimeForSection(HILL_STRAIGHT);
+        gpm.totalLeftTimeHills = getTotalLeftTimeForSection(HILL_STRAIGHT);
+        gpm.totalRunTimeHills = getTotalRunTimeForSection(HILL_STRAIGHT);
+        gpm.totalRightTimeCannons = getTotalRightTimeForSection(CANNONS);
+        gpm.totalLeftTimeCannons = getTotalLeftTimeForSection(CANNONS);
+        gpm.totalRunTimeCannons = getTotalRunTimeForSection(CANNONS);
 
         //Verbose debugging output
         if (verbose) {
@@ -1057,7 +1070,9 @@ public class DataRecorder {
         }
 
         //Write metric to file in weird hexformat
-        gpm.write("player.txt");
+        if(!online){
+            gpm.write("player.txt");
+        }
 
         // for Architect
         gpm.k_T = kT();
@@ -1131,15 +1146,19 @@ public class DataRecorder {
         POMDPmetrics += getTotalRunTimeForSection(STRAIGHT) + ", ";
         POMDPmetrics += getTotalRightTimeForSection(STRAIGHT) + ", ";
         POMDPmetrics += getTotalLeftTimeForSection(STRAIGHT) + ", ";
+        
         POMDPmetrics += getTotalRunTimeForSection(HILL_STRAIGHT) + ", ";
         POMDPmetrics += getTotalRightTimeForSection(HILL_STRAIGHT) + ", ";
         POMDPmetrics += getTotalLeftTimeForSection(HILL_STRAIGHT) + ", ";
+        
         POMDPmetrics += getTotalRunTimeForSection(JUMP) + ", ";
         POMDPmetrics += getTotalRightTimeForSection(JUMP) + ", ";
         POMDPmetrics += getTotalLeftTimeForSection(JUMP) + ", ";
+        
         POMDPmetrics += getTotalRunTimeForSection(TUBES) + ", ";
         POMDPmetrics += getTotalRightTimeForSection(TUBES) + ", ";
         POMDPmetrics += getTotalLeftTimeForSection(TUBES) + ", ";
+        
         POMDPmetrics += getTotalRunTimeForSection(CANNONS) + ", ";
         POMDPmetrics += getTotalRightTimeForSection(CANNONS) + ", ";
         POMDPmetrics += getTotalLeftTimeForSection(CANNONS) + ", ";
@@ -1169,8 +1188,11 @@ public class DataRecorder {
         POMDPmetrics += "\n"; //new line
 
         //Write metrics relevant for POMDP to sander.txt file
-        writePOMDP(POMDPmetrics);
-
+        if(online){
+            request.uploadData(POMDPmetrics);
+        } else {
+            writePOMDP(POMDPmetrics);
+        }
         //Write detailedLog that lists jump actions and other barely relevant stuff
         //;//System.out.println(detailedLog);
         //write(detailedLog);
@@ -1315,50 +1337,50 @@ public class DataRecorder {
         return switchedPower;
     }
 
-    private int getTotalRunTimeForSection(int sectionType) {
+    private double getTotalRunTimeForSection(int sectionType) {
         switch (sectionType) {
             case STRAIGHT:
-                return convertTime(totalRunTimeStraight);
+                return convertTimeTwoDecimals(totalRunTimeStraight);
             case HILL_STRAIGHT:
-                return convertTime(totalRunTimeHills);
+                return convertTimeTwoDecimals(totalRunTimeHills);
             case TUBES:
-                return convertTime(totalRunTimeTubes);
+                return convertTimeTwoDecimals(totalRunTimeTubes);
             case JUMP:
-                return convertTime(totalRunTimeJump);
+                return convertTimeTwoDecimals(totalRunTimeJump);
             case CANNONS:
-                return convertTime(totalRunTimeCannons);
+                return convertTimeTwoDecimals(totalRunTimeCannons);
         }
         return 0;
     }
 
-    private int getTotalRightTimeForSection(int sectionType) {
+    private double getTotalRightTimeForSection(int sectionType) {
         switch (sectionType) {
             case STRAIGHT:
-                return convertTime(totalRightTimeStraight);
+                return convertTimeTwoDecimals(totalRightTimeStraight);
             case HILL_STRAIGHT:
-                return convertTime(totalRightTimeHills);
+                return convertTimeTwoDecimals(totalRightTimeHills);
             case TUBES:
-                return convertTime(totalRightTimeTubes);
+                return convertTimeTwoDecimals(totalRightTimeTubes);
             case JUMP:
-                return convertTime(totalRightTimeJump);
+                return convertTimeTwoDecimals(totalRightTimeJump);
             case CANNONS:
-                return convertTime(totalRightTimeCannons);
+                return convertTimeTwoDecimals(totalRightTimeCannons);
         }
         return 0;
     }
 
-    private int getTotalLeftTimeForSection(int sectionType) {
+    private double getTotalLeftTimeForSection(int sectionType) {
         switch (sectionType) {
             case STRAIGHT:
-                return convertTime(totalLeftTimeStraight);
+                return convertTimeTwoDecimals(totalLeftTimeStraight);
             case HILL_STRAIGHT:
-                return convertTime(totalLeftTimeHills);
+                return convertTimeTwoDecimals(totalLeftTimeHills);
             case TUBES:
-                return convertTime(totalLeftTimeTubes);
+                return convertTimeTwoDecimals(totalLeftTimeTubes);
             case JUMP:
-                return convertTime(totalLeftTimeJump);
+                return convertTimeTwoDecimals(totalLeftTimeJump);
             case CANNONS:
-                return convertTime(totalLeftTimeCannons);
+                return convertTimeTwoDecimals(totalLeftTimeCannons);
         }
         return 0;
     }
@@ -1531,39 +1553,47 @@ public class DataRecorder {
             n += (double) getBlocksCoinDestroyed() / totalBlocks;
         }
 
-        return n;
+        return Math.round(n*100.0)/100.0;
     }
 
     public double ncb() {
+        double n = 0;
         if (level.BLOCKS_COINS != 0) {
-            return (double) getBlocksCoinDestroyed() / level.BLOCKS_COINS;
+            n = (double) getBlocksCoinDestroyed() / level.BLOCKS_COINS;
         } else {
-            return 0;
+            n = 0;
         }
+        return Math.round(n*100.0)/100.0;
     }
 
     public double nI() {
+        double n = 0;
         if (level.BLOCKS_COINS + level.BLOCKS_POWER + level.COINS != 0) {
-            return (double) (getCoinsCollected() + getBlocksPowerDestroyed() + getBlocksCoinDestroyed()) / (double) (level.BLOCKS_COINS + level.BLOCKS_POWER + level.COINS);
+            n = (double) (getCoinsCollected() + getBlocksPowerDestroyed() + getBlocksCoinDestroyed()) / (double) (level.BLOCKS_COINS + level.BLOCKS_POWER + level.COINS);
         } else {
-            return 0;
+            n = 0;
         }
+        return Math.round(n*100.0)/100.0;
     }
 
     public double neb() {
+        double n = 0;
         if (level.BLOCKS_EMPTY != 0) {
-            return (double) getBlocksEmptyDestroyed() / level.BLOCKS_EMPTY;
+            n = (double) getBlocksEmptyDestroyed() / level.BLOCKS_EMPTY;
         } else {
-            return 0;
+            n = 0;
         }
+        return Math.round(n*100.0)/100.0;
     }
 
     public double np() {
+        double n = 0;
         if (level.BLOCKS_POWER != 0) {
-            return (double) getBlocksPowerDestroyed() / level.BLOCKS_POWER;
+            n = (double) getBlocksPowerDestroyed() / level.BLOCKS_POWER;
         } else {
-            return 0;
+            n = 0;
         }
+        return Math.round(n*100.0)/100.0;
     }
 
     /**

@@ -143,7 +143,7 @@ public class Mario extends Sprite {
 
     public void move() {
         lastSectionType = currentSectionType;
-        currentSectionType = world2.getCurrentSectionType((int) ((double) x));
+        currentSectionType = world2.getCurrentSectionType((int) (((double) x)/16));
         // sectiontypes 0-4, -1 means invalid
         if (lastSectionType != currentSectionType) {
             changedSection = true;
@@ -167,10 +167,13 @@ public class Mario extends Sprite {
             if (keys[KEY_SPEED]) {
                 if (world.recorder != null && world.recorder.recording) {
                     world.recorder.startRunningRecord();
-                    if (changedSection && lastSectionType != -1)
-                        world.recorder.endSectionRunningRecord(lastSectionType);
-                    if (currentSectionType != -1)
-                        world.recorder.startSectionRunningRecord();
+                    if (changedSection){
+                        if (lastSectionType != -1)
+                            world.recorder.endSectionRunningRecord(lastSectionType);
+                        if (currentSectionType != -1)
+                            world.recorder.resumeSectionRunningRecord();
+                    } else if (currentSectionType != -1)
+                            world.recorder.startSectionRunningRecord();
                 }
 
                 running = true;
@@ -299,10 +302,11 @@ public class Mario extends Sprite {
         }
 
         if (world.mario.xa > 0) {
-            if (changedSection && lastSectionType != -1){
-                world.recorder.endSectionRightMoveRecord(lastSectionType);
+            if (changedSection){
+                if(lastSectionType != -1)
+                    world.recorder.endSectionRightMoveRecord(lastSectionType);
                 if (currentSectionType != -1)
-                        world.recorder.startSectionRightMoveRecord();
+                    world.recorder.startSectionRightMoveRecord();
             }
             if (direction != 1) {
                 direction = 1;
@@ -315,10 +319,11 @@ public class Mario extends Sprite {
             } 
 
         } else if (world.mario.xa < 0) {
-            if (changedSection && lastSectionType != -1){
-                world.recorder.endSectionLeftMoveRecord(lastSectionType);
+            if (changedSection){
+                if(lastSectionType != -1)
+                    world.recorder.endSectionLeftMoveRecord(lastSectionType);
                 if (currentSectionType != -1)
-                        world.recorder.startSectionLeftMoveRecord();
+                    world.recorder.startSectionLeftMoveRecord();
             }
             if (direction != -1) {
                 direction = -1;
@@ -342,7 +347,9 @@ public class Mario extends Sprite {
                 if (currentSectionType != -1)
                         world.recorder.endSectionLeftMoveRecord(currentSectionType);
             }
-
+            // standing still counts as not going forward for the difficulty estimation
+            if (currentSectionType != -1)
+                        world.recorder.startSectionLeftMoveRecord();
             direction = 0;
         }
 
