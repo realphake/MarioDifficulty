@@ -38,7 +38,7 @@ public class paramsPCG {
     
     public  paramsPCG(){
         
-        width = 105; // 7 sections, including beginning&end, at 15 blocks each
+        width = 7*16;
         height = 15;
         
         newSeed();

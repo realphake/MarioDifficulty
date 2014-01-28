@@ -110,7 +110,7 @@ public class ArchLevel extends Level {
         ArrayList<Section> blueprintTemp = new ArrayList<>();
         for (int i = 0; i < levelSeed.length - 1; i++) {
             int difficult = levelSeed[i];
-            int length = 15; //HARDCODED! phew.
+            int length = 16; //HARDCODED! phew.
             blueprintTemp.add(new Section(i, length, difficult));
         }
         Section[] blueprint = shuffleBlueprints(listToArray(blueprintTemp));
@@ -153,7 +153,7 @@ public class ArchLevel extends Level {
 
     private void designLevelSection(Section[] blueprints) {
         int lengthSoFar = 1;
-        lengthSoFar += buildStraight(1, width, true, 15, 0); // Beginning section
+        lengthSoFar += buildStraight(1, width, true, 16, 0); // Beginning section
         for (Section blueprint : blueprints) {
             int lengthRemaining = width - lengthSoFar;
             lengthSoFar += buildZone(lengthSoFar, lengthRemaining,
@@ -289,15 +289,14 @@ public class ArchLevel extends Level {
             desiredLength = maxLength;
         }
         int floor = height - 1 - random.nextInt(4);
-
+        
         // Decide on the space between two cannons.
-        int spaceBetween = 15;
+        int spaceBetween;
         if (diffic != 0) spaceBetween = desiredLength / diffic;
-        else spaceBetween = 3 * desiredLength; // SORTA UGLY HACK
+        else spaceBetween = 3 * desiredLength; // in lieu of infinite.
 
         // Decide on the position of the first cannon.
         int xCannon = xo + (spaceBetween / 2);
-        if ( diffic == 4 ) xCannon = xo + (spaceBetween / 2) +1; // FUGLY HACK
         
         putTheseCannonsInLevel(xo, desiredLength, xCannon, spaceBetween, floor);
 
@@ -436,21 +435,30 @@ public class ArchLevel extends Level {
         if (length > maxLength) {
             length = maxLength;
         }
-
-        // # of tubes is diffic+1?
         int floor = height - 1 - random.nextInt(4);
-        int xTube = xo + 1 + random.nextInt(4);
+        
+        int spaceBetweenTubes = 3 * desiredLength, emptyTube = 0;
+        if ( diffic != 0 ) {
+            spaceBetweenTubes = desiredLength / diffic;
+            emptyTube = random.nextInt( diffic );
+        } 
+        
+        int xTube = xo + spaceBetweenTubes/2;
+        if (diffic == 4) xTube -= 1;
+        
         int tubeHeight = floor - random.nextInt(2) - 2;
+        int tubeNumber = 0;
         for (int x = xo; x < xo + length; x++) {
             if (x > xTube + 1) {
-                xTube += 3 + random.nextInt(4);
+                xTube += spaceBetweenTubes;
                 tubeHeight = floor - random.nextInt(2) - 2;
+                tubeNumber++;
             }
             if (xTube >= xo + length - 2) {
                 xTube += 10;
             }
 
-            if (x == xTube && random.nextInt(11) < diffic + 1) {
+            if ( x == xTube && !(tubeNumber == emptyTube) ) {
                 setSpriteTemplate(x, tubeHeight,
                         new SpriteTemplate(Enemy.ENEMY_FLOWER, false));
                 ENEMIES++;
