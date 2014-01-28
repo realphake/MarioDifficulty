@@ -348,12 +348,10 @@ public class ArchLevel extends Level {
             }
         }
 
-        addEnemyLine(xo + 0, xo + length - 0, floor - 1, diffic);
-
         int h = floor;
+        int dynamicDifficulty = diffic;
 
         boolean keepGoing = true;
-
         boolean[] occupied = new boolean[length];
         while (keepGoing) {
             h = h - 2 - random.nextInt(3);
@@ -370,70 +368,83 @@ public class ArchLevel extends Level {
                 } else {
                     occupied[xxo - xo] = true;
                     occupied[xxo - xo + l] = true;
-                    addEnemyLine(xxo, xxo + l, h - 1, diffic);
-                    if (random.nextInt(4) == 0) {
-                        decorate(xxo - 1, xxo + l + 1, h, diffic);
+                  
+                    int decision = random.nextInt(3);
+                    if ( decision == 0) {
+                        decorate(xxo - 1, xxo + l + 1, h, 1);
+                        dynamicDifficulty -= 1;
                         keepGoing = false;
                     }
-                    for (int x = xxo; x < xxo + l; x++) {
-                        for (int y = h; y < floor; y++) {
-                            int xx = 5;
-                            if (x == xxo) {
-                                xx = 4;
-                            }
-                            if (x == xxo + l - 1) {
-                                xx = 6;
-                            }
-                            int yy = 9;
-                            if (y == h) {
-                                yy = 8;
-                            }
-
-                            if (getBlock(x, y) == 0) {
-                                setBlock(x, y, (byte) (xx + yy * 16));
-                            } else {
-                                if (getBlock(x, y) == HILL_TOP_LEFT) {
-                                    setBlock(x, y, HILL_TOP_LEFT_IN);
-                                }
-                                if (getBlock(x, y) == HILL_TOP_RIGHT) {
-                                    setBlock(x, y, HILL_TOP_RIGHT_IN);
-                                }
-                            }
-                        }
+                    if (decision == 1) {
+                        addEnemyLine(xxo, xxo + l, h - 1, 1);
+                        dynamicDifficulty -= 1;
                     }
+                    setTheBlocksForAHill(xxo, l, h, floor);
                 }
             }
         }
 
+        addEnemyLine(xo + 0, xo + length - 0, floor - 1, dynamicDifficulty);
+        
+
         return length;
     }
 
+    private void setTheBlocksForAHill(int xxo, int l, int h, int floor) {
+        for (int x = xxo; x < xxo + l; x++) {
+            for (int y = h; y < floor; y++) {
+                int xx = 5;
+                if (x == xxo) {
+                    xx = 4;
+                }
+                if (x == xxo + l - 1) {
+                    xx = 6;
+                }
+                int yy = 9;
+                if (y == h) {
+                    yy = 8;
+                }
+                
+                if (getBlock(x, y) == 0) {
+                    setBlock(x, y, (byte) (xx + yy * 16));
+                } else {
+                    if (getBlock(x, y) == HILL_TOP_LEFT) {
+                        setBlock(x, y, HILL_TOP_LEFT_IN);
+                    }
+                    if (getBlock(x, y) == HILL_TOP_RIGHT) {
+                        setBlock(x, y, HILL_TOP_RIGHT_IN);
+                    }
+                }
+            }
+        }
+    }
+
     private void addEnemyLine(int x0, int x1, int y, int diffic) {
-        
         int availableSpace = x1-x0;
         int spaceBetween = availableSpace * 3;
         if (diffic != 0) spaceBetween = availableSpace/diffic;
+        int firstEnemy = x0 + (spaceBetween / 2);
+        if ( diffic == 4 ) firstEnemy += 1;
+        if ( diffic == 5 ) spaceBetween = availableSpace/4;
         
-        for (int x = x0; x < x1; x += spaceBetween) {
-            if ((random.nextInt(5) < diffic) && ENEMIES < MAX_ENEMIES) {
+        for (int x = firstEnemy; x < x1; x += spaceBetween) {
+            if (ENEMIES < MAX_ENEMIES) {
+                // The following 2 lines randomize after all, which is bad...
                 int enemyType = chooseEnemyType(diffic);
-                //enemyType = Enemy.ENEMY_FLOWER; // WHOA! for testing only.
-
+                boolean isFlying = random.nextInt(diffic) >= 2;
                 setSpriteTemplate(x, y, new SpriteTemplate(enemyType,
-                        random.nextInt(10) < diffic));
+                        isFlying));
                 ENEMIES++;
             }
         }
     }
 
     private int chooseEnemyType(int diffic) {
-        int enemyType = random.nextInt(4);
-        if (diffic < 2) {
-            enemyType = Enemy.ENEMY_GOOMBA;
-        } else if (diffic < 3) {
-            enemyType = random.nextInt(3);
-        }
-        return enemyType;
+        int decision = random.nextInt(diffic+1); // from 0-5
+        if (decision <= 1) return Enemy.ENEMY_GOOMBA;
+        else if (decision == 2) return Enemy.ENEMY_GREEN_KOOPA;
+        else if (decision == 3) return Enemy.ENEMY_RED_KOOPA;
+        else return Enemy.ENEMY_SPIKY; // On a 4 or 5.
     }
 
     private int buildTubes(int xo, int maxLength, int desiredLength, int diffic) {
