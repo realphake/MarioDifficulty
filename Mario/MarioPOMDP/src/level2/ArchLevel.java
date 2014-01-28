@@ -242,14 +242,16 @@ public class ArchLevel extends Level {
         if (length > maxLength) {
             length = maxLength;
         }
-
-        int jumpLength = diffic + 1; // jump length = 1 to 6
+        
+        int jumpLength = diffic+1;
+        if ( diffic == 0 ) jumpLength = 0;
         if (jumpLength > length) {
             jumpLength = length;
         }
-        int blocksAtEitherSide = length - jumpLength;
+                
+        int blocksAtEitherSide = ( length - jumpLength ) / 2;
 
-        boolean hasStairs = random.nextInt(3) == 0;
+        boolean hasStairs = diffic > 3;
 
         int floor = height - 1 - random.nextInt(4);
         //run from the start x position, for the whole length
