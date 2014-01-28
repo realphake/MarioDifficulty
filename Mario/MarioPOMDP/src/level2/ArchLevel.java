@@ -412,22 +412,21 @@ public class ArchLevel extends Level {
 
     private void addEnemyLine(int x0, int x1, int y, int diffic) {
         for (int x = x0; x < x1; x += 5) {
-            if ((random.nextInt(5) < difficulty) && ENEMIES < MAX_ENEMIES) {
-                int enemyType = chooseEnemyType();
+            if ((random.nextInt(5) < diffic) && ENEMIES < MAX_ENEMIES) {
+                int enemyType = chooseEnemyType(diffic);
 
                 setSpriteTemplate(x, y, new SpriteTemplate(enemyType,
-                        random.nextInt(10) < difficulty));
+                        random.nextInt(10) < diffic));
                 ENEMIES++;
             }
         }
     }
 
-    private int chooseEnemyType() {
-        //difficulty -=1;
+    private int chooseEnemyType(int diffic) {
         int enemyType = random.nextInt(4);
-        if (difficulty < 2) {
+        if (diffic < 2) {
             enemyType = Enemy.ENEMY_GOOMBA;
-        } else if (difficulty < 3) {
+        } else if (diffic < 3) {
             enemyType = random.nextInt(3);
         }
         return enemyType;
