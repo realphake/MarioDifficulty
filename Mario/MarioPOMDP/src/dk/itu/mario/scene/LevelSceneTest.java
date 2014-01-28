@@ -519,7 +519,7 @@ public class LevelSceneTest extends LevelScene {
         int k = 0;
         //The background info should change aswell                       
 
-        if (mario.x > (level2.width * 16 + level3.width * 16 * 0.79)) {
+        if (mario.x > (level2.width * 16 + level3.width * 16 - (10 * 16))) {
             recorder.endTime();
             marioComponent.pause();
             //Swapping level segment
