@@ -110,10 +110,9 @@ public class ArchLevel extends Level {
         ArrayList<Section> blueprintTemp = new ArrayList<>();
         for (int i = 0; i < levelSeed.length - 1; i++) {
             int difficult = levelSeed[i];
-            blueprintTemp.add(new Section(i, 10, difficult));
-
+            int length = 15; //HARDCODED! phew.
+            blueprintTemp.add(new Section(i, length, difficult));
         }
-
         Section[] blueprint = shuffleBlueprints(listToArray(blueprintTemp));
         return blueprint;
     }
@@ -221,7 +220,7 @@ public class ArchLevel extends Level {
             case HILL_STRAIGHT:
                 return buildHillStraight(x, maxLength, length, diffic);
             case TUBES:
-                return buildTubes(x, maxLength, length); // Length = 5
+                return buildTubes(x, maxLength, length, diffic);
             case JUMP: {
                 if (gaps < Constraints.gaps) {
                     return buildJump(x, maxLength, length, diffic);
@@ -432,11 +431,13 @@ public class ArchLevel extends Level {
         return enemyType;
     }
 
-    private int buildTubes(int xo, int maxLength, int desiredLength) {
+    private int buildTubes(int xo, int maxLength, int desiredLength, int diffic) {
         int length = desiredLength;
         if (length > maxLength) {
             length = maxLength;
         }
+        
+        // # of tubes is diffic+1?
 
         int floor = height - 1 - random.nextInt(4);
         int xTube = xo + 1 + random.nextInt(4);
@@ -450,7 +451,7 @@ public class ArchLevel extends Level {
                 xTube += 10;
             }
 
-            if (x == xTube && random.nextInt(11) < difficulty + 1) {
+            if (x == xTube && random.nextInt(11) < diffic + 1) {
                 setSpriteTemplate(x, tubeHeight,
                         new SpriteTemplate(Enemy.ENEMY_FLOWER, false));
                 ENEMIES++;

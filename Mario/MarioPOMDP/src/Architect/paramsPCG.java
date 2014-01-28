@@ -9,6 +9,7 @@ import java.util.Random;
 /**
  *
  * @author stathis
+ * We know. We can see that in the commit history. Also we don't really care.
  */
 public class paramsPCG {
     
@@ -37,7 +38,7 @@ public class paramsPCG {
     
     public  paramsPCG(){
         
-        width = 60;
+        width = 105; // 7 sections, including beginning&end, at 15 blocks each
         height = 15;
         
         newSeed();
