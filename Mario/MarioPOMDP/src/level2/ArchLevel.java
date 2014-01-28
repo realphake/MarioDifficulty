@@ -409,9 +409,15 @@ public class ArchLevel extends Level {
     }
 
     private void addEnemyLine(int x0, int x1, int y, int diffic) {
-        for (int x = x0; x < x1; x += 5) {
+        
+        int availableSpace = x1-x0;
+        int spaceBetween = availableSpace * 3;
+        if (diffic != 0) spaceBetween = availableSpace/diffic;
+        
+        for (int x = x0; x < x1; x += spaceBetween) {
             if ((random.nextInt(5) < diffic) && ENEMIES < MAX_ENEMIES) {
                 int enemyType = chooseEnemyType(diffic);
+                //enemyType = Enemy.ENEMY_FLOWER; // WHOA! for testing only.
 
                 setSpriteTemplate(x, y, new SpriteTemplate(enemyType,
                         random.nextInt(10) < diffic));
