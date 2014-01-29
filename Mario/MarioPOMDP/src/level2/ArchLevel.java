@@ -385,7 +385,7 @@ public class ArchLevel extends Level {
                 }
             }
         }
-
+        if(dynamicDifficulty < 0) dynamicDifficulty = 0;
         addEnemyLine(xo + 0, xo + length - 0, floor - 1, dynamicDifficulty);
         
 

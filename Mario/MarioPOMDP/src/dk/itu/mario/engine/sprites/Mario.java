@@ -943,9 +943,9 @@ public class Mario extends Sprite {
 
     public static void getCoin() {
         coins++;
-        if (coins == 100) {
+        /*if (coins == 100) {
             coins = 0;
             get1Up();
-        }
+        }*/
     }
 }
