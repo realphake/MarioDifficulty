@@ -928,7 +928,7 @@ public class LevelSceneTest extends LevelScene {
         double endX = level.getxExit() * squareSize; //position of the end on the level
         //if(!isCustom && recorder==null)
 
-        recorder = new DataRecorder(this, level2, keys);
+        recorder.reset();
                             //System.out.println("\n enemies LEFT : " + recorder.level.COINS); //Sander disable
         //System.out.println("\n enemies LEFT : " + recorder.level.BLOCKS_COINS);
         //System.out.println("\n enemies LEFT : " + recorder.level.BLOCKS_POWER);
