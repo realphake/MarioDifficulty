@@ -929,6 +929,7 @@ public class LevelSceneTest extends LevelScene {
         //if(!isCustom && recorder==null)
 
         recorder.reset();
+        recorder.level = level2;
                             //System.out.println("\n enemies LEFT : " + recorder.level.COINS); //Sander disable
         //System.out.println("\n enemies LEFT : " + recorder.level.BLOCKS_COINS);
         //System.out.println("\n enemies LEFT : " + recorder.level.BLOCKS_POWER);
