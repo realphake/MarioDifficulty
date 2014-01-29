@@ -59,6 +59,7 @@ public class LevelSceneTest extends LevelScene {
     private int newVectorCount = 0; //counter for newVectorInterval
     private boolean normalDiffMethods = false;//boolean to toggle normal difficulty calculations
 
+    public int tries = 3; //tries for a chunk before asking for feedback;
     public boolean recording = false;
     public boolean l2 = true;
     public boolean l3 = false;
@@ -520,6 +521,7 @@ public class LevelSceneTest extends LevelScene {
         //The background info should change aswell                       
 
         if (mario.x > (level2.width * 16 + level3.width * 16 - (10 * 16))) {
+            tries = 3;
             recorder.endTime();
             marioComponent.pause();
             //Swapping level segment
@@ -738,6 +740,11 @@ public class LevelSceneTest extends LevelScene {
                         }
                     }
                 }
+            }
+            tries--;
+            if(tries == 0){
+                tries = 3;
+                recorder.fillGamePlayMetrics(getUserOpinion(), verbose, request, online);
             }
             //Mario.lives--; //Infinite amount of lives
             reset();

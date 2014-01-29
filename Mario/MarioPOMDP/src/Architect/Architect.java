@@ -234,16 +234,15 @@ public class Architect {
             }
         } else {
         // IF online: epsilon greedy
-            // Explore based on epsilon
+            // Estimate challenge
+            int[] paramchanges = changeParamsBasedOnStats(difficultyAdjustment);
+            // Exploit estimation 
             if ((difficultyAdjustment >= 1 || difficultyAdjustment <= -1) 
                     && randomGenerator.nextInt(100) < epsilon){
                 params_new.setSettingsInt(findBestEstimate());
             } else {
-            //Exploit otherwise   
-                // increment or decrement based on stats from Observations
-                params_new.adjustSettingsInt(changeParamsBasedOnStats(difficultyAdjustment));
-                // or
-                // take the champion params
+            // otherwise Explore
+                params_new.adjustSettingsInt(paramchanges);
             }
         }
         chunksGenerated++;
