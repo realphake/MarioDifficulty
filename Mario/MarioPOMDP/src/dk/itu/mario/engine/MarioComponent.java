@@ -49,6 +49,7 @@ public class MarioComponent extends JComponent implements Runnable, KeyListener,
     public long frameRenderTime;
     public float time;
 
+    private boolean switchcontrolscheme = false;
     private Scale2x scale2x = new Scale2x(320, 240);
 
     private double openTime;
@@ -94,29 +95,53 @@ public class MarioComponent extends JComponent implements Runnable, KeyListener,
     }
 
     private void toggleKey(int keyCode, boolean isPressed) {
-        if (keyCode == KeyEvent.VK_LEFT) {
-            scene.toggleKey(Mario.KEY_LEFT, isPressed);
-        }
-        if (keyCode == KeyEvent.VK_RIGHT) {
-            scene.toggleKey(Mario.KEY_RIGHT, isPressed);
-        }
-        if (keyCode == KeyEvent.VK_DOWN) {
-            scene.toggleKey(Mario.KEY_DOWN, isPressed);
-        }
-        if (keyCode == KeyEvent.VK_UP) {
-            scene.toggleKey(Mario.KEY_UP, isPressed);
-        }
-        if (keyCode == KeyEvent.VK_A) {
-            scene.toggleKey(Mario.KEY_SPEED, isPressed);
-        }
-        if (keyCode == KeyEvent.VK_S) {
-            scene.toggleKey(Mario.KEY_JUMP, isPressed);
+        if (switchcontrolscheme){
+            if (keyCode == KeyEvent.VK_A) {
+                scene.toggleKey(Mario.KEY_LEFT, isPressed);
+            }
+            if (keyCode == KeyEvent.VK_D) {
+                scene.toggleKey(Mario.KEY_RIGHT, isPressed);
+            }
+            if (keyCode == KeyEvent.VK_S) {
+                scene.toggleKey(Mario.KEY_DOWN, isPressed);
+            }
+            if (keyCode == KeyEvent.VK_W) {
+                scene.toggleKey(Mario.KEY_UP, isPressed);
+            }
+            if (keyCode == KeyEvent.VK_J) {
+                scene.toggleKey(Mario.KEY_SPEED, isPressed);
+            }
+            if (keyCode == KeyEvent.VK_K) {
+                scene.toggleKey(Mario.KEY_JUMP, isPressed);
+            }
+        } else {
+            if (keyCode == KeyEvent.VK_LEFT) {
+                scene.toggleKey(Mario.KEY_LEFT, isPressed);
+            }
+            if (keyCode == KeyEvent.VK_RIGHT) {
+                scene.toggleKey(Mario.KEY_RIGHT, isPressed);
+            }
+            if (keyCode == KeyEvent.VK_DOWN) {
+                scene.toggleKey(Mario.KEY_DOWN, isPressed);
+            }
+            if (keyCode == KeyEvent.VK_UP) {
+                scene.toggleKey(Mario.KEY_UP, isPressed);
+            }
+            if (keyCode == KeyEvent.VK_A) {
+                scene.toggleKey(Mario.KEY_SPEED, isPressed);
+            }
+            if (keyCode == KeyEvent.VK_S) {
+                scene.toggleKey(Mario.KEY_JUMP, isPressed);
+            }
         }
         if (keyCode == KeyEvent.VK_ENTER) {
             scene.toggleKey(Mario.KEY_ENTER, isPressed);
         }
         if (isPressed && keyCode == KeyEvent.VK_F1) {
             useScale2x = !useScale2x;
+        }
+        if (isPressed && keyCode == KeyEvent.VK_F4) {
+            switchcontrolscheme = !switchcontrolscheme;
         }
 
         if (isPressed && keyCode == KeyEvent.VK_ESCAPE) {

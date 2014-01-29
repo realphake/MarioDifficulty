@@ -1194,7 +1194,7 @@ public class DataRecorder {
 
         //Write metrics relevant for POMDP to sander.txt file
         if(online){
-            request.uploadData("trainingfile.arff", POMDPmetrics);
+            request.uploadData("testfile.arff", POMDPmetrics);
         } else {
             writePOMDP(POMDPmetrics);
         }
