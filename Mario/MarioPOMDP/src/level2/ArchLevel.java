@@ -36,13 +36,8 @@ public class ArchLevel extends Level {
     private static int MAX_ENEMIES;
     private static int MAX_COINS = 20;
     private static int MAX_TURTLES = 10;
-    private static int GAP_SIZE = 4;
 
     public int[] odds = new int[6];
-
-    private int totalOdds;
-
-    private int difficulty;
     private int type;
     private int gaps;
 
@@ -55,7 +50,6 @@ public class ArchLevel extends Level {
     public ArchLevel(paramsPCG m) {
         this(m.width, m.height);
         this.createArchLevel(m);
-        //Test commit.
     }
 
     public int sectionTypeAtCoordinate(int xCoord) {
@@ -84,7 +78,6 @@ public class ArchLevel extends Level {
             reward = 6 * ((float) JUMP / 10) + 1;
         }
 
-        // System.out.println("type is" + type + " and reward is " + reward);
         return reward;
     }
 
@@ -153,19 +146,30 @@ public class ArchLevel extends Level {
 
     private void designLevelSection(Section[] blueprints) {
         int lengthSoFar = 1;
-        lengthSoFar += buildStraight(1, width, true, 16, 0); // Beginning section
+        int floor = height - 1 - random.nextInt(4);
+        lengthSoFar += buildStraight(1, width, true, 16, 0, floor);
         for (Section blueprint : blueprints) {
             int lengthRemaining = width - lengthSoFar;
+            floor = adjustFloor(floor);
             lengthSoFar += buildZone(lengthSoFar, lengthRemaining,
-                    blueprint.type, blueprint.length, blueprint.difficulty);
+                    blueprint.type, blueprint.length, 
+                    blueprint.difficulty, floor);
         }
-        buildEndSection(lengthSoFar);
+        floor = adjustFloor(floor);
+        buildEndSection(lengthSoFar, floor);
+    }
+    
+    private int adjustFloor( int currentFloor ) {
+        if ( currentFloor <= height - 1 - 3 ) {
+            return currentFloor + random.nextInt(2);
+        }
+        if ( currentFloor >= height - 1 ) {
+            return currentFloor - random.nextInt(2);
+        }
+        return currentFloor + random.nextInt(3) - 1;
     }
 
-    private void buildEndSection(int length) {
-        //set the end piece
-        int floor = height - 1 - random.nextInt(4);
-
+    private void buildEndSection(int length, int floor) {
         xExit = length + 8;
         yExit = floor;
 
@@ -185,7 +189,6 @@ public class ArchLevel extends Level {
             if (odds[i] < 0) {
                 odds[i] = 0;
             }
-            totalOdds += odds[i];
         }
 
         if (type != LevelInterface.TYPE_OVERGROUND) {
@@ -200,43 +203,41 @@ public class ArchLevel extends Level {
         odds[JUMP] = (int) m.ODDS_JUMP;
         odds[CANNONS] = (int) m.ODDS_CANNONS;
         odds[GAPS] = (int) m.GAP_SIZE;
-        difficulty = m.difficulty;
 
         //Upper Limits
         MAX_ENEMIES = m.MAX_ENEMIES;
         MAX_COINS = m.MAX_COINS;
-        GAP_SIZE = m.ODDS_JUMP;
 
         random = new Random(m.seed);
     }
 
     private int buildZone(int x, int maxLength,
-            int blockType, int length, int diffic) {
+            int blockType, int length, int diffic, int floor) {
 
         gameSections.add(new GameSection(x, x + length, blockType));
         switch (blockType) {
             case STRAIGHT:
-                return buildStraight(x, maxLength, false, length, diffic);
+                return buildStraight(x, maxLength, false, length, diffic, floor);
             case HILL_STRAIGHT:
-                return buildHillStraight(x, maxLength, length, diffic);
+                return buildHillStraight(x, maxLength, length, diffic, floor);
             case TUBES:
-                return buildTubes(x, maxLength, length, diffic);
+                return buildTubes(x, maxLength, length, diffic, floor);
             case JUMP: {
                 if (gaps < Constraints.gaps) {
-                    return buildJump(x, maxLength, length, diffic);
+                    return buildJump(x, maxLength, length, diffic, floor);
                 } else {
                     odds[JUMP]++;
-                    totalOdds++;
-                    return buildStraight(x, maxLength, false, length, diffic);
+                    return buildStraight(x, maxLength, false, length, diffic, floor);
                 }
             }
             case CANNONS:
-                return buildCannons(x, maxLength, length, diffic);
+                return buildCannons(x, maxLength, length, diffic, floor);
         }
         return 0;
     }
 
-    private int buildJump(int xo, int maxLength, int desiredLength, int diffic) {
+    private int buildJump(int xo, int maxLength, int desiredLength,
+            int diffic, int floor) {
         gaps++;
         int length = desiredLength;
         if (length > maxLength) {
@@ -253,7 +254,6 @@ public class ArchLevel extends Level {
 
         boolean hasStairs = diffic > 3;
 
-        int floor = height - 1 - random.nextInt(4);
         //run from the start x position, for the whole length
         for (int x = xo; x < xo + length; x++) {
             if (x < xo + blocksAtEitherSide
@@ -286,11 +286,10 @@ public class ArchLevel extends Level {
     }
 
     private int buildCannons(int xo, int maxLength,
-            int desiredLength, int diffic) {
+            int desiredLength, int diffic, int floor) {
         if (desiredLength > maxLength) {
             desiredLength = maxLength;
         }
-        int floor = height - 1 - random.nextInt(4);
         
         // Decide on the space between two cannons.
         int spaceBetween;
@@ -335,13 +334,12 @@ public class ArchLevel extends Level {
     }
 
     private int buildHillStraight(int xo, int maxLength,
-            int desiredLength, int diffic) {
+            int desiredLength, int diffic, int floor) {
         int length = desiredLength;
         if (length > maxLength) {
             length = maxLength;
         }
 
-        int floor = height - 1 - random.nextInt(4);
         for (int x = xo; x < xo + length; x++) {
             for (int y = 0; y < height; y++) {
                 if (y >= floor) {
@@ -449,12 +447,12 @@ public class ArchLevel extends Level {
         else return Enemy.ENEMY_SPIKY; // On a 4 or 5.
     }
 
-    private int buildTubes(int xo, int maxLength, int desiredLength, int diffic) {
+    private int buildTubes(int xo, int maxLength,
+            int desiredLength, int diffic, int floor) {
         int length = desiredLength;
         if (length > maxLength) {
             length = maxLength;
         }
-        int floor = height - 1 - random.nextInt(4);
         
         int spaceBetweenTubes = 3 * desiredLength, emptyTube = 0;
         if ( diffic != 0 ) {
@@ -507,14 +505,12 @@ public class ArchLevel extends Level {
     }
 
     private int buildStraight(int xo, int maxLength,
-            boolean safe, int desiredLength, int diffic) {
+            boolean safe, int desiredLength, int diffic, int floor) {
         int length = desiredLength;
 
         if (length > maxLength) {
             length = maxLength;
         }
-
-        int floor = height - 1 - random.nextInt(4);
 
         //runs from the specified x position to the length of the segment
         for (int x = xo; x < xo + length; x++) {
@@ -558,14 +554,14 @@ public class ArchLevel extends Level {
 
         s = random.nextInt(4);
         e = random.nextInt(4);
-
+        
         if (floor - 4 > 0) {
             if ((xLength - 1 - e) - (xStart + 1 + s) > 2) {
                 for (int x = xStart + 1 + s; x < xLength - 1 - e; x++) {
                     if (rocks) {
                         if (x != xStart + 1 && x != xLength - 2
                                 && random.nextInt(2) == 0) {
-                            if (random.nextInt(2) == 0) {
+                            if (random.nextInt(2) == 0 && BLOCKS_POWER < 2) {
                                 setBlock(x, floor - 4, BLOCK_POWERUP);
                                 BLOCKS_POWER++;
                             } else {
