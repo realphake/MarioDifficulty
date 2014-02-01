@@ -905,8 +905,13 @@ public class LevelSceneTest extends LevelScene {
         if (mario != null) {
             oldX = mario.x;
         }
-
+        
         mario = new Mario(this);
+        
+        if (oldX > level3.map.length * 16){
+            mario.x = level3.map.length * 16 + 32;
+        }
+        
         sprites.add(mario);
         startTime = 1;
 
