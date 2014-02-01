@@ -25,7 +25,7 @@ import org.apache.http.util.EntityUtils;
 public class MainSendRequest {
 
     public static String baseurl
-            = "http://mariodb-uvaproject.rhcloud.com/uploads/";
+            = "http://mario-uva2.rhcloud.com/uploads/";
     public static String upload = "";
     public static String uploadurl = "";
     public static String downloadurl = "";
@@ -94,7 +94,6 @@ public class MainSendRequest {
 
     public static void main(String[] args) {
         MainSendRequest req = new MainSendRequest();
-        //req.uploadData("trainingfile.arff", "it works");
         //req.downloadData("trainingfile.arff");
         // use this to send specific data to the server
         
