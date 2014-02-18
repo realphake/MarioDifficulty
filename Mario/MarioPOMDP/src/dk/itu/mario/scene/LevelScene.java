@@ -424,9 +424,9 @@ public class LevelScene extends Scene implements SpriteContext
         */
         
         drawStringDropShadow(g, "SEGMENTS", 27, 0, 7);
-        drawStringDropShadow(g, "CLEARED: " + arch.chunksGenerated, 27, 1, 7);
-        drawStringDropShadow(g, "TOTAL", 27, 2, 7);
-        drawStringDropShadow(g, "TIME: " + df6.format(timeUsed/15), 27, 3, 7);
+        drawStringDropShadow(g, "LABELLED: " + arch.chunksGenerated, 27, 1, 7);
+        //drawStringDropShadow(g, "TOTAL", 27, 2, 7);
+        //drawStringDropShadow(g, "TIME: " + df6.format(timeUsed/15), 27, 3, 7);
         
         /*
         //Draw general POMDP statistics
@@ -666,7 +666,7 @@ public class LevelScene extends Scene implements SpriteContext
        /*
        //Select according to playerModel probabilities
        //i.e., an action with appreciation probability of 60% has a 60% chance of being executed
-       System.out.println("");
+       //System.out.println("");
        System.out.println("setNextAction() called");
        int bestAction = 0;
        double bestActionProb = 0.0;

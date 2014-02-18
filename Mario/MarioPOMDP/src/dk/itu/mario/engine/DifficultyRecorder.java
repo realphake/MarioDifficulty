@@ -182,10 +182,12 @@ public class DifficultyRecorder {
      * Stop recording difficulty. Destroy the window and resume the game.
      */
     private void stopRecordDifficulty() {
-        System.out.println("-Finished recording difficulty");
-        System.out.println("-nationality=" + nationality + " age=" + age + " gender=" + gender
-                + " hasPlayedVideoGame=" + hasPlayedVideoGame + " hasPlayedMarioBefore=" + hasPlayedMarioBefore
-                + " hoursPerWeek=" + hoursPerWeek + " engagement=" + engagement
+        System.out.println("-finished game observations");
+        //System.out.println("-nationality=" + nationality + " age=" + age + " gender=" + gender
+        //        + " hasPlayedVideoGame=" + hasPlayedVideoGame + " hasPlayedMarioBefore=" + hasPlayedMarioBefore
+        //        + " hoursPerWeek=" + hoursPerWeek + " engagement=" + engagement
+        //        + " frustration=" + frustration + " challenge=" + challenge);
+        System.out.println("-engagement=" + engagement
                 + " frustration=" + frustration + " challenge=" + challenge);
         this.frame.dispose();
 

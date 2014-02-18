@@ -737,7 +737,7 @@ public class ArchLevel extends Level {
     }
 
     private String sectionArrayToString(Section[] blueprint) {
-        String representation = "begin";
+        String representation = "-begin";
         for (Section section : blueprint) {
             representation += ", " + section.toString();
         }

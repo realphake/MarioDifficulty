@@ -1015,60 +1015,60 @@ public class DataRecorder {
 
         //Verbose debugging output
         if (verbose) {
-            ;//System.out.println("");
-            ;//System.out.println("fillGamePlayMetrics() called, metric for this segment are...");
+            //System.out.println("");
+            //System.out.println("fillGamePlayMetrics() called, metric for this segment are...");
 
-            ;//System.out.println("-completionTime: " + getCompletionTime() );
-            ;//System.out.println("-totalTime: " + getTotalTime() );
+            //System.out.println("-completionTime: " + getCompletionTime() );
+            //System.out.println("-totalTime: " + getTotalTime() );
 
-            ;//System.out.println("-jumpsNumber: " + getTimesJumped() );
-            ;//System.out.println("-timeSpentDucking: " + getTotalDuckTime() );
-            ;//System.out.println("-duckNumber: " + getTimesDucked() );
-            ;//System.out.println("-timeSpentRunning: " + getTotalRunTime() );
-            ;//System.out.println("-timesPressedRun: " + getTimesRun() );
-            ;//System.out.println("-timeRunningRight: " + getTotalRightTime() );
-            ;//System.out.println("-timeRunningLeft: " + getTotalLeftTime() );
+            //System.out.println("-jumpsNumber: " + getTimesJumped() );
+            //System.out.println("-timeSpentDucking: " + getTotalDuckTime() );
+            //System.out.println("-duckNumber: " + getTimesDucked() );
+            //System.out.println("-timeSpentRunning: " + getTotalRunTime() );
+            //System.out.println("-timesPressedRun: " + getTimesRun() );
+            //System.out.println("-timeRunningRight: " + getTotalRightTime() );
+            //System.out.println("-timeRunningLeft: " + getTotalLeftTime() );
 
-            ;//System.out.println("-coinsCollected: " + getCoinsCollected());
-            ;//System.out.println("-totalCoins: " + level.COINS);            
+            //System.out.println("-coinsCollected: " + getCoinsCollected());
+            //System.out.println("-totalCoins: " + level.COINS);            
 
-            ;//System.out.println("-emptyBlocksDestroyed: " + getBlocksEmptyDestroyed() );
-            ;//System.out.println("-totalEmptyBlocks: " + level.BLOCKS_EMPTY );
-            ;//System.out.println("-coinBlocksDestroyed: " + getBlocksCoinDestroyed() );
-            ;//System.out.println("-totalCoinBlocks: " + level.BLOCKS_COINS );
-            ;//System.out.println("-powerBlocksDestroyed: " + getBlocksPowerDestroyed() );
-            ;//System.out.println("-totalpowerBlocks: " + level.BLOCKS_POWER );
-            ;//System.out.println("-kickedShells: " + getShellsUnleashed() );
-            ;//System.out.println("-enemyKillByFire: " + getKillsFire() );
-            ;//System.out.println("-enemyKillByKickingShell: " + getKillsShell() );
-            ;//System.out.println("-totalEnemies: " + level.ENEMIES );
+            //System.out.println("-emptyBlocksDestroyed: " + getBlocksEmptyDestroyed() );
+            //System.out.println("-totalEmptyBlocks: " + level.BLOCKS_EMPTY );
+            //System.out.println("-coinBlocksDestroyed: " + getBlocksCoinDestroyed() );
+            //System.out.println("-totalCoinBlocks: " + level.BLOCKS_COINS );
+            //System.out.println("-powerBlocksDestroyed: " + getBlocksPowerDestroyed() );
+            //System.out.println("-totalpowerBlocks: " + level.BLOCKS_POWER );
+            //System.out.println("-kickedShells: " + getShellsUnleashed() );
+            //System.out.println("-enemyKillByFire: " + getKillsFire() );
+            //System.out.println("-enemyKillByKickingShell: " + getKillsShell() );
+            //System.out.println("-totalEnemies: " + level.ENEMIES );
 
-            ;//System.out.println("-totalTimeLittleMode: " + getTotalLittleTime());
-            ;//System.out.println("-totalTimeLargeMode: " + getTotalLargeTime());
-            ;//System.out.println("-totalTimeFireMode: " + getTotalFireTime());
-            ;//System.out.println("-timesSwichingPower: " + getSwitchedPower());
-            ;//System.out.println("-aimlessJumps: " + J());
-            ;//System.out.println("-percentageBlocksDestroyed: " + nb());
-            ;//System.out.println("-percentageCoinBlocksDestroyed: " + ncb());
-            ;//System.out.println("-percentageEmptyBlockesDestroyed: " + neb());
-            ;//System.out.println("-percentagePowerBlockDestroyed: " + np());               
+            //System.out.println("-totalTimeLittleMode: " + getTotalLittleTime());
+            //System.out.println("-totalTimeLargeMode: " + getTotalLargeTime());
+            //System.out.println("-totalTimeFireMode: " + getTotalFireTime());
+            //System.out.println("-timesSwichingPower: " + getSwitchedPower());
+            //System.out.println("-aimlessJumps: " + J());
+            //System.out.println("-percentageBlocksDestroyed: " + nb());
+            //System.out.println("-percentageCoinBlocksDestroyed: " + ncb());
+            //System.out.println("-percentageEmptyBlockesDestroyed: " + neb());
+            //System.out.println("-percentagePowerBlockDestroyed: " + np());               
 
-            ;//System.out.println("-timesOfDeathByFallingIntoGap: " + dg() );               
-            ;//System.out.println("-timesOfDeathByRedTurtle: " + deaths[SpriteTemplate.RED_TURTLE] );               
-            ;//System.out.println("-timesOfDeathByGreenTurtle: " + deaths[SpriteTemplate.GREEN_TURTLE] );               
-            ;//System.out.println("-timesOfDeathByGoomba: " + deaths[SpriteTemplate.GOOMPA]);               
-            ;//System.out.println("-timesOfDeathByArmoredTurtle: " + deaths[SpriteTemplate.ARMORED_TURTLE] );               
-            ;//System.out.println("-timesOfDeathByJumpFlower: " + deaths[SpriteTemplate.JUMP_FLOWER] );               
-            ;//System.out.println("-timesOfDeathByCannonBall: " + deaths[SpriteTemplate.CANNON_BALL] );               
-            ;//System.out.println("-timesOfDeathByChompFlower: " + deaths[SpriteTemplate.CHOMP_FLOWER] );               
+            //System.out.println("-timesOfDeathByFallingIntoGap: " + dg() );               
+            //System.out.println("-timesOfDeathByRedTurtle: " + deaths[SpriteTemplate.RED_TURTLE] );               
+            //System.out.println("-timesOfDeathByGreenTurtle: " + deaths[SpriteTemplate.GREEN_TURTLE] );               
+            //System.out.println("-timesOfDeathByGoomba: " + deaths[SpriteTemplate.GOOMPA]);               
+            //System.out.println("-timesOfDeathByArmoredTurtle: " + deaths[SpriteTemplate.ARMORED_TURTLE] );               
+            //System.out.println("-timesOfDeathByJumpFlower: " + deaths[SpriteTemplate.JUMP_FLOWER] );               
+            //System.out.println("-timesOfDeathByCannonBall: " + deaths[SpriteTemplate.CANNON_BALL] );               
+            //System.out.println("-timesOfDeathByChompFlower: " + deaths[SpriteTemplate.CHOMP_FLOWER] );               
 
-            ;//System.out.println("-RedTurtlesKilled: " + kills[SpriteTemplate.RED_TURTLE]);
-            ;//System.out.println("-GreenTurtlesKilled: " + kills[SpriteTemplate.GREEN_TURTLE]);
-            ;//System.out.println("-GoombasKilled: " + kills[SpriteTemplate.GOOMPA]);
-            ;//System.out.println("-ArmoredTurtlesKilled: " + kills[SpriteTemplate.ARMORED_TURTLE]);
-            ;//System.out.println("-JumpFlowersKilled: " + kills[SpriteTemplate.JUMP_FLOWER]);
-            ;//System.out.println("-CannonBallKilled: " + kills[SpriteTemplate.CANNON_BALL]);
-            ;//System.out.println("-ChompFlowersKilled: " + kills[SpriteTemplate.CHOMP_FLOWER]);
+            //System.out.println("-RedTurtlesKilled: " + kills[SpriteTemplate.RED_TURTLE]);
+            //System.out.println("-GreenTurtlesKilled: " + kills[SpriteTemplate.GREEN_TURTLE]);
+            //System.out.println("-GoombasKilled: " + kills[SpriteTemplate.GOOMPA]);
+            //System.out.println("-ArmoredTurtlesKilled: " + kills[SpriteTemplate.ARMORED_TURTLE]);
+            //System.out.println("-JumpFlowersKilled: " + kills[SpriteTemplate.JUMP_FLOWER]);
+            //System.out.println("-CannonBallKilled: " + kills[SpriteTemplate.CANNON_BALL]);
+            //System.out.println("-ChompFlowersKilled: " + kills[SpriteTemplate.CHOMP_FLOWER]);
         }
 
         //Write metric to file in weird hexformat
@@ -1181,18 +1181,17 @@ public class DataRecorder {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
         POMDPmetrics += timeStamp  + ", ";;
         POMDPmetrics += id;
-        
-        
-
+       
         //Write observation string without ending \n to gpm.POMDPmetrics
         gpm.POMDPmetrics = POMDPmetrics;
-        ;//System.out.println("");
-        ;//System.out.println("POMDPmetrics coming up...");
-        ;//System.out.println(POMDPmetrics);
-
+        //System.out.println("");
+        //System.out.println("POMDPmetrics coming up...");
+        //System.out.println(POMDPmetrics);
         POMDPmetrics += "\n"; //new line
 
         //Write metrics relevant for POMDP to sander.txt file
+        System.out.println("");
+        System.out.println("Uploading recorded observations...");
         if(online){
             request.uploadData("trainingfile.arff", POMDPmetrics);
         } else {
@@ -1213,7 +1212,6 @@ public class DataRecorder {
 
             e.printStackTrace();
         }
-
     }
 
     private void writePOMDP(String detailedLogName) {

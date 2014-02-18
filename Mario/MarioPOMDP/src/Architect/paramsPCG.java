@@ -43,13 +43,15 @@ public class paramsPCG {
         
         newSeed();
         
-        ODDS_STRAIGHT = 2  ; //(0-5)
-        ODDS_HILL_STRAIGHT = 2;//(0-5)
-        ODDS_TUBES = 2 ;//(0-5)
-        ODDS_JUMP = 2;//(0-5)
-        ODDS_CANNONS = 2;//(0-5)
-        difficulty = 2;//(0-5)
+        //SANDER - these are the default values for the first segments
+        ODDS_TUBES = 1 ;        //(0-5)
+        ODDS_JUMP = 1;          //(0-5)       
+        ODDS_HILL_STRAIGHT = 1; //(0-5)
+        ODDS_CANNONS = 1;       //(0-5)       
+        ODDS_STRAIGHT = 1  ;    //(0-5)
         
+        //possibly redundant parameters
+        difficulty = 1;//(0-5)       
         GAP_SIZE = 5; //(2-5)
         MAX_COINS = 5;//(10-100)
         MAX_ENEMIES = 20;
@@ -103,6 +105,16 @@ public class paramsPCG {
         ODDS_JUMP = (ODDS_JUMP+1)%6;//(0-5)
         ODDS_CANNONS = (ODDS_CANNONS+1)%6;//(0-5)
         GAP_SIZE = (GAP_SIZE -1)%4+2;//(2-5)
+    }
+
+    public void setAllTo(int value){
+        //SANDER
+        ODDS_STRAIGHT = value; //(0-5)
+        ODDS_HILL_STRAIGHT = value; //(0-5)
+        ODDS_TUBES = value; //(0-5)
+        ODDS_JUMP = value; //(0-5)
+        ODDS_CANNONS = value; //(0-5)
+        GAP_SIZE = value; //(2-5)
     }
     
     public void clampValues(){

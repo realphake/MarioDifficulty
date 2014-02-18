@@ -99,11 +99,12 @@ public class LevelSceneTest extends LevelScene {
             //System.exit(0);
         }
 
-        //System.out.println("----------------------------------------");
-        //System.out.println("---------- Initialising game -----------");
-        //System.out.println("----------------------------------------");
+        System.out.println("----------------------------------------");
+        System.out.println("---------- Initialising game -----------");
+        System.out.println("----------------------------------------");
 
-        //Track planned difficuly levels for each level segment
+        System.out.println("");
+        System.out.println("Generating first two segments...");
         currentLevelSegment = 0;
         nextSegmentAlreadyGenerated = false;
         
@@ -122,7 +123,6 @@ public class LevelSceneTest extends LevelScene {
         arch.params_new.seed = randomInt;
 
         level3 = new ArchLevel(arch.params_new);
-
         plannedDifficultyLevels.add(level3.DIFFICULTY_sander);
 
         fixborders();
@@ -186,8 +186,8 @@ public class LevelSceneTest extends LevelScene {
     public void loadTrainingInstances(boolean verbose) {
         try {
             //Load training instances into data
-//                                System.out.println("");
-//                                System.out.println("Loading training instances into RandomForest classifier...");
+            //System.out.println("");
+            //System.out.println("Loading training instances into RandomForest classifier...");
             BufferedReader reader = new BufferedReader(
                     new FileReader("../../MAINOOR/traindata/MarioPOMDP-traininginstances.arff"));
             Instances data = new Instances(reader);
@@ -242,8 +242,8 @@ public class LevelSceneTest extends LevelScene {
     public void loadTestInstances(boolean verbose) {
         try {
             //Load test instances into data
-//                                System.out.println("");
-//                                System.out.println("Loading test instances...");
+            //System.out.println("");
+            //System.out.println("Loading test instances...");
             BufferedReader reader = new BufferedReader(
                     new FileReader("../../MAINOOR/traindata/MarioPOMDP-testinstances.arff"));
             Instances data = new Instances(reader);
@@ -375,8 +375,6 @@ public class LevelSceneTest extends LevelScene {
         //Update reward in the vector playerModel[]
         if (verbose) {
             System.out.println("");
-        }
-        if (verbose) {
             System.out.println("updateReward called()");
         }
 
@@ -454,7 +452,7 @@ public class LevelSceneTest extends LevelScene {
         //Increase reward proportionally to appropriateness of current difficulty level to the specific player
         //As determed by probabilities in player model
                             /*
-         System.out.println("");
+         //System.out.println("");
          System.out.println("updateReward called()");
          double reward = getPlayerModelElement(m.DIFFICULTY);
          System.out.println("-increasing reward by: " + reward);
@@ -482,9 +480,11 @@ public class LevelSceneTest extends LevelScene {
 
     public void newchunk() {
         if (!gameover) {
-			//System.out.println("-newchunck called");
+            //System.out.println("-newchunck called");
+            System.out.println("");
+            System.out.println("Generating next segment...");
 
-            //Somehow update the next levels parameters(ex. hill climbing)
+            //Update the next levels parameters according to exploration policy
             arch.update(training);
 
             //Note: Using other constructor of ArchLevel, using recorder and valueList as inputs
@@ -525,14 +525,13 @@ public class LevelSceneTest extends LevelScene {
             recorder.endTime();
             marioComponent.pause();
             //Swapping level segment
-            ;////System.out.println("");
-            ;////System.out.println("----------------------------------------");
-            ;////System.out.println("-------- Swapping level segment --------");
-            ;////System.out.println("----------------------------------------");
-
+            //System.out.println("");
+            //System.out.println("----------------------------------------");
+            //System.out.println("-------- Swapping level segment --------");
+            //System.out.println("----------------------------------------");
 
             // Difficulty Popup here -DP1
-            System.out.println("pausing");
+            //System.out.println("-pausing");
             arch.Obs = recorder.fillGamePlayMetrics(getUserOpinion(), verbose, request, online); //write metrics at swapping to new level segment
             //Load test instances and select last instance for classification
             //Update in which level segment the player currently is

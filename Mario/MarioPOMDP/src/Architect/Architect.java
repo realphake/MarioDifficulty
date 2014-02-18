@@ -220,18 +220,25 @@ public class Architect {
     }
 
     public void update(boolean training) {
+        // Updates 'arch.params_new' with new parameters to explore in the training phase
         
         // Estimate difficulty offset -GO (Gradient Optimization of any type)
         // Determine Explore/Exploit -EE
         // IF train:
         //      explore with a certain pattern, maybe startpoint and a pattern based on that
         params_old = params_new.copy();
-        if(training){
-            if(chunksGenerated % 6 == 0){
+        if (training) {
+            //params_new.incrementAll();
+            params_new.setAllTo(5); //test for effect
+            //params_new.randomizeParameters();
+            
+            /*
+            if (chunksGenerated % 6 == 0) {
                 params_new.randomizeParameters();
             } else {
                 params_new.incrementAll();
             }
+            */
         } else {
         // IF online: epsilon greedy
             // Estimate challenge
@@ -249,8 +256,8 @@ public class Architect {
         
                  
 
-            // Update the reward given the latest observations
-        // note : the observations get updated externaly in the LevelSceneTest Class at every swap()
+        // Update the reward given the latest observations
+        // note : the observations gets updated externaly in the LevelSceneTest Class at every swap()
         //getAppropriatenessToUser(); 
         //paramHistory.add(params_new.copy());
             /*

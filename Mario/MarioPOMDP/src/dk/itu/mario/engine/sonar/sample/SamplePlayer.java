@@ -9,7 +9,7 @@ public class SamplePlayer implements SoundProducer
 {
     private SonarSample sample;
     private float pos = 0;
-    public boolean alive = false;
+    public boolean alive = true; //SANDER AUDIO
     private float rate;
 
     public SamplePlayer(SonarSample sample, float rate)
