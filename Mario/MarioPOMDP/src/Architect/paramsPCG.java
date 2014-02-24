@@ -24,9 +24,9 @@ public class paramsPCG {
     public int ODDS_JUMP ;//(0-5)
     public int ODDS_CANNONS ;//(0-5)
     public int difficulty;
+    int[] paramArray = new int[]{ODDS_STRAIGHT,ODDS_HILL_STRAIGHT,ODDS_TUBES,ODDS_JUMP,ODDS_CANNONS,difficulty};
     
-    
-    public int GAP_SIZE ; //(2-5)
+    public int GAP_SIZE; //(2-5)
     public int MAX_COINS ;//(10-100)
     public int MAX_ENEMIES;
     
@@ -59,7 +59,6 @@ public class paramsPCG {
         
         //hill climbing params
         reward = 0;
-       
     }  
     
     
@@ -106,7 +105,25 @@ public class paramsPCG {
         ODDS_CANNONS = (ODDS_CANNONS+1)%6;//(0-5)
         GAP_SIZE = (GAP_SIZE -1)%4+2;//(2-5)
     }
-
+    
+    public void incrementRandom(){
+         //paramArray[randomGenerator.nextInt(6)] = randomGenerator.nextInt(6);
+        int increment_value = randomGenerator.nextInt(6);
+        int parameter_increment = randomGenerator.nextInt(6);
+        switch(parameter_increment){
+        
+            case 0: ODDS_STRAIGHT = increment_value;
+            case 1: ODDS_HILL_STRAIGHT = increment_value;
+            case 2: ODDS_TUBES = increment_value;
+            case 3: ODDS_JUMP = increment_value;
+            case 4: ODDS_CANNONS = increment_value;
+            case 5: GAP_SIZE = increment_value;
+        
+        }
+        clampValues();
+        
+        System.out.println("Incremented parameter" + parameter_increment + " by " + increment_value);
+    }
     public void setAllTo(int value){
         //SANDER
         ODDS_STRAIGHT = value; //(0-5)

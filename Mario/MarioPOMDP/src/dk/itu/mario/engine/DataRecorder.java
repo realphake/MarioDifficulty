@@ -1178,7 +1178,10 @@ public class DataRecorder {
         POMDPmetrics += userOpinion.frustration + ", ";
         POMDPmetrics += userOpinion.challenge + ", ";
         POMDPmetrics += userOpinion.better + ", ";
-
+        
+        gpm.better = userOpinion.better;
+        
+        
         //Add date + time stamp
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
         POMDPmetrics += timeStamp  + ", ";;

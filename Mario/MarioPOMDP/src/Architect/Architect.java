@@ -228,7 +228,11 @@ public class Architect {
         //      explore with a certain pattern, maybe startpoint and a pattern based on that
         params_old = params_new.copy();
         if (training) {
-            params_new.incrementAll();
+            
+            
+            if(this.Obs.better == 1)
+                params_new.incrementAll();
+            else params_new.incrementRandom();
             //params_new.setAllTo(1); //test for effect
             //params_new.randomizeParameters();
             
