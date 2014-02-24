@@ -1179,9 +1179,11 @@ public class DataRecorder {
         POMDPmetrics += userOpinion.challenge + ", ";
         POMDPmetrics += userOpinion.better + ", ";
         
+        
+        // pass the parameter back to the Architect
         gpm.better = userOpinion.better;
         
-        
+
         //Add date + time stamp
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
         POMDPmetrics += timeStamp  + ", ";;

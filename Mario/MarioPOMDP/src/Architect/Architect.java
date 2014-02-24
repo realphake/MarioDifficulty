@@ -230,6 +230,7 @@ public class Architect {
         if (training) {
             
             
+            // if he chose the current level increment all otherwise increment a random parameter by a random value
             if(this.Obs.better == 1)
                 params_new.incrementAll();
             else params_new.incrementRandom();

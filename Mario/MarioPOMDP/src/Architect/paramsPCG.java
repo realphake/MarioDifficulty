@@ -26,6 +26,7 @@ public class paramsPCG {
     public int difficulty;
     int[] paramArray = new int[]{ODDS_STRAIGHT,ODDS_HILL_STRAIGHT,ODDS_TUBES,ODDS_JUMP,ODDS_CANNONS,difficulty};
     
+    
     public int GAP_SIZE; //(2-5)
     public int MAX_COINS ;//(10-100)
     public int MAX_ENEMIES;
@@ -107,8 +108,13 @@ public class paramsPCG {
     }
     
     public void incrementRandom(){
-         //paramArray[randomGenerator.nextInt(6)] = randomGenerator.nextInt(6);
+        // could not use the dictionary/list variable type
+        // sorry for sloppy programming
+        
+        // value to increment by
         int increment_value = randomGenerator.nextInt(6);
+        
+        // parameter to be incremented
         int parameter_increment = randomGenerator.nextInt(6);
         switch(parameter_increment){
         
@@ -120,8 +126,11 @@ public class paramsPCG {
             case 5: GAP_SIZE = increment_value;
         
         }
+        
+        // clamp the values out of bounds
         clampValues();
         
+        // print outcome
         System.out.println("Incremented parameter " + parameter_increment + " by " + increment_value);
     }
     public void setAllTo(int value){
