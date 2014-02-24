@@ -21,7 +21,7 @@ public class Architect {
     public double REWARD;
     public double Reward;
     public double Reward_old;
-
+    public int started = 0;
     //Observations
     public GamePlay Obs;
 
@@ -51,7 +51,7 @@ public class Architect {
     public paramsPCG params_old;
     public paramsPCG params_champion;
 
-    public int first = 1;
+    public int first_time = 1;
     //helpers
     Random randomGenerator = new Random();
     WekaFunctions sFunctions = new WekaFunctions();
@@ -229,14 +229,14 @@ public class Architect {
         params_old = params_new.copy();
         if (training) {
             
-            
+            // test repo passwrd
             // if he chose the current level increment all otherwise increment a random parameter by a random value
-            if(this.Obs.better == 1)
+            if(this.Obs.better == 1 && this.first_time > 0 )
                 params_new.incrementAll();
             else params_new.incrementRandom();
             //params_new.setAllTo(1); //test for effect
             //params_new.randomizeParameters();
-            
+            this.first_time++;
             /*
             if (chunksGenerated % 6 == 0) {
                 params_new.randomizeParameters();

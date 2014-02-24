@@ -24,7 +24,7 @@ public class paramsPCG {
     public int ODDS_JUMP ;//(0-5)
     public int ODDS_CANNONS ;//(0-5)
     public int difficulty;
-    int[] paramArray = new int[]{ODDS_STRAIGHT,ODDS_HILL_STRAIGHT,ODDS_TUBES,ODDS_JUMP,ODDS_CANNONS,difficulty};
+
     
     
     public int GAP_SIZE; //(2-5)
@@ -123,8 +123,7 @@ public class paramsPCG {
             case 2: ODDS_TUBES = increment_value;
             case 3: ODDS_JUMP = increment_value;
             case 4: ODDS_CANNONS = increment_value;
-            case 5: GAP_SIZE = increment_value;
-        
+            case 5: GAP_SIZE = increment_value; 
         }
         
         // clamp the values out of bounds

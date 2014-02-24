@@ -78,7 +78,7 @@ public class LevelSceneTest extends LevelScene {
     public Instances RF_testInstances;
     
     
-
+    public boolean first_time = true;
     public int levelWidth = 50;
     
     public boolean training = true;
@@ -341,7 +341,7 @@ public class LevelSceneTest extends LevelScene {
     }
 
     public DifficultyRecorder getUserOpinion() {
-        dr.startRecordDifficulty(false);
+        dr.startRecordDifficulty(this.first_time);
         while (!dr.isFinished()) {
             try {
                 Thread.sleep(200);
@@ -349,7 +349,9 @@ public class LevelSceneTest extends LevelScene {
                 Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
         }
+        this.first_time = false;
         return dr;
+        
     }
     
     public int getCurrentSectionType(int xcoord){
