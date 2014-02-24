@@ -122,7 +122,7 @@ public class paramsPCG {
         }
         clampValues();
         
-        System.out.println("Incremented parameter" + parameter_increment + " by " + increment_value);
+        System.out.println("Incremented parameter " + parameter_increment + " by " + increment_value);
     }
     public void setAllTo(int value){
         //SANDER
