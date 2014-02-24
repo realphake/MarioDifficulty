@@ -228,8 +228,8 @@ public class Architect {
         //      explore with a certain pattern, maybe startpoint and a pattern based on that
         params_old = params_new.copy();
         if (training) {
-            //params_new.incrementAll();
-            params_new.setAllTo(5); //test for effect
+            params_new.incrementAll();
+            //params_new.setAllTo(1); //test for effect
             //params_new.randomizeParameters();
             
             /*

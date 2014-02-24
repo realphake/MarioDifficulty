@@ -1173,9 +1173,11 @@ public class DataRecorder {
         POMDPmetrics += level.odds[5] + ", ";
 
         // Difficulty estimation Here -DE1
+        // DIRTY DESIGN DECISION, we will store the value for BETTER in the already existing FRUSTRATION in the ARFF
         POMDPmetrics += userOpinion.engagement + ", ";
         POMDPmetrics += userOpinion.frustration + ", ";
         POMDPmetrics += userOpinion.challenge + ", ";
+        POMDPmetrics += userOpinion.better + ", ";
 
         //Add date + time stamp
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());

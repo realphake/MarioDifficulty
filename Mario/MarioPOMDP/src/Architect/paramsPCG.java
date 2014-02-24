@@ -44,11 +44,11 @@ public class paramsPCG {
         newSeed();
         
         //SANDER - these are the default values for the first segments
-        ODDS_TUBES = 1 ;        //(0-5)
-        ODDS_JUMP = 1;          //(0-5)       
-        ODDS_HILL_STRAIGHT = 1; //(0-5)
-        ODDS_CANNONS = 1;       //(0-5)       
-        ODDS_STRAIGHT = 1  ;    //(0-5)
+        ODDS_TUBES = 0;         //(0-5)
+        ODDS_JUMP = 0;          //(0-5)       
+        ODDS_HILL_STRAIGHT = 0; //(0-5)
+        ODDS_CANNONS = 0;       //(0-5)       
+        ODDS_STRAIGHT = 0;      //(0-5)
         
         //possibly redundant parameters
         difficulty = 1;//(0-5)       

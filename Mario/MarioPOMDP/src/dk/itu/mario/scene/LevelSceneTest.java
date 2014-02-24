@@ -114,17 +114,17 @@ public class LevelSceneTest extends LevelScene {
 
         Random randomGenerator = new Random();
         int randomInt = randomGenerator.nextInt(100);
-
+       
         arch = new Architect(training, request);
         level2 = new ArchLevel(arch.params_new);
-        plannedDifficultyLevels.add(level2.DIFFICULTY_sander);
-
+        plannedDifficultyLevels.add(level2.DIFFICULTY_sander);       
+        
         randomInt = randomGenerator.nextInt(100);
         arch.params_new.seed = randomInt;
 
         level3 = new ArchLevel(arch.params_new);
         plannedDifficultyLevels.add(level3.DIFFICULTY_sander);
-
+        
         fixborders();
         conjoin();
 
@@ -485,7 +485,7 @@ public class LevelSceneTest extends LevelScene {
             System.out.println("Generating next segment...");
 
             //Update the next levels parameters according to exploration policy
-            arch.update(training);
+            arch.update(training);           
 
             //Note: Using other constructor of ArchLevel, using recorder and valueList as inputs
             level2 = new ArchLevel(arch.params_new);
