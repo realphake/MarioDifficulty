@@ -227,13 +227,16 @@ public class Architect {
         // IF train:
         //      explore with a certain pattern, maybe startpoint and a pattern based on that
         params_old = params_new.copy();
-        if (training) {
-            
+
+        if (training) {   
             // test repo passwrd
             // if he chose the current level increment all otherwise increment a random parameter by a random value
-            if(this.Obs.better == 1 && this.first_time > 0 )
+            if (this.Obs.better == 1 && this.first_time > 0 )
                 params_new.incrementAll();
-            else params_new.incrementRandom();
+            else {
+                params_new.decrementAll();
+                params_new.incrementRandom();
+            }
             //params_new.setAllTo(1); //test for effect
             //params_new.randomizeParameters();
             this.first_time++;

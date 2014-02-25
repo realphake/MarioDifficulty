@@ -104,8 +104,17 @@ public class paramsPCG {
         ODDS_TUBES = (ODDS_TUBES+1)%6;//(0-5)
         ODDS_JUMP = (ODDS_JUMP+1)%6;//(0-5)
         ODDS_CANNONS = (ODDS_CANNONS+1)%6;//(0-5)
-        GAP_SIZE = (GAP_SIZE -1)%4+2;//(2-5)
+        //GAP_SIZE = (GAP_SIZE +1)%4+2;//(2-5) //hier stond eerste -1 //gap size wordt niet meer gebruikt verder als het goed is
     }
+
+    public void decrementAll(){
+        ODDS_STRAIGHT = (ODDS_STRAIGHT-1)%6; //(0-5)
+        ODDS_HILL_STRAIGHT = (ODDS_HILL_STRAIGHT-1)%6;//(0-5)
+        ODDS_TUBES = (ODDS_TUBES-1)%6;//(0-5)
+        ODDS_JUMP = (ODDS_JUMP-1)%6;//(0-5)
+        ODDS_CANNONS = (ODDS_CANNONS-1)%6;//(0-5)
+        //GAP_SIZE = (GAP_SIZE -1)%4+2;//(2-5)
+    }    
     
     public void incrementRandom(){
         // could not use the dictionary/list variable type

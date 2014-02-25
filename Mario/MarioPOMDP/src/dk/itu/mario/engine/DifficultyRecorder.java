@@ -171,7 +171,8 @@ public class DifficultyRecorder {
         tempFrame.pack();
 
         if (isFirstQuestions) {
-            loadFirstQuestions(dc);
+            //loadFirstQuestions(dc);
+            loadSwapLevelQuestions(dc, true);
         } else {
             loadSwapLevelQuestions(dc, false);
         }
