@@ -51,7 +51,7 @@ public class Architect {
     public paramsPCG params_old;
     public paramsPCG params_champion;
 
-    public int first_time = 1;
+    public int first_time = 0;
     //helpers
     Random randomGenerator = new Random();
     WekaFunctions sFunctions = new WekaFunctions();
@@ -235,7 +235,7 @@ public class Architect {
                 params_new.incrementAll();
             else {
                 params_new.decrementAll();
-                params_new.incrementRandom();
+                params_new.incrementRandomOrSpecific(true);
             }
             //params_new.setAllTo(1); //test for effect
             //params_new.randomizeParameters();

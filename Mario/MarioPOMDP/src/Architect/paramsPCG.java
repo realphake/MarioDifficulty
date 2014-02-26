@@ -116,7 +116,7 @@ public class paramsPCG {
         //GAP_SIZE = (GAP_SIZE -1)%4+2;//(2-5)
     }    
     
-    public void incrementRandom(){
+    public void incrementRandomOrSpecific(boolean random){
         // could not use the dictionary/list variable type
         // sorry for sloppy programming
         

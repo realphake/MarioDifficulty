@@ -793,6 +793,13 @@ public class Mario extends Sprite {
     public void die() {
         xDeathPos = (int) x;
         yDeathPos = (int) y;
+        
+        
+        // map has length X and we have 5 parameters
+        int segment = world.level.width / 5;
+        //world.arch.params_new.incrementRandomOrSpecific(true);
+        
+                
         world.paused = true;
         deathTime = 1;
         Art.stopMusic();
