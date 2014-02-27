@@ -149,6 +149,7 @@ public class Mario extends Sprite {
     public void move() {
         lastSectionType = currentSectionType;
         currentSectionType = world2.getCurrentSectionType((int) (((double) x)/16));
+        //System.out.println("current section type: "+currentSectionType);//paris
         // sectiontypes 0-4, -1 means invalid
         if (lastSectionType != currentSectionType) {
             changedSection = true;
@@ -793,13 +794,6 @@ public class Mario extends Sprite {
     public void die() {
         xDeathPos = (int) x;
         yDeathPos = (int) y;
-        
-        
-        // map has length X and we have 5 parameters
-        int segment = world.level.width / 5;
-        //world.arch.params_new.incrementRandomOrSpecific(true);
-        
-                
         world.paused = true;
         deathTime = 1;
         Art.stopMusic();

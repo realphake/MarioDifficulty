@@ -44,11 +44,19 @@ import level2.*;
 import level2.generator.CustomizedLevelGenerator;
 import dk.itu.mario.engine.Play;
 import dk.itu.mario.res.ResourcesManager;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.Calendar;
+import java.util.TimeZone;
 import java.util.logging.Logger;
 
 public class LevelSceneTest extends LevelScene {
 
     ArrayList<Double> switchPoints;
+    private ArrayList<SectionOfGame> sections = new ArrayList<SectionOfGame>();
+    private int previousSection = -1;
 
     public ArrayList<double[]> valueArrayList = new ArrayList(0);//means of the gaussians, will contain all unique vectors used
     public ArrayList<double[]> rewardList = new ArrayList(0);//contains all rewards in same order as valueArrayList, corresponding to each vector, list for each vector
@@ -76,11 +84,9 @@ public class LevelSceneTest extends LevelScene {
     public RandomForest RF = new RandomForest();
     public Instances RF_trainingInstances;
     public Instances RF_testInstances;
-    
-    
-    public boolean first_time = true;
+
     public int levelWidth = 50;
-    
+
     public boolean training = true;
     MainSendRequest request = new MainSendRequest();
     boolean online = true;
@@ -99,6 +105,16 @@ public class LevelSceneTest extends LevelScene {
             //System.exit(0);
         }
 
+        //System.out.println("paris implementation");
+        //create list of sections.
+        /**
+         * STRAIGHT = 0; HILL_STRAIGHT = 1; TUBES = 2; JUMP = 3; CANNONS = 4;
+         */
+        for (int i = 0; i < 5; i++) {
+            SectionOfGame section = new SectionOfGame(i);
+            sections.add(section);
+        }
+
         System.out.println("----------------------------------------");
         System.out.println("---------- Initialising game -----------");
         System.out.println("----------------------------------------");
@@ -107,24 +123,30 @@ public class LevelSceneTest extends LevelScene {
         System.out.println("Generating first two segments...");
         currentLevelSegment = 0;
         nextSegmentAlreadyGenerated = false;
-        
+
         paused = false;
         Sprite.spriteContext = this;
         sprites.clear();
 
         Random randomGenerator = new Random();
         int randomInt = randomGenerator.nextInt(100);
-       
+
         arch = new Architect(training, request);
+        //paris TEST OLD 
+        //int[] parisParameters = new int[6];
+        //get parameters based on emotions
+        //parisParameters = probabilitiesToParameters(emotions);
+        //arch.params_new.setSettingsInt(parisParameters);
+
         level2 = new ArchLevel(arch.params_new);
-        plannedDifficultyLevels.add(level2.DIFFICULTY_sander);       
-        
+        plannedDifficultyLevels.add(level2.DIFFICULTY_sander);
+
         randomInt = randomGenerator.nextInt(100);
         arch.params_new.seed = randomInt;
 
         level3 = new ArchLevel(arch.params_new);
         plannedDifficultyLevels.add(level3.DIFFICULTY_sander);
-        
+
         fixborders();
         conjoin();
 
@@ -176,10 +198,23 @@ public class LevelSceneTest extends LevelScene {
         //if(!isCustom && recorder==null)
 
         recorder = new DataRecorder(this, level2, keys);
-		 ////System.out.println("\n enemies LEFT : " + recorder.level.COINS); //SANDER disable
+        ////System.out.println("\n enemies LEFT : " + recorder.level.COINS); //SANDER disable
         ////System.out.println("\n enemies LEFT : " + recorder.level.BLOCKS_COINS);
         ////System.out.println("\n enemies LEFT : " + recorder.level.BLOCKS_POWER);
         gameStarted = false;
+    }
+
+    //get a vector of probabilities and convert it to parameter scale.
+    public int[] probabilitiesToParameters(float[] emotions) {
+        int[] params = new int[6];
+        for (int i = 0; i < params.length; i++) {
+            System.out.println("emotion " + (i + 1) + ": " + emotions[i + 1]);
+            //ignore the first parameter (neutral face)
+            //convert from [0..1] to [1..5] by param=emotion*(max-min)+min
+            params[i] = Math.round(emotions[i + 1] * (5 - 1) + 1);
+            System.out.println("parameter " + i + ":" + params[i]);
+        }
+        return params;
     }
 
     // Locally for Random Forest Classifier -- Currently Unused
@@ -212,10 +247,10 @@ public class LevelSceneTest extends LevelScene {
             RF.buildClassifier(RF_trainingInstances);
 
             if (verbose) {
-                                    //Get classification of example data
+                //Get classification of example data
                 //System.out.println(RF.toString());
                 Evaluation eTest = new Evaluation(data);
-                                    //eTest.evaluateModel(RF, RF_trainingInstances);
+                //eTest.evaluateModel(RF, RF_trainingInstances);
                 //eTest.crossValidateModel(RF, data, 10, new Random());
                 int folds = 10;
                 Random rand = new Random(0);  // using seed = 0 (should be 1?)
@@ -226,7 +261,7 @@ public class LevelSceneTest extends LevelScene {
 //                                    System.out.println(strSummary);
                 //System.out.println(eTest.toClassDetailsString());
 
-                                    // Get the confusion matrix
+                // Get the confusion matrix
                 //double[][] cmMatrix = eTest.confusionMatrix();                                
                 //System.out.println(eTest.toMatrixString());
             }
@@ -271,13 +306,13 @@ public class LevelSceneTest extends LevelScene {
     public Instance selectTestInstance() {
                             //Select last instance from loaded set of Test Instances
 
-                            //Create test instance
+        //Create test instance
         //Instance testInstance = new Instance(newDataTest.firstInstance());
         //Instance testInstance = new Instance(newDataTest.instance(0));
         Instance testInstance = new Instance(RF_testInstances.lastInstance());
                             //System.out.println("-selecting last instance in test set RF_testInstances, done");
 
-                            // Specify that the instance belong to the training set 
+        // Specify that the instance belong to the training set 
         // in order to inherit from the set description                                
         testInstance.setDataset(RF_trainingInstances);
 //                            System.out.println("-selected last instance in test set: " + testInstance.toString() );
@@ -288,12 +323,12 @@ public class LevelSceneTest extends LevelScene {
     public Instance selectTrainingInstance(int index) {
                             //Select last instance from loaded set of Test Instances
 
-                            //Create test instance
+        //Create test instance
         //Instance trainingInstance = new Instance(RF_trainingInstances.firstInstance());
         //Instance trainingInstance = new Instance(RF_trainingInstances.lastInstance());
         Instance trainingInstance = new Instance(RF_trainingInstances.instance(index));
 
-                            // Specify that the instance belong to the training set 
+        // Specify that the instance belong to the training set 
         // in order to inherit from the set description                                
         trainingInstance.setDataset(RF_trainingInstances);
 //                            System.out.println("-processing instance # " + index + " in training set: " + trainingInstance.toString() );
@@ -305,21 +340,21 @@ public class LevelSceneTest extends LevelScene {
         try {
 			//Classify one particular instance from loaded set of Test Instances
 
-			//Create test instance
+            //Create test instance
             //Instance testInstance = new Instance(newDataTest.firstInstance());
             //Instance testInstance = new Instance(newDataTest.instance(0));
             //Instance testInstance = new Instance(RF_testInstances.lastInstance());
             ////System.out.println("-selecting last instance in test set RF_testInstances, done");
-			// Specify that the instance belong to the training set 
+            // Specify that the instance belong to the training set 
             // in order to inherit from the set description                                
             //testInstance.setDataset(RF_trainingInstances);
-			// Get the likelihood of each classes 
+            // Get the likelihood of each classes 
             // fDistribution[0] is the probability of being positive
             // fDistribution[1] is the probability of being negative 
             double[] fDistribution = RF.distributionForInstance(testInstance);
 
             if (verbose) {
-				//System.out.println("");
+                //System.out.println("");
                 //System.out.println("Classifying selected test instance...");                               
                 //System.out.println("-probability of instance being appropriate     (1): " + fDistribution[1]);
                 //System.out.println("-probability of instance being non-appropriate (0): " + fDistribution[0]);
@@ -328,7 +363,7 @@ public class LevelSceneTest extends LevelScene {
 
             return fDistribution[1];
         } catch (Exception e) {
-			//Error reading file
+            //Error reading file
             //System.out.println("ERROR!!! - In function classifyInstance()...");
             //System.out.println("-" + e);
             return 0.0; //dummy value
@@ -341,7 +376,7 @@ public class LevelSceneTest extends LevelScene {
     }
 
     public DifficultyRecorder getUserOpinion() {
-        dr.startRecordDifficulty(this.first_time);
+        dr.startRecordDifficulty(false);
         while (!dr.isFinished()) {
             try {
                 Thread.sleep(200);
@@ -349,21 +384,28 @@ public class LevelSceneTest extends LevelScene {
                 Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
         }
-        this.first_time = false;
         return dr;
-        
     }
-    
-    public int getCurrentSectionType(int xcoord){
+
+    public int getCurrentSectionType(int xcoord) {
         // returns 0-4 for section types
         // returns -1 if the coordinate is < 0
         //      meaning that the mario sprite is on the previous chunk
-        return level2.sectionTypeAtCoordinate(xcoord - level3.map.length);
+        if (arch.chunksGenerated == 0) {
+            int l2length = level2.map.length;
+            if (xcoord > l2length) {
+                return level3.sectionTypeAtCoordinate(xcoord - l2length);
+            } else {
+                return level2.sectionTypeAtCoordinate(xcoord);
+            }
+        } else {
+            return level2.sectionTypeAtCoordinate(xcoord - level3.map.length);
+        }
     }
 
     public int getDifficulty() {
 
-                            //return m.DIFFICULTY; //this is outdated - lets return the actual values as also displaye on the screen
+        //return m.DIFFICULTY; //this is outdated - lets return the actual values as also displaye on the screen
         //    public int currentLevelSegment;
         //    public ArrayList plannedDifficultyLevels = new ArrayList(0);                       
         return (int) plannedDifficultyLevels.get(currentLevelSegment);
@@ -442,7 +484,7 @@ public class LevelSceneTest extends LevelScene {
                 System.out.println("-ERROR! DifficultyLevel=" + difficultyLevel + " Cannot add reward to concerning playerModelDiff1,4,7 due to incorrect input of difficultyLevel");
                 break;
         }
-                            //Note, updating the display of average rewards is performed by updatePlayerModel()
+        //Note, updating the display of average rewards is performed by updatePlayerModel()
         //int index = getPlayerModelIndex(difficultyLevel);
         //System.out.println("-updating playerModel[" + index + "] with reward: " + reward);
         //playerModel[index] += reward;
@@ -461,7 +503,7 @@ public class LevelSceneTest extends LevelScene {
          m.REWARD += reward;
          System.out.println("-new reward is now: " + m.REWARD);
          */
-                            //OLD OLD
+        //OLD OLD
                             /*
          if (m.state == 1) { //SANDER UPDATE - NOT CORRECT AT THE MOMENT
          //Appropriate difficulty - Increase reward
@@ -487,7 +529,7 @@ public class LevelSceneTest extends LevelScene {
             System.out.println("Generating next segment...");
 
             //Update the next levels parameters according to exploration policy
-            arch.update(training);           
+            arch.update(training);
 
             //Note: Using other constructor of ArchLevel, using recorder and valueList as inputs
             level2 = new ArchLevel(arch.params_new);
@@ -518,7 +560,7 @@ public class LevelSceneTest extends LevelScene {
     }
 
     public void swap() {
-        
+
         int k = 0;
         //The background info should change aswell                       
 
@@ -526,12 +568,19 @@ public class LevelSceneTest extends LevelScene {
             tries = 3;
             recorder.endTime();
             marioComponent.pause();
+
+            //paris: calculate emotions during segments.
+            for (SectionOfGame section : sections) {
+                System.out.println("section " + section.getId() + " duration: " + section.calculateDuration() + " duration2 " + section.calculateDuration2());
+            }
+
+            readEmotions();
+
             //Swapping level segment
             //System.out.println("");
             //System.out.println("----------------------------------------");
             //System.out.println("-------- Swapping level segment --------");
             //System.out.println("----------------------------------------");
-
             // Difficulty Popup here -DP1
             //System.out.println("-pausing");
             arch.Obs = recorder.fillGamePlayMetrics(getUserOpinion(), verbose, request, online); //write metrics at swapping to new level segment
@@ -546,7 +595,7 @@ public class LevelSceneTest extends LevelScene {
             //Update planned difficulty for the upcoming level segment
             plannedDifficultyLevels.add(levelDifficulty); //more efficient code as if statement has become redundant
             recorder.levelScene.resetTime();
-            
+
             recorder.reset();
             recorder.startTime();
 
@@ -583,7 +632,7 @@ public class LevelSceneTest extends LevelScene {
                 sprites.get(i).x = sprites.get(i).x - level2.width * 16;
             }
             try {
-                    Thread.sleep(1000);
+                Thread.sleep(1000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
@@ -591,7 +640,7 @@ public class LevelSceneTest extends LevelScene {
         }
 
     }
-		   // }
+    // }
 
     public void save() {
         try {
@@ -610,7 +659,7 @@ public class LevelSceneTest extends LevelScene {
     }
 
     public void conjoin() {
-		    	 //fixborders();
+        //fixborders();
         //INSERTED THIS CODE
         //to conjoin two levels into one
         int width = level2.width + level3.width;
@@ -687,6 +736,8 @@ public class LevelSceneTest extends LevelScene {
         swap();
         super.tick();
 
+        sectionCalculations();
+
         if (recorder != null && !gameStarted) {
             recorder.startLittleRecord();
             recorder.startTime();
@@ -743,7 +794,7 @@ public class LevelSceneTest extends LevelScene {
                 }
             }
             tries--;
-            if(tries == 0){
+            if (tries == 0) {
                 tries = 3;
                 recorder.fillGamePlayMetrics(getUserOpinion(), verbose, request, online);
             }
@@ -906,13 +957,13 @@ public class LevelSceneTest extends LevelScene {
         if (mario != null) {
             oldX = mario.x;
         }
-        
+
         mario = new Mario(this);
-        
-        if (oldX > level3.map.length * 16){
+
+        if (oldX > level3.map.length * 16) {
             mario.x = level3.map.length * 16 + 32;
         }
-        
+
         sprites.add(mario);
         startTime = 1;
 
@@ -936,10 +987,193 @@ public class LevelSceneTest extends LevelScene {
 
         recorder.reset();
         recorder.level = level2;
-                            //System.out.println("\n enemies LEFT : " + recorder.level.COINS); //Sander disable
+        //System.out.println("\n enemies LEFT : " + recorder.level.COINS); //Sander disable
         //System.out.println("\n enemies LEFT : " + recorder.level.BLOCKS_COINS);
         //System.out.println("\n enemies LEFT : " + recorder.level.BLOCKS_POWER);
         gameStarted = false;
     }
 
+    public void sectionCalculations() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        //System.out.println(calendar.getTimeInMillis() / 1000);
+        //get current subsection (paris)
+        double mariox = (double) mario.x;
+
+        int currentSection = getCurrentSectionType((int) mariox / 16);
+        //System.out.println("s1 : " + currentSection);
+
+        //if mario is in a valid section.
+        if (currentSection != -1) {
+            //check if the section has already started. if not, set its startTime 
+            if (!sections.get(currentSection).isHasStarted()) {
+                System.out.println("section" + sections.get(currentSection).getId() + "has started");
+                sections.get(currentSection).setStartTime(calendar.getTimeInMillis() / 1000);
+                sections.get(currentSection).setHasStarted(true);
+            }
+
+            //if mario has already completed a similar segment
+            if (sections.get(currentSection).isHasEnded()) {
+                if (!sections.get(currentSection).isHasStarted2()) {
+                    System.out.println("section2 " + sections.get(currentSection).getId() + " has started");
+                    sections.get(currentSection).setStartTime2(calendar.getTimeInMillis() / 1000);
+                    sections.get(currentSection).setHasStarted2(true);
+                }
+            }
+
+            //if game passed into a new section, set the end time for the past section.
+            if (currentSection != previousSection) {
+                if (previousSection == -1) {
+                    System.out.println("First section ended.");
+                    previousSection = currentSection;
+                } else {
+                    //set the end time of the previous section
+                    if (!sections.get(previousSection).isHasEnded()) {
+                        System.out.println("section" + sections.get(previousSection).getId() + " has ended.");
+                        sections.get(previousSection).setEndTime(calendar.getTimeInMillis() / 1000);
+                        sections.get(previousSection).setHasEnded(true);
+                        previousSection = currentSection;
+
+                    } //if the previous has ended, it means that we are in the 2nd segment
+                    else {
+                        if (!sections.get(previousSection).isHasEnded2()) {
+                            System.out.println("section2 " + sections.get(previousSection).getId() + " has ended.");
+                            sections.get(previousSection).setHasEnded2(true);
+                            sections.get(previousSection).setEndTime2(calendar.getTimeInMillis() / 1000);
+                            previousSection = currentSection;
+                        }
+                    }
+                }
+            }
+            //check if we reached the end of segment (currentSection==-1)
+        } else {
+            if (previousSection != -1) {
+                //check if we are in the first or 2nd segment.
+                if (!sections.get(previousSection).isHasEnded()) {
+                    sections.get(previousSection).setHasEnded(true);
+                    sections.get(previousSection).setEndTime(calendar.getTimeInMillis() / 1000);
+                    System.out.println("section " + sections.get(previousSection).getId() + " has finished");
+                    previousSection = -1;
+                } //we are in the second segment.
+                else if (!sections.get(previousSection).isHasEnded2()) {
+                    sections.get(previousSection).setHasEnded2(true);
+                    sections.get(previousSection).setEndTime2(calendar.getTimeInMillis() / 1000);
+                    System.out.println("section2 : " + sections.get(previousSection).getId() + " has ended");
+                    previousSection = -1;
+                }
+
+            }
+        }
+    }
+
+    public void readEmotions() {
+
+        /**
+         * emotions is a size[7] float probability array. 0:neutral 1:happy
+         * 2:surprised 3:angry 4:disgusted 5:afraid 6:sad
+         *
+         * startEndTimes is a 2d array that should contain the start and end
+         * time in milliseconds for each section of the game.
+         *
+         * allGameEmotions is a list that contains all the emotion vectors for
+         * the whole durations of the segment.
+         */
+        float[] emotions = new float[7];
+        double[][] startEndTimes = new double[5][4];
+        ArrayList<float[]> allGameEmotions = new ArrayList<float[]>();
+
+        //fill the startEndTimes array
+        for (SectionOfGame section : sections) {
+            startEndTimes[section.getId()][0] = section.getStartTime();
+            startEndTimes[section.getId()][1] = section.getEndTime();
+            startEndTimes[section.getId()][2] = section.getStartTime2();
+            startEndTimes[section.getId()][3] = section.getEndTime2();
+        }
+
+        int counter = 0;
+        try {
+            //read the file generated by inSight line by line.
+            String currentLine;
+            int a = 0;
+            BufferedReader br = new BufferedReader(new FileReader("../../../../output/emotions.txt"));
+            try {
+                while ((currentLine = br.readLine()) != null) {
+
+                    if (currentLine.startsWith("-")) {
+                        //read timestamp
+                        String timeStampS = currentLine.substring(7, currentLine.length());
+                        Double temp = Double.valueOf(timeStampS);
+                        double timeStamp = temp.doubleValue();
+                        a = getSectionFromTimeStamp(startEndTimes, timeStamp);
+
+                    } else {
+                        //convert string to float and add it to the correct position.
+                        emotions[counter] += Float.parseFloat(currentLine);
+                        counter++;
+                        //if counter exceeds array dimensions
+                        if (counter > 6) {
+                            if (a != -1) {
+                                sections.get(a).addEmotions(emotions);
+                                sections.get(a).increaseTimes();
+                              
+                                float[] temp = new float[7];
+                                for(int p=0;p<emotions.length;p++){
+                                    temp[p]=emotions[p];
+                                }
+                                //add emotion to the total list
+                                allGameEmotions.add(temp);                              
+                            }
+
+                            //reset the emotions table.
+                            for (int k = 0; k < 7; k++) {
+                                emotions[k] = 0;
+                            }
+                            counter = 0;
+                        }
+                    }
+
+                }
+
+                //write emotions to file
+                for (int j = 0; j < allGameEmotions.size(); j++) {
+                    StringBuilder line = new StringBuilder();
+                    for (int i = 0; i < allGameEmotions.get(j).length; i++) {
+                        line.append(String.valueOf(allGameEmotions.get(j)[i]));
+                        line.append(" ");
+                        //System.out.println(allGameEmotions.get(j)[i]);
+                    }
+                    try {
+                        PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("allEmotions.txt", true)));
+                        out.println(line);
+                        out.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                //normalize the emotions array for each section and print it to the console
+                for (SectionOfGame section : sections) {
+                    section.normalizeEmotions();
+                    System.out.println("------" + section.getId() + "-------");
+                    section.printEmotions();
+                    section.writeSectionEmotionsToFile();
+                }
+
+                //System.out.println(System.getProperty("user.dir"));// get pwd.
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    public int getSectionFromTimeStamp(double[][] times, double timeStamp) {
+        for (int i = 0; i < 5; i++) {
+            if ((timeStamp >= times[i][0] && timeStamp < times[i][1]) || (timeStamp >= times[i][2] && timeStamp < times[i][3])) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }

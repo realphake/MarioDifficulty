@@ -48,7 +48,7 @@ public class MainSendRequest {
                     download = EntityUtils.toString(serverEntity);
                     System.out.println(download);
                 }
-            } catch (    IOException | ParseException ex) {
+            } catch (IOException | ParseException ex) {
                 Logger.getLogger(MainSendRequest.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 response.close();

@@ -1,4 +1,4 @@
-package dk.itu.mario.scene;
+    package dk.itu.mario.scene;
 
 import java.awt.Color;
 import java.awt.Graphics;
