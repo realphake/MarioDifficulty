@@ -606,6 +606,8 @@ public class Mario extends Sprite {
                 sliding = false;
             }
         }
+        
+
 
         if (collide) {
             if (xa < 0) {
@@ -793,13 +795,6 @@ public class Mario extends Sprite {
     public void die() {
         xDeathPos = (int) x;
         yDeathPos = (int) y;
-        
-        
-        // map has length X and we have 5 parameters
-        int segment = world.level.width / 5;
-        //world.arch.params_new.incrementRandomOrSpecific(true);
-        
-                
         world.paused = true;
         deathTime = 1;
         Art.stopMusic();
@@ -833,6 +828,17 @@ public class Mario extends Sprite {
 
         large = false;
         fire = false;
+        
+        
+                
+        // map has length X and we have 5 parameters
+        int segment = (int)((x/16)/(world.level.width/2/5));
+        if(segment  >= 5) segment -= 5;
+        System.out.println("\n Died here : " + segment);
+        // give new value to parameter
+        world.arch.params_new.incrementRandomorSpecific(false,world.arch.reverseParams,segment,true);
+        
+              
     }
 
     public void getFlower() {

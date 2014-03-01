@@ -50,8 +50,9 @@ public class Architect {
     public paramsPCG params_new;
     public paramsPCG params_old;
     public paramsPCG params_champion;
+    public paramsPCG reverseParams;
 
-    public int first_time = 0;
+    public int first_time = 1;
     //helpers
     Random randomGenerator = new Random();
     WekaFunctions sFunctions = new WekaFunctions();
@@ -68,12 +69,14 @@ public class Architect {
         params_new = new paramsPCG();
         params_old = new paramsPCG();
         params_champion = new paramsPCG();
+        reverseParams = new paramsPCG();
     }
     
     public Architect(boolean training, MainSendRequest request) {
         params_new = new paramsPCG();
         params_old = new paramsPCG();
         params_champion = new paramsPCG();
+        reverseParams = new paramsPCG();
         
         if (!training){
             request.downloadData("trainingfile.arff");
@@ -227,15 +230,25 @@ public class Architect {
         // IF train:
         //      explore with a certain pattern, maybe startpoint and a pattern based on that
         params_old = params_new.copy();
-
         if (training) {   
-            // test repo passwrd
+            
             // if he chose the current level increment all otherwise increment a random parameter by a random value
-            if (this.Obs.better == 1 && this.first_time > 0 )
+            // increment by 1 all until preference has changed to preceeding
+            if (this.Obs.better == 1 && !this.Obs.hasChangedPreference){
                 params_new.incrementAll();
+                System.out.println("Incremented all");
+            }
             else {
-                params_new.decrementAll();
-                params_new.incrementRandomOrSpecific(true);
+                
+                // we reverse back to the old parameters and change a new one (0.04% prob to changethe same)
+                if(this.Obs.better == 0){
+                    params_new.incrementRandomorSpecific(true,reverseParams,0,false);
+                    System.out.println("Incremented random with reverse");
+                }
+                else {
+                    params_new.incrementRandomorSpecific(false,reverseParams,0,false);
+                    System.out.println("Incremented random with no reverse");
+                }
             }
             //params_new.setAllTo(1); //test for effect
             //params_new.randomizeParameters();
@@ -247,7 +260,7 @@ public class Architect {
                 params_new.incrementAll();
             }
             */
-        } else {
+        }else {
         // IF online: epsilon greedy
             // Estimate challenge
             int[] paramchanges = changeParamsBasedOnStats(difficultyAdjustment);
