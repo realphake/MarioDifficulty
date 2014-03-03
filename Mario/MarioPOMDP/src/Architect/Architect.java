@@ -78,7 +78,7 @@ public class Architect {
         params_champion = new paramsPCG();
         reverseParams = new paramsPCG();
         
-        if (training){
+        if (!training){
             request.downloadData("trainingfile.arff");
             sFunctions.loadTrainInstance(request.download);
             sFunctions.buildLRcls();
@@ -229,6 +229,7 @@ public class Architect {
         // Determine Explore/Exploit -EE
         // IF train:
         //      explore with a certain pattern, maybe startpoint and a pattern based on that
+        reverseParams = params_old;
         params_old = params_new.copy();
         if (training) {   
             

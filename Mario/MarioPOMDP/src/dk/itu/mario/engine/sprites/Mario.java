@@ -836,6 +836,7 @@ public class Mario extends Sprite {
         if(segment  >= 5) segment -= 5;
         System.out.println("\n Died here : " + segment);
         // give new value to parameter
+        //if(world.arch.Obs.hasChangedPreference)
         world.arch.params_new.incrementRandomorSpecific(false,world.arch.reverseParams,segment,true);
         
               
