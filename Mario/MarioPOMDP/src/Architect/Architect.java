@@ -78,7 +78,7 @@ public class Architect {
         params_champion = new paramsPCG();
         reverseParams = new paramsPCG();
         
-        if (!training){
+        if (training){
             request.downloadData("trainingfile.arff");
             sFunctions.loadTrainInstance(request.download);
             sFunctions.buildLRcls();

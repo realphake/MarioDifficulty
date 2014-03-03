@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import weka.classifiers.Evaluation;
 import weka.classifiers.functions.LinearRegression;
 import weka.classifiers.meta.FilteredClassifier;
 import weka.core.Instance;
@@ -74,7 +75,7 @@ public class WekaFunctions {
             // weka uses a 1-based index parameters are then 61-66 and challenge 69
             removefilter.setOptions(
                     weka.core.Utils.splitOptions(
-                            "-R 61,62,63,64,65,66,69 -V"));  // set options
+                            "-R 61,69 -V"));  // set options
             
             // inform filter about dataset **AFTER** setting options
             removefilter.setInputFormat(train);
@@ -99,6 +100,14 @@ public class WekaFunctions {
                     weka.core.Utils.splitOptions(
                             "-S 0 -C -D"));  // set options
             model.buildClassifier(trainParameters);
+            
+            // evaluate classifier and print some statistics 
+Evaluation eval = new Evaluation(trainParameters); 
+eval.evaluateModel(model,trainParameters ); 
+System.out.println(eval.toSummaryString()); 
+            
+            
+            
         } catch (Exception ex) {
             Logger.getLogger(WekaFunctions.class.getName()).log(Level.SEVERE, null, ex);
         }
