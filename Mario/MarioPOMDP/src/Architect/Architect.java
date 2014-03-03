@@ -239,18 +239,18 @@ public class Architect {
             if (this.Obs.better == 1 && !this.Obs.hasChangedPreference){
                 
                 params_new.incrementAll();
-                System.out.println("Incremented all");
+                System.out.println("-incremented all");
             }
             else {
                 if(this.Obs.hasChangedPreference) this.hasChangedPreference = true;
                 // we reverse back to the old parameters and change a new one (0.04% prob to changethe same)
                 if(this.Obs.better == 0){
                     params_new.incrementRandomorSpecific(true,reverseParams,0,false);
-                    System.out.println("Incremented random with reverse");
+                    System.out.println("-incremented random with reverse");
                 }
                 else {
                     params_new.incrementRandomorSpecific(false,reverseParams,0,false);
-                    System.out.println("Incremented random with no reverse");
+                    System.out.println("-incremented random with no reverse");
                 }
             }
             //params_new.setAllTo(1); //test for effect

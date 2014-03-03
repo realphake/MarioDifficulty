@@ -834,10 +834,20 @@ public class Mario extends Sprite {
         // map has length X and we have 5 parameters
         int segment = (int)((x/16)/(world.level.width/2/5));
         if(segment  >= 5) segment -= 5;
-        System.out.println("\n Died here : " + segment);
+        System.out.println("\n-player died in chunk: " + segment);
         // give new value to parameter
+        // reverseParams  or  params_old
         if(world.arch.hasChangedPreference)
-            world.arch.params_new.incrementRandomorSpecific(false,world.arch.reverseParams,segment,true);
+        {
+            world.arch.params_new.incrementRandomorSpecific(false, world.arch.reverseParams, segment, true);
+            System.out.println("-resetting (with one mutation at point of death) to: jump(" 
+                    + world.arch.params_new.ODDS_JUMP + "), tubes(" 
+                    + world.arch.params_new.ODDS_TUBES + "), cannons(" 
+                    + world.arch.params_new.ODDS_CANNONS + "), straight(" 
+                    + world.arch.params_new.ODDS_STRAIGHT + "), hills(" 
+                    + world.arch.params_new.ODDS_HILL_STRAIGHT + "))");
+        }
+        
   
     }
 

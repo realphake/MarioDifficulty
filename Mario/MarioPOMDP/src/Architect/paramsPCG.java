@@ -117,31 +117,29 @@ public class paramsPCG {
         //GAP_SIZE = (GAP_SIZE -1)%4+2;//(2-5)
     }    
     
-    public void incrementRandomorSpecific(boolean reverse, paramsPCG reverseValues,int param,boolean specific){
+    public void incrementRandomorSpecific(boolean reverse, paramsPCG reverseValues, int param, boolean specific){
         // could not use the dictionary/list variable type
         // sorry for sloppy programming
         if(reverse){
-        ODDS_JUMP = reverseValues.ODDS_JUMP;
-        ODDS_TUBES = reverseValues.ODDS_TUBES;
-        ODDS_CANNONS = reverseValues.ODDS_CANNONS;
-        ODDS_STRAIGHT = reverseValues.ODDS_STRAIGHT;
-        ODDS_HILL_STRAIGHT = reverseValues.ODDS_HILL_STRAIGHT;
-        
-        //printAll();
-        //GAP_SIZE = reverseValues.GAP_SIZE;
-        
-        
+            ODDS_JUMP = reverseValues.ODDS_JUMP;
+            ODDS_TUBES = reverseValues.ODDS_TUBES;
+            ODDS_CANNONS = reverseValues.ODDS_CANNONS;
+            ODDS_STRAIGHT = reverseValues.ODDS_STRAIGHT;
+            ODDS_HILL_STRAIGHT = reverseValues.ODDS_HILL_STRAIGHT;
+
+            //printAll();
+            //GAP_SIZE = reverseValues.GAP_SIZE;
         }
+        
         // value to increment by
         int increment_value = randomGenerator.nextInt(6)+1;
         int parameter_increment;
         
         // parameter to be incremented
-        if(specific) parameter_increment = param;
+        if (specific) parameter_increment = param;
         else parameter_increment = randomGenerator.nextInt(5);
         
         switch(parameter_increment){
-        
             case 0: ODDS_STRAIGHT = increment_value; break;
             case 1: ODDS_HILL_STRAIGHT = increment_value; break;
             case 2: ODDS_TUBES = increment_value; break;
@@ -154,7 +152,7 @@ public class paramsPCG {
         clampValues();
         
         // print outcome
-        System.out.println("Incremented parameter " + parameter_increment + " by " + increment_value);
+        System.out.println("-incremented parameter " + parameter_increment + " by " + increment_value);
         
         //printAll();
     }
