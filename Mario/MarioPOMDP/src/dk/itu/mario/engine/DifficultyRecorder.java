@@ -423,8 +423,9 @@ public class DifficultyRecorder {
         JLabel labelGreetings2 = new JLabel("Please answer these questions...");
         JLabel labelEngagement = new JLabel("");
         JLabel labelFrustration = new JLabel("");
-        JLabel labelChallenge = new JLabel("The challenge level of the current game segment is...");
-        JLabel labelBetter = new JLabel("I prefer the challenge level of the [preceeding / current] game segment...");
+        JLabel labelChallenge = new JLabel("The challenge level of the part that I just played is...");
+        JLabel labelBetter = new JLabel("I prefer the challenge level of...");
+        // [the part before this one] OR [this one - the part that I just played]
         JLabel labelInfo1 = new JLabel("");
         JLabel labelInfo2 = new JLabel("");
         
@@ -440,8 +441,8 @@ public class DifficultyRecorder {
         labelTableChallenge.put(new Integer(5), new JLabel("Too hard"));
 
         Hashtable labelTableBetter = new Hashtable();
-        labelTableBetter.put(new Integer(0), new JLabel("Preceeding"));
-        labelTableBetter.put(new Integer(1), new JLabel("Current"));
+        labelTableBetter.put(new Integer(0), new JLabel("The part before"));
+        labelTableBetter.put(new Integer(1), new JLabel("This part"));
         
         final JSlider sliderEngagement = new JSlider(1, 5);
         sliderEngagement.setMajorTickSpacing(1);
