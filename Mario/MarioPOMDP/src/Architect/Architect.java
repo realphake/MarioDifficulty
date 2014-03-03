@@ -24,6 +24,7 @@ public class Architect {
     public int started = 0;
     //Observations
     public GamePlay Obs;
+    public boolean hasChangedPreference = false;
 
     //hill climbing parameters
     public int re = 50; //Probability the champion is re-evaluated
@@ -236,11 +237,12 @@ public class Architect {
             // if he chose the current level increment all otherwise increment a random parameter by a random value
             // increment by 1 all until preference has changed to preceeding
             if (this.Obs.better == 1 && !this.Obs.hasChangedPreference){
+                
                 params_new.incrementAll();
                 System.out.println("Incremented all");
             }
             else {
-                
+                if(this.Obs.hasChangedPreference) this.hasChangedPreference = true;
                 // we reverse back to the old parameters and change a new one (0.04% prob to changethe same)
                 if(this.Obs.better == 0){
                     params_new.incrementRandomorSpecific(true,reverseParams,0,false);

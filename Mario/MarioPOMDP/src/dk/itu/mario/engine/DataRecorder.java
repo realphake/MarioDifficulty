@@ -1183,7 +1183,9 @@ public class DataRecorder {
         // pass the parameter back to the Architect
         gpm.better = userOpinion.better;
         if(gpm.better == 0)
+        {
             gpm.hasChangedPreference = true;
+        }
         
 
         //Add date + time stamp
