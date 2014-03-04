@@ -55,7 +55,7 @@ public class ArchLevel extends Level {
     public int sectionTypeAtCoordinate(int xCoord) {
         for (GameSection gs : gameSections) {
             if (xCoord < gs.xEnd && xCoord >= gs.xStart) {
-                return gs.blockType;
+                return (gs.blockType);
             }
         }
         return -1;
@@ -790,6 +790,9 @@ public class ArchLevel extends Level {
             xEnd = xe;
             blockType = bt;
         }
+        
+        
+
     }
 
 }

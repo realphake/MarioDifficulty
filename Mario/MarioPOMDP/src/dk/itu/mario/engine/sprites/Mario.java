@@ -149,6 +149,7 @@ public class Mario extends Sprite {
     public void move() {
         lastSectionType = currentSectionType;
         currentSectionType = world2.getCurrentSectionType((int) (((double) x)/16));
+       
         // sectiontypes 0-4, -1 means invalid
         if (lastSectionType != currentSectionType) {
             changedSection = true;
@@ -839,7 +840,7 @@ public class Mario extends Sprite {
         // reverseParams  or  params_old
         if(world.arch.hasChangedPreference)
         {
-            world.arch.params_new.incrementRandomorSpecific(false, world.arch.reverseParams, segment, true);
+            world.arch.params_new.incrementRandomorSpecific(false, world.arch.reverseParams, this.currentSectionType, true);
             System.out.println("-resetting (with one mutation at point of death) to: jump(" 
                     + world.arch.params_new.ODDS_JUMP + "), tubes(" 
                     + world.arch.params_new.ODDS_TUBES + "), cannons(" 

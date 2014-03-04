@@ -358,6 +358,7 @@ public class LevelSceneTest extends LevelScene {
         // returns 0-4 for section types
         // returns -1 if the coordinate is < 0
         //      meaning that the mario sprite is on the previous chunk
+        if(xcoord <= level3.map.length) xcoord += 112;
         return level2.sectionTypeAtCoordinate(xcoord - level3.map.length);
     }
 
@@ -695,6 +696,7 @@ public class LevelSceneTest extends LevelScene {
         if (recorder != null) {
             recorder.tickRecord();
         }
+        
     }
 
     public void winActions() {
@@ -713,6 +715,7 @@ public class LevelSceneTest extends LevelScene {
     }
 
     public void deathActions() {
+        
         //Reset general mario stuff
         DifficultyRecorder dr = DifficultyRecorder.getInstance();
 
@@ -750,6 +753,8 @@ public class LevelSceneTest extends LevelScene {
             //Mario.lives--; //Infinite amount of lives
             reset();
         }
+        
+        
     }
 
     public void bump(int x, int y, boolean canBreakBricks) {
