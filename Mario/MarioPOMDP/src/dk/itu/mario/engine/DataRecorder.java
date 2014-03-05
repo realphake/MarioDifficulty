@@ -1186,6 +1186,7 @@ public class DataRecorder {
         {
             gpm.hasChangedPreference = true;
         }
+        gpm.hasPassedTutorial = true;
         
 
         //Add date + time stamp

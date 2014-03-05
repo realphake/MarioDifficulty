@@ -838,7 +838,9 @@ public class Mario extends Sprite {
         System.out.println("\n-player died in chunk: " + segment);
         // give new value to parameter
         // reverseParams  or  params_old
-        if(world.arch.hasChangedPreference)
+
+        //if(world.arch.hasChangedPreference) //always mutate, otherwise people may get stuck completely
+        if(world.arch.hasPassedTutorial) //always mutate if user has passed the tutorial, otherwise people may get stuck completely
         {
             world.arch.params_new.incrementRandomorSpecific(false, world.arch.reverseParams, this.currentSectionType, true);
             System.out.println("-resetting (with one mutation at point of death) to: jump(" 

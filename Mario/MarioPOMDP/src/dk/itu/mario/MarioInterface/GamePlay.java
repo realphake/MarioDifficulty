@@ -61,6 +61,7 @@ public class GamePlay implements Serializable {
     // recording result
     public int better;
     public boolean hasChangedPreference = false;
+    public boolean hasPassedTutorial = false;
     
     
     public double  totalRightTimeStraight,
