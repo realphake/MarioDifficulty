@@ -149,7 +149,7 @@ public class Mario extends Sprite {
     public void move() {
         lastSectionType = currentSectionType;
         currentSectionType = world2.getCurrentSectionType((int) (((double) x)/16));
-       
+        
         // sectiontypes 0-4, -1 means invalid
         if (lastSectionType != currentSectionType) {
             changedSection = true;
@@ -833,15 +833,13 @@ public class Mario extends Sprite {
         
                 
         // map has length X and we have 5 parameters
-        int segment = (int)((x/16)/(world.level.width/2/5));
-        if(segment  >= 5) segment -= 5;
-        System.out.println("\n-player died in chunk: " + segment);
+
         // give new value to parameter
         // reverseParams  or  params_old
-
+         
         //if(world.arch.hasChangedPreference) //always mutate, otherwise people may get stuck completely
         if(world.arch.hasPassedTutorial) //always mutate if user has passed the tutorial, otherwise people may get stuck completely
-        {
+        {   
             world.arch.params_new.incrementRandomorSpecific(false, world.arch.reverseParams, this.currentSectionType, true);
             System.out.println("-resetting (with one mutation at point of death) to: jump(" 
                     + world.arch.params_new.ODDS_JUMP + "), tubes(" 

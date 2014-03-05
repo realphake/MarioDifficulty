@@ -136,8 +136,22 @@ public class paramsPCG {
         int parameter_increment;
         
         // parameter to be incremented
-        if (specific) parameter_increment = param;
-        else parameter_increment = randomGenerator.nextInt(5);
+        if (specific) {
+            parameter_increment = param;
+            
+            
+             switch(parameter_increment){
+                case 0:  ODDS_STRAIGHT = increment_value = randomGenerator.nextInt(ODDS_STRAIGHT); break;
+                case 1: ODDS_HILL_STRAIGHT = increment_value = randomGenerator.nextInt(ODDS_HILL_STRAIGHT); break;
+                case 2: ODDS_TUBES = increment_value = randomGenerator.nextInt(ODDS_TUBES); break;
+                case 3: ODDS_JUMP = increment_value = randomGenerator.nextInt(ODDS_JUMP); break;
+                case 4: ODDS_CANNONS = increment_value = randomGenerator.nextInt(ODDS_CANNONS); break;
+                //case 5: GAP_SIZE = increment_value; 
+             }
+             
+             System.out.println("-decremented parameter " + parameter_increment + " to " + increment_value);
+        }
+        else {parameter_increment = randomGenerator.nextInt(5);
         
         switch(parameter_increment){
             case 0: ODDS_STRAIGHT = increment_value; break;
@@ -148,11 +162,13 @@ public class paramsPCG {
             //case 5: GAP_SIZE = increment_value; 
         }
         
+        System.out.println("-changed parameter " + parameter_increment + " to " + increment_value);
+        }
         // clamp the values out of bounds
         clampValues();
         
         // print outcome
-        System.out.println("-incremented parameter " + parameter_increment + " by " + increment_value);
+        
         
         //printAll();
     }

@@ -241,8 +241,7 @@ public class Architect {
             System.out.println("-hasPassedTutorial: " + hasPassedTutorial);
             System.out.println("-hasChangedPreference: " + hasChangedPreference);
             
-            if (this.Obs.better == 1 && !this.Obs.hasChangedPreference){
-                
+            if (this.Obs.better == 1 && !this.hasChangedPreference){
                 params_new.incrementAll();
                 System.out.println("-incremented all");
             }

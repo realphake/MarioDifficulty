@@ -82,7 +82,7 @@ public class ArchLevel extends Level {
     }
 
     public void createArchLevel(paramsPCG m) {
-
+        
         setGlobalVariablesTo(m);
         fixOddsArrayAndCalculateTotal();
 
@@ -731,7 +731,8 @@ public class ArchLevel extends Level {
         clone.COINS = COINS;
 
         clone.odds = odds.clone();
-
+        // pass gamesections as well for reset
+        clone.gameSections = gameSections;
         return clone;
 
     }
