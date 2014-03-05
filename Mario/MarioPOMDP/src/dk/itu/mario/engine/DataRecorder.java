@@ -1204,7 +1204,7 @@ public class DataRecorder {
         System.out.println("");
         System.out.println("Uploading recorded observations...");
         if(online){
-            request.uploadData("trainingfile.arff", POMDPmetrics);
+            request.uploadData("trainingfile_test.arff", POMDPmetrics);
         } else {
             writePOMDP(POMDPmetrics);
         }
