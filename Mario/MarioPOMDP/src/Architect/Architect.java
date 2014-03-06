@@ -279,11 +279,7 @@ public class Architect {
             // otherwise Explore
                 params_new.adjustSettingsInt(paramchanges);
             }
-        }
-        chunksGenerated++;
-        
-                 
-
+        }             
         // Update the reward given the latest observations
         // note : the observations gets updated externaly in the LevelSceneTest Class at every swap()
         //getAppropriatenessToUser(); 

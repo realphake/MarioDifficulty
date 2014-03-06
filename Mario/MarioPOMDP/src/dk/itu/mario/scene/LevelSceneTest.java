@@ -59,7 +59,6 @@ public class LevelSceneTest extends LevelScene {
     private int newVectorCount = 0; //counter for newVectorInterval
     private boolean normalDiffMethods = false;//boolean to toggle normal difficulty calculations
 
-    public int tries = 3; //tries for a chunk before asking for feedback;
     public boolean recording = false;
     public boolean l2 = true;
     public boolean l3 = false;
@@ -488,26 +487,27 @@ public class LevelSceneTest extends LevelScene {
             System.out.println("Generating next segment...");
 
             //Update the next levels parameters according to exploration policy
-            arch.update(training);           
-
+            arch.update(training);
+            try {
+                if(arch.chunksGenerated != 0){
+                    // the old level 2 is the new level 3
+                    level3_reset = level2_reset.clone(); 
+                }
+            } catch (CloneNotSupportedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            arch.chunksGenerated++;
             //Note: Using other constructor of ArchLevel, using recorder and valueList as inputs
             level2 = new ArchLevel(arch.params_new);
             nextSegmentAlreadyGenerated = true;
             //System.out.println("-setting nextSegmentAlreadyGenerated to: " + nextSegmentAlreadyGenerated);
-
             try {
-                level2_reset = level3_reset.clone();
+                level2_reset = level2.clone();
             } catch (CloneNotSupportedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            try {
-                level3_reset = level2.clone();
-            } catch (CloneNotSupportedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
         } else {
             level.xExit = 105;
         }
@@ -524,7 +524,6 @@ public class LevelSceneTest extends LevelScene {
         //The background info should change aswell                       
 
         if (mario.x > (level2.width * 16 + level3.width * 16 - (10 * 16))) {
-            tries = 3;
             recorder.endTime();
             marioComponent.pause();
             //Swapping level segment
@@ -580,6 +579,7 @@ public class LevelSceneTest extends LevelScene {
                 }
 
             }
+            level.yExit = level2.yExit;
             for (int i = 0; i < sprites.size(); i++) {
                 sprites.get(i).x = sprites.get(i).x - level2.width * 16;
             }
@@ -621,16 +621,25 @@ public class LevelSceneTest extends LevelScene {
         // level4.data = new byte[width][height];
         level4.xExit = width - 5;
         int k = 0;
+        ArchLevel firstPart;
+        ArchLevel secondPart;
+        if(arch.chunksGenerated == 0){
+            firstPart = level2;
+            secondPart = level3;
+        } else {
+            firstPart = level3;
+            secondPart = level2;
+        }
+        level4.yExit = secondPart.yExit;
         for (int i = 0; i < width; i++) {
-            if (i < level2.width) {
-                level4.map[i] = level2.map[i].clone();
+            if (i < firstPart.width) {
+                level4.map[i] = firstPart.map[i].clone();
                 //level4.data[i] = level2.data[i];
-                level4.spriteTemplates[i] = level2.spriteTemplates[i];
-
+                level4.spriteTemplates[i] = firstPart.spriteTemplates[i];
             } else {
-                level4.map[i] = level3.map[k].clone();
+                level4.map[i] = secondPart.map[k].clone();
                 //level4.data[i] = level3.data[k];
-                level4.spriteTemplates[i] = level3.spriteTemplates[k];
+                level4.spriteTemplates[i] = secondPart.spriteTemplates[k];
                 k++;
             }
 
@@ -744,11 +753,6 @@ public class LevelSceneTest extends LevelScene {
                         }
                     }
                 }
-            }
-            tries--;
-            if(tries == 0){
-                tries = 3;
-                recorder.fillGamePlayMetrics(getUserOpinion(), verbose, request, online);
             }
             //Mario.lives--; //Infinite amount of lives
             reset();
@@ -883,19 +887,25 @@ public class LevelSceneTest extends LevelScene {
         Sprite.spriteContext = this;
         sprites.clear();
 
-        try {
-            level2 = level2_reset.clone();
-        } catch (CloneNotSupportedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        //you wanted to use the difficulty that is in the params
+        if(arch.hasPassedTutorial){//not in initial area
+            level2 = new ArchLevel(arch.params_new);
+            try {
+                level3 = level3_reset.clone();
+            } catch (CloneNotSupportedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                level2 = level2_reset.clone();
+                level3 = level3_reset.clone();
+            } catch (CloneNotSupportedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
-        try {
-            level3 = level3_reset.clone();
-        } catch (CloneNotSupportedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
+        fixborders();
         conjoin();
 
         layer = new LevelRenderer(level, graphicsConfiguration, 320, 240);

@@ -49,7 +49,7 @@ public class Level implements LevelInterface {
 
     //These are the place of the end of the level
     public int xExit;
-    protected int yExit;
+    public int yExit;
 
     public Level() {
 
