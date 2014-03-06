@@ -781,7 +781,7 @@ public class Mario extends Sprite {
         die();
 
         if (world.recorder != null) {
-            world.recorder.dieTimeRecord();
+            //world.recorder.dieTimeRecord();
         }
     }
 

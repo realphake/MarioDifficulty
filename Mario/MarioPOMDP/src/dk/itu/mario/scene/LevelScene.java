@@ -951,7 +951,7 @@ public class LevelScene extends Scene implements SpriteContext
     public void resetTime()
     {
         timeUsed += 3000 - timeLeft;
-    	timeLeft = 200*15;
+    	timeLeft = 200 * 15;
     }
     
     private void renderDirectionArrow(Graphics g){
