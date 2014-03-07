@@ -715,6 +715,7 @@ public class ArchLevel extends Level {
 
         clone.xExit = xExit;
         clone.yExit = yExit;
+        
         byte[][] thisMap = getMap();
         SpriteTemplate[][] st = getSpriteTemplate();
 
@@ -729,7 +730,7 @@ public class ArchLevel extends Level {
         clone.BLOCKS_POWER = BLOCKS_POWER;
         clone.ENEMIES = ENEMIES;
         clone.COINS = COINS;
-
+        
         clone.odds = odds.clone();
         // pass gamesections as well for reset
         clone.gameSections = gameSections;

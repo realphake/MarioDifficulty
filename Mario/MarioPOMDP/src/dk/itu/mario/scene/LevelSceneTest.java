@@ -188,7 +188,7 @@ public class LevelSceneTest extends LevelScene {
             //System.out.println("");
             //System.out.println("Loading training instances into RandomForest classifier...");
             BufferedReader reader = new BufferedReader(
-                    new FileReader("../../MAINOOR/traindata/MarioPOMDP-traininginstances.arff"));
+             new FileReader("../../MAINOOR/traindata/MarioPOMDP-traininginstances.arff"));
             Instances data = new Instances(reader);
             reader.close();
             // setting class attribute
@@ -209,7 +209,7 @@ public class LevelSceneTest extends LevelScene {
             //RandomForest RF = new RandomForest(); //declared as public
             //RF.setOptions(options_RF);
             RF.buildClassifier(RF_trainingInstances);
-
+            System.out.println("RFC");
             if (verbose) {
                                     //Get classification of example data
                 //System.out.println(RF.toString());

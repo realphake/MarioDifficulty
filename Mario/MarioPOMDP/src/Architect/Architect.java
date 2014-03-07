@@ -80,10 +80,11 @@ public class Architect {
         params_champion = new paramsPCG();
         reverseParams = new paramsPCG();
         
-        if (!training){
-            request.downloadData("trainingfile.arff");
+        if (training){
+            request.downloadData("trainingfile_test_RF.arff");
             sFunctions.loadTrainInstance(request.download);
             sFunctions.buildLRcls();
+            sFunctions.loadTestInstances(true);
             // or load basic model
             //sFunctions.loadModel("../../MAINOOR/traindata/LinRegressionModel.model");
         }

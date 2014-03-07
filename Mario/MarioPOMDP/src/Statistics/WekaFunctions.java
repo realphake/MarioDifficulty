@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import weka.classifiers.Evaluation;
 import weka.classifiers.functions.LinearRegression;
 import weka.classifiers.meta.FilteredClassifier;
+import weka.classifiers.trees.RandomForest;
 import weka.core.Instance;
 import weka.core.Instances;
 import weka.filters.Filter;
@@ -33,17 +34,18 @@ public class WekaFunctions {
 
     Instances train;
     Instances trainParameters;
+    Instances RF_testInstances;
     Instances predict;
-    LinearRegression model = new LinearRegression();
+    RandomForest model = new RandomForest();
     Remove removefilter = new Remove();
     FilteredClassifier fc = new FilteredClassifier();
-    
+
     public WekaFunctions() {
         // do nothing
     }
 
-    static String readFile(String path){
-        
+    static String readFile(String path) {
+
         byte[] encoded;
         try {
             encoded = Files.readAllBytes(Paths.get(path));
@@ -51,14 +53,14 @@ public class WekaFunctions {
         } catch (IOException ex) {
             Logger.getLogger(WekaFunctions.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("Could not read file "+path);
+        System.out.println("Could not read file " + path);
         return "";
     }
 
     public void loadModel(String modelPath) {
         //load model
         try {
-            model = (LinearRegression) weka.core.SerializationHelper.read(modelPath);
+            model = (RandomForest) weka.core.SerializationHelper.read(modelPath);
         } catch (Exception ex) {
             Logger.getLogger(WekaFunctions.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -75,8 +77,8 @@ public class WekaFunctions {
             // weka uses a 1-based index parameters are then 61-66 and challenge 69
             removefilter.setOptions(
                     weka.core.Utils.splitOptions(
-                            "-R 61,69 -V"));  // set options
-            
+                    "-R 1-65,69 -V"));  // set options
+
             // inform filter about dataset **AFTER** setting options
             removefilter.setInputFormat(train);
             // apply filter
@@ -93,21 +95,109 @@ public class WekaFunctions {
         System.out.println("Load instance succesful");
     }
 
+    public void loadTestInstances(boolean verbose) {
+        try {
+            //Load test instances into data
+            //System.out.println("");
+            //System.out.println("Loading test instances...");
+            BufferedReader reader = new BufferedReader(
+                    new FileReader("../../MAINOOR/traindata/MarioPOMDP-testinstances.arff"));
+            Instances data = new Instances(reader);
+            reader.close();
+            // setting class attribute
+            data.setClassIndex(data.numAttributes() - 2);        //2nd to last attribute is used for classification (last is timestamp)
+            removefilter.setOptions(
+                    weka.core.Utils.splitOptions(
+                    "-R 1-65,69 -V"));  // set options
+
+            // inform filter about dataset **AFTER** setting options
+            removefilter.setInputFormat(data);
+            // apply filter
+            RF_testInstances = Filter.useFilter(data, removefilter);
+            RF_testInstances.setClassIndex(RF_testInstances.numAttributes() - 1);
+
+            System.out.println("-done loading " + RF_testInstances.numInstances() + " test instance(s)");
+
+
+// create copy
+            Instances labeled = new Instances(RF_testInstances);
+            // label instances
+
+//// label instances
+// for (int i = 0; i < RF_testInstances.numInstances(); i++) {
+//   double[] clsLabel = classifyInstance(RF_testInstances.instance(i),true);
+//   break;
+// }
+
+            classifyInstance(selectTestInstance(), true);
+        } catch (Exception e) {
+            //Error reading file
+            System.out.println("ERROR!!! - In function loadTestInstances()...");
+            System.out.println("-" + e);
+        }
+    }
+
+    public double[] classifyInstance(Instance testInstance, boolean verbose) {
+        try {
+            //Classify one particular instance from loaded set of Test Instances
+
+            // Specify that the instance belong to the training set 
+            // in order to inherit from the set description                                
+            //testInstance.setDataset(RF_trainingInstances);
+
+            // Get the likelihood of each class
+            double[] fDistribution = model.distributionForInstance(testInstance);
+            verbose = true;
+            if (verbose) {
+                System.out.println("");
+                System.out.println("Classifying selected test instance...");
+                System.out.println("-probability of instance being class 1: " + fDistribution[0]);
+                System.out.println("-probability of instance being class 2: " + fDistribution[1]);
+                System.out.println("-probability of instance being class 3: " + fDistribution[2]);
+                System.out.println("-probability of instance being class 4: " + fDistribution[3]);
+                System.out.println("-probability of instance being class 5: " + fDistribution[4]);
+            }
+            return fDistribution;
+        } catch (Exception e) {
+            //Error reading file
+            System.out.println("ERROR!!! - In function classifyInstance()...");
+            System.out.println("-" + e);
+            return new double[]{0.0, 0.0, 0.0, 0.0, 0.0}; //dummy values
+        }
+    }
+
+    public Instance selectTestInstance() {
+        //Select last instance from loaded set of Test Instances
+
+        //Create test instance
+        //Instance testInstance = new Instance(newDataTest.firstInstance());
+        //Instance testInstance = new Instance(newDataTest.instance(0));
+        Instance testInstance = new Instance(RF_testInstances.lastInstance());
+        //System.out.println("-selecting last instance in test set RF_testInstances, done");
+
+        // Specify that the instance belong to the training set 
+        // in order to inherit from the set description                                
+        testInstance.setDataset(trainParameters);
+        System.out.println("-selected last instance in test set: " + testInstance.toString());
+
+        return testInstance;
+    }
+
     public void buildLRcls() {
         try {
             System.out.println("building classifier");
             model.setOptions(
                     weka.core.Utils.splitOptions(
-                            "-S 0 -C -D"));  // set options
+                    "-S 0 -D"));  // set options
             model.buildClassifier(trainParameters);
-            
+
             // evaluate classifier and print some statistics 
-Evaluation eval = new Evaluation(trainParameters); 
-eval.evaluateModel(model,trainParameters ); 
-System.out.println(eval.toSummaryString()); 
-            
-            
-            
+            Evaluation eval = new Evaluation(trainParameters);
+            eval.evaluateModel(model, trainParameters);
+            System.out.println(eval.toSummaryString());
+
+
+
         } catch (Exception ex) {
             Logger.getLogger(WekaFunctions.class.getName()).log(Level.SEVERE, null, ex);
         }
