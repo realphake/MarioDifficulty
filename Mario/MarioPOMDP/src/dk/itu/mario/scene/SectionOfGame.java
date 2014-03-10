@@ -26,6 +26,19 @@ public class SectionOfGame {
     public void increaseTimes(){
         this.times++;
     }
+    
+    //function to reset the section measurements.
+    public void reset(){
+        this.times=0;
+        this.hasEnded=false;
+        this.hasEnded2=false;
+        this.hasStarted=false;
+        this.hasStarted2=false;
+        this.allEmotions = new ArrayList<float[]>();
+        
+        float[] temp = {0,0,0,0,0,0,0};
+        this.emotions = temp;
+    }
 
     public float[] getEmotions() {
         return emotions;
