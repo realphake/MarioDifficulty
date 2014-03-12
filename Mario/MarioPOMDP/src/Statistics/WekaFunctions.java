@@ -39,7 +39,7 @@ public class WekaFunctions {
     RandomForest model = new RandomForest();
     Remove removefilter = new Remove();
     FilteredClassifier fc = new FilteredClassifier();
-
+    public double[] distributions;
     public WekaFunctions() {
         // do nothing
     }
@@ -129,7 +129,8 @@ public class WekaFunctions {
 //   break;
 // }
 
-            classifyInstance(selectTestInstance(), true);
+            this.distributions = classifyInstance(selectTestInstance(), true);
+            
         } catch (Exception e) {
             //Error reading file
             System.out.println("ERROR!!! - In function loadTestInstances()...");

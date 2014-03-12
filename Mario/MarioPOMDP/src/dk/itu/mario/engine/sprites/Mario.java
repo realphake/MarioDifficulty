@@ -838,17 +838,34 @@ public class Mario extends Sprite {
         // reverseParams  or  params_old
          
         //if(world.arch.hasChangedPreference) //always mutate, otherwise people may get stuck completely
-        if(world.arch.hasPassedTutorial) //always mutate if user has passed the tutorial, otherwise people may get stuck completely
-        {   
-            world.arch.params_new.incrementRandomorSpecific(false, world.arch.reverseParams, this.currentSectionType, true);
-            System.out.println("-resetting (with one mutation at point of death) to: jump(" 
+//        if(world.arch.hasPassedTutorial) //always mutate if user has passed the tutorial, otherwise people may get stuck completely
+//        {   
+            //world.arch.params_new.incrementRandomorSpecific(false, world.arch.reverseParams, this.currentSectionType, true);
+            
+            
+                double[] stepSize = {0,0,0,0,0};
+                int[] newParam = {0, 0, 0, 0, 0};
+                int[] oldParam =  world.arch.params_new.getSettingsInt();
+                for (int i = 0; i < 5; i++) {
+                stepSize[i] = (world.arch.alpha * world.arch.maxStep) * ( 1 - world.arch.runPerc[i] );
+                System.out.println("SS:" + stepSize[i]);
+                newParam[i] = oldParam[i] -(int) stepSize[i];
+                System.out.println("new param value:" + newParam[i]);
+                }
+                world.arch.params_new.setSettingsInt(newParam);
+        
+        
+                System.out.println("-resetting (with one mutation at point of death) to: jump(" 
                     + world.arch.params_new.ODDS_JUMP + "), tubes(" 
                     + world.arch.params_new.ODDS_TUBES + "), cannons(" 
                     + world.arch.params_new.ODDS_CANNONS + "), straight(" 
                     + world.arch.params_new.ODDS_STRAIGHT + "), hills(" 
                     + world.arch.params_new.ODDS_HILL_STRAIGHT + "))");
-        }
-        
+            
+            
+            
+//        }
+
   
     }
 

@@ -232,7 +232,8 @@ public class paramsPCG {
                             ODDS_TUBES,
                             ODDS_JUMP,
                             ODDS_CANNONS,
-                            GAP_SIZE};
+                            //GAP_SIZE
+                        };
     }
     
     public double[] getSettingsDouble(){
@@ -241,7 +242,8 @@ public class paramsPCG {
                             ODDS_TUBES,
                             ODDS_JUMP,
                             ODDS_CANNONS,
-                            GAP_SIZE};
+                            //GAP_SIZE
+                            };
     }
     
     public void setSettingsInt(int[] settings){
@@ -250,7 +252,7 @@ public class paramsPCG {
         ODDS_TUBES = settings[2];
         ODDS_JUMP = settings[3];
         ODDS_CANNONS = settings[4];
-        GAP_SIZE = settings[5];
+        //GAP_SIZE = settings[5];
         clampValues();
     }
     
@@ -260,7 +262,7 @@ public class paramsPCG {
         ODDS_TUBES += settings[2];
         ODDS_JUMP += settings[3];
         ODDS_CANNONS += settings[4];
-        GAP_SIZE += settings[5];
+        //GAP_SIZE += settings[5];
         clampValues();
     }
 }

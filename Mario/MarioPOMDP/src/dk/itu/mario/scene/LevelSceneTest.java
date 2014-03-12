@@ -81,6 +81,8 @@ public class LevelSceneTest extends LevelScene {
     public int levelWidth = 50;
     
     public boolean training = true;
+    
+    
     MainSendRequest request = new MainSendRequest();
     boolean online = true;
 
@@ -113,8 +115,13 @@ public class LevelSceneTest extends LevelScene {
 
         Random randomGenerator = new Random();
         int randomInt = randomGenerator.nextInt(100);
-       
+        
+        
         arch = new Architect(training, request);
+        
+        training = false;
+        
+        
         level2 = new ArchLevel(arch.params_new);
         plannedDifficultyLevels.add(level2.DIFFICULTY_sander);       
         
@@ -488,6 +495,7 @@ public class LevelSceneTest extends LevelScene {
 
             //Update the next levels parameters according to exploration policy
             arch.update(training);
+           
             try {
                 if(arch.chunksGenerated != 0){
                     // the old level 2 is the new level 3

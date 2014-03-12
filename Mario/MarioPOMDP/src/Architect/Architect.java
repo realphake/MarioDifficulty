@@ -26,7 +26,6 @@ public class Architect {
     public GamePlay Obs;
     public boolean hasChangedPreference = false;
     public boolean hasPassedTutorial = false;
-
     //hill climbing parameters
     public int re = 50; //Probability the champion is re-evaluated
     public boolean smart_exploration = true;
@@ -34,31 +33,28 @@ public class Architect {
     public double[] s;
     public double[] dk;
     public double f;
-
     public double dimensions = 8;
     public double prob = 1.0 / dimensions;
     public double[] i = {prob, prob, prob, prob, prob, prob, prob, prob};
     public double[] direction = {1, 1, 1, 1, 1, 1, 1, 1};
     public double stepSize;
+    public double maxStep = 5;
     public double alpha = 0.8;
-    
     // Hill climbing Linear Regression
     public int chunksGenerated = 0;
     public int epsilon = 100;
     public double difficultyAdjustment;
-
+    public double[] runPerc = new double[5];
     //level generation parameters
     public ArrayList<paramsPCG> paramHistory;
     public paramsPCG params_new;
     public paramsPCG params_old;
     public paramsPCG params_champion;
     public paramsPCG reverseParams;
-
     public int first_time = 1;
     //helpers
     Random randomGenerator = new Random();
     WekaFunctions sFunctions = new WekaFunctions();
-
     ZMQ.Context context = ZMQ.context(1);
     ZMQ.Socket socket = context.socket(ZMQ.REP);
     public int count = 10;
@@ -66,6 +62,7 @@ public class Architect {
     public int type;
     public double[] reward_weights;
     public double reward_label;
+    double[] rewards = {0.0, 0.33, 1, 0.33, 0.0};
 
     public Architect() {
         params_new = new paramsPCG();
@@ -73,18 +70,19 @@ public class Architect {
         params_champion = new paramsPCG();
         reverseParams = new paramsPCG();
     }
-    
+
     public Architect(boolean training, MainSendRequest request) {
         params_new = new paramsPCG();
         params_old = new paramsPCG();
         params_champion = new paramsPCG();
         reverseParams = new paramsPCG();
-        
-        if (training){
+
+        if (training) {
             request.downloadData("trainingfile_test_RF.arff");
             sFunctions.loadTrainInstance(request.download);
             sFunctions.buildLRcls();
             sFunctions.loadTestInstances(true);
+            System.out.println("Building model for the first time");
             // or load basic model
             //sFunctions.loadModel("../../MAINOOR/traindata/LinRegressionModel.model");
         }
@@ -103,10 +101,10 @@ public class Architect {
         return p;
 
     }
-    
-    public int[] changeParamsBasedOnStats( double currentDiffEstimate ){
+
+    public int[] changeParamsBasedOnStats(double currentDiffEstimate) {
         System.out.println("Estimate difficulty and change parameters");
-        System.out.println("Difficulty adjustment before: "+difficultyAdjustment);
+        System.out.println("Difficulty adjustment before: " + difficultyAdjustment);
         // Get ready for a lot of ugly if statements
         // experienced = 0.1    Guess based on personal experience
         // average = 0.3        Guess based on personal experience
@@ -115,45 +113,45 @@ public class Architect {
         double diffEstimate = 0;
         int[] paramchanges = new int[6];
         double[] lrRatio = new double[5];
-        double[] runPerc = new double[5];
+
         int[] deaths = new int[5];
-        lrRatio[0] = (double)Obs.totalLeftTimeStraight/
-                                Obs.totalRightTimeStraight;
-        lrRatio[1] = (double)Obs.totalLeftTimeHills/
-                                Obs.totalRightTimeHills;
-        lrRatio[2] = (double)Obs.totalLeftTimeTubes/
-                                Obs.totalRightTimeTubes;
-        lrRatio[3] = (double)Obs.totalLeftTimeJump/
-                                Obs.totalRightTimeJump;
-        lrRatio[4] = (double)Obs.totalLeftTimeCannons/
-                                Obs.totalRightTimeCannons;
+        lrRatio[0] = (double) Obs.totalLeftTimeStraight
+                / Obs.totalRightTimeStraight;
+        lrRatio[1] = (double) Obs.totalLeftTimeHills
+                / Obs.totalRightTimeHills;
+        lrRatio[2] = (double) Obs.totalLeftTimeTubes
+                / Obs.totalRightTimeTubes;
+        lrRatio[3] = (double) Obs.totalLeftTimeJump
+                / Obs.totalRightTimeJump;
+        lrRatio[4] = (double) Obs.totalLeftTimeCannons
+                / Obs.totalRightTimeCannons;
         // We estimate willingness of risk taking by runtime percentage
         // strong risk taking cutoff is 0.8
-        runPerc[0]  = (double)Obs.totalRunTimeStraight/
-                                (Obs.totalLeftTimeStraight+
-                                Obs.totalRightTimeStraight);
-        runPerc[1]  = (double)Obs.totalRunTimeHills/
-                                (Obs.totalLeftTimeHills+
-                                Obs.totalRightTimeHills);
-        runPerc[2]  = (double)Obs.totalRunTimeTubes/
-                                (Obs.totalLeftTimeTubes+
-                                Obs.totalRightTimeTubes);
-        runPerc[3]  = (double)Obs.totalRunTimeJump/
-                                (Obs.totalLeftTimeJump+
-                                Obs.totalRightTimeJump);
-        runPerc[4]  = (double)Obs.totalRunTimeCannons/
-                                (Obs.totalLeftTimeCannons+
-                                Obs.totalRightTimeCannons);
+        runPerc[0] = (double) Obs.totalRunTimeStraight
+                / (Obs.totalLeftTimeStraight
+                + Obs.totalRightTimeStraight);
+        runPerc[1] = (double) Obs.totalRunTimeHills
+                / (Obs.totalLeftTimeHills
+                + Obs.totalRightTimeHills);
+        runPerc[2] = (double) Obs.totalRunTimeTubes
+                / (Obs.totalLeftTimeTubes
+                + Obs.totalRightTimeTubes);
+        runPerc[3] = (double) Obs.totalRunTimeJump
+                / (Obs.totalLeftTimeJump
+                + Obs.totalRightTimeJump);
+        runPerc[4] = (double) Obs.totalRunTimeCannons
+                / (Obs.totalLeftTimeCannons
+                + Obs.totalRightTimeCannons);
         // Deaths per section
-        deaths[0] = Obs.timesOfDeathByArmoredTurtle+
-                    Obs.timesOfDeathByGoomba+
-                    Obs.timesOfDeathByGreenTurtle+
-                    Obs.timesOfDeathByRedTurtle;
+        deaths[0] = Obs.timesOfDeathByArmoredTurtle
+                + Obs.timesOfDeathByGoomba
+                + Obs.timesOfDeathByGreenTurtle
+                + Obs.timesOfDeathByRedTurtle;
         deaths[1] = deaths[0];
-        deaths[2] = Obs.timesOfDeathByJumpFlower+Obs.timesOfDeathByChompFlower;
-        deaths[3] = (int)Obs.timesOfDeathByFallingIntoGap;
+        deaths[2] = Obs.timesOfDeathByJumpFlower + Obs.timesOfDeathByChompFlower;
+        deaths[3] = (int) Obs.timesOfDeathByFallingIntoGap;
         deaths[4] = Obs.timesOfDeathByCannonBall;
-        
+
         // Dying to one type with low risk taking should result in a decrease
         // of that parameter
         // while a lrRatio of 0.1 or less should increase by 2. except when the player was small a lot
@@ -161,100 +159,136 @@ public class Architect {
         // lrRatio of > 0.3 and low running perc and death decreases the difficulty by a lot
         // ******** needs improvement
         // more subtle changes, 
-        for (int i = 0;i<5;i++){
-            if (lrRatio[i] < 0.1){
-                if(runPerc[i] > 0.8 && deaths[i] == 0) paramchanges[i] = 2;
-                else if (deaths[i] == 0) paramchanges[i] = 1;
-                else if (deaths[i] > 0) paramchanges[i] = -1;
-            } else if (lrRatio[i] < 0.3){
-                if(runPerc[i] > 0.8 && deaths[i] == 0) paramchanges[i] = 1;
-                else if (deaths[i] > 0) paramchanges[i] = -1;
-                else paramchanges[i] = 0;
+        for (int i = 0; i < 5; i++) {
+            if (lrRatio[i] < 0.1) {
+                if (runPerc[i] > 0.8 && deaths[i] == 0) {
+                    paramchanges[i] = 2;
+                } else if (deaths[i] == 0) {
+                    paramchanges[i] = 1;
+                } else if (deaths[i] > 0) {
+                    paramchanges[i] = -1;
+                }
+            } else if (lrRatio[i] < 0.3) {
+                if (runPerc[i] > 0.8 && deaths[i] == 0) {
+                    paramchanges[i] = 1;
+                } else if (deaths[i] > 0) {
+                    paramchanges[i] = -1;
+                } else {
+                    paramchanges[i] = 0;
+                }
             } else {
-                if(runPerc[i] > 0.8 && deaths[i] == 0) paramchanges[i] = 1;
-                else if (deaths[i] == 0) paramchanges[i] = 0;
-                else if (runPerc[i] > 0.8 && deaths[i] > 0) paramchanges[i] = -1;
-                else if (deaths[i] > 0) paramchanges[i] = -2;
+                if (runPerc[i] > 0.8 && deaths[i] == 0) {
+                    paramchanges[i] = 1;
+                } else if (deaths[i] == 0) {
+                    paramchanges[i] = 0;
+                } else if (runPerc[i] > 0.8 && deaths[i] > 0) {
+                    paramchanges[i] = -1;
+                } else if (deaths[i] > 0) {
+                    paramchanges[i] = -2;
+                }
             }
             diffEstimate += 0.25 * paramchanges[i];
-            
+
         }
-        System.out.println("Parameter changes = "+  paramchanges[0]+", "+
-                                                    paramchanges[1]+", "+
-                                                    paramchanges[2]+", "+
-                                                    paramchanges[3]+", "+
-                                                    paramchanges[4]+", "+
-                                                    paramchanges[5]);
+        System.out.println("Parameter changes = " + paramchanges[0] + ", "
+                + paramchanges[1] + ", "
+                + paramchanges[2] + ", "
+                + paramchanges[3] + ", "
+                + paramchanges[4] + ", "
+                + paramchanges[5]);
         difficultyAdjustment = (diffEstimate + currentDiffEstimate) * 0.5; //update belief for difficulty adjustment
-        System.out.println("Difficulty adjustment after: "+difficultyAdjustment);
+        System.out.println("Difficulty adjustment after: " + difficultyAdjustment);
         return paramchanges;
     }
-    
-    public int[] findBestEstimate(){
-        System.out.println("Finding best estimate for adjustment "+difficultyAdjustment+".");
+
+    public int[] findBestEstimate() {
+        System.out.println("Finding best estimate for adjustment " + difficultyAdjustment + ".");
         double[] bestResult = new double[6];
         double[] currentSettings = params_new.getSettingsDouble();
-        double target = 3+difficultyAdjustment;
+        double target = 3 + difficultyAdjustment;
         double minDifference = 10;
         double diff;
-        
+
         // Basic limited grid search for now
         // should have some sort of gradient optimization for larger areas
         // or a direct lookup from weka (don't know if it exists)
-        for (int i = 0;i<(int)(difficultyAdjustment*6);i++){
-            if (difficultyAdjustment > 0 && currentSettings[i%6] != 5){
+        for (int i = 0; i < (int) (difficultyAdjustment * 6); i++) {
+            if (difficultyAdjustment > 0 && currentSettings[i % 6] != 5) {
                 //positive difficultyAdjustment
-                currentSettings[i%6]+= 1;
-            } else if (difficultyAdjustment < 0 && currentSettings[i%6] != 1){
+                currentSettings[i % 6] += 1;
+            } else if (difficultyAdjustment < 0 && currentSettings[i % 6] != 1) {
                 // negative difficultyAdjustment
-                currentSettings[i%6]-= 1;
+                currentSettings[i % 6] -= 1;
             }
             // get the predicted values for difficulty
             diff = Math.abs(target - sFunctions.predict(currentSettings));
-            if(diff < minDifference){
+            if (diff < minDifference) {
                 minDifference = diff;
                 bestResult = currentSettings.clone();
             }
         }
-        
-        return new int[]{   (int)bestResult[0],
-                            (int)bestResult[1],
-                            (int)bestResult[2],
-                            (int)bestResult[3],
-                            (int)bestResult[4],
-                            (int)bestResult[5]};
+
+        return new int[]{(int) bestResult[0],
+            (int) bestResult[1],
+            (int) bestResult[2],
+            (int) bestResult[3],
+            (int) bestResult[4],
+            (int) bestResult[5]};
+    }
+
+    public double estimatedLikert() {
+
+        double EL = 0.0;
+        for (int x = 0; x < 5; x++) {
+
+            EL += x * sFunctions.distributions[x];
+        }
+
+        return EL;
+    }
+
+    public double getExpectedReward() {
+
+        double expected_reward = 0.0;
+        for (int x = 0; x < 5; x++) {
+            expected_reward += rewards[x] * sFunctions.distributions[x];
+        }
+        return expected_reward;
+
     }
 
     public void update(boolean training) {
         // Updates 'arch.params_new' with new parameters to explore in the training phase
-        
+
         // Estimate difficulty offset -GO (Gradient Optimization of any type)
         // Determine Explore/Exploit -EE
         // IF train:
         //      explore with a certain pattern, maybe startpoint and a pattern based on that
         reverseParams = params_old;
         params_old = params_new.copy();
-        if (training) {   
-            
+        if (training) {
+
             // if he chose the current level increment all otherwise increment a random parameter by a random value
             // increment by 1 all until preference has changed to preceeding
-            if(this.Obs.hasPassedTutorial) this.hasPassedTutorial = true;
+            if (this.Obs.hasPassedTutorial) {
+                this.hasPassedTutorial = true;
+            }
             System.out.println("-hasPassedTutorial: " + hasPassedTutorial);
             System.out.println("-hasChangedPreference: " + hasChangedPreference);
-            
-            if (this.Obs.better == 1 && !this.hasChangedPreference){
+
+            if (this.Obs.better == 1 && !this.hasChangedPreference) {
                 params_new.incrementAll();
                 System.out.println("-incremented all");
-            }
-            else {
-                if(this.Obs.hasChangedPreference) this.hasChangedPreference = true;
-                // we reverse back to the old parameters and change a new one (0.04% prob to changethe same)
-                if(this.Obs.better == 0){
-                    params_new.incrementRandomorSpecific(true,reverseParams,0,false);
-                    System.out.println("-incremented random with reverse");
+            } else {
+                if (this.Obs.hasChangedPreference) {
+                    this.hasChangedPreference = true;
                 }
-                else {
-                    params_new.incrementRandomorSpecific(false,reverseParams,0,false);
+                // we reverse back to the old parameters and change a new one (0.04% prob to changethe same)
+                if (this.Obs.better == 0) {
+                    params_new.incrementRandomorSpecific(true, reverseParams, 0, false);
+                    System.out.println("-incremented random with reverse");
+                } else {
+                    params_new.incrementRandomorSpecific(false, reverseParams, 0, false);
                     System.out.println("-incremented random with no reverse");
                 }
             }
@@ -262,25 +296,69 @@ public class Architect {
             //params_new.randomizeParameters();
             this.first_time++;
             /*
-            if (chunksGenerated % 6 == 0) {
-                params_new.randomizeParameters();
+             if (chunksGenerated % 6 == 0) {
+             params_new.randomizeParameters();
+             } else {
+             params_new.incrementAll();
+             }
+             */
+        } else {
+//        // IF online: epsilon greedy
+//            // Estimate challenge
+//            int[] paramchanges = changeParamsBasedOnStats(difficultyAdjustment);
+//            // Exploit estimation 
+//            if ((difficultyAdjustment >= 1 || difficultyAdjustment <= -1) 
+//                    && randomGenerator.nextInt(100) < epsilon){
+//                params_new.setSettingsInt(findBestEstimate());
+//            } else {
+//            // otherwise Explore
+//                params_new.adjustSettingsInt(paramchanges);
+//            }
+            
+            sFunctions.loadTestInstances(true);
+            runPerc[0] = (double) Obs.totalRunTimeStraight
+                    / (Obs.totalLeftTimeStraight
+                    + Obs.totalRightTimeStraight);
+            runPerc[1] = (double) Obs.totalRunTimeHills
+                    / (Obs.totalLeftTimeHills
+                    + Obs.totalRightTimeHills);
+            runPerc[2] = (double) Obs.totalRunTimeTubes
+                    / (Obs.totalLeftTimeTubes
+                    + Obs.totalRightTimeTubes);
+            runPerc[3] = (double) Obs.totalRunTimeJump
+                    / (Obs.totalLeftTimeJump
+                    + Obs.totalRightTimeJump);
+            runPerc[4] = (double) Obs.totalRunTimeCannons
+                    / (Obs.totalLeftTimeCannons
+                    + Obs.totalRightTimeCannons);
+            
+            
+            double EL = estimatedLikert();
+            System.out.println("EL " + EL);
+            double expected_reward = getExpectedReward();
+            System.out.println("Expected reward " + expected_reward);
+            stepSize = (alpha * maxStep) * (1 - expected_reward);
+            int[] newParam = {0, 0, 0, 0, 0};
+            int[] oldParam = params_new.getSettingsInt();
+                            
+             
+            if (EL < 3) {
+                
+                
+                for (int x = 0; x < 5; x++) {
+                    newParam[x] = oldParam[x] + (int) (runPerc[x] * stepSize);
+                    System.out.println("new param value for " + x + " " + newParam[x]);
+                }
             } else {
-                params_new.incrementAll();
+
+                for (int x = 0; x < 5; x++) {
+                    newParam[x] = oldParam[x] - (int) ((1 - runPerc[x]) * stepSize);
+                    System.out.println("new param value for " + x + " " + newParam[x]);
+                }
             }
-            */
-        }else {
-        // IF online: epsilon greedy
-            // Estimate challenge
-            int[] paramchanges = changeParamsBasedOnStats(difficultyAdjustment);
-            // Exploit estimation 
-            if ((difficultyAdjustment >= 1 || difficultyAdjustment <= -1) 
-                    && randomGenerator.nextInt(100) < epsilon){
-                params_new.setSettingsInt(findBestEstimate());
-            } else {
-            // otherwise Explore
-                params_new.adjustSettingsInt(paramchanges);
-            }
-        }             
+            params_new.setSettingsInt(newParam);
+          
+        }
         // Update the reward given the latest observations
         // note : the observations gets updated externaly in the LevelSceneTest Class at every swap()
         //getAppropriatenessToUser(); 
@@ -308,9 +386,9 @@ public class Architect {
          System.out.println(Reward);
          */
         params_new.newSeed();
-            //params_new = getBayesOptNextStep();
+        //params_new = getBayesOptNextStep();
 
-            //hillClimb();
+        //hillClimb();
     }
 
     public paramsPCG getBayesOptNextStep() {
@@ -324,7 +402,7 @@ public class Architect {
         String spoint = new String(reply);
         System.out.println("Received next Point of Interest : " + spoint);
 
-                //params = paramsfromstring(spoint);
+        //params = paramsfromstring(spoint);
         return params;
     }
 
