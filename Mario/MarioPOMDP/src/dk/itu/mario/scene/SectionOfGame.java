@@ -11,32 +11,42 @@ import java.util.ArrayList;
  * @author parismavromoustakos
  */
 public class SectionOfGame {
+
     private double startTime;
     private double endTime;
     private int id;
+    private float[] previousEmotions;
     private boolean hasStarted;
     private boolean hasEnded;
     private double startTime2;
     private double endTime2;
     private boolean hasStarted2;
     private float[] emotions;
-    private int times=0;
+    private int times = 0;
     private ArrayList<float[]> allEmotions;
-    
-    public void increaseTimes(){
+    private int previousDifficulty = 1;
+
+    public void increaseTimes() {
         this.times++;
     }
-    
+
     //function to reset the section measurements.
-    public void reset(){
-        this.times=0;
-        this.hasEnded=false;
-        this.hasEnded2=false;
-        this.hasStarted=false;
-        this.hasStarted2=false;
+    public void reset() {
+
+        //reset all values
+        this.times = 0;
+        this.hasEnded = false;
+        this.hasEnded2 = false;
+        this.hasStarted = false;
+        this.hasStarted2 = false;
         this.allEmotions = new ArrayList<float[]>();
-        
-        float[] temp = {0,0,0,0,0,0,0};
+
+        //save the previous emotions
+        float[] tempPrev = this.emotions;
+        this.previousEmotions = tempPrev;
+
+        //reset emotions table
+        float[] temp = {0, 0, 0, 0, 0, 0, 0};
         this.emotions = temp;
     }
 
@@ -80,7 +90,7 @@ public class SectionOfGame {
     public void setEndTime2(double endTime2) {
         this.endTime2 = endTime2;
     }
-    
+
     public boolean isHasEnded() {
         return hasEnded;
     }
@@ -88,7 +98,7 @@ public class SectionOfGame {
     public void setHasEnded(boolean hasEnded) {
         this.hasEnded = hasEnded;
     }
-    
+
     public double getStartTime() {
         return startTime;
     }
@@ -121,65 +131,79 @@ public class SectionOfGame {
         this.hasStarted = hasStarted;
     }
 
-    public double calculateDuration(){
-        return endTime-startTime;
+    public double calculateDuration() {
+        return endTime - startTime;
     }
-    public double calculateDuration2(){
-        return endTime2-startTime2;
+
+    public double calculateDuration2() {
+        return endTime2 - startTime2;
     }
-    
+
     //add values to emotions array.
-    public void addEmotions(float[] emotions){
+    public void addEmotions(float[] emotions) {
         float[] temp = new float[7];
-        for(int i=0;i<7;i++){
-            this.emotions[i]+=emotions[i];
-            temp[i]=emotions[i];
+        for (int i = 0; i < 7; i++) {
+            this.emotions[i] += emotions[i];
+            temp[i] = emotions[i];
         }
         this.allEmotions.add(temp);
     }
-    
-    public void normalizeEmotions(){
-        for(int i=0;i<7;i++){
-            this.emotions[i]/=this.times;
+
+    public void normalizeEmotions() {
+        for (int i = 0; i < 7; i++) {
+            this.emotions[i] /= this.times;
         }
     }
-    
-    public void printEmotions(){
-        for(int i=0;i<7;i++){
+
+    public void printEmotions() {
+        for (int i = 0; i < 7; i++) {
             System.out.println(this.emotions[i]);
         }
     }
-    
-    
+
+    public int calculateNextDifficulty() {
+        int nextDifficulty = this.previousDifficulty;
+        if (this.previousEmotions[0] > 0.5) {
+            nextDifficulty++;
+            if (nextDifficulty > 5) {
+                nextDifficulty = 5;
+            }
+        } else if(this.previousEmotions[3]>0.5) {
+            nextDifficulty--;
+            if (nextDifficulty<0){
+                nextDifficulty=0;
+            }
+        }
+        System.out.println("Section id:"+this.id+" next difficulty= "+nextDifficulty);
+        this.previousDifficulty=nextDifficulty;
+        return nextDifficulty;
+    }
+
     //initialize with id that corresponds to section type.
-    public SectionOfGame(int id){
+    public SectionOfGame(int id) {
         this.id = id;
-        this.emotions=new float[7];
+        this.emotions = new float[7];
         this.allEmotions = new ArrayList<float[]>();
     }
-    
-    public void writeSectionEmotionsToFile(){
-          for (int j = 0; j < this.allEmotions.size(); j++) {
-                    StringBuilder line = new StringBuilder();
-                    for (int i = 0; i < this.allEmotions.get(j).length; i++) {
-                        line.append(String.valueOf(allEmotions.get(j)[i]));
-                        line.append(" ");
-                        //System.out.println(allGameEmotions.get(j)[i]);
-                    }
-                    try {
-                        String filename = "section"+String.valueOf(this.id)+"Emotions.txt";
-                        PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename, true)));
-                        out.println(line);
-                        out.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-        
-        
-        
-    }
-    
-    
-}
 
+    public void writeSectionEmotionsToFile() {
+        for (int j = 0; j < this.allEmotions.size(); j++) {
+            StringBuilder line = new StringBuilder();
+            for (int i = 0; i < this.allEmotions.get(j).length; i++) {
+                line.append(String.valueOf(allEmotions.get(j)[i]));
+                line.append(" ");
+                //System.out.println(allGameEmotions.get(j)[i]);
+            }
+            try {
+                String filename = "section" + String.valueOf(this.id) + "Emotions.txt";
+                PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename, true)));
+                out.println(line);
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+}

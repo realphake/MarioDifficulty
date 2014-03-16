@@ -573,16 +573,20 @@ public class LevelSceneTest extends LevelScene {
 
 
             //read emotions and create text files
+            //readEmotions() also normalizes the emotions table for each section
             readEmotions();
             
             //paris: calculate emotions during segments and update difficulties.
             for (SectionOfGame section : sections) {
+                    /**
                     System.out.println(section.getId());
                     section.printEmotions();
                     if(section.getEmotions()[0]>0.2){
                         this.newDifficulties[section.getId()] ++;
-                    }
+                    }*/
                     section.reset();
+                    this.newDifficulties[section.getId()]=section.calculateNextDifficulty();
+                    
             }
                     arch.params_new.setSettingsInt(this.newDifficulties);
 
@@ -1166,8 +1170,8 @@ public class LevelSceneTest extends LevelScene {
                 //normalize the emotions array for each section and print it to the console
                 for (SectionOfGame section : sections) {
                     section.normalizeEmotions();
-                    System.out.println("------" + section.getId() + "-------");
-                    section.printEmotions();
+                    //System.out.println("------" + section.getId() + "-------");
+                    //section.printEmotions();
                     section.writeSectionEmotionsToFile();
                 }
 
