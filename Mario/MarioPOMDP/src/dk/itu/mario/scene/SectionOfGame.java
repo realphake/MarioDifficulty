@@ -12,6 +12,23 @@ import java.util.ArrayList;
  */
 public class SectionOfGame {
 
+    public int getPreviousDifficulty() {
+        return previousDifficulty;
+    }
+
+    public void setPreviousDifficulty(int previousDifficulty) {
+        this.previousDifficulty = previousDifficulty;
+    }
+
+    public int getNextDifficulty() {
+        return nextDifficulty;
+    }
+
+    public void setNextDifficulty(int nextDifficulty) {
+        this.nextDifficulty = nextDifficulty;
+    }
+
+    private boolean firstPlay = true;
     private double startTime;
     private double endTime;
     private int id;
@@ -25,12 +42,14 @@ public class SectionOfGame {
     private int times = 0;
     private ArrayList<float[]> allEmotions;
     private int previousDifficulty = 1;
+    private int nextDifficulty;
 
     public void increaseTimes() {
         this.times++;
     }
 
     //function to reset the section measurements.
+    //also calls calculateNextDifficulty.
     public void reset() {
 
         //reset all values
@@ -41,9 +60,15 @@ public class SectionOfGame {
         this.hasStarted2 = false;
         this.allEmotions = new ArrayList<float[]>();
 
+        
+        //calculate next difficulty
+        this.nextDifficulty = calculateNextDifficulty();
+        
         //save the previous emotions
         float[] tempPrev = this.emotions;
         this.previousEmotions = tempPrev;
+
+
 
         //reset emotions table
         float[] temp = {0, 0, 0, 0, 0, 0, 0};
@@ -162,21 +187,41 @@ public class SectionOfGame {
     }
 
     public int calculateNextDifficulty() {
-        int nextDifficulty = this.previousDifficulty;
-        if (this.previousEmotions[0] > 0.5) {
-            nextDifficulty++;
-            if (nextDifficulty > 5) {
-                nextDifficulty = 5;
+        if (this.firstPlay) {
+            int nextDifficulty = this.previousDifficulty;
+            if (this.emotions[0] > 0.5) {
+                nextDifficulty++;
+                if (nextDifficulty > 5) {
+                    nextDifficulty = 5;
+                }
+            } else if (this.emotions[3] > 0.5) {
+                nextDifficulty--;
+                if (nextDifficulty < 0) {
+                    nextDifficulty = 0;
+                }
             }
-        } else if(this.previousEmotions[3]>0.5) {
-            nextDifficulty--;
-            if (nextDifficulty<0){
-                nextDifficulty=0;
+            System.out.println("Section id:" + this.id + " next difficulty= " + nextDifficulty);
+            this.previousDifficulty = nextDifficulty;
+            this.firstPlay = false;
+            return nextDifficulty;
+        } else {
+            //the user has already played a round, so we calculate referring to the previous measurements
+            int nextDifficulty = this.previousDifficulty;
+            if (this.emotions[0] > this.previousEmotions[0]) {
+                nextDifficulty++;
+                if (nextDifficulty > 5) {
+                    nextDifficulty = 5;
+                }
+            } else if (this.emotions[3] > this.previousEmotions[3]) {
+                nextDifficulty--;
+                if (nextDifficulty < 0) {
+                    nextDifficulty = 0;
+                }
             }
+            System.out.println("Section id:" + this.id + " next difficulty= " + nextDifficulty);
+            this.previousDifficulty = nextDifficulty;
+            return nextDifficulty;
         }
-        System.out.println("Section id:"+this.id+" next difficulty= "+nextDifficulty);
-        this.previousDifficulty=nextDifficulty;
-        return nextDifficulty;
     }
 
     //initialize with id that corresponds to section type.

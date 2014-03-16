@@ -585,7 +585,7 @@ public class LevelSceneTest extends LevelScene {
                         this.newDifficulties[section.getId()] ++;
                     }*/
                     section.reset();
-                    this.newDifficulties[section.getId()]=section.calculateNextDifficulty();
+                    this.newDifficulties[section.getId()]=section.getNextDifficulty();
                     
             }
                     arch.params_new.setSettingsInt(this.newDifficulties);
