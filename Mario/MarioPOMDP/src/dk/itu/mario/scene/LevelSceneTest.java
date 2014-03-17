@@ -115,9 +115,11 @@ public class LevelSceneTest extends LevelScene {
 
         Random randomGenerator = new Random();
         int randomInt = randomGenerator.nextInt(100);
-        
-        
-        arch = new Architect(training, request);
+        try {
+            arch = new Architect(training, request);
+        } catch (IOException ex) {
+            Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         
         training = false;
         
@@ -347,15 +349,15 @@ public class LevelSceneTest extends LevelScene {
     }
 
     public DifficultyRecorder getUserOpinion() {
-        dr.startRecordDifficulty(this.first_time);
-        while (!dr.isFinished()) {
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            }
-        }
-        this.first_time = false;
+//        dr.startRecordDifficulty(this.first_time);
+//        while (!dr.isFinished()) {
+//            try {
+//                Thread.sleep(200);
+//            } catch (InterruptedException ex) {
+//                Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            }
+//        }
+//        this.first_time = false;
         return dr;
         
     }

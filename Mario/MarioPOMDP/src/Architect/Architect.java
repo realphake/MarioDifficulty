@@ -7,6 +7,11 @@ package Architect;
 import Onlinedata.MainSendRequest;
 import Statistics.WekaFunctions;
 import dk.itu.mario.MarioInterface.GamePlay;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Random;
 import org.zeromq.ZMQ;
@@ -62,7 +67,21 @@ public class Architect {
     public int type;
     public double[] reward_weights;
     public double reward_label;
+    public String[] stringSettings = {"1 1 1 1 1","3 3 3 3 3","5 5 5 5 5","2 3 3 2 2"};
+    
+
     double[] rewards = {0.0, 0.33, 1, 0.33, 0.0};
+    
+    
+    // ex number
+    public int experiment = 1;
+    
+    // conditions as listed
+    // for experiment 2 the condition number is actually the index of the difficulty vectors
+    public int condition =2;
+    
+    // if you want to use p or s argument or maintain 
+    public boolean personalize = true;
 
     public Architect() {
         params_new = new paramsPCG();
@@ -70,33 +89,64 @@ public class Architect {
         params_champion = new paramsPCG();
         reverseParams = new paramsPCG();
     }
-
-    public Architect(boolean training, MainSendRequest request) {
+    
+    public Architect(boolean training, MainSendRequest request) throws IOException {
+        
+        
         params_new = new paramsPCG();
         params_old = new paramsPCG();
         params_champion = new paramsPCG();
         reverseParams = new paramsPCG();
+        
+        
+        
+        if(experiment == 1){
+            if(condition == 1 || condition == 2)
+            params_new.randomizeParameters();
+            else {
+                        URL yahoo = new URL("http://sander.landofsand.com/temp/getgsp.php?list=1");
+                        URLConnection yc = yahoo.openConnection();
+                        BufferedReader in = new BufferedReader(
+                                                new InputStreamReader(
+                                                yc.getInputStream()));
+                        String inputLine;
 
+                        while ((inputLine = in.readLine()) != null) 
+                            params_new = this.paramsfromstring(inputLine);
+                        in.close();
+                        
+                       
+            } 
+        } else {
+           
+    
+             params_new = paramsfromstring(stringSettings[condition]);
+             //System.out.println(paramsfromstring(stringSettings[condition]));
+        }
+        
         if (training) {
-            request.downloadData("trainingfile_test_RF.arff");
+            request.downloadData("trainingfile_experiments.arff");
+            
             sFunctions.loadTrainInstance(request.download);
             sFunctions.buildLRcls();
             sFunctions.loadTestInstances(true);
             System.out.println("Building model for the first time");
             // or load basic model
             //sFunctions.loadModel("../../MAINOOR/traindata/LinRegressionModel.model");
-        }
+        } 
+  
     }
-
-    public paramsPCG paramsfromstring(String spoint) {
+    
+    public final paramsPCG paramsfromstring(String spoint) {
         paramsPCG p = new paramsPCG();
         String[] parts = spoint.split(" ");
-        p.ODDS_STRAIGHT = (int) (5 * Double.parseDouble(parts[0]) + 1);
-        p.ODDS_HILL_STRAIGHT = (int) (5 * Double.parseDouble(parts[1]) + 1);
-        p.ODDS_TUBES = (int) (5 * Double.parseDouble(parts[2]) + 1);
-        p.ODDS_JUMP = (int) (5 * Double.parseDouble(parts[3]) + 1);
-        p.ODDS_CANNONS = (int) (5 * Double.parseDouble(parts[4]) + 1);
-        p.GAP_SIZE = (int) (5 * Double.parseDouble(parts[5]) + 1);
+         
+        p.ODDS_STRAIGHT = (int) ( Double.parseDouble(parts[0]));
+        p.ODDS_HILL_STRAIGHT = (int) ( Double.parseDouble(parts[1]));
+        p.ODDS_TUBES = (int) ( Double.parseDouble(parts[2]));
+        p.ODDS_JUMP = (int) ( Double.parseDouble(parts[3]));
+        p.ODDS_CANNONS = (int) ( Double.parseDouble(parts[4]));
+       // p.GAP_SIZE = (int) ( Double.parseDouble(parts[5]) + 1);
 
         return p;
 
@@ -264,8 +314,13 @@ public class Architect {
         // Determine Explore/Exploit -EE
         // IF train:
         //      explore with a certain pattern, maybe startpoint and a pattern based on that
+
+        
+                
+                
         reverseParams = params_old;
         params_old = params_new.copy();
+        if(personalize){
         if (training) {
 
             // if he chose the current level increment all otherwise increment a random parameter by a random value
@@ -385,10 +440,12 @@ public class Architect {
          System.out.println("generating new segment");
          System.out.println(Reward);
          */
-        params_new.newSeed();
+        
         //params_new = getBayesOptNextStep();
 
         //hillClimb();
+        }
+        params_new.newSeed();
     }
 
     public paramsPCG getBayesOptNextStep() {
