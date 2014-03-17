@@ -840,23 +840,25 @@ public class Mario extends Sprite {
         //if(world.arch.hasChangedPreference) //always mutate, otherwise people may get stuck completely
 //        if(world.arch.hasPassedTutorial) //always mutate if user has passed the tutorial, otherwise people may get stuck completely
 //        {   
-            //world.arch.params_new.incrementRandomorSpecific(false, world.arch.reverseParams, this.currentSectionType, true);
+          
             
           if(world.arch.personalize)  {
-                double[] stepSize = {0,0,0,0,0};
-                int[] newParam = {0, 0, 0, 0, 0};
-                int[] oldParam =  world.arch.params_new.getSettingsInt();
-                for (int i = 0; i < 5; i++) {
-                stepSize[i] = (world.arch.alpha * world.arch.maxStep) * ( 1 - world.arch.runPerc[i] );
-                System.out.println("alpha is: " + world.arch.alpha );
-                System.out.println("max step is: " + world.arch.maxStep);
-                System.out.println("runPerc is : " + world.arch.runPerc[i]);
-                System.out.println("old param is : " + oldParam[i]);
-                System.out.println("stepsize:" + stepSize[i]);
-                newParam[i] = oldParam[i] -(int) stepSize[i];
-                System.out.println("new param value:" + newParam[i]);
-                }
-                world.arch.params_new.setSettingsInt(newParam);
+              
+                world.arch.params_new.incrementRandomorSpecific(false, world.arch.reverseParams, this.currentSectionType, true);
+//                double[] stepSize = {0,0,0,0,0};
+//                int[] newParam = {0, 0, 0, 0, 0};
+//                int[] oldParam =  world.arch.params_new.getSettingsInt();
+//                for (int i = 0; i < 5; i++) {
+//                stepSize[i] = (world.arch.alpha * world.arch.maxStep) * ( 1 - world.arch.runPerc[i] );
+//                System.out.println("alpha is: " + world.arch.alpha );
+//                System.out.println("max step is: " + world.arch.maxStep);
+//                System.out.println("runPerc is : " + world.arch.runPerc[i]);
+//                System.out.println("old param is : " + oldParam[i]);
+//                System.out.println("stepsize:" + stepSize[i]);
+//                newParam[i] = oldParam[i] -(int) stepSize[i];
+//                System.out.println("new param value:" + newParam[i]);
+//                }
+//                world.arch.params_new.setSettingsInt(newParam);
         
         
                 System.out.println("-resetting (with one mutation at point of death) to: jump(" 
