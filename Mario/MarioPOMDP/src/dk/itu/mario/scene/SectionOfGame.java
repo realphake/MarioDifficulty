@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -27,7 +28,8 @@ public class SectionOfGame {
     public void setNextDifficulty(int nextDifficulty) {
         this.nextDifficulty = nextDifficulty;
     }
-
+    
+    private int previousAction;
     private boolean firstPlay = true;
     private double startTime;
     private double endTime;
@@ -43,7 +45,17 @@ public class SectionOfGame {
     private ArrayList<float[]> allEmotions;
     private int previousDifficulty = 1;
     private int nextDifficulty;
+    private int[] possibleActions = {-1,1};
 
+    
+    public int chooseRandomAction(){
+        Random rn = new Random();
+        //random int in [0,2]
+        int choice  = rn.nextInt(2);
+        return this.possibleActions[choice];
+    }
+    
+    
     public void increaseTimes() {
         this.times++;
     }
@@ -189,7 +201,8 @@ public class SectionOfGame {
     public int calculateNextDifficulty() {
         if (this.firstPlay) {
             int nextDifficulty = this.previousDifficulty;
-            if (this.emotions[0] > 0.5) {
+           /** OLD IMPLEMENTATION 
+            * if (this.emotions[0] > 0.5) {
                 nextDifficulty++;
                 if (nextDifficulty > 5) {
                     nextDifficulty = 5;
@@ -202,16 +215,34 @@ public class SectionOfGame {
             }
             System.out.println("Section id:" + this.id + " next difficulty= " + nextDifficulty);
             this.previousDifficulty = nextDifficulty;
-            this.firstPlay = false;
+            this.firstPlay = false;*/
+             
+            //new implementation ("smart")
+            int action = this.chooseRandomAction();
+            nextDifficulty+=action;
+            if(nextDifficulty>5){
+                nextDifficulty=5;
+            }
+            else if(nextDifficulty<0){
+                nextDifficulty=0;
+            }
+            this.previousAction = action;
+            this.firstPlay=false;
+            this.previousDifficulty = nextDifficulty;
+            System.out.println("Section id:" + this.id + " next difficulty= " + nextDifficulty);
             return nextDifficulty;
-        } else {
+        }
+        else {
             //the user has already played a round, so we calculate referring to the previous measurements
             int nextDifficulty = this.previousDifficulty;
+           /** OLD IMPLEMENTATION
+            //neutral
             if (this.emotions[0] > this.previousEmotions[0]) {
                 nextDifficulty++;
                 if (nextDifficulty > 5) {
                     nextDifficulty = 5;
                 }
+                //angry
             } else if (this.emotions[3] > this.previousEmotions[3]) {
                 nextDifficulty--;
                 if (nextDifficulty < 0) {
@@ -220,6 +251,62 @@ public class SectionOfGame {
             }
             System.out.println("Section id:" + this.id + " next difficulty= " + nextDifficulty);
             this.previousDifficulty = nextDifficulty;
+            return nextDifficulty; */
+            
+            //new "smart" implementation
+            float differences[]={0,0,0};
+            int nextAction =0;
+            //neutral
+            differences[0] = this.emotions[0] - this.previousEmotions[0];
+            //happy
+            differences[1] = this.emotions[1] - this.previousEmotions[1];
+            //angry
+            differences[2] = this.emotions[3] - this.previousEmotions[3];
+            
+            
+            int mostImportantDiff = this.findMostImportantDiff(differences);
+            //neutral
+            if(mostImportantDiff==0){
+                //neutral increase
+                System.out.println("most important =0 ****"+differences[0]);
+                if(differences[0]>0){
+                    nextAction = this.previousAction*(-1);//user is bored. change strategy
+                }
+                else{
+                    nextAction = this.previousAction;//user is showing emotions. make it harder.
+                }
+            }
+            //happy
+            else if(mostImportantDiff==1){
+                System.out.println("most important =1 ****"+differences[1]);
+
+                //happy increase
+                if(differences[1]>0){
+                    nextAction = this.previousAction;
+                }
+                else{
+                    nextAction = this.previousAction*(-1);
+                }
+            }
+            else{
+                System.out.println("most important =2 ****"+differences[2]);
+                //angry increase    
+                if(differences[0]>0){
+                    nextAction = this.previousAction*(-1);//user is angry. change strategy
+                }
+                else{
+                    nextAction = this.previousAction;//user is showing emotions. make it harder.
+                }
+            }
+            
+            nextDifficulty+=nextAction;
+            if(nextDifficulty>5){
+                nextDifficulty=5;
+            }
+            else if(nextDifficulty<0){
+                nextDifficulty=0;
+            }
+            
             return nextDifficulty;
         }
     }
@@ -230,7 +317,22 @@ public class SectionOfGame {
         this.emotions = new float[7];
         this.allEmotions = new ArrayList<float[]>();
     }
-
+    
+    public int findMostImportantDiff(float[] diffs){
+        int maxInd =0;
+        float max =0;
+        //return the index of the biggest difference in emotions
+        //0: neutral 1:happy 2:angry
+        for (int i=0;i<=2;i++){
+            if (Math.abs(diffs[i])>max){
+                max = diffs[i];
+                maxInd = i;
+            }
+        }
+        return maxInd;
+    }
+    
+    
     public void writeSectionEmotionsToFile() {
         for (int j = 0; j < this.allEmotions.size(); j++) {
             StringBuilder line = new StringBuilder();
