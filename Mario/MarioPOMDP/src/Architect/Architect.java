@@ -67,18 +67,18 @@ public class Architect {
     public int type;
     public double[] reward_weights;
     public double reward_label;
-    public String[] stringSettings = {"1 1 1 1 1","3 3 3 3 3","5 5 5 5 5","2 3 3 2 2"};
+    public String[] stringSettings = {"1 1 1 1 1", "3 3 3 3 3", "5 5 5 5 5", "2 3 3 2 2"};
     
 
     double[] rewards = {0.0, 0.33, 1, 0.33, 0.0};
     
-    
+    // SANDER EXPERIMENT PARAMS
     // ex number
     public int experiment = 1;
     
     // conditions as listed
     // for experiment 2 the condition number is actually the index of the difficulty vectors
-    public int condition =2;
+    public int condition = 4;
     
     // if you want to use p or s argument or maintain 
     public boolean personalize = true;
@@ -104,18 +104,18 @@ public class Architect {
             if(condition == 1 || condition == 2)
             params_new.randomizeParameters();
             else {
-                        URL yahoo = new URL("http://sander.landofsand.com/temp/getgsp.php?list=1");
-                        URLConnection yc = yahoo.openConnection();
-                        BufferedReader in = new BufferedReader(
-                                                new InputStreamReader(
-                                                yc.getInputStream()));
-                        String inputLine;
-
-                        while ((inputLine = in.readLine()) != null) 
-                            params_new = this.paramsfromstring(inputLine);
-                        in.close();
+//                        URL yahoo = new URL("http://sander.landofsand.com/temp/getgsp.php?list=1");
+//                        URLConnection yc = yahoo.openConnection();
+//                        BufferedReader in = new BufferedReader(
+//                                                new InputStreamReader(
+//                                                yc.getInputStream()));
+//                        String inputLine;
+//
+//                        while ((inputLine = in.readLine()) != null) 
+//                            params_new = this.paramsfromstring(inputLine);
+//                        in.close();
                         
-                       
+                        params_new = this.paramsfromstring(stringSettings[3]);
             } 
         } else {
            
