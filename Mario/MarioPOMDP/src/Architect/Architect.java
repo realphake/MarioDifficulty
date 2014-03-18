@@ -74,7 +74,7 @@ public class Architect {
     
     // SANDER EXPERIMENT PARAMS
     // ex number
-    public int experiment = 2;
+    public int experiment = 1;
     
     // conditions as listed
     // for experiment 2 the condition number is actually the index of the difficulty vectors
@@ -345,10 +345,10 @@ public class Architect {
                 }
                 // we reverse back to the old parameters and change a new one (0.04% prob to changethe same)
                 if (this.Obs.better == 0) {
-                    params_new.incrementRandomorSpecific(true, reverseParams, 0, false);
+                    params_new.incrementRandomorSpecific(true, reverseParams, 0, false, false);
                     System.out.println("-incremented random with reverse");
                 } else {
-                    params_new.incrementRandomorSpecific(false, reverseParams, 0, false);
+                    params_new.incrementRandomorSpecific(false, reverseParams, 0, false, false);
                     System.out.println("-incremented random with no reverse");
                 }
             }

@@ -117,7 +117,7 @@ public class paramsPCG {
         //GAP_SIZE = (GAP_SIZE -1)%4+2;//(2-5)
     }    
     
-    public void incrementRandomorSpecific(boolean reverse, paramsPCG reverseValues, int param, boolean specific){
+    public void incrementRandomorSpecific(boolean reverse, paramsPCG reverseValues, int param, boolean specific, boolean phase3){
         // could not use the dictionary/list variable type
         // sorry for sloppy programming
         if(reverse){
@@ -132,46 +132,72 @@ public class paramsPCG {
         }
         
         // value to increment by
-        int increment_value = randomGenerator.nextInt(6)+1;
+        int increment_value;
         int parameter_increment;
+        if (!phase3) {
+            //wide range randomization during training phase
+            increment_value = randomGenerator.nextInt(6)+1;
+        }
+        else {
+            //while in actual gameplay, increment by either 0 or 1, 
+            //to balance giving the user a change to learn from his mistake, and decreasing the difficulty
+            //increment_value = randomGenerator.nextInt(2);
+            
+            //always decrease by one;
+            increment_value = 1;
+            //System.out.println("-phase3 increment_value: " + increment_value);
+        }
         
         // parameter to be incremented
         if (specific) {
             parameter_increment = param;
             
-            
-             switch(parameter_increment){
-                case 0:  ODDS_STRAIGHT = increment_value = randomGenerator.nextInt(ODDS_STRAIGHT); break;
-                case 1: ODDS_HILL_STRAIGHT = increment_value = randomGenerator.nextInt(ODDS_HILL_STRAIGHT); break;
-                case 2: ODDS_TUBES = increment_value = randomGenerator.nextInt(ODDS_TUBES); break;
-                case 3: ODDS_JUMP = increment_value = randomGenerator.nextInt(ODDS_JUMP); break;
-                case 4: ODDS_CANNONS = increment_value = randomGenerator.nextInt(ODDS_CANNONS); break;
+            if (phase3) {
+                //how to decrement at Mario death during Online Personalisation (Phase3)
+                 switch(parameter_increment){
+                    case 0: ODDS_STRAIGHT = ODDS_STRAIGHT - increment_value; break;
+                    case 1: ODDS_HILL_STRAIGHT = ODDS_HILL_STRAIGHT - increment_value; break;
+                    case 2: ODDS_TUBES = ODDS_TUBES - increment_value; break;
+                    case 3: ODDS_JUMP = ODDS_JUMP - increment_value; break;
+                    case 4: ODDS_CANNONS = ODDS_CANNONS - increment_value; break;
+                    case 5: GAP_SIZE = increment_value; 
+                 }
+            }
+            else {
+                //how George coded the decrement for the training phase
+                 switch(parameter_increment){
+                    case 0: ODDS_STRAIGHT = increment_value = randomGenerator.nextInt(ODDS_STRAIGHT); break;
+                    case 1: ODDS_HILL_STRAIGHT = increment_value = randomGenerator.nextInt(ODDS_HILL_STRAIGHT); break;
+                    case 2: ODDS_TUBES = increment_value = randomGenerator.nextInt(ODDS_TUBES); break;
+                    case 3: ODDS_JUMP = increment_value = randomGenerator.nextInt(ODDS_JUMP); break;
+                    case 4: ODDS_CANNONS = increment_value = randomGenerator.nextInt(ODDS_CANNONS); break;
+                    case 5: GAP_SIZE = increment_value; 
+                 }
+            }
+
+             System.out.println("-decremented parameter " + parameter_increment + " by " + increment_value);
+        }
+        else {            
+            parameter_increment = randomGenerator.nextInt(5);
+            switch(parameter_increment){
+                case 0: ODDS_STRAIGHT = increment_value; break;
+                case 1: ODDS_HILL_STRAIGHT = increment_value; break;
+                case 2: ODDS_TUBES = increment_value; break;
+                case 3: ODDS_JUMP = increment_value; break;
+                case 4: ODDS_CANNONS = increment_value; break;
                 //case 5: GAP_SIZE = increment_value; 
-             }
-             
-             System.out.println("-decremented parameter " + parameter_increment + " to " + increment_value);
+            }
+
+            System.out.println("-changed parameter " + parameter_increment + " to " + increment_value);
         }
-        else {parameter_increment = randomGenerator.nextInt(5);
-        
-        switch(parameter_increment){
-            case 0: ODDS_STRAIGHT = increment_value; break;
-            case 1: ODDS_HILL_STRAIGHT = increment_value; break;
-            case 2: ODDS_TUBES = increment_value; break;
-            case 3: ODDS_JUMP = increment_value; break;
-            case 4: ODDS_CANNONS = increment_value; break;
-            //case 5: GAP_SIZE = increment_value; 
-        }
-        
-        System.out.println("-changed parameter " + parameter_increment + " to " + increment_value);
-        }
+
         // clamp the values out of bounds
         clampValues();
         
-        // print outcome
-        
-        
+        // print outcome      
         //printAll();
     }
+    
     public void setAllTo(int value){
         //SANDER
         ODDS_STRAIGHT = value; //(0-5)

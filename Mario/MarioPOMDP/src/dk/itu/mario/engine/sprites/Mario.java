@@ -844,7 +844,7 @@ public class Mario extends Sprite {
             
           if(world.arch.personalize)  {
               
-                world.arch.params_new.incrementRandomorSpecific(false, world.arch.reverseParams, this.currentSectionType, true);
+                world.arch.params_new.incrementRandomorSpecific(false, world.arch.reverseParams, this.currentSectionType, true, true);
 //                double[] stepSize = {0,0,0,0,0};
 //                int[] newParam = {0, 0, 0, 0, 0};
 //                int[] oldParam =  world.arch.params_new.getSettingsInt();
