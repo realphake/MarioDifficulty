@@ -30,7 +30,7 @@ public class Architect {
     //Observations
     public GamePlay Obs;
     public boolean hasChangedPreference = false;
-    public boolean hasPassedTutorial = false;
+    public boolean hasPassedTutorial = true;
     //hill climbing parameters
     public int re = 50; //Probability the champion is re-evaluated
     public boolean smart_exploration = true;
@@ -67,7 +67,7 @@ public class Architect {
     public int type;
     public double[] reward_weights;
     public double reward_label;
-    public String[] stringSettings = {"1 1 1 1 1", "3 3 3 3 3", "5 5 5 5 5", "2 3 3 2 2"};
+    public String[] stringSettings = {"1 1 1 1 1", "3 3 3 3 3", "5 5 5 5 5", "2 3 3 2 2", "0 0 0 0 0"};
     
 
     double[] rewards = {0.0, 0.33, 1, 0.33, 0.0};
@@ -78,7 +78,7 @@ public class Architect {
     
     // conditions as listed
     // for experiment 2 the condition number is actually the index of the difficulty vectors
-    public int condition = 4;
+    public int condition = 2;
     
     // if you want to use p or s argument or maintain 
     public boolean personalize = true;
