@@ -67,7 +67,13 @@ public class Architect {
     public int type;
     public double[] reward_weights;
     public double reward_label;
-    public String[] stringSettings = {"1 1 1 1 1", "3 3 3 3 3", "5 5 5 5 5", "2 3 3 2 2", "0 0 0 0 0"};
+    public String[] stringSettings = {"1 1 1 1 1", "3 3 3 3 3", "5 5 5 5 5", "2 3 3 2 2", "0 0 0 0 0", "2 4 2 2 5"};
+    //0=easy
+    //1=normal
+    //2=hard
+    //3=global safe policy
+    //4=tutorial
+    //5=random starting point
     public MainSendRequest testFileRequest;
 
     double[] rewards = {0.0, 0.33, 1, 0.33, 0.0};
@@ -78,10 +84,10 @@ public class Architect {
     
     // conditions as listed
     // for experiment 2 the condition number is actually the index of the difficulty vectors
-    public int condition = 4;
+    public int condition = 1;
     
     // if you want to use p or s argument or maintain 
-    public boolean personalize = true;
+    public boolean personalize = false;
 
     public Architect() {
         params_new = new paramsPCG();
@@ -101,8 +107,11 @@ public class Architect {
         
         
         if(experiment == 1){
-            if(condition == 1 || condition == 2)
-            params_new.randomizeParameters();
+            if(condition == 1 || condition == 2) {
+                //Important, generated the random parameters somewhere offline, and place them in the stringSettings before starting the experiment
+                //params_new.randomizeParameters();
+                params_new = this.paramsfromstring(stringSettings[5]);
+            }
             else {
 //                        URL yahoo = new URL("http://sander.landofsand.com/temp/getgsp.php?list=1");
 //                        URLConnection yc = yahoo.openConnection();
@@ -118,8 +127,6 @@ public class Architect {
                         params_new = this.paramsfromstring(stringSettings[3]);
             } 
         } else {
-           
-    
              params_new = paramsfromstring(stringSettings[condition]);
              //System.out.println(paramsfromstring(stringSettings[condition]));
         }
