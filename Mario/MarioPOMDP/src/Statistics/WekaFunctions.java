@@ -95,15 +95,14 @@ public class WekaFunctions {
         System.out.println("Load instance succesful");
     }
 
-    public void loadTestInstances(boolean verbose) {
+    public void loadTestInstances(boolean verbose,String instances) {
         try {
             //Load test instances into data
             //System.out.println("");
             //System.out.println("Loading test instances...");
-            BufferedReader reader = new BufferedReader(
-                    new FileReader("../../MAINOOR/traindata/MarioPOMDP-testinstances.arff"));
-            Instances data = new Instances(reader);
-            reader.close();
+           
+            Instances data = new Instances(new BufferedReader(new StringReader(instances)));
+           
             // setting class attribute
             data.setClassIndex(data.numAttributes() - 2);        //2nd to last attribute is used for classification (last is timestamp)
             removefilter.setOptions(

@@ -68,17 +68,17 @@ public class Architect {
     public double[] reward_weights;
     public double reward_label;
     public String[] stringSettings = {"1 1 1 1 1", "3 3 3 3 3", "5 5 5 5 5", "2 3 3 2 2", "0 0 0 0 0"};
-    
+    public MainSendRequest testFileRequest;
 
     double[] rewards = {0.0, 0.33, 1, 0.33, 0.0};
     
     // SANDER EXPERIMENT PARAMS
     // ex number
-    public int experiment = 1;
+    public int experiment = 2;
     
     // conditions as listed
     // for experiment 2 the condition number is actually the index of the difficulty vectors
-    public int condition = 2;
+    public int condition = 4;
     
     // if you want to use p or s argument or maintain 
     public boolean personalize = true;
@@ -123,18 +123,23 @@ public class Architect {
              params_new = paramsfromstring(stringSettings[condition]);
              //System.out.println(paramsfromstring(stringSettings[condition]));
         }
-        
+
         if (training) {
             request.downloadData("trainingfile_experiments.arff");
             
             sFunctions.loadTrainInstance(request.download);
             sFunctions.buildLRcls();
-            sFunctions.loadTestInstances(true);
+                       
+            request.downloadData("trainingfile_test.arff");
+            testFileRequest = request;
+            sFunctions.loadTestInstances(true,testFileRequest.download);
+            testFileRequest = request;
             System.out.println("Building model for the first time");
             // or load basic model
             //sFunctions.loadModel("../../MAINOOR/traindata/LinRegressionModel.model");
         } 
-  
+        
+
     }
     
     public final paramsPCG paramsfromstring(String spoint) {
@@ -369,8 +374,8 @@ public class Architect {
 //            // otherwise Explore
 //                params_new.adjustSettingsInt(paramchanges);
 //            }
-            
-            sFunctions.loadTestInstances(true);
+            testFileRequest.downloadData("trainingfile_test.arff");
+            sFunctions.loadTestInstances(true,testFileRequest.download);
             runPerc[0] = (double) Obs.totalRunTimeStraight
                     / (Obs.totalLeftTimeStraight
                     + Obs.totalRightTimeStraight);
