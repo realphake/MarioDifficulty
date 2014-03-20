@@ -1022,7 +1022,7 @@ public class LevelSceneTest extends LevelScene {
         if (currentSection != -1) {
             //check if the section has already started. if not, set its startTime 
             if (!sections.get(currentSection).isHasStarted()) {
-                System.out.println("section" + sections.get(currentSection).getId() + "has started");
+          //      System.out.println("section" + sections.get(currentSection).getId() + "has started");
                 sections.get(currentSection).setStartTime(calendar.getTimeInMillis() / 1000);
                 sections.get(currentSection).setHasStarted(true);
             }
@@ -1030,7 +1030,7 @@ public class LevelSceneTest extends LevelScene {
             //if mario has already completed a similar segment
             if (sections.get(currentSection).isHasEnded()) {
                 if (!sections.get(currentSection).isHasStarted2()) {
-                    System.out.println("section2 " + sections.get(currentSection).getId() + " has started");
+             //       System.out.println("section2 " + sections.get(currentSection).getId() + " has started");
                     sections.get(currentSection).setStartTime2(calendar.getTimeInMillis() / 1000);
                     sections.get(currentSection).setHasStarted2(true);
                 }
@@ -1039,12 +1039,12 @@ public class LevelSceneTest extends LevelScene {
             //if game passed into a new section, set the end time for the past section.
             if (currentSection != previousSection) {
                 if (previousSection == -1) {
-                    System.out.println("First section ended.");
+            //        System.out.println("First section ended.");
                     previousSection = currentSection;
                 } else {
                     //set the end time of the previous section
                     if (!sections.get(previousSection).isHasEnded()) {
-                        System.out.println("section" + sections.get(previousSection).getId() + " has ended.");
+//                        System.out.println("section" + sections.get(previousSection).getId() + " has ended.");
                         sections.get(previousSection).setEndTime(calendar.getTimeInMillis() / 1000);
                         sections.get(previousSection).setHasEnded(true);
                         previousSection = currentSection;
@@ -1052,7 +1052,7 @@ public class LevelSceneTest extends LevelScene {
                     } //if the previous has ended, it means that we are in the 2nd segment
                     else {
                         if (!sections.get(previousSection).isHasEnded2()) {
-                            System.out.println("section2 " + sections.get(previousSection).getId() + " has ended.");
+                         //   System.out.println("section2 " + sections.get(previousSection).getId() + " has ended.");
                             sections.get(previousSection).setHasEnded2(true);
                             sections.get(previousSection).setEndTime2(calendar.getTimeInMillis() / 1000);
                             previousSection = currentSection;
@@ -1067,13 +1067,13 @@ public class LevelSceneTest extends LevelScene {
                 if (!sections.get(previousSection).isHasEnded()) {
                     sections.get(previousSection).setHasEnded(true);
                     sections.get(previousSection).setEndTime(calendar.getTimeInMillis() / 1000);
-                    System.out.println("section " + sections.get(previousSection).getId() + " has finished");
+               //     System.out.println("section " + sections.get(previousSection).getId() + " has finished");
                     previousSection = -1;
                 } //we are in the second segment.
                 else if (!sections.get(previousSection).isHasEnded2()) {
                     sections.get(previousSection).setHasEnded2(true);
                     sections.get(previousSection).setEndTime2(calendar.getTimeInMillis() / 1000);
-                    System.out.println("section2 : " + sections.get(previousSection).getId() + " has ended");
+                //    System.out.println("section2 : " + sections.get(previousSection).getId() + " has ended");
                     previousSection = -1;
                 }
 

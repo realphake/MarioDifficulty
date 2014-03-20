@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  20 MAR 2014 16:33
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  20 MAR 2014 20:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -499,24 +499,41 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 38.
 
 (/usr/local/texlive/2012/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
-) [1
+)
+Underfull \hbox (badness 5260) in paragraph at lines 62--62
+[][][][]\OT1/cmr/m/n/10.95 Find high-est 
+ []
 
-{/usr/local/texlive/2012/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./grap
-h.aux) ) 
+
+Overfull \hbox (2.53831pt too wide) in paragraph at lines 62--62
+\OML/cmm/m/it/10.95 Math:abs\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 currentEmot
+ions \OMS/cmsy/m/n/10.95 ^^@ 
+ []
+
+
+Overfull \hbox (0.86658pt too wide) in paragraph at lines 69--70
+[][] 
+ []
+
+[1
+
+{/usr/local/texlive/2012/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+(./graph.aux) ) 
 Here is how much of TeX's memory you used:
- 10750 strings out of 493488
- 200947 string characters out of 3141326
- 236616 words of memory out of 3000000
- 13837 multiletter control sequences out of 15000+200000
+ 10766 strings out of 493488
+ 201234 string characters out of 3141326
+ 237616 words of memory out of 3000000
+ 13853 multiletter control sequences out of 15000+200000
  8288 words of font info for 32 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 56i,6n,55p,415b,507s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
-10.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8
-.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.p
-fb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb>
-</usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on graph.pdf (1 page, 50986 bytes).
+ 56i,6n,55p,415b,523s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi10.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmmi8.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr10.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r8.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
+0.pfb>
+Output written on graph.pdf (1 page, 54257 bytes).
 PDF statistics:
  31 PDF objects out of 1000 (max. 8388607)
  22 compressed objects within 1 object stream
