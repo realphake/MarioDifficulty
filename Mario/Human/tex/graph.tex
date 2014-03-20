@@ -1,0 +1,58 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Template for creating scribe notes for MLPM2013.
+%
+%  Fill in your name, lecture number, lecture date and body
+%  of scribe notes as indicated below.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[11pt]{article}
+
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+\setlength{\topmargin}{0pt}
+\setlength{\textheight}{9in}
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\oddsidemargin}{0.25in}
+\setlength{\textwidth}{6in}
+\pagestyle{plain}
+\usepackage{tikz}
+\usepackage{amssymb}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+
+
+\usepackage{amsmath}
+\begin{document}
+
+\thispagestyle{empty}
+
+
+
+
+
+\begin{tikzpicture}
+\node[draw,circle,scale=2,label=Segment $t_n$](1){${a_t}_n , {e_t}_n$};
+\node[draw,circle,scale=1.5,label=Segment $t_{n+1}$](2)[right=4cm of 1]{${a_t}_{n+1} , {e_t}_{n+1}$};
+
+\draw[thick,->](1)--(2);
+
+\end{tikzpicture}
+
+$a=$ action space: ${-5,...,5}$
+ 
+$e =$ emotions vector 
+
+${a_t}_{n+1} = Math.round({e_t}_{n+1}[\epsilon] - {e_t}_{n}[\epsilon] ) *5$ , where $\epsilon$ is a specific emotion.
+
+This equation transfers the variation of emotions into the action space. $[-1..1] \rightarrow [-5...5]$
+
+It means that a bigger variation in the player's emotions will cause a steeper change in difficulty.
+
+At each step of the game, difficulty ${d_t}_{n+1} = {d_t}_{n} + {a_t}_n  $
+\vspace{0.5cm}
+
+\end{document}
