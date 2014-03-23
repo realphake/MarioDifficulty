@@ -1,0 +1,56 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Template for creating scribe notes for MLPM2013.
+%
+%  Fill in your name, lecture number, lecture date and body
+%  of scribe notes as indicated below.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[11pt]{article}
+
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+\setlength{\topmargin}{0pt}
+\setlength{\textheight}{9in}
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\oddsidemargin}{0.25in}
+\setlength{\textwidth}{6in}
+\pagestyle{plain}
+\usepackage{tikz}
+\usepackage{amssymb}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+
+
+\usepackage{amsmath}
+\begin{document}
+
+\begin{center}
+\textbf{Experimentation on Personalized Mario}
+
+24 March 2014
+\end{center}
+
+\section{Experimentation}
+\begin{itemize}
+\item introduce a factor $\alpha$ on how "steep" the action decision can be
+\item test on the same person for different $\alpha = [0..1]$
+\item test for different initial parameters
+\item test for different decision making functions
+\item add convergence threshold (when changes in actions are small enough to not really affect the game difficulty)
+\end{itemize}
+
+\section{Evaluation}
+
+
+\begin{itemize}
+\item Maximize happiness: happiness curve should incline after N segments.
+\item Decrease neutral as much as possible. We want the user to be as emotional as possible, to boost our decision making.
+\item Evaluate the stability of neutral. If neutral percentages are high, this could also mean the user is satisfied. For example, if the initial angry levels are high and then start to decline.
+\item Test on different kinds of persons, (not expressive / really expressive) and evaluate the speed of convergence to some particular difficulty levels.
+
+\end{itemize}
+\end{document}
