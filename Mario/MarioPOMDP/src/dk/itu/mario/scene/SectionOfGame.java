@@ -28,7 +28,8 @@ public class SectionOfGame {
     public void setNextDifficulty(int nextDifficulty) {
         this.nextDifficulty = nextDifficulty;
     }
-
+    
+    private float[] emotionVariance = {0,0,0,0,0,0,0};
     private int previousAction;
     private boolean firstPlay = true;
     private double startTime;
@@ -43,6 +44,14 @@ public class SectionOfGame {
     private float[] emotions;
     private int times = 0;
     private ArrayList<float[]> allEmotions;
+
+    public ArrayList<float[]> getAllEmotions() {
+        return allEmotions;
+    }
+
+    public void setAllEmotions(ArrayList<float[]> allEmotions) {
+        this.allEmotions = allEmotions;
+    }
     private int previousDifficulty = 1;
     private int nextDifficulty;
     private int[] possibleActions = {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5};
@@ -58,11 +67,21 @@ public class SectionOfGame {
         this.times++;
     }
 
+    public int getTimes() {
+        return times;
+    }
+
+    public void setTimes(int times) {
+        this.times = times;
+    }
+    
+    
     //function to reset the section measurements.
     //also calls calculateNextDifficulty.
-    public void reset() {
+    public void reset(float alphaFactor) {
 
         //reset all values
+        
         this.times = 0;
         this.hasEnded = false;
         this.hasEnded2 = false;
@@ -71,15 +90,30 @@ public class SectionOfGame {
         this.allEmotions = new ArrayList<float[]>();
 
         //calculate next difficulty
-        this.nextDifficulty = calculateNextDifficulty();
+        this.nextDifficulty = calculateNextDifficulty(alphaFactor);
 
         //save the previous emotions
         float[] tempPrev = this.emotions;
         this.previousEmotions = tempPrev;
 
-        //reset emotions table
+        //reset emotions table & emotion Variances.
         float[] temp = {0, 0, 0, 0, 0, 0, 0};
+        this.emotionVariance = temp;
         this.emotions = temp;
+    }
+
+    public void printVariances(){
+        for (int i=0; i<7;i++){
+            System.out.println(this.emotionVariance[i]);
+        }
+    }
+    
+    public float[] getEmotionVariance() {
+        return emotionVariance;
+    }
+
+    public void setEmotionVariance(float[] emotionVariance) {
+        this.emotionVariance = emotionVariance;
     }
 
     public float[] getEmotions() {
@@ -181,6 +215,16 @@ public class SectionOfGame {
         this.allEmotions.add(temp);
     }
 
+    public void printAllEmotions(){
+        for(int i =0; i<this.allEmotions.size();i++){
+            for(int j=0; j<7;j++){
+                if(j==0){
+                    System.out.println("----");
+                }
+                System.out.println(this.allEmotions.get(i)[j]);
+            }
+        }
+    }
     public void normalizeEmotions() {
         for (int i = 0; i < 7; i++) {
             this.emotions[i] /= this.times;
@@ -193,7 +237,7 @@ public class SectionOfGame {
         }
     }
 
-    public int calculateNextDifficulty() {
+    public int calculateNextDifficulty(float alphaFactor) {
         if (this.firstPlay) {
             int nextDifficulty = this.previousDifficulty;
             /**
@@ -250,9 +294,9 @@ public class SectionOfGame {
                 //neutral increase
                 System.out.println("most important =0 ****" + differences[0]);
                 if (differences[0] > 0) {
-                    nextAction = Math.round(5 * differences[0]) * (-1);
+                    nextAction = Math.round(5 * differences[0] * (-1) * alphaFactor);
                 } else {
-                    nextAction = Math.round(5 * differences[0]);
+                    nextAction = Math.round(5 * differences[0] * alphaFactor);
                 }
             } //happy
             else if (mostImportantDiff == 1) {
@@ -260,17 +304,17 @@ public class SectionOfGame {
 
                 //happy increase
                 if (differences[1] > 0) {
-                    nextAction = Math.round(5 * differences[1]);
+                    nextAction = Math.round(5 * differences[1] * alphaFactor);
                 } else {
-                    nextAction = Math.round(5 * differences[1]) * (-1);
+                    nextAction = Math.round(5 * differences[1] * (-1)* alphaFactor);
                 }
             } else {
                 System.out.println("most important =2 ****" + differences[2]);
                 //angry increase    
                 if (differences[2] > 0) {
-                    nextAction = Math.round(5 * differences[2]) * (-1);
+                    nextAction = Math.round(5 * differences[2] * (-1)* alphaFactor);
                 } else {
-                    nextAction = Math.round(5 * differences[2]);
+                    nextAction = Math.round(5 * differences[2] * alphaFactor);
                 }
             }
 

@@ -66,7 +66,7 @@ public class LevelSceneTest extends LevelScene {
     private int newVectorInterval = 1;//interval for new vectors; i.e. 5 will create 5 vectors before setting selecting best vector
     private int newVectorCount = 0; //counter for newVectorInterval
     private boolean normalDiffMethods = false;//boolean to toggle normal difficulty calculations
-    
+
     private int[] newDifficulties;
     public int tries = 3; //tries for a chunk before asking for feedback;
     public boolean recording = false;
@@ -81,6 +81,9 @@ public class LevelSceneTest extends LevelScene {
     //General variables
     public boolean verbose = false;
 
+    //alpha factor (emotion variance related)
+    private  float alphaFactor;
+    
     //Variables for Random Forest classification
     public RandomForest RF = new RandomForest();
     public Instances RF_trainingInstances;
@@ -105,8 +108,10 @@ public class LevelSceneTest extends LevelScene {
             e.printStackTrace();
             //System.exit(0);
         }
-        int[] temp ={1,1,1,1,1,1};
+        this.alphaFactor =0;
+        int[] temp = {1, 1, 1, 1, 1, 1};
         this.newDifficulties = temp;
+        
         //System.out.println("paris implementation");
         //create list of sections.
         /**
@@ -571,27 +576,35 @@ public class LevelSceneTest extends LevelScene {
             recorder.endTime();
             marioComponent.pause();
 
-
             //read emotions and create text files
             //readEmotions() also normalizes the emotions table for each section
             readEmotions();
+
+            //get the variance for each emotion during this segment.
+            float emotionVarianceThisSegment = getEmotionVariance();
+            System.out.println(emotionVarianceThisSegment);
+            //show more emotions = smoother change in difficulties.
+            //show less emotions = cause more significant change in difficulties.
+            this.alphaFactor = 1-emotionVarianceThisSegment;
+            System.out.println("alpha Factor : "+ this.alphaFactor);
             
             //paris: calculate emotions during segments and update difficulties.
             for (SectionOfGame section : sections) {
-                    /**
-                    System.out.println(section.getId());
-                    section.printEmotions();
-                    if(section.getEmotions()[0]>0.2){
-                        this.newDifficulties[section.getId()] ++;
-                    }*/
-                    section.reset();
-                    this.newDifficulties[section.getId()]=section.getNextDifficulty();
-                    
-            }
-                    arch.params_new.setSettingsInt(this.newDifficulties);
+                /**
+                 * System.out.println(section.getId()); section.printEmotions();
+                 * if(section.getEmotions()[0]>0.2){
+                 * this.newDifficulties[section.getId()] ++;
+                    }
+                 */
 
-            
-            
+                    //section.printAllEmotions();
+                //reset also calculates next difficulty.
+                section.reset(this.alphaFactor);
+                this.newDifficulties[section.getId()] = section.getNextDifficulty();
+
+            }
+            arch.params_new.setSettingsInt(this.newDifficulties);
+
             //Swapping level segment
             //System.out.println("");
             //System.out.println("----------------------------------------");
@@ -672,6 +685,48 @@ public class LevelSceneTest extends LevelScene {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    //paris: calculate the variance of emotions (averaging over all emotions over all sections).
+    public float getEmotionVariance() {
+
+        float[] totalVariances = {0, 0, 0, 0, 0, 0, 0};
+        float sum = 0;
+
+        for (SectionOfGame section : sections) {
+            ArrayList<float[]> allEmotions = section.getAllEmotions();
+            float[] emotionsMean = section.getEmotions();
+            float[] temp = {0, 0, 0, 0, 0, 0, 0};
+            float[] variances = {0, 0, 0, 0, 0, 0, 0};
+
+            //for each vactor of emotions (==each game frame)
+            for (int i = 0; i < allEmotions.size(); i++) {
+                //for each emotion
+                for (int j = 0; j < 7; j++) {
+                    temp[j] += (emotionsMean[j] - allEmotions.get(i)[j]) * (emotionsMean[j] - allEmotions.get(i)[j]);
+                }
+            }
+
+            //create variances table
+            for (int k = 0; k < 7; k++) {
+                variances[k] = temp[k] / section.getTimes();
+            }
+            //save variances in class variable
+            section.setEmotionVariance(variances);
+
+            //calculate totalVariances
+            for (int q = 0; q < 7; q++) {
+                totalVariances[q] += variances[q];
+            }
+        }
+
+        for (int w = 0; w < 7; w++) {
+            totalVariances[w] /= 5;
+            System.out.println(totalVariances[w]);
+            sum += totalVariances[w];
+        }
+
+        return sum / 7;
     }
 
     public void conjoin() {
@@ -1022,7 +1077,7 @@ public class LevelSceneTest extends LevelScene {
         if (currentSection != -1) {
             //check if the section has already started. if not, set its startTime 
             if (!sections.get(currentSection).isHasStarted()) {
-          //      System.out.println("section" + sections.get(currentSection).getId() + "has started");
+                //      System.out.println("section" + sections.get(currentSection).getId() + "has started");
                 sections.get(currentSection).setStartTime(calendar.getTimeInMillis() / 1000);
                 sections.get(currentSection).setHasStarted(true);
             }
@@ -1030,7 +1085,7 @@ public class LevelSceneTest extends LevelScene {
             //if mario has already completed a similar segment
             if (sections.get(currentSection).isHasEnded()) {
                 if (!sections.get(currentSection).isHasStarted2()) {
-             //       System.out.println("section2 " + sections.get(currentSection).getId() + " has started");
+                    //       System.out.println("section2 " + sections.get(currentSection).getId() + " has started");
                     sections.get(currentSection).setStartTime2(calendar.getTimeInMillis() / 1000);
                     sections.get(currentSection).setHasStarted2(true);
                 }
@@ -1039,7 +1094,7 @@ public class LevelSceneTest extends LevelScene {
             //if game passed into a new section, set the end time for the past section.
             if (currentSection != previousSection) {
                 if (previousSection == -1) {
-            //        System.out.println("First section ended.");
+                    //        System.out.println("First section ended.");
                     previousSection = currentSection;
                 } else {
                     //set the end time of the previous section
@@ -1052,7 +1107,7 @@ public class LevelSceneTest extends LevelScene {
                     } //if the previous has ended, it means that we are in the 2nd segment
                     else {
                         if (!sections.get(previousSection).isHasEnded2()) {
-                         //   System.out.println("section2 " + sections.get(previousSection).getId() + " has ended.");
+                            //   System.out.println("section2 " + sections.get(previousSection).getId() + " has ended.");
                             sections.get(previousSection).setHasEnded2(true);
                             sections.get(previousSection).setEndTime2(calendar.getTimeInMillis() / 1000);
                             previousSection = currentSection;
@@ -1067,13 +1122,13 @@ public class LevelSceneTest extends LevelScene {
                 if (!sections.get(previousSection).isHasEnded()) {
                     sections.get(previousSection).setHasEnded(true);
                     sections.get(previousSection).setEndTime(calendar.getTimeInMillis() / 1000);
-               //     System.out.println("section " + sections.get(previousSection).getId() + " has finished");
+                    //     System.out.println("section " + sections.get(previousSection).getId() + " has finished");
                     previousSection = -1;
                 } //we are in the second segment.
                 else if (!sections.get(previousSection).isHasEnded2()) {
                     sections.get(previousSection).setHasEnded2(true);
                     sections.get(previousSection).setEndTime2(calendar.getTimeInMillis() / 1000);
-                //    System.out.println("section2 : " + sections.get(previousSection).getId() + " has ended");
+                    //    System.out.println("section2 : " + sections.get(previousSection).getId() + " has ended");
                     previousSection = -1;
                 }
 
@@ -1131,13 +1186,13 @@ public class LevelSceneTest extends LevelScene {
                             if (a != -1) {
                                 sections.get(a).addEmotions(emotions);
                                 sections.get(a).increaseTimes();
-                              
+
                                 float[] temp = new float[7];
-                                for(int p=0;p<emotions.length;p++){
-                                    temp[p]=emotions[p];
+                                for (int p = 0; p < emotions.length; p++) {
+                                    temp[p] = emotions[p];
                                 }
                                 //add emotion to the total list
-                                allGameEmotions.add(temp);                              
+                                allGameEmotions.add(temp);
                             }
 
                             //reset the emotions table.
