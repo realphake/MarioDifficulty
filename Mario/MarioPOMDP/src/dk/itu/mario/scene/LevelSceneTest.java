@@ -67,6 +67,7 @@ public class LevelSceneTest extends LevelScene {
     private int newVectorCount = 0; //counter for newVectorInterval
     private boolean normalDiffMethods = false;//boolean to toggle normal difficulty calculations
 
+    private boolean firstRun;
     private int[] newDifficulties;
     public int tries = 3; //tries for a chunk before asking for feedback;
     public boolean recording = false;
@@ -108,6 +109,7 @@ public class LevelSceneTest extends LevelScene {
             e.printStackTrace();
             //System.exit(0);
         }
+        this.firstRun = true;
         this.alphaFactor =0;
         int[] temp = {1, 1, 1, 1, 1, 1};
         this.newDifficulties = temp;
@@ -569,13 +571,17 @@ public class LevelSceneTest extends LevelScene {
     public void swap() {
 
         int k = 0;
-        //The background info should change aswell                       
-
+        //The background info should change aswell               
+        
         if (mario.x > (level2.width * 16 + level3.width * 16 - (10 * 16))) {
             tries = 3;
             recorder.endTime();
             marioComponent.pause();
 
+                    
+            //keep track of neutral, happy and angry  
+            ArrayList<float[]> neutralHappyAngry = new ArrayList<>();
+            
             //read emotions and create text files
             //readEmotions() also normalizes the emotions table for each section
             readEmotions();
@@ -585,10 +591,14 @@ public class LevelSceneTest extends LevelScene {
             System.out.println(emotionVarianceThisSegment);
             //show more emotions = smoother change in difficulties.
             //show less emotions = cause more significant change in difficulties.
-            this.alphaFactor = 1-emotionVarianceThisSegment;
-            System.out.println("alpha Factor : "+ this.alphaFactor);
+            if(this.firstRun){
+                this.alphaFactor = 1-emotionVarianceThisSegment;
+                System.out.println("alpha Factor : "+ this.alphaFactor);
+                this.firstRun=false;
+            }
             
-            //paris: calculate emotions during segments and update difficulties.
+            
+            //paris: calculate stuff during segments and update difficulties.
             for (SectionOfGame section : sections) {
                 /**
                  * System.out.println(section.getId()); section.printEmotions();
@@ -596,13 +606,48 @@ public class LevelSceneTest extends LevelScene {
                  * this.newDifficulties[section.getId()] ++;
                     }
                  */
-
-                    //section.printAllEmotions();
+                
+                //get neutral, happy and angry feelings and add them to a list.
+                float[] nha = {section.getEmotions()[0],section.getEmotions()[1],section.getEmotions()[3]};
+                neutralHappyAngry.add(nha);
+                
+                 //section.printAllEmotions();
                 //reset also calculates next difficulty.
                 section.reset(this.alphaFactor);
                 this.newDifficulties[section.getId()] = section.getNextDifficulty();
 
             }
+            //calculate neutral,happy and angry for whole section, and write to file.
+            float[] tempSumNha={0,0,0};
+            
+            for(int ind=0;ind<5;ind++){
+                tempSumNha[0] +=neutralHappyAngry.get(ind)[0]; 
+                tempSumNha[1] +=neutralHappyAngry.get(ind)[1];
+                tempSumNha[2] +=neutralHappyAngry.get(ind)[2];
+            }
+            
+            for(int nhaInd=0;nhaInd<3;nhaInd++){
+                tempSumNha[nhaInd]/=5;
+                System.out.println("emotion "+nhaInd+" "+tempSumNha[nhaInd]);
+            }
+            
+            //write to file
+            StringBuilder line = new StringBuilder();
+            line.append(String.valueOf(tempSumNha[0]));
+            line.append(" ");
+            line.append(String.valueOf(tempSumNha[1]));
+            line.append(" ");
+            line.append(String.valueOf(tempSumNha[2]));
+            try {
+                String filename = "neutralHappyAngry.txt";
+                PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename, true)));
+                out.println(line);
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            
+            
             arch.params_new.setSettingsInt(this.newDifficulties);
 
             //Swapping level segment

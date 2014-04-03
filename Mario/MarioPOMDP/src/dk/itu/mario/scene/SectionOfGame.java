@@ -63,6 +63,8 @@ public class SectionOfGame {
         return this.possibleActions[choice];
     }
 
+       
+    
     public void increaseTimes() {
         this.times++;
     }
@@ -251,7 +253,8 @@ public class SectionOfGame {
              */
 
             //new implementation ("smart")
-            int action = this.chooseRandomAction();
+            //int action = this.chooseRandomAction();
+            int action = 0;
             nextDifficulty += action;
             if (nextDifficulty > 5) {
                 nextDifficulty = 5;
