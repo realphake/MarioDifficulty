@@ -410,6 +410,7 @@ public class LevelSceneTest extends LevelScene {
         } else {
             return level2.sectionTypeAtCoordinate(xcoord - level3.map.length);
         }
+        
     }
 
     public int getDifficulty() {
@@ -1114,8 +1115,8 @@ public class LevelSceneTest extends LevelScene {
         //System.out.println(calendar.getTimeInMillis() / 1000);
         //get current subsection (paris)
         double mariox = (double) mario.x;
-
         int currentSection = getCurrentSectionType((int) mariox / 16);
+        System.out.println(currentSection);
         //System.out.println("s1 : " + currentSection);
 
         //if mario is in a valid section.

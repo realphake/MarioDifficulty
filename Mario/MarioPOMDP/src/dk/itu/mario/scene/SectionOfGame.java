@@ -29,6 +29,39 @@ public class SectionOfGame {
         this.nextDifficulty = nextDifficulty;
     }
     
+    private float previousNeutral = 0;
+
+    public float getPreviousNeutral() {
+        return previousNeutral;
+    }
+
+    public void setPreviousNeutral(float previousNeutral) {
+        this.previousNeutral = previousNeutral;
+    }
+
+    public int getPreviousAction() {
+        return previousAction;
+    }
+
+    public void setPreviousAction(int previousAction) {
+        this.previousAction = previousAction;
+    }
+
+    public float[] getPreviousEmotions() {
+        return previousEmotions;
+    }
+
+    public void setPreviousEmotions(float[] previousEmotions) {
+        this.previousEmotions = previousEmotions;
+    }
+
+    public int[] getPossibleActions() {
+        return possibleActions;
+    }
+
+    public void setPossibleActions(int[] possibleActions) {
+        this.possibleActions = possibleActions;
+    }
     private float[] emotionVariance = {0,0,0,0,0,0,0};
     private int previousAction;
     private boolean firstPlay = true;
@@ -96,6 +129,7 @@ public class SectionOfGame {
 
         //save the previous emotions
         float[] tempPrev = this.emotions;
+        this.previousNeutral = tempPrev[0];
         this.previousEmotions = tempPrev;
 
         //reset emotions table & emotion Variances.
@@ -267,6 +301,17 @@ public class SectionOfGame {
             System.out.println("Section id:" + this.id + " next difficulty= " + nextDifficulty);
             return nextDifficulty;
         } else {
+            //initialize nextAction
+            int nextAction = 0;
+            
+            //if user is always neutral, the game will not "progress" so, make it a bit harder.
+            if(this.emotions[0]>0.8 && this.previousEmotions[0]>0.8){
+                System.out.println("User >.8 neutral");
+                nextAction = 1;
+            }
+            else{
+                
+            
             //the user has already played a round, so we calculate referring to the previous measurements
             int nextDifficulty = this.previousDifficulty;
             /**
@@ -282,7 +327,6 @@ public class SectionOfGame {
 
             //new "smart" implementation
             float differences[] = {0, 0, 0};
-            int nextAction = 0;
             //neutral
             differences[0] = this.emotions[0] - this.previousEmotions[0];
             //happy
@@ -320,7 +364,7 @@ public class SectionOfGame {
                     nextAction = Math.round(5 * differences[2] * alphaFactor);
                 }
             }
-
+            }
             nextDifficulty += nextAction;
             if (nextDifficulty > 5) {
                 nextDifficulty = 5;
