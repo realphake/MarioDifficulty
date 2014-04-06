@@ -710,8 +710,8 @@ public class ArchLevel extends Level {
 
     @Override
     public ArchLevel clone() throws CloneNotSupportedException {
-
         ArchLevel clone = new ArchLevel(width, height);
+        clone.gameSections = gameSections;
 
         clone.xExit = xExit;
         clone.yExit = yExit;
