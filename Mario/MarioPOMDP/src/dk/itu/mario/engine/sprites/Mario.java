@@ -7,6 +7,10 @@ import level2.*;
 import dk.itu.mario.scene.LevelScene;
 import dk.itu.mario.scene.LevelSceneTest;
 import dk.itu.mario.scene.Scene;
+import dk.itu.mario.scene.SectionOfGame;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 public class Mario extends Sprite {
 
@@ -40,6 +44,7 @@ public class Mario extends Sprite {
     private static float GROUND_INERTIA = 0.89f;
     private static float AIR_INERTIA = 0.89f;
 
+    private  int deathSection;
     public boolean[] keys;
     private float runTime;
     boolean wasOnGround = false;
@@ -791,7 +796,38 @@ public class Mario extends Sprite {
         }
     }
 
+    public int getDeathSection() {
+        return deathSection;
+    }
+
+    public void setDeathSection(int deathSection) {
+        this.deathSection = deathSection;
+    }
+
+    public int getDeathTime() {
+        return deathTime;
+    }
+
+    public void setDeathTime(int deathTime) {
+        this.deathTime = deathTime;
+    }
+
     public void die() {
+        //paris: do calculations when mario dies.
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        System.out.println("death Time: "+calendar.getTimeInMillis() / 1000);
+       
+        //get section in which mario died and save the time.
+        ArrayList<SectionOfGame> sections = world2.getSections();
+        sections.get(currentSectionType).setDiedHere(true);
+        sections.get(currentSectionType).setDeathTime(calendar.getTimeInMillis()/1000);
+        this.deathSection = currentSectionType;
+        
+        for (SectionOfGame section:sections){
+            section.resetAtDeath();
+        }
+        
+        
         xDeathPos = (int) x;
         yDeathPos = (int) y;
         world.paused = true;
