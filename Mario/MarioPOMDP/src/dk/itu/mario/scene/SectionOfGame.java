@@ -394,6 +394,14 @@ public class SectionOfGame {
 
     }
 
+    public float[] getDeathEmotions() {
+        return deathEmotions;
+    }
+
+    public void setDeathEmotions(float[] deathEmotions) {
+        this.deathEmotions = deathEmotions;
+    }
+
     public int calculateNextDifficulty(float alphaFactor) {
         if (this.firstPlay) {
             int nextDifficulty = this.previousDifficulty;

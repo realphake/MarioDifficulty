@@ -597,7 +597,7 @@ public class LevelSceneTest extends LevelScene {
 
             //get the variance for each emotion during this segment.
             float emotionVarianceThisSegment = getEmotionVariance();
-            System.out.println(emotionVarianceThisSegment);
+            //System.out.println(emotionVarianceThisSegment);
             //show more emotions = smoother change in difficulties.
             //show less emotions = cause more significant change in difficulties.
             if(this.firstRun){
@@ -615,6 +615,10 @@ public class LevelSceneTest extends LevelScene {
                  * this.newDifficulties[section.getId()] ++;
                     }
                  */
+                
+                //System.out.println(section.getId()); 
+                //section.printEmotions();
+                
                 
                 //get neutral, happy and angry feelings and add them to a list.
                 float[] nha = {section.getEmotions()[0],section.getEmotions()[1],section.getEmotions()[3]};
@@ -776,7 +780,7 @@ public class LevelSceneTest extends LevelScene {
 
         for (int w = 0; w < 7; w++) {
             totalVariances[w] /= 5;
-            System.out.println(totalVariances[w]);
+            //System.out.println(totalVariances[w]);
             sum += totalVariances[w];
         }
 
@@ -1027,6 +1031,9 @@ public class LevelSceneTest extends LevelScene {
         sections.get(mario.getDeathSection()).calculateDeathEmotions(calendar.getTimeInMillis()/1000);
         
         
+
+        
+        
         //Always reset POMDP stuff
         playerModelDiff1.clear();
         playerModelDiff4.clear();
@@ -1076,6 +1083,28 @@ public class LevelSceneTest extends LevelScene {
             e.printStackTrace();
         }
 
+        //paris: update Difficulties on death if necessary.
+        int deathSection = mario.getDeathSection();
+        float[] deathEmotions = sections.get(deathSection).getDeathEmotions();
+        int[] difficultiesAfterDeath = this.newDifficulties;
+        boolean isAngry = true;
+        for(float emotion:deathEmotions){
+            if(deathEmotions[3]<emotion){
+                isAngry = false;
+            }
+        }
+        if(isAngry==true){
+            System.out.println("user is angry, decreasing difficulty for section: "+deathSection);
+            difficultiesAfterDeath[deathSection]-=1;
+            if(difficultiesAfterDeath[deathSection]<0){
+                difficultiesAfterDeath[deathSection]=0;
+            }
+        }
+        
+        arch.params_new.setSettingsInt(difficultiesAfterDeath);
+        level2 = new ArchLevel(arch.params_new);
+        level3 = new ArchLevel(arch.params_new);
+        
         conjoin();
 
         layer = new LevelRenderer(level, graphicsConfiguration, 320, 240);
@@ -1134,7 +1163,8 @@ public class LevelSceneTest extends LevelScene {
         double mariox = (double) mario.x;
         int currentSection = getCurrentSectionType((int) mariox / 16);
         //System.out.println("s1 : " + currentSection);
-
+        //System.out.println(currentSection);
+        
         //if mario is in a valid section.
         if (currentSection != -1) {
             //check if the section has already started. if not, set its startTime 

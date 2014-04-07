@@ -196,7 +196,7 @@ public class ArchLevel extends Level {
         }
     }
 
-    private void setGlobalVariablesTo(paramsPCG m) {
+    public void setGlobalVariablesTo(paramsPCG m) {
         odds[STRAIGHT] = (int) m.ODDS_STRAIGHT;
         odds[HILL_STRAIGHT] = (int) m.ODDS_HILL_STRAIGHT;
         odds[TUBES] = (int) m.ODDS_TUBES;

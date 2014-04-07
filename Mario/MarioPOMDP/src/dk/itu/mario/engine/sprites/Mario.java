@@ -44,7 +44,7 @@ public class Mario extends Sprite {
     private static float GROUND_INERTIA = 0.89f;
     private static float AIR_INERTIA = 0.89f;
 
-    private  int deathSection;
+    private int deathSection;
     public boolean[] keys;
     private float runTime;
     boolean wasOnGround = false;
@@ -146,14 +146,14 @@ public class Mario extends Sprite {
 
         blink(true);
     }
-    
-    public void incrementEnemyKilled(){
+
+    public void incrementEnemyKilled() {
         enemieskilled += 1;
     }
 
     public void move() {
         lastSectionType = currentSectionType;
-        currentSectionType = world2.getCurrentSectionType((int) (((double) x)/16));
+        currentSectionType = world2.getCurrentSectionType((int) (((double) x) / 16));
         //System.out.println("current section type: "+currentSectionType);//paris
         // sectiontypes 0-4, -1 means invalid
         if (lastSectionType != currentSectionType) {
@@ -178,20 +178,25 @@ public class Mario extends Sprite {
             if (keys[KEY_SPEED]) {
                 if (world.recorder != null && world.recorder.recording) {
                     world.recorder.startRunningRecord();
-                    if (changedSection){
-                        if (lastSectionType != -1)
+                    if (changedSection) {
+                        if (lastSectionType != -1) {
                             world.recorder.endSectionRunningRecord(lastSectionType);
-                        if (currentSectionType != -1)
+                        }
+                        if (currentSectionType != -1) {
                             world.recorder.resumeSectionRunningRecord();
-                    } else if (currentSectionType != -1)
-                            world.recorder.startSectionRunningRecord();
+                        }
+                    } else if (currentSectionType != -1) {
+                        world.recorder.startSectionRunningRecord();
+                    }
                 }
 
                 running = true;
             } else {
                 if (world.recorder != null && world.recorder.recording) {
                     world.recorder.endRunningRecord();
-                    if (currentSectionType != -1) world.recorder.endSectionRunningRecord(currentSectionType);
+                    if (currentSectionType != -1) {
+                        world.recorder.endSectionRunningRecord(currentSectionType);
+                    }
                 }
 
                 running = false;
@@ -313,54 +318,63 @@ public class Mario extends Sprite {
         }
 
         if (world.mario.xa > 0) {
-            if (changedSection){
-                if(lastSectionType != -1)
+            if (changedSection) {
+                if (lastSectionType != -1) {
                     world.recorder.endSectionRightMoveRecord(lastSectionType);
-                if (currentSectionType != -1)
+                }
+                if (currentSectionType != -1) {
                     world.recorder.startSectionRightMoveRecord();
+                }
             }
             if (direction != 1) {
                 direction = 1;
                 if (world.recorder != null) {
 //        			world.recorder.switchRecord();
                     world.recorder.startRightMoveRecord();
-                    if (currentSectionType != -1)
+                    if (currentSectionType != -1) {
                         world.recorder.startSectionRightMoveRecord();
+                    }
                 }
-            } 
+            }
 
         } else if (world.mario.xa < 0) {
-            if (changedSection){
-                if(lastSectionType != -1)
+            if (changedSection) {
+                if (lastSectionType != -1) {
                     world.recorder.endSectionLeftMoveRecord(lastSectionType);
-                if (currentSectionType != -1)
+                }
+                if (currentSectionType != -1) {
                     world.recorder.startSectionLeftMoveRecord();
+                }
             }
             if (direction != -1) {
                 direction = -1;
                 if (world.recorder != null) {
 //        			world.recorder.switchRecord();
                     world.recorder.startLeftMoveRecord();
-                    if (currentSectionType != -1)
+                    if (currentSectionType != -1) {
                         world.recorder.startSectionLeftMoveRecord();
+                    }
                 }
-            } 
+            }
 
         } else {
             //was moving right
             if (direction == 1 && world.recorder != null) {
                 world.recorder.endRightMoveRecord();
-                if (currentSectionType != -1)
-                        world.recorder.endSectionRightMoveRecord(currentSectionType);
+                if (currentSectionType != -1) {
+                    world.recorder.endSectionRightMoveRecord(currentSectionType);
+                }
             } //was moving left
             else if (direction == -1 && world.recorder != null) {
                 world.recorder.endLeftMoveRecord();
-                if (currentSectionType != -1)
-                        world.recorder.endSectionLeftMoveRecord(currentSectionType);
+                if (currentSectionType != -1) {
+                    world.recorder.endSectionLeftMoveRecord(currentSectionType);
+                }
             }
             // standing still counts as not going forward for the difficulty estimation
-            if (currentSectionType != -1)
-                        world.recorder.startSectionLeftMoveRecord();
+            if (currentSectionType != -1) {
+                world.recorder.startSectionLeftMoveRecord();
+            }
             direction = 0;
         }
 
@@ -695,7 +709,7 @@ public class Mario extends Sprite {
         onGround = false;
         sliding = false;
         invulnerableTime = 1;
-        if(!enemy.winged){
+        if (!enemy.winged) {
             incrementEnemyKilled();
         }
         if (world.recorder != null) {
@@ -815,19 +829,20 @@ public class Mario extends Sprite {
     public void die() {
         //paris: do calculations when mario dies.
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        System.out.println("death Time: "+calendar.getTimeInMillis() / 1000);
-       
+        System.out.println("death Time: " + calendar.getTimeInMillis() / 1000);
+
         //get section in which mario died and save the time.
         ArrayList<SectionOfGame> sections = world2.getSections();
-        sections.get(currentSectionType).setDiedHere(true);
-        sections.get(currentSectionType).setDeathTime(calendar.getTimeInMillis()/1000);
-        this.deathSection = currentSectionType;
-        
-        for (SectionOfGame section:sections){
-            section.resetAtDeath();
+        if (currentSectionType != -1) {
+            sections.get(currentSectionType).setDiedHere(true);
+            sections.get(currentSectionType).setDeathTime(calendar.getTimeInMillis() / 1000);
+            this.deathSection = currentSectionType;
+
+            for (SectionOfGame section : sections) {
+                section.resetAtDeath();
+            }
         }
-        
-        
+
         xDeathPos = (int) x;
         yDeathPos = (int) y;
         world.paused = true;
@@ -981,8 +996,8 @@ public class Mario extends Sprite {
     public static void getCoin() {
         coins++;
         /*if (coins == 100) {
-            coins = 0;
-            get1Up();
-        }*/
+         coins = 0;
+         get1Up();
+         }*/
     }
 }
