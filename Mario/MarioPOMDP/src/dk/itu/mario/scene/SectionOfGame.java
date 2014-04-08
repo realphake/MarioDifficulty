@@ -434,8 +434,8 @@ public class SectionOfGame {
             int nextAction = 0;
 
             //if user is always neutral, the game will not "progress" so, make it a bit harder.
-            if (this.emotions[0] > 0.8 && this.previousEmotions[0] > 0.8) {
-                System.out.println("User >.8 neutral");
+            if (this.emotions[0] > 0.7) {
+                System.out.println("User >.7 neutral");
                 nextAction = 1;
             } else {
 
