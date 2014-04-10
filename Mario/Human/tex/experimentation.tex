@@ -23,16 +23,60 @@
 \usepackage{amssymb}
 \usetikzlibrary{calc}
 \usetikzlibrary{positioning}
-
-
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
 \usepackage{amsmath}
 \begin{document}
 
 \begin{center}
-\textbf{Experimentation on Personalized Mario}
+\textbf{Personalized Mario}
 
-24 March 2014
 \end{center}
+
+\section{Gradient Ascent Optimization}
+The algorithm I implemented is a variation of the gradient ascent algorithm.  
+What is being optimized is the difficulty settings of the game at each segment, by calculating the gradient of emotions at the present and previous segment. 
+
+Before presenting the algorithm, there are some fundamentals to be discussed. 
+
+\begin{itemize}
+
+
+\item Emotions are tracked while the game is being played, but they are processed and taken into account at the event of a segment being finished or death of Mario (offline).
+\item Emotions are calculated for each section separately, thus providing us with 5 vectors of emotions at each game segment. The calculations are done for each segment independently. 
+\item Segments are considered independent of each other. Performance in segment $t$ does not affect the difficulty of segment $t+1$
+\item Emotions affecting the calculations are: Neutral, Happy \& Angry.
+\item The starting difficulty is "1" for each section.
+\end{itemize}
+
+The algorithm is provided step by step below: 
+
+
+\begin{algorithm}
+\caption{Gradient Ascent Optimization for Personalized Mario}\label{euclid}
+\begin{algorithmic}[1]
+\Procedure{GAOptimize}{$e_t,e_{t-1}$}\Comment{Emotion vectors of current and previous segment}
+
+   \State $\alpha\gets variance(e_1)$\Comment{compute alpha (first segment)}
+      \For{$each : Section$}
+
+      \State $\epsilon\gets argmax|e_t-e_{t-1}|$ \Comment{Get the highest emotion difference}
+      \State $newDiff\gets\epsilon*5*\alpha*(\pm1)$\Comment{Calculate next difficulty (t+1)}
+      \State \textbf{return} $newDiff$
+   \EndFor
+   
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+There are a few features that aim towards implementing the algorithm, that do not belong to the gradient ascent implementation but are mostly of heuristic nature.
+\begin{itemize}
+\item Post-death emotions can directly change the difficulty (before segment is finished)
+\item High average of neutral emotion will result in a minimum increase in difficulty
+\end{itemize}
+
+\section{Evaluation Hypotheses}
+
 
 \section{Experimentation}
 \begin{itemize}
