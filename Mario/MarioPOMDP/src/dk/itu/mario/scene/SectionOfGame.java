@@ -65,7 +65,8 @@ public class SectionOfGame {
     public void setPossibleActions(int[] possibleActions) {
         this.possibleActions = possibleActions;
     }
-
+    
+   
     private double deathTime;
     private boolean diedHere;
 
@@ -434,8 +435,8 @@ public class SectionOfGame {
             int nextAction = 0;
 
             //if user is always neutral, the game will not "progress" so, make it a bit harder.
-            if (this.emotions[0] > 0.7) {
-                System.out.println("User >.7 neutral");
+            if (this.emotions[0] > 0.75*alphaFactor) {
+                System.out.println("User >.75 neutral");
                 nextAction = 1;
             } else {
 

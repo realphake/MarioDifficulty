@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.3.25)  10 APR 2014 19:24
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.3.25)  15 APR 2014 01:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -379,9 +379,12 @@ Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
 \@float@every@algorithm=\toks27
 \c@algorithm=\count108
 )
-(./algpseudocode.sty
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/algorithmicx/algpseudocode.s
+ty
 Package: algpseudocode 
- (./algorithmicx.sty
+
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/algorithmicx/algorithmicx.st
+y
 Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
 
 Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
@@ -531,18 +534,18 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 45.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 47.
  (/usr/local/texlive/2013basic/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 45.
-LaTeX Font Info:    Try loading font information for U+msa on input line 47.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 47.
+LaTeX Font Info:    Try loading font information for U+msa on input line 49.
 
 (/usr/local/texlive/2013basic/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 47.
+LaTeX Font Info:    Try loading font information for U+msb on input line 49.
 
 (/usr/local/texlive/2013basic/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -552,13 +555,13 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ]
 (./experimentation.aux) ) 
 Here is how much of TeX's memory you used:
- 11333 strings out of 494536
- 209803 string characters out of 6167446
- 251075 words of memory out of 5000000
- 14338 multiletter control sequences out of 15000+600000
+ 11342 strings out of 494536
+ 210231 string characters out of 6167446
+ 251074 words of memory out of 5000000
+ 14346 multiletter control sequences out of 15000+600000
  9801 words of font info for 37 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 56i,5n,55p,425b,285s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 56i,6n,55p,500b,294s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2013basic/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2013basic/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2013basic/texmf-dist/fonts
@@ -570,7 +573,7 @@ exmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2013basic
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2013bas
 ic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/201
 3basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on experimentation.pdf (2 pages, 109676 bytes).
+Output written on experimentation.pdf (2 pages, 113714 bytes).
 PDF statistics:
  54 PDF objects out of 1000 (max. 8388607)
  39 compressed objects within 1 object stream

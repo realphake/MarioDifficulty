@@ -609,6 +609,8 @@ public class LevelSceneTest extends LevelScene {
             
             //paris: calculate stuff during segments and update difficulties.
             for (SectionOfGame section : sections) {
+                
+                
                 /**
                  * System.out.println(section.getId()); section.printEmotions();
                  * if(section.getEmotions()[0]>0.2){

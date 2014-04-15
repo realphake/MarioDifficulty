@@ -33,6 +33,8 @@
 
 \end{center}
 
+
+
 \section{Gradient Ascent Optimization}
 The algorithm I implemented is a variation of the gradient ascent algorithm.  
 What is being optimized is the difficulty settings of the game at each segment, by calculating the gradient of emotions at the present and previous segment. 
@@ -57,12 +59,17 @@ The algorithm is provided step by step below:
 \begin{algorithmic}[1]
 \Procedure{GAOptimize}{$e_t,e_{t-1}$}\Comment{Emotion vectors of current and previous segment}
 
-   \State $\alpha\gets variance(e_1)$\Comment{compute alpha (first segment)}
+   \State $\alpha\gets 1-variance(e_1)$\Comment{compute alpha (first segment)}
+   \State $\delta \gets \alpha*5$\Comment{scale to difficulty space [-5...5]}
       \For{$each : Section$}
 
       \State $\epsilon\gets argmax|e_t-e_{t-1}|$ \Comment{Get the highest emotion difference}
-      \State $newDiff\gets\epsilon*5*\alpha*(\pm1)$\Comment{Calculate next difficulty (t+1)}
-      \State \textbf{return} $newDiff$
+      \State $nextAction\gets\epsilon*\delta$\Comment{Calculate next action (raise/lower difficulty)}
+      \If{$\epsilon\in\{angry,neutral\}$}\Comment{If the emotion change is "negative"}
+      \State{$nextAction \gets -nextAction$}
+      \EndIf
+       \State{$nextDifficulty\gets previousDifficulty + nextAction$}\Comment{Calculate next difficulty}
+      \State \textbf{return} $newDifficulty$
    \EndFor
    
 \EndProcedure
@@ -72,20 +79,26 @@ The algorithm is provided step by step below:
 There are a few features that aim towards implementing the algorithm, that do not belong to the gradient ascent implementation but are mostly of heuristic nature.
 \begin{itemize}
 \item Post-death emotions can directly change the difficulty (before segment is finished)
-\item High average of neutral emotion will result in a minimum increase in difficulty
+\item High average of neutral emotion will result in a minimum increase in difficulty (The threshold should be relevant to $\alpha$)
 \end{itemize}
 
 \section{Evaluation Hypotheses}
+This implementation will be tested in comparison with an existing baseline implementation of Infinite Mario, which is not using facial expression recognition. 
+
+I expect this implementation to perform at least equally good with the baseline algorithm, although due to the high probability of neutral expressions while playing, some players may find it quite challenging, or even hard to play.
+
+The way the algorithm is designed, I expect it to converge to an optimal level of difficulty, where the emotions of the user will be stable and not dominated by neutral. However, given the fact that the emotion recognition software is not perfect, and could produce false predictions, in some cases I expect user disappointment. This is the reason why I have added some heuristic features to the algorithm, to tackle problems like the one mentioned previously.
 
 
 \section{Experimentation}
-\begin{itemize}
-\item introduce a factor $\alpha$ on how "steep" the action decision can be
-\item test on the same person for different $\alpha = [0..1]$
-\item test for different initial parameters
-\item test for different decision making functions
-\item add convergence threshold (when changes in actions are small enough to not really affect the game difficulty)
-\end{itemize}
+
+Since the $\alpha$ factor is computed automatically, this feature will not be tuned in the experimentation. 
+
+One possible experiment could be a variety of starting difficulties, to test the convergence speed of the algorithm, or maybe also test its responsiveness to user dissatisfaction (when the game starts at really high levels of difficulty). 
+
+The baseline experiment will ask the user to play a number of segments which will be produced by either the baseline implementation or the one I'm presenting. In fact, the user should not be told when his expressions are recorded in order for him to provide me with unbiased feedback. 
+
+The results I'm looking to reach is user satisfaction, a feeling that the game is adapting to the user's requirements and minimum game abandonment.
 
 \section{Evaluation}
 
