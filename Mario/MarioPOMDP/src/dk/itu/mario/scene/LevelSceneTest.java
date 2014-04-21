@@ -604,6 +604,23 @@ public class LevelSceneTest extends LevelScene {
                 this.alphaFactor = 1-emotionVarianceThisSegment;
                 System.out.println("alpha Factor : "+ this.alphaFactor);
                 this.firstRun=false;
+                
+                
+            //write initial Difficulties to file
+            StringBuilder line2 = new StringBuilder();
+            for(SectionOfGame section:sections){
+                line2.append("1");
+                line2.append(" ");
+            }
+
+            try {
+                String filename = "difficulties.txt";
+                PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename, true)));
+                out.println(line2);
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             }
             
             
@@ -646,8 +663,9 @@ public class LevelSceneTest extends LevelScene {
                 System.out.println("emotion "+nhaInd+" "+tempSumNha[nhaInd]);
             }
             
-            //write to file
+            //write neutral,happy,angry to file
             StringBuilder line = new StringBuilder();
+            
             line.append(String.valueOf(tempSumNha[0]));
             line.append(" ");
             line.append(String.valueOf(tempSumNha[1]));
@@ -657,6 +675,22 @@ public class LevelSceneTest extends LevelScene {
                 String filename = "neutralHappyAngry.txt";
                 PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename, true)));
                 out.println(line);
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            
+            //write new Difficulties to file
+            StringBuilder line2 = new StringBuilder();
+            for(SectionOfGame section:sections){
+                line2.append(String.valueOf(this.newDifficulties[section.getId()]));
+                line2.append(" ");
+            }
+
+            try {
+                String filename = "difficulties.txt";
+                PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename, true)));
+                out.println(line2);
                 out.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -1090,11 +1124,19 @@ public class LevelSceneTest extends LevelScene {
         float[] deathEmotions = sections.get(deathSection).getDeathEmotions();
         int[] difficultiesAfterDeath = this.newDifficulties;
         boolean isAngry = true;
-        for(float emotion:deathEmotions){
-            if(deathEmotions[3]<emotion){
-                isAngry = false;
-            }
+        
+        //old implementation: angry > all else
+//        for(float emotion:deathEmotions){
+//            if(deathEmotions[3]<emotion){
+//                isAngry = false;
+//            }
+//        }
+        
+        //new implementation heuristic : angry>0.3?
+        if(deathEmotions[3]<0.2){
+            isAngry = false;
         }
+        
         if(isAngry==true){
             System.out.println("user is angry, decreasing difficulty for section: "+deathSection);
             difficultiesAfterDeath[deathSection]-=1;

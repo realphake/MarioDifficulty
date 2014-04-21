@@ -435,8 +435,8 @@ public class SectionOfGame {
             int nextAction = 0;
 
             //if user is always neutral, the game will not "progress" so, make it a bit harder.
-            if (this.emotions[0] > 0.75*alphaFactor) {
-                System.out.println("User >.75 neutral");
+            if (this.emotions[0] > 0.8*alphaFactor) {
+                System.out.println("User >.8 neutral");
                 nextAction = 1;
             } else {
 
@@ -456,12 +456,16 @@ public class SectionOfGame {
                 //new "smart" implementation
                 float differences[] = {0, 0, 0};
                 //neutral
-                differences[0] = this.emotions[0] - this.previousEmotions[0];
+                //differences[0] = this.emotions[0] - this.previousEmotions[0];
+                differences[0] = 0;
                 //happy
                 differences[1] = this.emotions[1] - this.previousEmotions[1];
                 //angry
                 differences[2] = this.emotions[3] - this.previousEmotions[3];
-
+                
+                
+                
+                
                 int mostImportantDiff = this.findMostImportantDiff(differences);
                 //neutral
                 if (mostImportantDiff == 0) {
@@ -475,7 +479,7 @@ public class SectionOfGame {
                     }
                 } //happy
                 else if (mostImportantDiff == 1) {
-                    System.out.println("most important =1 ****" + differences[1]);
+                    System.out.println("most important =happy ****" + differences[1]);
 
                     //happy increase
                     if (differences[1] > 0) {
@@ -484,7 +488,7 @@ public class SectionOfGame {
                         nextAction = Math.round(5 * differences[1] * (-1) * alphaFactor);
                     }
                 } else {
-                    System.out.println("most important =2 ****" + differences[2]);
+                    System.out.println("most important =angry ****" + differences[2]);
                     //angry increase    
                     if (differences[2] > 0) {
                         nextAction = Math.round(5 * differences[2] * (-1) * alphaFactor);
