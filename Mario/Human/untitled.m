@@ -1,5 +1,5 @@
-file = fopen('allEmotions.txt');
-A=fscanf(file,'%f %f',[7 inf]);
+file = fopen('difficulties.txt');
+A=fscanf(file,'%f %f',[5 inf]);
 A=A';
 plot(A);
-legend('neutral','happy','surprised','angry','disgusted','afraid','sad');
+legend('STRAIGHT','HILLS','TUBES','JUMPS','CANNONS','Location','northwest');

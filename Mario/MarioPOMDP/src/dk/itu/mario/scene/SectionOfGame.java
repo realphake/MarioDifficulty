@@ -377,8 +377,12 @@ public class SectionOfGame {
                 for (int q = 0; q < 7; q++) {
                     //save death emotions
                     this.deathEmotions[q] /= times;
-                    //save this.emotions to include deathEmotions
-                    this.emotions[q] = this.deathEmotions[q];
+                }
+                //if difficulty is not going to change, include death emotions to emotions table.
+                if(this.deathEmotions[3]<=0.2){
+                    for(int qq=0;qq<7;qq++){
+                        this.emotions[qq] = this.deathEmotions[qq];
+                    }
                 }
 
                 //System.out.println(System.getProperty("user.dir"));// get pwd.
@@ -513,6 +517,7 @@ public class SectionOfGame {
     }
 
     //initialize with id that corresponds to section type.
+    //CONSTRUCTOR
     public SectionOfGame(int id) {
         this.id = id;
         this.emotions = new float[7];

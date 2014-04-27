@@ -1146,6 +1146,23 @@ public class LevelSceneTest extends LevelScene {
         }
         
         arch.params_new.setSettingsInt(difficultiesAfterDeath);
+            
+            //write new Difficulties to file
+            StringBuilder line2 = new StringBuilder();
+            for(SectionOfGame section:sections){
+                line2.append(String.valueOf(difficultiesAfterDeath[section.getId()]));
+                line2.append(" ");
+            }
+
+            try {
+                String filename = "difficulties.txt";
+                PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename, true)));
+                out.println(line2);
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        
         level2 = new ArchLevel(arch.params_new);
         level3 = new ArchLevel(arch.params_new);
         
