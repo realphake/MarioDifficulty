@@ -1140,6 +1140,9 @@ public class LevelSceneTest extends LevelScene {
         if(isAngry==true){
             System.out.println("user is angry, decreasing difficulty for section: "+deathSection);
             difficultiesAfterDeath[deathSection]-=1;
+            
+            sections.get(deathSection).setWasReduced(true);
+            
             if(difficultiesAfterDeath[deathSection]<0){
                 difficultiesAfterDeath[deathSection]=0;
             }

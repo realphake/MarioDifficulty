@@ -86,6 +86,7 @@ public class SectionOfGame {
         this.diedHere = diedHere;
     }
 
+    private boolean wasReduced = false;
     private float[] deathEmotions = {0, 0, 0, 0, 0, 0, 0};
     private float[] emotionVariance = {0, 0, 0, 0, 0, 0, 0};
     private int previousAction;
@@ -136,17 +137,17 @@ public class SectionOfGame {
     public void resetAtDeath(){
         System.out.println("resetting because of death.");
         //reset all values
-        if(this.diedHere==true){
-            this.times = 1;
-        }else{
-            this.times=0;
-        }
+//        if(this.diedHere==true){
+//            this.times = 1;
+//        }else{
+//            this.times=0;
+//        }
         this.diedHere = false;
         this.hasEnded = false;
         this.hasEnded2 = false;
         this.hasStarted = false;
         this.hasStarted2 = false;
-        this.allEmotions = new ArrayList<float[]>();
+        //this.allEmotions = new ArrayList<float[]>();
     }
     
     
@@ -352,9 +353,9 @@ public class SectionOfGame {
                         //if counter exceeds array dimensions
                         if (counter > 6) {
                             if (a != -1) {
-                                //sections.get(a).addEmotions(emotions);
-                                //sections.get(a).increaseTimes();
-
+                                this.addEmotions(emotions);
+                                this.increaseTimes();
+                                
                                 float[] temp = new float[7];
                                 for (int p = 0; p < emotions.length; p++) {
                                     temp[p] = emotions[p];
@@ -381,8 +382,9 @@ public class SectionOfGame {
                 //if difficulty is not going to change, include death emotions to emotions table.
                 if(this.deathEmotions[3]<=0.2){
                     for(int qq=0;qq<7;qq++){
-                        this.emotions[qq] = this.deathEmotions[qq];
+                        this.emotions[qq] = this.deathEmotions[qq];    
                     }
+                    //this.allEmotions.add(this.emotions);
                 }
 
                 //System.out.println(System.getProperty("user.dir"));// get pwd.
@@ -397,6 +399,14 @@ public class SectionOfGame {
             System.out.println(this.deathEmotions[qq]);
         }
 
+    }
+
+    public boolean isWasReduced() {
+        return wasReduced;
+    }
+
+    public void setWasReduced(boolean wasReduced) {
+        this.wasReduced = wasReduced;
     }
 
     public float[] getDeathEmotions() {
@@ -442,7 +452,15 @@ public class SectionOfGame {
             if (this.emotions[0] > 0.8*alphaFactor) {
                 System.out.println("User >.8 neutral");
                 nextAction = 1;
-            } else {
+            }
+            //if difficulty was reduced during death
+            else if(this.wasReduced==true){
+                this.wasReduced = false;
+                System.out.println("difficulty was reduced during death");
+                nextAction = 0;
+            }
+            
+            else {
 
                 //the user has already played a round, so we calculate referring to the previous measurements
                 int nextDifficulty = this.previousDifficulty;
