@@ -4,7 +4,7 @@ A=A';
 A=A(:,:)
 
 
-file = fopen('section1Emotions.txt');
+file = fopen('allEmotions.txt');
 b=fscanf(file,'%f %f',[7 inf]);
 b=b';
 

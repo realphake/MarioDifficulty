@@ -119,13 +119,17 @@ public class LevelSceneTest extends LevelScene {
         }
         this.firstRun = true;
         this.alphaFactor =0;
-        int[] temp = {1, 1, 1, 1, 1, 1};
+        int[] temp = {1,1,1,1,1,1};
+        //set difficulties for sections aswell.
+        for(SectionOfGame section : this.sections){
+            section.setPreviousDifficulty(temp[0]);
+        }
         this.newDifficulties = temp;
         
         //System.out.println("paris implementation");
         //create list of sections.
         /**
-         * STRAIGHT = 0; HILL_STRAIGHT = 1; TUBES = 2; JUMP = 3; CANNONS = 4;
+            * STRAIGHT = 0; HILL_STRAIGHT = 1; TUBES = 2; JUMP = 3; CANNONS = 4;
          */
         for (int i = 0; i < 5; i++) {
             SectionOfGame section = new SectionOfGame(i);
@@ -706,7 +710,7 @@ public class LevelSceneTest extends LevelScene {
             //System.out.println("----------------------------------------");
             // Difficulty Popup here -DP1
             //System.out.println("-pausing");
-            arch.Obs = recorder.fillGamePlayMetrics(getUserOpinion(), verbose, request, online); //write metrics at swapping to new level segment
+            //arch.Obs = recorder.fillGamePlayMetrics(getUserOpinion(), verbose, request, online); //write metrics at swapping to new level segment
             //Load test instances and select last instance for classification
             //Update in which level segment the player currently is
             //arch.reward_label = level3.getCustomRewards("coin");
@@ -1124,6 +1128,18 @@ public class LevelSceneTest extends LevelScene {
         float[] deathEmotions = sections.get(deathSection).getDeathEmotions();
         int[] difficultiesAfterDeath = this.newDifficulties;
         boolean isAngry = true;
+    
+        
+                
+//        System.out.println("----EMOTIONS BEFORE DEATH");
+//        for(int z=0;z<7;z++){
+//            System.out.println(sections.get(deathSection).getEmotionsBeforeDeath()[z]);
+//        }
+//        System.out.println("----EMOTIONS AT DEATH");
+//        for(int z=0;z<7;z++){
+//            System.out.println(sections.get(deathSection).getDeathEmotions()[z]);
+//        }
+//        
         
         //old implementation: angry > all else
 //        for(float emotion:deathEmotions){
@@ -1131,6 +1147,7 @@ public class LevelSceneTest extends LevelScene {
 //                isAngry = false;
 //            }
 //        }
+
         
         //new implementation heuristic : angry>0.3?
         if(deathEmotions[3]<0.2){
@@ -1198,7 +1215,12 @@ public class LevelSceneTest extends LevelScene {
 
         tick = 0;
 
-
+//        float[] zeros = {0,0,0,0,0,0,0};
+//        sections.get(deathSection).setDeathEmotions(zeros);
+//        sections.get(deathSection).setEmotionsBeforeDeath(zeros);
+//        
+        
+        
         /*
          * SETS UP ALL OF THE CHECKPOINTS TO CHECK FOR SWITCHING
          */
@@ -1218,6 +1240,10 @@ public class LevelSceneTest extends LevelScene {
         //System.out.println("\n enemies LEFT : " + recorder.level.BLOCKS_COINS);
         //System.out.println("\n enemies LEFT : " + recorder.level.BLOCKS_POWER);
         gameStarted = false;
+        
+        
+        
+        
     }
 
     public void sectionCalculations() {

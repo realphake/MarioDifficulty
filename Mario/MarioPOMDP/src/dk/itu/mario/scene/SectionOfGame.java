@@ -65,8 +65,7 @@ public class SectionOfGame {
     public void setPossibleActions(int[] possibleActions) {
         this.possibleActions = possibleActions;
     }
-    
-   
+
     private double deathTime;
     private boolean diedHere;
 
@@ -86,6 +85,15 @@ public class SectionOfGame {
         this.diedHere = diedHere;
     }
 
+    private float[] emotionsBeforeDeath = {0, 0, 0, 0, 0, 0, 0};
+
+    public float[] getEmotionsBeforeDeath() {
+        return emotionsBeforeDeath;
+    }
+
+    public void setEmotionsBeforeDeath(float[] emotionsBeforeDeath) {
+        this.emotionsBeforeDeath = emotionsBeforeDeath;
+    }
     private boolean wasReduced = false;
     private float[] deathEmotions = {0, 0, 0, 0, 0, 0, 0};
     private float[] emotionVariance = {0, 0, 0, 0, 0, 0, 0};
@@ -134,7 +142,7 @@ public class SectionOfGame {
         this.times = times;
     }
 
-    public void resetAtDeath(){
+    public void resetAtDeath() {
         System.out.println("resetting because of death.");
         //reset all values
 //        if(this.diedHere==true){
@@ -149,9 +157,7 @@ public class SectionOfGame {
         this.hasStarted2 = false;
         //this.allEmotions = new ArrayList<float[]>();
     }
-    
-    
-    
+
     //function to reset the section measurements.
     //also calls calculateNextDifficulty.
     public void reset(float alphaFactor) {
@@ -318,8 +324,14 @@ public class SectionOfGame {
     public void calculateDeathEmotions(double resetTime) {
         //System.out.println("in calcdeathEmotions");
         //System.out.println("reset time: "+ resetTime + "death time : "+this.deathTime);
-
+        System.out.println("st: " + this.startTime + " dt: " + this.deathTime);
         float[] emotions = {0, 0, 0, 0, 0, 0, 0};
+        
+        //emotions before death. too hard to implement now.
+//        float[] emotionsBeforeDeath = {0, 0, 0, 0, 0, 0, 0};
+//        int counter2 = 0;
+//        int times2 = 0;
+
         int counter = 0;
         int times = 0;
 
@@ -328,6 +340,8 @@ public class SectionOfGame {
             String currentLine;
             int a = this.id;
             boolean valid = false;
+          //  boolean valid2 = false;
+
             //System.out.println(System.getProperty("user.dir"));
             BufferedReader br = new BufferedReader(new FileReader("../../../output/emotions.txt"));
             try {
@@ -338,6 +352,15 @@ public class SectionOfGame {
                         String timeStampS = currentLine.substring(7, currentLine.length());
                         Double temp = Double.valueOf(timeStampS);
                         double timeStamp = temp.doubleValue();
+
+//                        if (timeStamp >= this.startTime && timeStamp <= this.deathTime) {
+//                            valid2 = true;
+//                            System.out.println("VALID 2 IS TRUE ");
+//                        }
+//                        else{
+//                            valid2 = false;
+//                        }
+
                         if (timeStamp >= this.deathTime && timeStamp <= resetTime) {
                             //System.out.println("found valid timestamp!");
                             //System.out.println(timeStamp);
@@ -355,7 +378,7 @@ public class SectionOfGame {
                             if (a != -1) {
                                 this.addEmotions(emotions);
                                 this.increaseTimes();
-                                
+
                                 float[] temp = new float[7];
                                 for (int p = 0; p < emotions.length; p++) {
                                     temp[p] = emotions[p];
@@ -373,16 +396,20 @@ public class SectionOfGame {
                             counter = 0;
                         }
                     }
-
                 }
                 for (int q = 0; q < 7; q++) {
                     //save death emotions
                     this.deathEmotions[q] /= times;
+                   // this.emotionsBeforeDeath[q] /= times2;
+
                 }
+                
+
+                
                 //if difficulty is not going to change, include death emotions to emotions table.
-                if(this.deathEmotions[3]<=0.2){
-                    for(int qq=0;qq<7;qq++){
-                        this.emotions[qq] = this.deathEmotions[qq];    
+                if (this.deathEmotions[3] <= 0.2) {
+                    for (int qq = 0; qq < 7; qq++) {
+                        this.emotions[qq] = this.deathEmotions[qq];
                     }
                     //this.allEmotions.add(this.emotions);
                 }
@@ -395,9 +422,9 @@ public class SectionOfGame {
             ex.printStackTrace();
         }
 
-        for (int qq = 0; qq < 7; qq++) {
-            System.out.println(this.deathEmotions[qq]);
-        }
+//        for (int qq = 0; qq < 7; qq++) {
+//            System.out.println(this.deathEmotions[qq]);
+//        }
 
     }
 
@@ -449,18 +476,15 @@ public class SectionOfGame {
             int nextAction = 0;
 
             //if user is always neutral, the game will not "progress" so, make it a bit harder.
-            if (this.emotions[0] > 0.8*alphaFactor) {
+            if (this.emotions[0] > 0.8 * alphaFactor) {
                 System.out.println("User >.8 neutral");
                 nextAction = 1;
-            }
-            //if difficulty was reduced during death
-            else if(this.wasReduced==true){
+            } //if difficulty was reduced during death
+            else if (this.wasReduced == true) {
                 this.wasReduced = false;
                 System.out.println("difficulty was reduced during death");
                 nextAction = 0;
-            }
-            
-            else {
+            } else {
 
                 //the user has already played a round, so we calculate referring to the previous measurements
                 int nextDifficulty = this.previousDifficulty;
@@ -484,10 +508,7 @@ public class SectionOfGame {
                 differences[1] = this.emotions[1] - this.previousEmotions[1];
                 //angry
                 differences[2] = this.emotions[3] - this.previousEmotions[3];
-                
-                
-                
-                
+
                 int mostImportantDiff = this.findMostImportantDiff(differences);
                 //neutral
                 if (mostImportantDiff == 0) {
