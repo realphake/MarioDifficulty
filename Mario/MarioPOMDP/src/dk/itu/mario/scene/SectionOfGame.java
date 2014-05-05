@@ -119,7 +119,14 @@ public class SectionOfGame {
     public void setAllEmotions(ArrayList<float[]> allEmotions) {
         this.allEmotions = allEmotions;
     }
-    private int previousDifficulty = 1;
+    
+    public void reducePreviousDifficulty(int d){
+        this.previousDifficulty-=d;
+        if(this.previousDifficulty<0){
+            this.previousDifficulty=0;
+        }
+    }
+    private int previousDifficulty = 5;
     private int nextDifficulty;
     private int[] possibleActions = {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5};
 

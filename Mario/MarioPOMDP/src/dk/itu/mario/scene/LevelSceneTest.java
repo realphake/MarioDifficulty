@@ -119,7 +119,8 @@ public class LevelSceneTest extends LevelScene {
         }
         this.firstRun = true;
         this.alphaFactor =0;
-        int[] temp = {1,1,1,1,1,1};
+        int diffParis = 5;
+        int[] temp = {diffParis,diffParis,diffParis,diffParis,diffParis,diffParis};
         //set difficulties for sections aswell.
         for(SectionOfGame section : this.sections){
             section.setPreviousDifficulty(temp[0]);
@@ -1070,7 +1071,6 @@ public class LevelSceneTest extends LevelScene {
         System.out.println("reset Time: "+calendar.getTimeInMillis() / 1000);
         sections.get(mario.getDeathSection()).calculateDeathEmotions(calendar.getTimeInMillis()/1000);
         
-        
 
         
         
@@ -1155,6 +1155,13 @@ public class LevelSceneTest extends LevelScene {
         }
         
         if(isAngry==true){
+            
+        if(this.firstRun){
+            System.out.println("reducing previous difficulty.");
+            sections.get(mario.getDeathSection()).reducePreviousDifficulty(1);
+        }
+
+            
             System.out.println("user is angry, decreasing difficulty for section: "+deathSection);
             difficultiesAfterDeath[deathSection]-=1;
             
