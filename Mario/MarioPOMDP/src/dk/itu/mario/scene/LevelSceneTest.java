@@ -968,7 +968,7 @@ public class LevelSceneTest extends LevelScene {
             tries--;
             if (tries == 0) {
                 tries = 3;
-                recorder.fillGamePlayMetrics(getUserOpinion(), verbose, request, online);
+              //  recorder.fillGamePlayMetrics(getUserOpinion(), verbose, request, online);
             }
             //Mario.lives--; //Infinite amount of lives
             reset();
@@ -1150,12 +1150,12 @@ public class LevelSceneTest extends LevelScene {
 
         
         //new implementation heuristic : angry>0.3?
-        if(deathEmotions[3]<0.2){
+        if(deathEmotions[3]<0.1){
             isAngry = false;
         }
         
         if(isAngry==true){
-            
+            int decreaseAmount = Math.round(deathEmotions[3]*5);
         if(this.firstRun){
             System.out.println("reducing previous difficulty.");
             sections.get(mario.getDeathSection()).reducePreviousDifficulty(1);
@@ -1163,7 +1163,7 @@ public class LevelSceneTest extends LevelScene {
 
             
             System.out.println("user is angry, decreasing difficulty for section: "+deathSection);
-            difficultiesAfterDeath[deathSection]-=1;
+            difficultiesAfterDeath[deathSection]-=decreaseAmount;
             
             sections.get(deathSection).setWasReduced(true);
             

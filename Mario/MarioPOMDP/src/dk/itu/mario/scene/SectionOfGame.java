@@ -414,7 +414,7 @@ public class SectionOfGame {
 
                 
                 //if difficulty is not going to change, include death emotions to emotions table.
-                if (this.deathEmotions[3] <= 0.2) {
+                if (this.deathEmotions[3] <= 0.1) {
                     for (int qq = 0; qq < 7; qq++) {
                         this.emotions[qq] = this.deathEmotions[qq];
                     }
