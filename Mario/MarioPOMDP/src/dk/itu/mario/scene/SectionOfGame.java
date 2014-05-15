@@ -33,6 +33,8 @@ public class SectionOfGame {
     }
 
     private float previousNeutral = 0;
+    
+    private ArrayList<float[]> gazeMeasurements; 
 
     public float getPreviousNeutral() {
         return previousNeutral;
@@ -54,6 +56,10 @@ public class SectionOfGame {
         return previousEmotions;
     }
 
+    public void addGazeMeasurements(float[] measurement){
+        this.gazeMeasurements.add(measurement);
+    }
+    
     public void setPreviousEmotions(float[] previousEmotions) {
         this.previousEmotions = previousEmotions;
     }
@@ -110,6 +116,7 @@ public class SectionOfGame {
     private boolean hasStarted2;
     private float[] emotions;
     private int times = 0;
+    private float[] gazeMatrix;
     private ArrayList<float[]> allEmotions;
 
     public ArrayList<float[]> getAllEmotions() {
@@ -126,7 +133,7 @@ public class SectionOfGame {
             this.previousDifficulty=0;
         }
     }
-    private int previousDifficulty = 5;
+    private int previousDifficulty = 1;
     private int nextDifficulty;
     private int[] possibleActions = {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5};
 
@@ -209,6 +216,8 @@ public class SectionOfGame {
     public float[] getEmotions() {
         return emotions;
     }
+    
+    private boolean readGaze = false;
 
     public void setEmotions(float[] emotions) {
         this.emotions = emotions;
@@ -354,8 +363,9 @@ public class SectionOfGame {
             try {
                 while ((currentLine = br.readLine()) != null) {
 
-                    if (currentLine.startsWith("-")) {
+                    if (currentLine.startsWith("---")) {
                         //read timestamp
+                        this.readGaze = false;
                         String timeStampS = currentLine.substring(7, currentLine.length());
                         Double temp = Double.valueOf(timeStampS);
                         double timeStamp = temp.doubleValue();
@@ -376,7 +386,7 @@ public class SectionOfGame {
                             valid = false;
                         }
 
-                    } else if (valid == true) {
+                    } else if (valid == true && this.readGaze ==false) {
                         //convert string to float and add it to the correct position.
                         emotions[counter] += Float.parseFloat(currentLine);
                         counter++;
@@ -393,6 +403,17 @@ public class SectionOfGame {
                                 }
                                 //add emotion to the total list
                                 //allGameEmotions.add(temp);
+                                
+                                float[] gazeMeasurements = {0,0,0};
+                                
+                                for(int kk=0;kk<3;kk++){
+                                    currentLine = br.readLine();
+                                    gazeMeasurements[kk] = Float.parseFloat(currentLine);
+                                    
+                                   
+                                }
+                                this.addGazeMeasurements(gazeMeasurements); 
+                                this.readGaze=true;
                             }
 
                             //reset the emotions table.
@@ -410,7 +431,7 @@ public class SectionOfGame {
                    // this.emotionsBeforeDeath[q] /= times2;
 
                 }
-                
+                this.normalizeGazeMeasurements();
 
                 
                 //if difficulty is not going to change, include death emotions to emotions table.
@@ -429,9 +450,6 @@ public class SectionOfGame {
             ex.printStackTrace();
         }
 
-//        for (int qq = 0; qq < 7; qq++) {
-//            System.out.println(this.deathEmotions[qq]);
-//        }
 
     }
 
@@ -447,6 +465,23 @@ public class SectionOfGame {
         return deathEmotions;
     }
 
+    public void normalizeGazeMeasurements (){
+        float [] avg = {0,0,0};
+        for(int i =0; i<this.gazeMeasurements.size();i++){
+            for(int j=0;j<3;j++){
+                avg[j]+=this.gazeMeasurements.get(i)[j];
+            }
+        }    
+        for(int q=0;q<3;q++){
+            avg[q]/=this.times;
+            this.gazeMatrix[q] = avg[q];
+            System.out.println(this.gazeMatrix[q]);
+        }
+        
+        
+    }
+    
+    
     public void setDeathEmotions(float[] deathEmotions) {
         this.deathEmotions = deathEmotions;
     }
@@ -565,9 +600,11 @@ public class SectionOfGame {
     //initialize with id that corresponds to section type.
     //CONSTRUCTOR
     public SectionOfGame(int id) {
+        this.gazeMatrix = new float[3];
         this.id = id;
         this.emotions = new float[7];
         this.allEmotions = new ArrayList<float[]>();
+        this.gazeMeasurements = new ArrayList<float[]>();
     }
 
     public int findMostImportantDiff(float[] diffs) {

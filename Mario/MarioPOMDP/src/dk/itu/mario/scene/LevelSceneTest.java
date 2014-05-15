@@ -65,7 +65,7 @@ public class LevelSceneTest extends LevelScene {
         this.sections = sections;
     }
     private int previousSection = -1;
-
+    private boolean readGaze = false;
     public ArrayList<double[]> valueArrayList = new ArrayList(0);//means of the gaussians, will contain all unique vectors used
     public ArrayList<double[]> rewardList = new ArrayList(0);//contains all rewards in same order as valueArrayList, corresponding to each vector, list for each vector
     public double[] vectorModel = new double[0];//appropriateness for vectors values in same order as valueArrayList, corresponding to each vector, one for each vector
@@ -119,7 +119,7 @@ public class LevelSceneTest extends LevelScene {
         }
         this.firstRun = true;
         this.alphaFactor =0;
-        int diffParis = 5;
+        int diffParis = 1;
         int[] temp = {diffParis,diffParis,diffParis,diffParis,diffParis,diffParis};
         //set difficulties for sections aswell.
         for(SectionOfGame section : this.sections){
@@ -1336,6 +1336,11 @@ public class LevelSceneTest extends LevelScene {
          *
          * allGameEmotions is a list that contains all the emotion vectors for
          * the whole durations of the segment.
+         * 
+         * 
+         * 
+         * NEW : ALSO READS YAW PITCH AND ROLL (with this sequence)
+         * 
          */
         float[] emotions = new float[7];
         double[][] startEndTimes = new double[5][4];
@@ -1359,19 +1364,24 @@ public class LevelSceneTest extends LevelScene {
             try {
                 while ((currentLine = br.readLine()) != null) {
 
-                    if (currentLine.startsWith("-")) {
+                    if (currentLine.startsWith("---")) {
                         //read timestamp
                         String timeStampS = currentLine.substring(7, currentLine.length());
                         Double temp = Double.valueOf(timeStampS);
                         double timeStamp = temp.doubleValue();
                         a = getSectionFromTimeStamp(startEndTimes, timeStamp);
+                        this.readGaze=false;
 
-                    } else {
+                    } else if(this.readGaze==false){
                         //convert string to float and add it to the correct position.
-                        emotions[counter] += Float.parseFloat(currentLine);
-                        counter++;
+                            emotions[counter] += Float.parseFloat(currentLine);
+                            counter++;
+                        
+                        
                         //if counter exceeds array dimensions
-                        if (counter > 6) {
+                        if (counter >6) {
+//                            float t = Float.valueOf(currentLine);
+//                            System.out.println("last line   "+t);
                             if (a != -1) {
                                 sections.get(a).addEmotions(emotions);
                                 sections.get(a).increaseTimes();
@@ -1382,6 +1392,17 @@ public class LevelSceneTest extends LevelScene {
                                 }
                                 //add emotion to the total list
                                 allGameEmotions.add(temp);
+                                
+                                
+                                float[] gazeMeasurements = {0,0,0};
+                                
+                                for(int kk=0;kk<3;kk++){
+                                    currentLine = br.readLine();
+                                    gazeMeasurements[kk] = Float.parseFloat(currentLine);
+                                    
+                                }
+                                sections.get(a).addGazeMeasurements(gazeMeasurements);  
+                                this.readGaze = true;
                             }
 
                             //reset the emotions table.
@@ -1394,6 +1415,9 @@ public class LevelSceneTest extends LevelScene {
 
                 }
 
+                
+                
+                
                 //write emotions to file
                 for (int j = 0; j < allGameEmotions.size(); j++) {
                     StringBuilder line = new StringBuilder();
@@ -1413,6 +1437,7 @@ public class LevelSceneTest extends LevelScene {
 
                 //normalize the emotions array for each section and print it to the console
                 for (SectionOfGame section : sections) {
+                    section.normalizeGazeMeasurements();
                     section.normalizeEmotions();
                     System.out.println("------" + section.getId() + "-------");
                     section.printEmotions();
