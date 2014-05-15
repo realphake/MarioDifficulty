@@ -116,6 +116,10 @@ public class SectionOfGame {
     private boolean hasStarted2;
     private float[] emotions;
     private int times = 0;
+    
+    /**
+     * gaze matrix = [Yaw, Pitch, Roll]
+     */
     private float[] gazeMatrix;
     private ArrayList<float[]> allEmotions;
 

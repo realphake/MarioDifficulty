@@ -65,7 +65,9 @@ public class LevelSceneTest extends LevelScene {
         this.sections = sections;
     }
     private int previousSection = -1;
+       
     private boolean readGaze = false;
+    
     public ArrayList<double[]> valueArrayList = new ArrayList(0);//means of the gaussians, will contain all unique vectors used
     public ArrayList<double[]> rewardList = new ArrayList(0);//contains all rewards in same order as valueArrayList, corresponding to each vector, list for each vector
     public double[] vectorModel = new double[0];//appropriateness for vectors values in same order as valueArrayList, corresponding to each vector, one for each vector
@@ -1393,7 +1395,9 @@ public class LevelSceneTest extends LevelScene {
                                 //add emotion to the total list
                                 allGameEmotions.add(temp);
                                 
-                                
+                                   /**
+                                    * gaze matrix = [Yaw, Pitch, Roll]
+                                    */
                                 float[] gazeMeasurements = {0,0,0};
                                 
                                 for(int kk=0;kk<3;kk++){
