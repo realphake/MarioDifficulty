@@ -8,7 +8,7 @@ public class Play {
 	public static void main(String[] args)
 	    {
 
-	    	JFrame frame = new JFrame("Mario POMDP");
+	    	JFrame frame = new JFrame("Personalised Mario");
 	    	MarioComponent mario = new MarioComponent(640, 480, false);
 
                 // Get a DifficultyRecorder instance

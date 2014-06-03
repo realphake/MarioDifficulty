@@ -149,6 +149,7 @@ public class Mario extends Sprite {
     public void move() {
         lastSectionType = currentSectionType;
         currentSectionType = world2.getCurrentSectionType((int) (((double) x)/16));
+        
         // sectiontypes 0-4, -1 means invalid
         if (lastSectionType != currentSectionType) {
             changedSection = true;
@@ -606,6 +607,8 @@ public class Mario extends Sprite {
                 sliding = false;
             }
         }
+        
+
 
         if (collide) {
             if (xa < 0) {
@@ -778,7 +781,7 @@ public class Mario extends Sprite {
         die();
 
         if (world.recorder != null) {
-            world.recorder.dieTimeRecord();
+            //world.recorder.dieTimeRecord();
         }
     }
 
@@ -826,6 +829,50 @@ public class Mario extends Sprite {
 
         large = false;
         fire = false;
+        
+        
+                
+        // map has length X and we have 5 parameters
+
+        // give new value to parameter
+        // reverseParams  or  params_old
+         
+        //if(world.arch.hasChangedPreference) //always mutate, otherwise people may get stuck completely
+//        if(world.arch.hasPassedTutorial) //always mutate if user has passed the tutorial, otherwise people may get stuck completely
+//        {   
+          
+            
+          if(world.arch.personalize)  {
+              
+                world.arch.params_new.incrementRandomorSpecific(false, world.arch.reverseParams, this.currentSectionType, true, true);
+//                double[] stepSize = {0,0,0,0,0};
+//                int[] newParam = {0, 0, 0, 0, 0};
+//                int[] oldParam =  world.arch.params_new.getSettingsInt();
+//                for (int i = 0; i < 5; i++) {
+//                stepSize[i] = (world.arch.alpha * world.arch.maxStep) * ( 1 - world.arch.runPerc[i] );
+//                System.out.println("alpha is: " + world.arch.alpha );
+//                System.out.println("max step is: " + world.arch.maxStep);
+//                System.out.println("runPerc is : " + world.arch.runPerc[i]);
+//                System.out.println("old param is : " + oldParam[i]);
+//                System.out.println("stepsize:" + stepSize[i]);
+//                newParam[i] = oldParam[i] -(int) stepSize[i];
+//                System.out.println("new param value:" + newParam[i]);
+//                }
+//                world.arch.params_new.setSettingsInt(newParam);
+        
+        
+                System.out.println("-resetting (with one mutation at point of death) to: jump(" 
+                    + world.arch.params_new.ODDS_JUMP + "), tubes(" 
+                    + world.arch.params_new.ODDS_TUBES + "), cannons(" 
+                    + world.arch.params_new.ODDS_CANNONS + "), straight(" 
+                    + world.arch.params_new.ODDS_STRAIGHT + "), hills(" 
+                    + world.arch.params_new.ODDS_HILL_STRAIGHT + "))");
+            
+            
+            
+//        }
+
+          }
     }
 
     public void getFlower() {

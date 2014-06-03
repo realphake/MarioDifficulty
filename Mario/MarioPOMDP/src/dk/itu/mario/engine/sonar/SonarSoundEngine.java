@@ -25,7 +25,7 @@ public class SonarSoundEngine implements Runnable
     private float[] leftBuf, rightBuf;
     private float amplitude = 1;
     private float targetAmplitude = 1;
-    private boolean alive = false;
+    private boolean alive = true; //SANDER AUDIO
 
     protected SonarSoundEngine()
     {

@@ -55,7 +55,7 @@ public class ArchLevel extends Level {
     public int sectionTypeAtCoordinate(int xCoord) {
         for (GameSection gs : gameSections) {
             if (xCoord < gs.xEnd && xCoord >= gs.xStart) {
-                return gs.blockType;
+                return (gs.blockType);
             }
         }
         return -1;
@@ -82,7 +82,7 @@ public class ArchLevel extends Level {
     }
 
     public void createArchLevel(paramsPCG m) {
-
+        
         setGlobalVariablesTo(m);
         fixOddsArrayAndCalculateTotal();
 
@@ -715,6 +715,7 @@ public class ArchLevel extends Level {
 
         clone.xExit = xExit;
         clone.yExit = yExit;
+        
         byte[][] thisMap = getMap();
         SpriteTemplate[][] st = getSpriteTemplate();
 
@@ -729,15 +730,16 @@ public class ArchLevel extends Level {
         clone.BLOCKS_POWER = BLOCKS_POWER;
         clone.ENEMIES = ENEMIES;
         clone.COINS = COINS;
-
+        
         clone.odds = odds.clone();
-
+        // pass gamesections as well for reset
+        clone.gameSections = gameSections;
         return clone;
 
     }
 
     private String sectionArrayToString(Section[] blueprint) {
-        String representation = "begin";
+        String representation = "-begin";
         for (Section section : blueprint) {
             representation += ", " + section.toString();
         }
@@ -790,6 +792,9 @@ public class ArchLevel extends Level {
             xEnd = xe;
             blockType = bt;
         }
+        
+        
+
     }
 
 }

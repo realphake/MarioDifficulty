@@ -60,7 +60,7 @@ public class PlayApplet extends JApplet {
 
     public static void main(String[] args) {
 
-        JFrame frame = new JFrame("Mario POMDP");
+        JFrame frame = new JFrame("Personalised Mario");
         frame.setSize(640, 480);
         PlayApplet   p = new PlayApplet();
 
