@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import weka.core.Instances;
 
 import Architect.*;
 import Onlinedata.MainSendRequest;
@@ -51,6 +52,8 @@ import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.logging.Logger;
+import weka.core.Attribute;
+import weka.core.FastVector;
 
 public class LevelSceneTest extends LevelScene {
 
@@ -704,6 +707,68 @@ public class LevelSceneTest extends LevelScene {
             }
             
             
+                    //classification Paris
+            
+            
+            
+       
+            //gather all the data.
+            getUserOpinion();
+            int likert = dr.likert;
+            FastVector attributes = new FastVector();
+            int diff = sections.get(0).getPreviousDifficulty();
+            float yaw = sections.get(0).getGazeMatrix()[0]; //yaw,pitch,roll
+            float pitch = sections.get(0).getGazeMatrix()[1];
+            float roll = sections.get(0).getGazeMatrix()[2];
+            float neutral = sections.get(0).getPreviousEmotions()[0];
+            float happy = sections.get(0).getPreviousEmotions()[1];
+            float surprised = sections.get(0).getPreviousEmotions()[2];
+            float angry = sections.get(0).getPreviousEmotions()[3];
+            float disgusted = sections.get(0).getPreviousEmotions()[4];
+            float afraid = sections.get(0).getPreviousEmotions()[5];
+            float sad = sections.get(0).getPreviousEmotions()[6];
+            
+            
+
+            attributes.addElement(new Attribute("diff"));
+            attributes.addElement(new Attribute("yaw"));
+            attributes.addElement(new Attribute("pitch"));
+            attributes.addElement(new Attribute("roll"));
+            attributes.addElement(new Attribute("neutral"));
+            attributes.addElement(new Attribute("happy"));
+            attributes.addElement(new Attribute("surprised"));
+            attributes.addElement(new Attribute("angry"));
+            attributes.addElement(new Attribute("disgusted"));
+            attributes.addElement(new Attribute("afraid"));
+            attributes.addElement(new Attribute("sad"));
+            attributes.addElement(new Attribute("likert"));
+            
+            Instances data = new Instances("myRelation",attributes,0);
+            double[] vals = new double[data.numAttributes()];
+            vals[0] = diff;
+            vals[1] = yaw;
+            vals[2] = pitch;
+            vals[3] = roll;
+            vals[4] = neutral;
+            vals[5] = happy;
+            vals[6] = surprised;
+            vals[7] = angry;
+            vals[8] = disgusted;
+            vals[9] = afraid;
+            vals[10] = sad;
+            vals[11] = likert;
+            
+            
+            data.add(new Instance(1.0,vals));
+            data.setClassIndex(11);
+            System.out.println("DATA    "+data);
+            
+            sections.get(0).resetGazeMeasurements();
+            
+        
+            
+            
+            
             arch.params_new.setSettingsInt(this.newDifficulties);
 
             //Swapping level segment
@@ -940,6 +1005,9 @@ public class LevelSceneTest extends LevelScene {
 
         //Reset general mario stuff
         DifficultyRecorder dr = DifficultyRecorder.getInstance();
+        
+        getUserOpinion();
+        System.out.println(dr.likert+ " LIKERT");
 
         if (Mario.lives <= 0) { //has no more lives
             if (recorder != null) {
@@ -1062,6 +1130,7 @@ public class LevelSceneTest extends LevelScene {
     }
 
     public void reset() {
+        
         
         
         System.out.println("");
@@ -1250,7 +1319,7 @@ public class LevelSceneTest extends LevelScene {
         //System.out.println("\n enemies LEFT : " + recorder.level.BLOCKS_POWER);
         gameStarted = false;
         
-        
+
         
         
     }

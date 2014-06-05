@@ -45,6 +45,7 @@ public class DifficultyRecorder {
     public int engagement = 0;
     public int frustration = 0;
     public int challenge = 0;
+    public int likert = 0;
     public static final int LOG_APPEND = 0;
     public static final int LOG_PREPEND = 1;
 
@@ -418,6 +419,7 @@ public class DifficultyRecorder {
         JLabel labelGreetings = new JLabel("Hello again!");
         JLabel labelGreetings2 = new JLabel("Please answer the questions before continuing.");
         JLabel labelEngagement = new JLabel("Experienced engagement:");
+        JLabel labelLikert = new JLabel("1-too easy 3-optimal 5-too difficult:");
         JLabel labelFrustration = new JLabel("Experienced frustration:");
         JLabel labelChallenge = new JLabel("Experienced challenge:");
         JLabel labelInfo1 = new JLabel("After clicking the submit button the game will");
@@ -427,13 +429,26 @@ public class DifficultyRecorder {
         labelTableEandF.put(new Integer(1), new JLabel("None"));
         labelTableEandF.put(new Integer(3), new JLabel("Some"));
         labelTableEandF.put(new Integer(5), new JLabel("A Lot"));
+        
+        Hashtable likertText = new Hashtable();
+        likertText.put(new Integer(1), new JLabel("Too easy"));
+        likertText.put(new Integer(3), new JLabel("Optimal"));
+        likertText.put(new Integer(5), new JLabel("Too hard"));
 
         Hashtable labelTableChallenge = new Hashtable();
         labelTableChallenge.put(new Integer(1), new JLabel("Too Low"));
         labelTableChallenge.put(new Integer(3), new JLabel("Just Right"));
         labelTableChallenge.put(new Integer(5), new JLabel("Too High"));
 
-        final JSlider sliderEngagement = new JSlider(1, 5);
+        final JSlider sliderLikert = new JSlider(1, 5);//span 1-5
+        sliderLikert.setMajorTickSpacing(1);
+        sliderLikert.setPaintTicks(true);
+        sliderLikert.setLabelTable(likertText);
+        sliderLikert.setPaintLabels(true);
+        
+        
+        
+        final JSlider sliderEngagement = new JSlider(1, 5);//span 1-5
         sliderEngagement.setMajorTickSpacing(1);
         sliderEngagement.setPaintTicks(true);
         sliderEngagement.setLabelTable(labelTableEandF);
@@ -479,6 +494,13 @@ public class DifficultyRecorder {
         c.gridx = 1;
         dc.add(sliderChallenge, c);
 
+        c.gridy = 5;
+        c.gridx = 0;
+        dc.add(labelLikert, c);
+        c.gridx = 1;
+        dc.add(sliderLikert, c);
+        
+        
         c.gridx = 0;
         c.gridy = 7;
         dc.add(labelInfo1, c);
@@ -522,6 +544,8 @@ public class DifficultyRecorder {
                 engagement = sliderEngagement.getValue();
                 frustration = sliderFrustration.getValue();
                 challenge = sliderChallenge.getValue();
+                likert = sliderLikert.getValue();
+                
 
                 stopRecordDifficulty();
             }

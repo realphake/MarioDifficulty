@@ -114,6 +114,22 @@ public class SectionOfGame {
     private double startTime2;
     private double endTime2;
     private boolean hasStarted2;
+
+    public ArrayList<float[]> getGazeMeasurements() {
+        return gazeMeasurements;
+    }
+
+    public void setGazeMeasurements(ArrayList<float[]> gazeMeasurements) {
+        this.gazeMeasurements = gazeMeasurements;
+    }
+
+    public float[] getGazeMatrix() {
+        return gazeMatrix;
+    }
+
+    public void setGazeMatrix(float[] gazeMatrix) {
+        this.gazeMatrix = gazeMatrix;
+    }
     private float[] emotions;
     private int times = 0;
     
@@ -469,6 +485,13 @@ public class SectionOfGame {
         return deathEmotions;
     }
 
+    public void resetGazeMeasurements(){
+        float[] zeros = {0,0,0};
+        this.gazeMatrix = zeros;
+        this.gazeMeasurements = new ArrayList<float[]>();
+    }
+    
+    
     public void normalizeGazeMeasurements (){
         float [] avg = {0,0,0};
         for(int i =0; i<this.gazeMeasurements.size();i++){
@@ -481,7 +504,7 @@ public class SectionOfGame {
             this.gazeMatrix[q] = avg[q];
             System.out.println(this.gazeMatrix[q]);
         }
-        
+
         
     }
     
