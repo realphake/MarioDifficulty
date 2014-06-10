@@ -11,7 +11,6 @@ import java.util.Random;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import weka.core.Instances;
-
 import Architect.*;
 import Onlinedata.MainSendRequest;
 
@@ -46,17 +45,24 @@ import level2.generator.CustomizedLevelGenerator;
 import dk.itu.mario.engine.Play;
 import dk.itu.mario.res.ResourcesManager;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.logging.Logger;
+import weka.classifiers.trees.J48;
 import weka.core.Attribute;
 import weka.core.FastVector;
+import weka.core.converters.ArffSaver;
+import weka.filters.unsupervised.attribute.NumericToNominal;
 
 public class LevelSceneTest extends LevelScene {
 
+    
+    
+    private boolean isTraining = true;
     ArrayList<Double> switchPoints;
     private ArrayList<SectionOfGame> sections = new ArrayList<SectionOfGame>();
 
@@ -587,7 +593,7 @@ public class LevelSceneTest extends LevelScene {
         return (int) Math.floor((time + 15 - 1) / 15);
     }
 
-    public void swap() {
+    public void swap() throws Exception {
 
         int k = 0;
         //The background info should change aswell               
@@ -709,59 +715,141 @@ public class LevelSceneTest extends LevelScene {
             
                     //classification Paris
             
-            
-            
-       
             //gather all the data.
-            getUserOpinion();
-            int likert = dr.likert;
-            FastVector attributes = new FastVector();
-            int diff = sections.get(0).getPreviousDifficulty();
-            float yaw = sections.get(0).getGazeMatrix()[0]; //yaw,pitch,roll
-            float pitch = sections.get(0).getGazeMatrix()[1];
-            float roll = sections.get(0).getGazeMatrix()[2];
-            float neutral = sections.get(0).getPreviousEmotions()[0];
-            float happy = sections.get(0).getPreviousEmotions()[1];
-            float surprised = sections.get(0).getPreviousEmotions()[2];
-            float angry = sections.get(0).getPreviousEmotions()[3];
-            float disgusted = sections.get(0).getPreviousEmotions()[4];
-            float afraid = sections.get(0).getPreviousEmotions()[5];
-            float sad = sections.get(0).getPreviousEmotions()[6];
+            
+            //for each section:
+            
+            //readDataFromFile
+            //get new instance
+            //get estimate.
             
             
+            //if we need to train, get user opinion.
+            if(isTraining){
+                getUserOpinion();
 
-            attributes.addElement(new Attribute("diff"));
-            attributes.addElement(new Attribute("yaw"));
-            attributes.addElement(new Attribute("pitch"));
-            attributes.addElement(new Attribute("roll"));
-            attributes.addElement(new Attribute("neutral"));
-            attributes.addElement(new Attribute("happy"));
-            attributes.addElement(new Attribute("surprised"));
-            attributes.addElement(new Attribute("angry"));
-            attributes.addElement(new Attribute("disgusted"));
-            attributes.addElement(new Attribute("afraid"));
-            attributes.addElement(new Attribute("sad"));
-            attributes.addElement(new Attribute("likert"));
-            
-            Instances data = new Instances("myRelation",attributes,0);
-            double[] vals = new double[data.numAttributes()];
-            vals[0] = diff;
-            vals[1] = yaw;
-            vals[2] = pitch;
-            vals[3] = roll;
-            vals[4] = neutral;
-            vals[5] = happy;
-            vals[6] = surprised;
-            vals[7] = angry;
-            vals[8] = disgusted;
-            vals[9] = afraid;
-            vals[10] = sad;
-            vals[11] = likert;
+            }
+            //test for 1 section
+            sections.get(0).initializeModel(); //WORKS
+            sections.get(0).readDataFromFile(); //WORKS
+            sections.get(0).addInstance(dr.likert);//WORKS
+            sections.get(0).buildClassifier();//WORKS
+            double q = sections.get(0).getEstimate();//WORKS  
+            sections.get(0).saveDataToFile(); //WORKS
             
             
-            data.add(new Instance(1.0,vals));
-            data.setClassIndex(11);
-            System.out.println("DATA    "+data);
+            
+            
+            
+//            int likert = dr.likert;
+//          //  FastVector attributes = new FastVector();
+//            int diff = sections.get(0).getPreviousDifficulty();
+//            float yaw = sections.get(0).getGazeMatrix()[0]; //yaw,pitch,roll
+//            float pitch = sections.get(0).getGazeMatrix()[1];
+//            float roll = sections.get(0).getGazeMatrix()[2];
+//            float neutral = sections.get(0).getPreviousEmotions()[0];
+//            float happy = sections.get(0).getPreviousEmotions()[1];
+//            float surprised = sections.get(0).getPreviousEmotions()[2];
+//            float angry = sections.get(0).getPreviousEmotions()[3];
+//            float disgusted = sections.get(0).getPreviousEmotions()[4];
+//            float afraid = sections.get(0).getPreviousEmotions()[5];
+//            float sad = sections.get(0).getPreviousEmotions()[6];
+//            
+//            FastVector nom = new FastVector(5);
+//            nom.addElement("1");
+//            nom.addElement("2");
+//            nom.addElement("3");
+//            nom.addElement("4");
+//            nom.addElement("5");
+//            Attribute likertAttr = new Attribute("aNominal",nom);
+//           
+//            
+//            attributes.addElement(new Attribute("diff"));
+//            attributes.addElement(new Attribute("yaw"));
+//            attributes.addElement(new Attribute("pitch"));
+//            attributes.addElement(new Attribute("roll"));
+//            attributes.addElement(new Attribute("neutral"));
+//            attributes.addElement(new Attribute("happy"));
+//            attributes.addElement(new Attribute("surprised"));
+//            attributes.addElement(new Attribute("angry"));
+//            attributes.addElement(new Attribute("disgusted"));
+//            attributes.addElement(new Attribute("afraid"));
+//            attributes.addElement(new Attribute("sad"));
+//            
+//            if(isTraining){
+//                attributes.addElement(likertAttr);
+//            }
+
+            
+//            Instances data = new Instances("myRelation",attributes,12);
+
+//            Instance newInstance = new Instance(12);
+//            newInstance.setValue((Attribute)attributes.elementAt(0),diff);
+//            newInstance.setValue((Attribute)attributes.elementAt(1),yaw);
+//            newInstance.setValue((Attribute)attributes.elementAt(2),pitch);
+//            newInstance.setValue((Attribute)attributes.elementAt(3),roll);
+//            newInstance.setValue((Attribute)attributes.elementAt(4),neutral);
+//            newInstance.setValue((Attribute)attributes.elementAt(5),happy);
+//            newInstance.setValue((Attribute)attributes.elementAt(6),surprised);
+//            newInstance.setValue((Attribute)attributes.elementAt(7),angry);
+//            newInstance.setValue((Attribute)attributes.elementAt(8),disgusted);
+//            newInstance.setValue((Attribute)attributes.elementAt(9),afraid);
+//            newInstance.setValue((Attribute)attributes.elementAt(10),sad);
+//            newInstance.setValue((Attribute)attributes.elementAt(11),Integer.toString(likert));
+            
+            
+            
+//            newInstance.setDataset(data);
+//            data.add(newInstance);
+//            data.setClassIndex(data.numAttributes()-1);
+            
+            //section.saveDataToFile
+//            //save to arff
+//            ArffSaver saver = new ArffSaver();
+//            saver.setInstances(data);
+//            saver.setFile(new File("test.arff"));
+//            saver.writeBatch();
+          
+            //section.readDataFromFile
+//            BufferedReader reader = new BufferedReader(
+//            new FileReader("test.arff"));
+//            Instances data2 = new Instances(reader);
+//            reader.close();
+            
+            
+          //  System.out.println("DATA    "+data);
+//
+//            RandomForest tree = new RandomForest();
+//            try {
+//                tree.buildClassifier(data);
+//            } catch (Exception ex) {
+//                System.out.println(ex);
+//            }
+            
+//            Instance newInstance2 = new Instance(12);
+//            newInstance2.setValue((Attribute)attributes.elementAt(0),diff);
+//            newInstance2.setValue((Attribute)attributes.elementAt(1),yaw);
+//            newInstance2.setValue((Attribute)attributes.elementAt(2),pitch);
+//            newInstance2.setValue((Attribute)attributes.elementAt(3),roll);
+//            newInstance2.setValue((Attribute)attributes.elementAt(4),neutral);
+//            newInstance2.setValue((Attribute)attributes.elementAt(5),happy);
+//            newInstance2.setValue((Attribute)attributes.elementAt(6),surprised);
+//            newInstance2.setValue((Attribute)attributes.elementAt(7),angry);
+//            newInstance2.setValue((Attribute)attributes.elementAt(8),disgusted);
+//            newInstance2.setValue((Attribute)attributes.elementAt(9),afraid);
+//            newInstance2.setValue((Attribute)attributes.elementAt(10),sad);
+//            newInstance2.setDataset(data);
+//            newInstance2.setMissing(11);
+//            
+//            double result = 0;
+//            try {
+//                result = tree.classifyInstance(newInstance2);
+//            } catch (Exception ex) {
+//                Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            }
+//            System.out.println("RISALTZZZZ++   +     "+result);//RETURNS THE INDEX OF NOMINAL CLASS OF ATTRIBUTE (0-4)
+//            
+//            
             
             sections.get(0).resetGazeMeasurements();
             
@@ -970,7 +1058,11 @@ public class LevelSceneTest extends LevelScene {
     }
 
     public void tick() {
-        swap();
+        try {
+            swap();
+        } catch (Exception ex) {
+            Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         super.tick();
 
         sectionCalculations();

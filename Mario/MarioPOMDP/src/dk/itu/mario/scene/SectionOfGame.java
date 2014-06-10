@@ -2,6 +2,7 @@ package dk.itu.mario.scene;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -9,6 +10,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Logger;
+import weka.classifiers.trees.RandomForest;
+import weka.core.Attribute;
+import weka.core.FastVector;
+import weka.core.Instance;
+import weka.core.Instances;
+import weka.core.converters.ArffSaver;
 
 /**
  *
@@ -33,8 +41,8 @@ public class SectionOfGame {
     }
 
     private float previousNeutral = 0;
-    
-    private ArrayList<float[]> gazeMeasurements; 
+
+    private ArrayList<float[]> gazeMeasurements;
 
     public float getPreviousNeutral() {
         return previousNeutral;
@@ -56,10 +64,10 @@ public class SectionOfGame {
         return previousEmotions;
     }
 
-    public void addGazeMeasurements(float[] measurement){
+    public void addGazeMeasurements(float[] measurement) {
         this.gazeMeasurements.add(measurement);
     }
-    
+
     public void setPreviousEmotions(float[] previousEmotions) {
         this.previousEmotions = previousEmotions;
     }
@@ -72,11 +80,21 @@ public class SectionOfGame {
         this.possibleActions = possibleActions;
     }
 
+    private Instances data;
+
     private double deathTime;
     private boolean diedHere;
 
     public double getDeathTime() {
         return deathTime;
+    }
+
+    public Instances getData() {
+        return data;
+    }
+
+    public void setData(Instances data) {
+        this.data = data;
     }
 
     public void setDeathTime(double deathTime) {
@@ -114,6 +132,7 @@ public class SectionOfGame {
     private double startTime2;
     private double endTime2;
     private boolean hasStarted2;
+    private FastVector attributes;
 
     public ArrayList<float[]> getGazeMeasurements() {
         return gazeMeasurements;
@@ -132,7 +151,8 @@ public class SectionOfGame {
     }
     private float[] emotions;
     private int times = 0;
-    
+
+    private RandomForest tree;
     /**
      * gaze matrix = [Yaw, Pitch, Roll]
      */
@@ -146,11 +166,137 @@ public class SectionOfGame {
     public void setAllEmotions(ArrayList<float[]> allEmotions) {
         this.allEmotions = allEmotions;
     }
-    
-    public void reducePreviousDifficulty(int d){
-        this.previousDifficulty-=d;
-        if(this.previousDifficulty<0){
-            this.previousDifficulty=0;
+
+    public void readDataFromFile() throws FileNotFoundException, IOException {
+        String fileName = "model" + this.id + ".arff";
+        BufferedReader reader = new BufferedReader(new FileReader(fileName));
+        Instances data = new Instances(reader);
+        reader.close();
+        this.data = data;
+    }
+
+    public void saveDataToFile() throws IOException {
+        String fileName = "model" + this.id + ".arff";
+        //save to arff
+        ArffSaver saver = new ArffSaver();
+        saver.setInstances(this.data);
+        saver.setFile(new File(fileName));
+        saver.writeBatch();
+    }
+
+    public void buildClassifier() {
+
+        this.tree = new RandomForest();
+        try {
+            this.tree.buildClassifier(this.data);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+
+    public double getEstimate() {
+
+        int diff = this.getPreviousDifficulty();
+        float yaw = this.getGazeMatrix()[0]; //yaw,pitch,roll
+        float pitch = this.getGazeMatrix()[1];
+        float roll = this.getGazeMatrix()[2];
+        float neutral = this.getPreviousEmotions()[0];
+        float happy = this.getPreviousEmotions()[1];
+        float surprised = this.getPreviousEmotions()[2];
+        float angry = this.getPreviousEmotions()[3];
+        float disgusted = this.getPreviousEmotions()[4];
+        float afraid = this.getPreviousEmotions()[5];
+        float sad = this.getPreviousEmotions()[6];
+        Instance newInstance2 = new Instance(12);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(0), diff);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(1), yaw);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(2), pitch);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(3), roll);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(4), neutral);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(5), happy);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(6), surprised);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(7), angry);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(8), disgusted);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(9), afraid);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(10), sad);
+        newInstance2.setDataset(this.data);
+        newInstance2.setMissing(11);
+
+        double result = 0;
+        try {
+            result = this.tree.classifyInstance(newInstance2);
+        } catch (Exception ex) {
+            Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+          //  System.out.println("RISALTZZZZ++   +     "+result);//RETURNS THE INDEX OF NOMINAL CLASS OF ATTRIBUTE (0-4)
+
+        return result;
+
+    }
+
+    public void initializeModel() {
+        this.attributes = new FastVector();
+        FastVector nom = new FastVector(5);
+        nom.addElement("1");
+        nom.addElement("2");
+        nom.addElement("3");
+        nom.addElement("4");
+        nom.addElement("5");
+        Attribute likertAttr = new Attribute("aNominal", nom);
+
+        this.attributes.addElement(new Attribute("diff"));
+        this.attributes.addElement(new Attribute("yaw"));
+        this.attributes.addElement(new Attribute("pitch"));
+        this.attributes.addElement(new Attribute("roll"));
+        this.attributes.addElement(new Attribute("neutral"));
+        this.attributes.addElement(new Attribute("happy"));
+        this.attributes.addElement(new Attribute("surprised"));
+        this.attributes.addElement(new Attribute("angry"));
+        this.attributes.addElement(new Attribute("disgusted"));
+        this.attributes.addElement(new Attribute("afraid"));
+        this.attributes.addElement(new Attribute("sad"));
+        this.attributes.addElement(likertAttr);
+
+        this.data = new Instances("myRelation", this.attributes, 12);
+
+    }
+
+    public void addInstance(int likert) {
+        int diff = this.getPreviousDifficulty();
+        float yaw = this.getGazeMatrix()[0]; //yaw,pitch,roll
+        float pitch = this.getGazeMatrix()[1];
+        float roll = this.getGazeMatrix()[2];
+        float neutral = this.getPreviousEmotions()[0];
+        float happy = this.getPreviousEmotions()[1];
+        float surprised = this.getPreviousEmotions()[2];
+        float angry = this.getPreviousEmotions()[3];
+        float disgusted = this.getPreviousEmotions()[4];
+        float afraid = this.getPreviousEmotions()[5];
+        float sad = this.getPreviousEmotions()[6];
+
+        Instance newInstance = new Instance(12);
+        newInstance.setValue((Attribute) this.attributes.elementAt(0), diff);
+        newInstance.setValue((Attribute) this.attributes.elementAt(1), yaw);
+        newInstance.setValue((Attribute) this.attributes.elementAt(2), pitch);
+        newInstance.setValue((Attribute) this.attributes.elementAt(3), roll);
+        newInstance.setValue((Attribute) this.attributes.elementAt(4), neutral);
+        newInstance.setValue((Attribute) this.attributes.elementAt(5), happy);
+        newInstance.setValue((Attribute) this.attributes.elementAt(6), surprised);
+        newInstance.setValue((Attribute) this.attributes.elementAt(7), angry);
+        newInstance.setValue((Attribute) this.attributes.elementAt(8), disgusted);
+        newInstance.setValue((Attribute) this.attributes.elementAt(9), afraid);
+        newInstance.setValue((Attribute) this.attributes.elementAt(10), sad);
+        newInstance.setValue((Attribute) this.attributes.elementAt(11), Integer.toString(likert));
+
+        newInstance.setDataset(this.data);
+        this.data.add(newInstance);
+        this.data.setClassIndex(this.data.numAttributes() - 1);
+    }
+
+    public void reducePreviousDifficulty(int d) {
+        this.previousDifficulty -= d;
+        if (this.previousDifficulty < 0) {
+            this.previousDifficulty = 0;
         }
     }
     private int previousDifficulty = 1;
@@ -236,7 +382,7 @@ public class SectionOfGame {
     public float[] getEmotions() {
         return emotions;
     }
-    
+
     private boolean readGaze = false;
 
     public void setEmotions(float[] emotions) {
@@ -362,12 +508,11 @@ public class SectionOfGame {
         //System.out.println("reset time: "+ resetTime + "death time : "+this.deathTime);
         System.out.println("st: " + this.startTime + " dt: " + this.deathTime);
         float[] emotions = {0, 0, 0, 0, 0, 0, 0};
-        
+
         //emotions before death. too hard to implement now.
 //        float[] emotionsBeforeDeath = {0, 0, 0, 0, 0, 0, 0};
 //        int counter2 = 0;
 //        int times2 = 0;
-
         int counter = 0;
         int times = 0;
 
@@ -397,7 +542,6 @@ public class SectionOfGame {
 //                        else{
 //                            valid2 = false;
 //                        }
-
                         if (timeStamp >= this.deathTime && timeStamp <= resetTime) {
                             //System.out.println("found valid timestamp!");
                             //System.out.println(timeStamp);
@@ -406,7 +550,7 @@ public class SectionOfGame {
                             valid = false;
                         }
 
-                    } else if (valid == true && this.readGaze ==false) {
+                    } else if (valid == true && this.readGaze == false) {
                         //convert string to float and add it to the correct position.
                         emotions[counter] += Float.parseFloat(currentLine);
                         counter++;
@@ -423,17 +567,16 @@ public class SectionOfGame {
                                 }
                                 //add emotion to the total list
                                 //allGameEmotions.add(temp);
-                                
-                                float[] gazeMeasurements = {0,0,0};
-                                
-                                for(int kk=0;kk<3;kk++){
+
+                                float[] gazeMeasurements = {0, 0, 0};
+
+                                for (int kk = 0; kk < 3; kk++) {
                                     currentLine = br.readLine();
                                     gazeMeasurements[kk] = Float.parseFloat(currentLine);
-                                    
-                                   
+
                                 }
-                                this.addGazeMeasurements(gazeMeasurements); 
-                                this.readGaze=true;
+                                this.addGazeMeasurements(gazeMeasurements);
+                                this.readGaze = true;
                             }
 
                             //reset the emotions table.
@@ -448,12 +591,11 @@ public class SectionOfGame {
                 for (int q = 0; q < 7; q++) {
                     //save death emotions
                     this.deathEmotions[q] /= times;
-                   // this.emotionsBeforeDeath[q] /= times2;
+                    // this.emotionsBeforeDeath[q] /= times2;
 
                 }
                 this.normalizeGazeMeasurements();
 
-                
                 //if difficulty is not going to change, include death emotions to emotions table.
                 if (this.deathEmotions[3] <= 0.1) {
                     for (int qq = 0; qq < 7; qq++) {
@@ -470,7 +612,6 @@ public class SectionOfGame {
             ex.printStackTrace();
         }
 
-
     }
 
     public boolean isWasReduced() {
@@ -485,30 +626,27 @@ public class SectionOfGame {
         return deathEmotions;
     }
 
-    public void resetGazeMeasurements(){
-        float[] zeros = {0,0,0};
+    public void resetGazeMeasurements() {
+        float[] zeros = {0, 0, 0};
         this.gazeMatrix = zeros;
         this.gazeMeasurements = new ArrayList<float[]>();
     }
-    
-    
-    public void normalizeGazeMeasurements (){
-        float [] avg = {0,0,0};
-        for(int i =0; i<this.gazeMeasurements.size();i++){
-            for(int j=0;j<3;j++){
-                avg[j]+=this.gazeMeasurements.get(i)[j];
+
+    public void normalizeGazeMeasurements() {
+        float[] avg = {0, 0, 0};
+        for (int i = 0; i < this.gazeMeasurements.size(); i++) {
+            for (int j = 0; j < 3; j++) {
+                avg[j] += this.gazeMeasurements.get(i)[j];
             }
-        }    
-        for(int q=0;q<3;q++){
-            avg[q]/=this.times;
+        }
+        for (int q = 0; q < 3; q++) {
+            avg[q] /= this.times;
             this.gazeMatrix[q] = avg[q];
             System.out.println(this.gazeMatrix[q]);
         }
 
-        
     }
-    
-    
+
     public void setDeathEmotions(float[] deathEmotions) {
         this.deathEmotions = deathEmotions;
     }
@@ -632,6 +770,8 @@ public class SectionOfGame {
         this.emotions = new float[7];
         this.allEmotions = new ArrayList<float[]>();
         this.gazeMeasurements = new ArrayList<float[]>();
+        this.initializeModel();
+
     }
 
     public int findMostImportantDiff(float[] diffs) {

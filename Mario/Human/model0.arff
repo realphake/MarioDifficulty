@@ -1,0 +1,18 @@
+@relation myRelation
+
+@attribute diff numeric
+@attribute yaw numeric
+@attribute pitch numeric
+@attribute roll numeric
+@attribute neutral numeric
+@attribute happy numeric
+@attribute surprised numeric
+@attribute angry numeric
+@attribute disgusted numeric
+@attribute afraid numeric
+@attribute sad numeric
+@attribute aNominal {1,2,3,4,5}
+
+@data
+1,-0.007855,0.101524,0.00166,0.145428,0.017755,0.230926,0.004378,0.018811,0.04296,0.533162,3
+1,0.019702,0.058822,0.006184,0.481622,0.026405,0.103258,0.010463,0.02422,0.037208,0.316825,3
