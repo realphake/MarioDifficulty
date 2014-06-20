@@ -1259,11 +1259,11 @@ public class DataRecorder {
         //@ATTRIBUTE feature30-perc-powerblocksdestroyed NUMERIC
         double totalTimeTemp = getTotalLittleTime() + getTotalLargeTime() + getTotalFireTime();
         POMDPmetrics += getTotalLittleTime() + ", ";
-        POMDPmetrics += Math.round((getTotalLittleTime()/totalTimeTemp)*100.0)/100.0;
+        POMDPmetrics += Math.round((getTotalLittleTime()/totalTimeTemp)*100.0)/100.0 + ", ";
         POMDPmetrics += getTotalLargeTime() + ", ";
-        POMDPmetrics += Math.round((getTotalLargeTime()/totalTimeTemp)*100.0)/100.0;
+        POMDPmetrics += Math.round((getTotalLargeTime()/totalTimeTemp)*100.0)/100.0 + ", ";
         POMDPmetrics += getTotalFireTime() + ", ";
-        POMDPmetrics += Math.round((getTotalFireTime()/totalTimeTemp)*100.0)/100.0;
+        POMDPmetrics += Math.round((getTotalFireTime()/totalTimeTemp)*100.0)/100.0 + ", ";
         POMDPmetrics += getSwitchedPower() + ", ";
         POMDPmetrics += J() + ", ";
         POMDPmetrics += nb() + ", ";
@@ -1395,6 +1395,21 @@ public class DataRecorder {
         POMDPmetrics += level.odds[2] + ", ";
         POMDPmetrics += level.odds[3] + ", ";
         POMDPmetrics += level.odds[4] + ", ";
+        //@ATTRIBUTE parameter-min NUMERIC
+        //@ATTRIBUTE parameter-max NUMERIC
+        //@ATTRIBUTE parameter-average NUMERIC
+        int min_par = 5;
+        int max_par = 0;
+        double average_par = 0;
+        for (int i = 0; i<5; i++){
+            if (level.odds[i] < min_par) min_par = level.odds[i];
+            if (level.odds[i] > max_par) min_par = level.odds[i];
+            average_par += level.odds[i];
+        }
+        average_par = average_par / 5.0;
+        POMDPmetrics += min_par + ", ";
+        POMDPmetrics += max_par + ", ";
+        POMDPmetrics += average_par + ", ";
 
         // Difficulty estimation Here -DE1
         // DIRTY DESIGN DECISION, we will store the value for BETTER in the already existing FRUSTRATION in the ARFF

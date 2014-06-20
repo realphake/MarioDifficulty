@@ -77,7 +77,7 @@ public class LevelSceneTest extends LevelScene {
     
     
     MainSendRequest request = new MainSendRequest();
-    boolean online = true;
+    boolean online = false;
 
     public LevelSceneTest(GraphicsConfiguration graphicsConfiguration,
             MarioComponent renderer, long seed, int levelDifficulty, int type) {
@@ -118,14 +118,22 @@ public class LevelSceneTest extends LevelScene {
         
         
         level2 = new ArchLevel(arch.params_new);
-        plannedDifficultyLevels.add(level2.DIFFICULTY_sander);       
+        plannedDifficultyLevels.add(level2.DIFFICULTY_sander);  
+        plannedDifficultyLevels.add(level2.DIFFICULTY_sander); 
+        try {
+            level3 = level2.clone();
+        } catch (CloneNotSupportedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         
+        /*
         randomInt = randomGenerator.nextInt(100);
         arch.params_new.seed = randomInt;
 
         level3 = new ArchLevel(arch.params_new);
         plannedDifficultyLevels.add(level3.DIFFICULTY_sander);
-        
+        */
         fixborders();
         conjoin();
 
@@ -141,7 +149,6 @@ public class LevelSceneTest extends LevelScene {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
         layer = new LevelRenderer(level, graphicsConfiguration, 320, 240);
         for (int i = 0; i < 2; i++) {
             int scrollSpeed = 4 >> i;
@@ -360,8 +367,11 @@ public class LevelSceneTest extends LevelScene {
         // returns 0-4 for section types
         // returns -1 if the coordinate is < 0
         //      meaning that the mario sprite is on the previous chunk
-        if(xcoord <= level3.map.length) xcoord += 112;
-        return level2.sectionTypeAtCoordinate(xcoord - level3.map.length);
+        if(arch.chunksGenerated != 0){
+            return level2.sectionTypeAtCoordinate(xcoord - level3.map.length);
+        } else {
+            return level2.sectionTypeAtCoordinate(xcoord);
+        }
     }
 
     public int getDifficulty() {
@@ -496,6 +506,7 @@ public class LevelSceneTest extends LevelScene {
                 if(arch.chunksGenerated != 0){
                     // the old level 2 is the new level 3
                     level3_reset = level2_reset.clone(); 
+                    level3 = level3_reset.clone();
                 }
             } catch (CloneNotSupportedException e) {
                 // TODO Auto-generated catch block
@@ -526,8 +537,10 @@ public class LevelSceneTest extends LevelScene {
         
         int k = 0;
         //The background info should change aswell                       
-
-        if (mario.x > (level2.width * 16 + level3.width * 16 - (10 * 16))) {
+        boolean firstPart = arch.chunksGenerated == 0;
+        
+        if ( (firstPart && mario.x > (level2.width * 16 - (10 * 16))) 
+                || mario.x > (level.width * 16 - (10 * 16))) {
             recorder.endTime();
             marioComponent.pause();
             //Swapping level segment
@@ -554,7 +567,7 @@ public class LevelSceneTest extends LevelScene {
             recorder.reset();
             recorder.startTime();
 
-            for (int i = 0; i < level.width; i++) {
+            for (int i = 0; i < level2.width+level3.width; i++) {
                 if (i < level2.width) {
                     level2.map[i] = level.map[i];
                     level2.spriteTemplates[i] = level.spriteTemplates[i];
@@ -572,7 +585,7 @@ public class LevelSceneTest extends LevelScene {
             fixborders();
             k = 0;
 
-            for (int i = 0; i < level.width; i++) {
+            for (int i = 0; i < level2.width+level3.width; i++) {
                 if (i < level3.width) {
                     level.map[i] = level3.map[i];;
                     level.spriteTemplates[i] = level3.spriteTemplates[i];
@@ -583,9 +596,12 @@ public class LevelSceneTest extends LevelScene {
                 }
 
             }
+            level.xExit = level.width - 5;
             level.yExit = level2.yExit;
-            for (int i = 0; i < sprites.size(); i++) {
-                sprites.get(i).x = sprites.get(i).x - level2.width * 16;
+            if (!firstPart){
+                for (int i = 0; i < sprites.size(); i++) {
+                    sprites.get(i).x = sprites.get(i).x - level2.width * 16;
+                }
             }
             try {
                     Thread.sleep(1000);
@@ -623,7 +639,11 @@ public class LevelSceneTest extends LevelScene {
         Level level4 = new Level(width, height);
         level4.map = new byte[width][height];
         // level4.data = new byte[width][height];
-        level4.xExit = width - 5;
+        if(arch.chunksGenerated == 0){
+            level4.xExit = level2.width - 5;
+        } else {
+            level4.xExit = width - 5;
+        }
         int k = 0;
         ArchLevel firstPart;
         ArchLevel secondPart;

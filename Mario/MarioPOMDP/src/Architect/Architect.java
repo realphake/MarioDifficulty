@@ -30,7 +30,7 @@ public class Architect {
     //Observations
     public GamePlay Obs;
     public boolean hasChangedPreference = false;
-    public boolean hasPassedTutorial = true;
+    public boolean hasPassedTutorial = false;
     //hill climbing parameters
     public int re = 50; //Probability the champion is re-evaluated
     public boolean smart_exploration = true;
@@ -336,8 +336,11 @@ public class Architect {
         // IF train:
         //      explore with a certain pattern, maybe startpoint and a pattern based on that
 
-        
-                
+        if (this.Obs.hasPassedTutorial && !this.hasPassedTutorial) {
+            this.hasPassedTutorial = true;
+            System.out.println("-hasPassedTutorial: " + hasPassedTutorial);
+            System.out.println("-hasChangedPreference: " + hasChangedPreference);
+        }
                 
         reverseParams = params_old;
         params_old = params_new.copy();
@@ -346,12 +349,6 @@ public class Architect {
 
             // if he chose the current level increment all otherwise increment a random parameter by a random value
             // increment by 1 all until preference has changed to preceeding
-            if (this.Obs.hasPassedTutorial) {
-                this.hasPassedTutorial = true;
-            }
-            System.out.println("-hasPassedTutorial: " + hasPassedTutorial);
-            System.out.println("-hasChangedPreference: " + hasChangedPreference);
-
             if (this.Obs.better == 1 && !this.hasChangedPreference) {
                 params_new.incrementAll();
                 System.out.println("-incremented all");
