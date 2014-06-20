@@ -43,7 +43,10 @@ public class DifficultyRecorder {
     public int hasPlayedMarioBefore = 0;
     public int hoursPerWeek = 0;
     public int engagement = 0;
+    public int boredom = 0;
     public int frustration = 0;
+    public int apathy = 0;
+    public int flow = 0;
     public int challenge = 0;
     public int better = 0;
     public static final int LOG_APPEND = 0;
@@ -155,7 +158,7 @@ public class DifficultyRecorder {
         // Create new frame on top of the main window
         JFrame tempFrame = new JFrame("Measuring Perceived Difficulty");
         tempFrame.setUndecorated(true);
-        DisplayerComponent dc = new DisplayerComponent(this.frame.getWidth()+10, this.frame.getHeight()+10);
+        DisplayerComponent dc = new DisplayerComponent(800, 600);
 
         //this.mariocomponent.pause();
         setFrame(tempFrame);
@@ -421,13 +424,13 @@ public class DifficultyRecorder {
 
         JLabel labelGreetings = new JLabel("");
         JLabel labelGreetings2 = new JLabel("Please answer these questions...");
-        JLabel labelEngagement = new JLabel("");
-        JLabel labelFrustration = new JLabel("");
-        JLabel labelChallenge = new JLabel("The challenge level of the part that I just played is...");
-        JLabel labelBetter = new JLabel("I prefer the challenge level of...");
-        // [the part before this one] OR [this one - the part that I just played]
-        JLabel labelInfo1 = new JLabel("");
-        JLabel labelInfo2 = new JLabel("");
+        //JLabel labelEngagement = new JLabel("");
+        JLabel labelBoredom = new JLabel("Was the previous segment boring?");
+        JLabel labelApathy = new JLabel("How important does it feel to play this game?");
+        JLabel labelFlow = new JLabel("Do you feel like playing more?");
+        JLabel labelFrustration = new JLabel("Did the game elements in the last segment frustrate you?");
+        //JLabel labelChallenge = new JLabel("The challenge level of the part that I just played is...");
+        //JLabel labelBetter = new JLabel("I prefer the challenge level of...");
         
         // Hashtables are obsolete collections but it won't accept a HashMap...
         Hashtable labelTableEandF = new Hashtable();
@@ -439,23 +442,67 @@ public class DifficultyRecorder {
         labelTableChallenge.put(new Integer(1), new JLabel("Too easy"));
         labelTableChallenge.put(new Integer(3), new JLabel("Just right"));
         labelTableChallenge.put(new Integer(5), new JLabel("Too hard"));
+        
+        Hashtable labelTableBoredom = new Hashtable();
+        labelTableBoredom.put(new Integer(0), new JLabel("Not Set"));
+        labelTableBoredom.put(new Integer(1), new JLabel("Not at all"));
+        labelTableBoredom.put(new Integer(3), new JLabel("It's OK"));
+        labelTableBoredom.put(new Integer(5), new JLabel("Really boring"));
+        
+        Hashtable labelTableFrustration = new Hashtable();
+        labelTableFrustration.put(new Integer(0), new JLabel("Not Set"));
+        labelTableFrustration.put(new Integer(1), new JLabel("Not at all"));
+        labelTableFrustration.put(new Integer(3), new JLabel("A fair bit"));
+        labelTableFrustration.put(new Integer(5), new JLabel("Really frustrating"));
+        
+        Hashtable labelTableApathy = new Hashtable();
+        labelTableApathy.put(new Integer(0), new JLabel("Not Set"));
+        labelTableApathy.put(new Integer(1), new JLabel("Not at all"));
+        labelTableApathy.put(new Integer(3), new JLabel("A fair bit"));
+        labelTableApathy.put(new Integer(5), new JLabel("Really important"));
+        
+        Hashtable labelTableFlow = new Hashtable();
+        labelTableFlow.put(new Integer(0), new JLabel("Not Set"));
+        labelTableFlow.put(new Integer(1), new JLabel("Ready to quit"));
+        labelTableFlow.put(new Integer(3), new JLabel("I'll keep going"));
+        labelTableFlow.put(new Integer(5), new JLabel("Give me more!"));
 
         Hashtable labelTableBetter = new Hashtable();
         labelTableBetter.put(new Integer(0), new JLabel("The part before"));
         labelTableBetter.put(new Integer(1), new JLabel("This part"));
         
-        final JSlider sliderEngagement = new JSlider(1, 5);
-        sliderEngagement.setMajorTickSpacing(1);
-        sliderEngagement.setPaintTicks(true);
-        sliderEngagement.setLabelTable(labelTableEandF);
-        sliderEngagement.setPaintLabels(true);
+        final JSlider sliderBoredom = new JSlider(0, 5);
+        sliderBoredom.setMajorTickSpacing(1);
+        sliderBoredom.setPaintTicks(true);
+        sliderBoredom.setLabelTable(labelTableBoredom);
+        sliderBoredom.setPaintLabels(true);
+        sliderBoredom.setPreferredSize(new Dimension(400, 50));
+        sliderBoredom.setValue(0);
         
-        final JSlider sliderFrustration = new JSlider(1, 5);
+        final JSlider sliderFrustration = new JSlider(0, 5);
         sliderFrustration.setMajorTickSpacing(1);
         sliderFrustration.setPaintTicks(true);
-        sliderFrustration.setLabelTable(labelTableEandF);
+        sliderFrustration.setLabelTable(labelTableFrustration);
         sliderFrustration.setPaintLabels(true);
+        sliderFrustration.setPreferredSize(new Dimension(400, 50));
+        sliderFrustration.setValue(0);
         
+        final JSlider sliderApathy = new JSlider(0, 5);
+        sliderApathy.setMajorTickSpacing(1);
+        sliderApathy.setPaintTicks(true);
+        sliderApathy.setLabelTable(labelTableApathy);
+        sliderApathy.setPaintLabels(true);
+        sliderApathy.setPreferredSize(new Dimension(400, 50));
+        sliderApathy.setValue(0);
+        
+        final JSlider sliderFlow = new JSlider(0, 5);
+        sliderFlow.setMajorTickSpacing(1);
+        sliderFlow.setPaintTicks(true);
+        sliderFlow.setLabelTable(labelTableFlow);
+        sliderFlow.setPaintLabels(true);
+        sliderFlow.setPreferredSize(new Dimension(400, 50));
+        sliderFlow.setValue(0);
+        /*
         final JSlider sliderChallenge = new JSlider(1, 5);
         sliderChallenge.setMajorTickSpacing(3);
         sliderChallenge.setPaintTicks(true);
@@ -468,7 +515,7 @@ public class DifficultyRecorder {
         sliderBetter.setLabelTable(labelTableBetter);
         sliderBetter.setPaintLabels(true);
         sliderBetter.setValue(1);
-        
+        */
         GridBagConstraints c = new GridBagConstraints();
 
         // ---------------------------------------------------------------------
@@ -486,27 +533,35 @@ public class DifficultyRecorder {
         //dc.add(labelEngagement, c);
         //c.gridx = 1;
         //dc.add(sliderEngagement, c);
-
+        c.gridy = 2;
+        c.gridx = 0;
+        dc.add(labelBoredom, c);
+        c.gridy = 2;
+        c.gridx = 1;
+        dc.add(sliderBoredom, c);
+        
         c.gridy = 3;
         c.gridx = 0;
-        dc.add(labelChallenge, c);
+        dc.add(labelFrustration, c);
+        c.gridy = 3;
+        c.gridx = 1;
+        dc.add(sliderFrustration, c);
+        
         c.gridy = 4;
         c.gridx = 0;
-        dc.add(sliderChallenge, c);
-
-        //c.gridy = 3;
-        //c.gridx = 0;
-        //dc.add(labelFrustration, c);
-        //c.gridx = 1;
-        //dc.add(sliderFrustration, c);
-
-        //c.gridx = 0;
-        //c.gridy = 0;
-        //dc.add(labelInfo1, c);
-        //c.gridy = 0;
-        //c.insets = new Insets(0, 0, 50, 0);
-        //dc.add(labelInfo2, c);
+        dc.add(labelApathy, c);
+        c.gridy = 4;
+        c.gridx = 1;
+        dc.add(sliderApathy, c);
         
+        c.gridy = 5;
+        c.gridx = 0;
+        dc.add(labelFlow, c);
+        c.gridy = 5;
+        c.gridx = 1;
+        dc.add(sliderFlow, c);
+        
+        /*
         if (firstIteration) {
             c.gridy = 6;
             c.gridx = 0;
@@ -526,7 +581,13 @@ public class DifficultyRecorder {
             c.insets = new Insets(0, 0, 0, 0);        
             //c.insets = new Insets(50, 215, 0, 0);
             dc.add(buttonSubmit, c);                       
-        }
+        }*/
+        
+        c.gridy = 6;
+        c.gridx = 0;
+        c.insets = new Insets(0, 0, 0, 0);        
+        //c.insets = new Insets(50, 215, 0, 0);
+        dc.add(buttonSubmit, c); 
 
 
         /* //Add a hotkey for submit
@@ -559,12 +620,14 @@ public class DifficultyRecorder {
         buttonSubmit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                engagement = sliderEngagement.getValue();
+                boredom = sliderBoredom.getValue();
                 frustration = sliderFrustration.getValue();
-                challenge = sliderChallenge.getValue();
-                better = sliderBetter.getValue();
-
-                stopRecordDifficulty();
+                apathy = sliderApathy.getValue();
+                flow = sliderFlow.getValue();
+                //requires check here if values are filled in
+                if (boredom != 0 && frustration != 0 && apathy != 0 && flow != 0){
+                    stopRecordDifficulty();
+                }
             }
         });
     }

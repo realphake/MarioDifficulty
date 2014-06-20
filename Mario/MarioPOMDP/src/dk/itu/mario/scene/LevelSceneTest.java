@@ -3,9 +3,7 @@ package dk.itu.mario.scene;
 import dk.itu.mario.engine.DifficultyRecorder;
 import java.awt.GraphicsConfiguration;
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Random;
 import java.io.BufferedReader;
@@ -21,11 +19,9 @@ import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Remove;
 import weka.classifiers.Evaluation;
 
-import weka.estimators.KernelEstimator;
 
 import level2.ArchLevel;
 import level2.BgLevelGenerator;
-import dk.itu.mario.MarioInterface.GamePlay;
 import dk.itu.mario.engine.sonar.FixedSoundSource;
 import dk.itu.mario.engine.sprites.CoinAnim;
 import dk.itu.mario.engine.sprites.FireFlower;
@@ -33,7 +29,6 @@ import dk.itu.mario.engine.sprites.Mario;
 import dk.itu.mario.engine.sprites.Mushroom;
 import dk.itu.mario.engine.sprites.Particle;
 import dk.itu.mario.engine.sprites.Sprite;
-import dk.itu.mario.engine.util.FileHandler;
 
 import dk.itu.mario.engine.Art;
 import dk.itu.mario.engine.BgRenderer;
@@ -41,8 +36,6 @@ import dk.itu.mario.engine.DataRecorder;
 import dk.itu.mario.engine.LevelRenderer;
 import dk.itu.mario.engine.MarioComponent;
 import level2.*;
-import level2.generator.CustomizedLevelGenerator;
-import dk.itu.mario.engine.Play;
 import dk.itu.mario.res.ResourcesManager;
 import java.util.logging.Logger;
 
@@ -80,7 +73,7 @@ public class LevelSceneTest extends LevelScene {
     public boolean first_time = true;
     public int levelWidth = 50;
     
-    public boolean training = true;
+    public boolean training = false;
     
     
     MainSendRequest request = new MainSendRequest();
@@ -188,6 +181,8 @@ public class LevelSceneTest extends LevelScene {
         ////System.out.println("\n enemies LEFT : " + recorder.level.BLOCKS_COINS);
         ////System.out.println("\n enemies LEFT : " + recorder.level.BLOCKS_POWER);
         gameStarted = false;
+        //getUserOpinion();
+        Art.startMusic(1);
     }
 
     // Locally for Random Forest Classifier -- Currently Unused
@@ -349,17 +344,16 @@ public class LevelSceneTest extends LevelScene {
     }
 
     public DifficultyRecorder getUserOpinion() {
-//        dr.startRecordDifficulty(this.first_time);
-//        while (!dr.isFinished()) {
-//            try {
-//                Thread.sleep(200);
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//            }
-//        }
-//        this.first_time = false;
+        dr.startRecordDifficulty(this.first_time);
+        while (!dr.isFinished()) {
+            try {
+               Thread.sleep(200);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+        }
+        this.first_time = false;
         return dr;
-        
     }
     
     public int getCurrentSectionType(int xcoord){
@@ -734,7 +728,7 @@ public class LevelSceneTest extends LevelScene {
     }
 
     public void deathActions() {
-        
+        Art.stopMusic();
         //Reset general mario stuff
         DifficultyRecorder dr = DifficultyRecorder.getInstance();
 
@@ -959,11 +953,12 @@ public class LevelSceneTest extends LevelScene {
         double endX = level.getxExit() * squareSize; //position of the end on the level
         //if(!isCustom && recorder==null)
 
-        recorder.reset();
+        recorder.respawn();
         recorder.level = level2;
                             //System.out.println("\n enemies LEFT : " + recorder.level.COINS); //Sander disable
         //System.out.println("\n enemies LEFT : " + recorder.level.BLOCKS_COINS);
         //System.out.println("\n enemies LEFT : " + recorder.level.BLOCKS_POWER);
+        Art.startMusic(1);
         gameStarted = false;
     }
 

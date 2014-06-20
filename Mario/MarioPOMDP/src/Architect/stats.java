@@ -113,7 +113,7 @@ public class stats {
 				// number of ducks
 				this.n_d  = gmp.duckNumber;
 				// playing duration of last life over total time spent on the level
-				this.t_ll = gmp.completionTime;
+				this.t_ll = gmp.succesfulRunTime;
 				// number of gaps
 				this.G    = -0.287;
 				

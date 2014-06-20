@@ -80,7 +80,7 @@ public class Architect {
     
     // SANDER EXPERIMENT PARAMS
     // ex number
-    public int experiment = 1;
+    public int experiment = 3;
     
     // conditions as listed
     // for experiment 2 the condition number is actually the index of the difficulty vectors
@@ -126,9 +126,18 @@ public class Architect {
                         
                         params_new = this.paramsfromstring(stringSettings[3]);
             } 
-        } else {
+        } else if (experiment == 2) {
              params_new = paramsfromstring(stringSettings[condition]);
              //System.out.println(paramsfromstring(stringSettings[condition]));
+        } else if (experiment == 3) {
+            //random with bias to GSP
+            int[] newParam = {randomGenerator.nextInt(3)+randomGenerator.nextInt(4),
+                              randomGenerator.nextInt(3)+randomGenerator.nextInt(4),
+                              randomGenerator.nextInt(3)+randomGenerator.nextInt(4),
+                              randomGenerator.nextInt(3)+randomGenerator.nextInt(4), 
+                              randomGenerator.nextInt(3)+randomGenerator.nextInt(4), 
+                              0};
+            params_new.setSettingsInt(newParam);
         }
 
         if (training) {
@@ -456,6 +465,15 @@ public class Architect {
         //params_new = getBayesOptNextStep();
 
         //hillClimb();
+        } else {
+            //random with bias to GSP
+            int[] newParam = {randomGenerator.nextInt(3)+randomGenerator.nextInt(4),
+                              randomGenerator.nextInt(3)+randomGenerator.nextInt(4),
+                              randomGenerator.nextInt(3)+randomGenerator.nextInt(4),
+                              randomGenerator.nextInt(3)+randomGenerator.nextInt(4), 
+                              randomGenerator.nextInt(3)+randomGenerator.nextInt(4), 
+                              0};
+            params_new.setSettingsInt(newParam);
         }
         params_new.newSeed();
     }

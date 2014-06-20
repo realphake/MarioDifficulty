@@ -45,8 +45,9 @@ public class DataRecorder {
      * Time variables to record
      */
     private int timeStart, timeEnd;
-    private int completionTime; //counts only the current run on the level, excluding death games
-    public int totalTime; //sums all the time, including from previous games if player died
+    private int succesfulRunTime;
+    private int completionTime; //counts only the current segment, includin death games
+    public int totalTime; //sums all the time over all segments
 
     /**
      * Jump variables to record
@@ -146,6 +147,7 @@ public class DataRecorder {
      */
     private int shellsUnleashed;
 
+    public int bulletBillsFired;
     /**
      * Power up time, how much time mario spent in what form
      */
@@ -179,16 +181,16 @@ public class DataRecorder {
 
         reset();
     }
-
+    
     public void reset() {
         kills = new int[7];
         deaths = new int[10]; //added one for the hole death and one for time death and one for shell
 
         //time reset
+        succesfulRunTime = 0;
         completionTime = 0;
         timeStart = 0;
         timeEnd = 0;
-        totalTime = 0;
 
         //jump reset
         timesJumped = 0;
@@ -250,6 +252,102 @@ public class DataRecorder {
 
         //shell reset
         shellsUnleashed = 0;
+        
+        bulletBillsFired = 0;
+
+        //kill types
+        fireKills = 0;
+        suicideKills = 0;
+        stompKills = 0;
+        shellKills = 0;
+
+        //power up types
+        totalLittleTime = 0;
+        startLittleTime = 0;
+        endLittleTime = 0;
+
+        totalLargeTime = 0;
+        startLargeTime = 0;
+        endLargeTime = 0;
+
+        totalFireTime = 0;
+        startFireTime = 0;
+        endFireTime = 0;
+
+        switchedPower = 0;
+
+        levelWon = false;
+    }
+    
+    public void respawn() {
+        kills = new int[7];
+        //time reset
+        succesfulRunTime = 0;
+        timeStart = 0;
+        timeEnd = 0;
+
+        //jump reset
+        timesJumped = 0;
+        totalJumpTime = 0;
+        startJumpTime = 0;
+        endJumpTime = 0;
+        isInAir = false;
+
+        //duck reset
+        timesDucked = 0;
+        totalDuckTime = 0;
+        startDuckTime = 0;
+        endDuckTime = 0;
+
+        //run reset
+        timesRun = 0;
+        totalRunTime = 0;
+        startRunTime = 0;
+        endRunTime = 0;
+
+        //switch reset
+        totalRightTime = 0;
+        totalLeftTime = 0;
+        startRightTime = 0;
+        startLeftTime = 0;
+        endRightTime = 0;
+        endLeftTime = 0;
+        startRunTimeNewSection = 0;
+        endRunTimeNewSection = 0;
+        startRightTimeNewSection = 0;
+        endRightTimeNewSection = 0;
+        startLeftTimeNewSection = 0;
+        endLeftTimeNewSection = 0;
+
+        //section time reset
+        totalRightTimeStraight = 0;
+        totalLeftTimeStraight = 0;
+        totalRunTimeStraight = 0;
+        totalRightTimeJump = 0;
+        totalLeftTimeJump = 0;
+        totalRunTimeJump = 0;
+        totalRightTimeTubes = 0;
+        totalLeftTimeTubes = 0;
+        totalRunTimeTubes = 0;
+        totalRightTimeHills = 0;
+        totalLeftTimeHills = 0;
+        totalRunTimeHills = 0;
+        totalRightTimeCannons = 0;
+        totalLeftTimeCannons = 0;
+        totalRunTimeCannons = 0;
+
+        //coins reset
+        collectedCoins = 0;
+
+        //blocks reset
+        blocksEmptyDestroyed = 0;
+        blocksCoinDestroyed = 0;
+        blocksPowerDestroyed = 0;
+
+        //shell reset
+        shellsUnleashed = 0;
+        
+        bulletBillsFired = 0;
 
         //kill types
         fireKills = 0;
@@ -308,7 +406,8 @@ public class DataRecorder {
             //System.out.println("******************************************");
             //System.out.println("tt:" + totalTime);
             //System.out.println("******************************************");
-            completionTime = timeEnd - timeStart;
+            completionTime += timeEnd - timeStart;
+            succesfulRunTime = timeEnd - timeStart;
             detailedLog += "Totaltime = " + completionTime;
             detailedLog += "\n";
         }
@@ -944,8 +1043,8 @@ public class DataRecorder {
         //-should also be called in LevelSceneTest.winActions() + deathActions()
         GamePlay gpm = new GamePlay();
 
-        gpm.completionTime = getCompletionTime();
-        gpm.totalTime = getTotalTime();////sums all the time, including from previous games if player died
+        gpm.succesfulRunTime = getSuccesfulRunTime(); 
+        gpm.completionTime = getCompletionTime();////sums all the time, including from previous games if player died
 
         gpm.jumpsNumber = getTimesJumped();
         gpm.timeSpentDucking = getTotalDuckTime();
@@ -995,7 +1094,6 @@ public class DataRecorder {
         gpm.JumpFlowersKilled = kills[SpriteTemplate.JUMP_FLOWER];
         gpm.CannonBallKilled = kills[SpriteTemplate.CANNON_BALL];
         gpm.ChompFlowersKilled = kills[SpriteTemplate.CHOMP_FLOWER];
-        
         
         gpm.totalRightTimeStraight = getTotalRightTimeForSection(STRAIGHT);
         gpm.totalLeftTimeStraight = getTotalLeftTimeForSection(STRAIGHT);
@@ -1092,9 +1190,21 @@ public class DataRecorder {
         //detailedLog += "\n";
         //First the in-game metrics as above
         String POMDPmetrics = "";
+        //@ATTRIBUTE feature00-segmentscompleted NUMERIC
+        POMDPmetrics += levelScene.arch.chunksGenerated + ", ";
+        //@ATTRIBUTE feature01a-completiontime NUMERIC
+        //@ATTRIBUTE feature01b-succesfulruntime NUMERIC
+        //@ATTRIBUTE feature02-totaltime NUMERIC
         POMDPmetrics += getCompletionTime() + ", ";
+        POMDPmetrics += getSuccesfulRunTime() + ", ";
         POMDPmetrics += getTotalTime() + ", ";
-
+        //@ATTRIBUTE feature03-timesjumped NUMERIC
+        //@ATTRIBUTE feature04-totalducktime NUMERIC
+        //@ATTRIBUTE feature05-timesducked NUMERIC
+        //@ATTRIBUTE feature06-totalruntime NUMERIC
+        //@ATTRIBUTE feature07-timesrun NUMERIC
+        //@ATTRIBUTE feature08-totalrighttime NUMERIC
+        //@ATTRIBUTE feature09-totallefttime NUMERIC
         POMDPmetrics += getTimesJumped() + ", ";
         POMDPmetrics += getTotalDuckTime() + ", ";
         POMDPmetrics += getTimesDucked() + ", ";
@@ -1102,31 +1212,72 @@ public class DataRecorder {
         POMDPmetrics += getTimesRun() + ", ";
         POMDPmetrics += getTotalRightTime() + ", ";
         POMDPmetrics += getTotalLeftTime() + ", ";
-
+        //@ATTRIBUTE feature10a-coinscollected NUMERIC
+        //@ATTRIBUTE feature10b-perc-coinscollected NUMERIC
+        //@ATTRIBUTE feature11-levelcoins NUMERIC
         POMDPmetrics += getCoinsCollected() + ", ";
+        POMDPmetrics += Math.round((((double)getCoinsCollected()/(double)level.COINS))*100.0)/100.0 + ", ";
         POMDPmetrics += level.COINS + ", ";
-
+        //Math.round(()*100.0)/100.0
+        //@ATTRIBUTE feature12a-blocksemptydestroyed NUMERIC
+        //@ATTRIBUTE feature12b-perc-blocksdestroyedwasempty NUMERIC
+        //@ATTRIBUTE feature13-levelblocksempty NUMERIC
+        //@ATTRIBUTE feature14a-blockscoindestroyed NUMERIC
+        //@ATTRIBUTE feature14b-perc-blocksdestroyedwascoin NUMERIC
+        //@ATTRIBUTE feature15-blockcoins NUMERIC
+        //@ATTRIBUTE feature16a-blockspowerdestroyed NUMERIC
+        //@ATTRIBUTE feature16b-perc-blocksdestroyedwaspower NUMERIC
+        //@ATTRIBUTE feature17-levelblockspower NUMERIC
+        //@ATTRIBUTE feature18-shellsunleashed NUMERIC
+        //@ATTRIBUTE feature19-killsfire NUMERIC
+        //@ATTRIBUTE feature20-killsshell NUMERIC
+        //@ATTRIBUTE feature21-enemies NUMERIC
         POMDPmetrics += getBlocksEmptyDestroyed() + ", ";
+        POMDPmetrics += Math.round(((double)blocksEmptyDestroyed /(double)(blocksEmptyDestroyed + blocksCoinDestroyed + blocksPowerDestroyed))*100.0)/100.0 + ", ";
         POMDPmetrics += level.BLOCKS_EMPTY + ", ";
         POMDPmetrics += getBlocksCoinDestroyed() + ", ";
+        POMDPmetrics += Math.round(((double)blocksCoinDestroyed /(double)(blocksEmptyDestroyed + blocksCoinDestroyed + blocksPowerDestroyed))*100.0)/100.0 + ", ";
         POMDPmetrics += level.BLOCKS_COINS + ", ";
         POMDPmetrics += getBlocksPowerDestroyed() + ", ";
+        POMDPmetrics += Math.round(((double)blocksPowerDestroyed /(double)(blocksEmptyDestroyed + blocksCoinDestroyed + blocksPowerDestroyed))*100.0)/100.0 + ", ";
         POMDPmetrics += level.BLOCKS_POWER + ", ";
         POMDPmetrics += getShellsUnleashed() + ", ";
         POMDPmetrics += getKillsFire() + ", ";
         POMDPmetrics += getKillsShell() + ", ";
         POMDPmetrics += level.ENEMIES + ", ";
-
+        //@ATTRIBUTE feature22a-totallittletime NUMERIC
+        //@ATTRIBUTE feature22b-perc-totallittletime NUMERIC
+        //@ATTRIBUTE feature23a-totallargetime NUMERIC
+        //@ATTRIBUTE feature23b-perc-totallargetime NUMERIC
+        //@ATTRIBUTE feature24a-totalfiretime NUMERIC
+        //@ATTRIBUTE feature24b-perc-totalfiretime NUMERIC
+        //@ATTRIBUTE feature25-switchedpower NUMERIC
+        //@ATTRIBUTE feature26-aimlessJumps NUMERIC
+        //@ATTRIBUTE feature27-perc-blocksdestroyed NUMERIC
+        //@ATTRIBUTE feature28-perc-coinblocksdestroyed NUMERIC
+        //@ATTRIBUTE feature29-perc-emptyblocksdestroyed NUMERIC
+        //@ATTRIBUTE feature30-perc-powerblocksdestroyed NUMERIC
+        double totalTimeTemp = getTotalLittleTime() + getTotalLargeTime() + getTotalFireTime();
         POMDPmetrics += getTotalLittleTime() + ", ";
+        POMDPmetrics += Math.round((getTotalLittleTime()/totalTimeTemp)*100.0)/100.0;
         POMDPmetrics += getTotalLargeTime() + ", ";
+        POMDPmetrics += Math.round((getTotalLargeTime()/totalTimeTemp)*100.0)/100.0;
         POMDPmetrics += getTotalFireTime() + ", ";
+        POMDPmetrics += Math.round((getTotalFireTime()/totalTimeTemp)*100.0)/100.0;
         POMDPmetrics += getSwitchedPower() + ", ";
         POMDPmetrics += J() + ", ";
         POMDPmetrics += nb() + ", ";
         POMDPmetrics += ncb() + ", ";
         POMDPmetrics += neb() + ", ";
         POMDPmetrics += np() + ", ";
-
+        //@ATTRIBUTE feature31a-deaths-gap NUMERIC
+        //@ATTRIBUTE feature32a-deaths-red-turtle NUMERIC
+        //@ATTRIBUTE feature33a-deaths-green-turtle NUMERIC
+        //@ATTRIBUTE feature34a-deaths-goomba NUMERIC
+        //@ATTRIBUTE feature35a-deaths-armored-turle NUMERIC
+        //@ATTRIBUTE feature36a-deaths-jump-flower NUMERIC
+        //@ATTRIBUTE feature37a-deaths-cannon-ball NUMERIC
+        //@ATTRIBUTE feature38a-deaths-chomp-flower NUMERIC
         POMDPmetrics += dg() + ", ";
         POMDPmetrics += deaths[SpriteTemplate.RED_TURTLE] + ", ";
         POMDPmetrics += deaths[SpriteTemplate.GREEN_TURTLE] + ", ";
@@ -1135,7 +1286,36 @@ public class DataRecorder {
         POMDPmetrics += deaths[SpriteTemplate.JUMP_FLOWER] + ", ";
         POMDPmetrics += deaths[SpriteTemplate.CANNON_BALL] + ", ";
         POMDPmetrics += deaths[SpriteTemplate.CHOMP_FLOWER] + ", ";
-
+        double totaldeaths =    dg()+deaths[SpriteTemplate.RED_TURTLE] +
+                                deaths[SpriteTemplate.GREEN_TURTLE] + 
+                                deaths[SpriteTemplate.GOOMPA] + 
+                                deaths[SpriteTemplate.ARMORED_TURTLE] + 
+                                deaths[SpriteTemplate.JUMP_FLOWER] + 
+                                deaths[SpriteTemplate.CANNON_BALL] + 
+                                deaths[SpriteTemplate.CHOMP_FLOWER];
+        //@ATTRIBUTE feature31b-perc-deaths-gap NUMERIC
+        //@ATTRIBUTE feature32b-perc-deaths-red-turtle NUMERIC
+        //@ATTRIBUTE feature33b-perc-deaths-green-turtle NUMERIC
+        //@ATTRIBUTE feature34b-perc-deaths-goomba NUMERIC
+        //@ATTRIBUTE feature35b-perc-deaths-armored-turle NUMERIC
+        //@ATTRIBUTE feature36b-perc-deaths-jump-flower NUMERIC
+        //@ATTRIBUTE feature37b-perc-deaths-cannon-ball NUMERIC
+        //@ATTRIBUTE feature38b-perc-deaths-chomp-flower NUMERIC
+        POMDPmetrics += (Math.round((dg()/totaldeaths)*100.0)/100.0) + ", ";
+        POMDPmetrics += (Math.round((deaths[SpriteTemplate.RED_TURTLE]/totaldeaths)*100.0)/100.0) + ", ";
+        POMDPmetrics += (Math.round((deaths[SpriteTemplate.GREEN_TURTLE]/totaldeaths)*100.0)/100.0) + ", ";
+        POMDPmetrics += (Math.round((deaths[SpriteTemplate.GOOMPA]/totaldeaths)*100.0)/100.0) + ", ";
+        POMDPmetrics += (Math.round((deaths[SpriteTemplate.ARMORED_TURTLE]/totaldeaths)*100.0)/100.0) + ", ";
+        POMDPmetrics += (Math.round((deaths[SpriteTemplate.JUMP_FLOWER]/totaldeaths)*100.0)/100.0) + ", ";
+        POMDPmetrics += (Math.round((deaths[SpriteTemplate.CANNON_BALL]/totaldeaths)*100.0)/100.0) + ", ";
+        POMDPmetrics += (Math.round((deaths[SpriteTemplate.CHOMP_FLOWER]/totaldeaths)*100.0)/100.0)+ ", ";
+        //@ATTRIBUTE feature39-kills-red-turtle NUMERIC
+        //@ATTRIBUTE feature40-kills-green-turtle NUMERIC
+        //@ATTRIBUTE feature41-kills-goomba NUMERIC
+        //@ATTRIBUTE feature42-kills-armored-turtle NUMERIC
+        //@ATTRIBUTE feature43-kills-jump-flower NUMERIC
+        //@ATTRIBUTE feature44-kills-cannon-ball NUMERIC
+        //@ATTRIBUTE feature45-kills-chomp-flower NUMERIC
         POMDPmetrics += kills[SpriteTemplate.RED_TURTLE] + ", ";
         POMDPmetrics += kills[SpriteTemplate.GREEN_TURTLE] + ", ";
         POMDPmetrics += kills[SpriteTemplate.GOOMPA] + ", ";
@@ -1143,43 +1323,90 @@ public class DataRecorder {
         POMDPmetrics += kills[SpriteTemplate.JUMP_FLOWER] + ", ";
         POMDPmetrics += kills[SpriteTemplate.CANNON_BALL] + ", ";
         POMDPmetrics += kills[SpriteTemplate.CHOMP_FLOWER] + ", ";
-        
+        //@ATTRIBUTE feature46a-perc-enemies-killed NUMERIC
+        //@ATTRIBUTE feature46b-perc-bullets-killed NUMERIC
+        double enemiesKilled =  kills[SpriteTemplate.RED_TURTLE]+ 
+                                kills[SpriteTemplate.GREEN_TURTLE]+
+                                kills[SpriteTemplate.GOOMPA]+
+                                kills[SpriteTemplate.ARMORED_TURTLE]+
+                                kills[SpriteTemplate.JUMP_FLOWER]+
+                                kills[SpriteTemplate.CHOMP_FLOWER];
+        double enemiesKilledPlusCannon =  kills[SpriteTemplate.RED_TURTLE]+ 
+                                kills[SpriteTemplate.GREEN_TURTLE]+
+                                kills[SpriteTemplate.GOOMPA]+
+                                kills[SpriteTemplate.ARMORED_TURTLE]+
+                                kills[SpriteTemplate.JUMP_FLOWER]+
+                                kills[SpriteTemplate.CANNON_BALL] +
+                                kills[SpriteTemplate.CHOMP_FLOWER];
+        POMDPmetrics += Math.round(( enemiesKilled/(double)level.ENEMIES )*100.0)/100.0 + ", ";
+        POMDPmetrics += Math.round(( (double)kills[SpriteTemplate.CANNON_BALL]/(double)bulletBillsFired )*100.0)/100.0 + ", ";
+        //@ATTRIBUTE feature47-perc-firekills NUMERIC
+        //@ATTRIBUTE feature48-perc-suicidekills NUMERIC
+        //@ATTRIBUTE feature49-perc-stompkills NUMERIC
+        //@ATTRIBUTE feature50-perc-shellkills NUMERIC
+        POMDPmetrics += Math.round(( (double)fireKills/enemiesKilledPlusCannon )*100.0)/100.0 + ", ";
+        POMDPmetrics += Math.round(( (double)suicideKills/enemiesKilledPlusCannon )*100.0)/100.0 + ", ";
+        POMDPmetrics += Math.round(( (double)stompKills/enemiesKilledPlusCannon )*100.0)/100.0 + ", ";
+        POMDPmetrics += Math.round(( (double)shellKills/enemiesKilledPlusCannon )*100.0)/100.0 + ", ";
         // Section statistics
+        //@ATTRIBUTE feature-straight-totalruntime NUMERIC
+        //@ATTRIBUTE feature-straight-totalrighttime NUMERIC
+        //@ATTRIBUTE feature-straight-totallefttime NUMERIC
         POMDPmetrics += getTotalRunTimeForSection(STRAIGHT) + ", ";
         POMDPmetrics += getTotalRightTimeForSection(STRAIGHT) + ", ";
         POMDPmetrics += getTotalLeftTimeForSection(STRAIGHT) + ", ";
-        
+        //@ATTRIBUTE feature-hills-totalruntime NUMERIC
+        //@ATTRIBUTE feature-hills-totalrighttime NUMERIC
+        //@ATTRIBUTE feature-hills-totallefttime NUMERIC
         POMDPmetrics += getTotalRunTimeForSection(HILL_STRAIGHT) + ", ";
         POMDPmetrics += getTotalRightTimeForSection(HILL_STRAIGHT) + ", ";
         POMDPmetrics += getTotalLeftTimeForSection(HILL_STRAIGHT) + ", ";
-        
+        //@ATTRIBUTE feature-jump-totalruntime NUMERIC
+        //@ATTRIBUTE feature-jump-totalrighttime NUMERIC
+        //@ATTRIBUTE feature-jump-totallefttime NUMERIC
         POMDPmetrics += getTotalRunTimeForSection(JUMP) + ", ";
         POMDPmetrics += getTotalRightTimeForSection(JUMP) + ", ";
         POMDPmetrics += getTotalLeftTimeForSection(JUMP) + ", ";
-        
+        //@ATTRIBUTE feature-tubes-totalruntime NUMERIC
+        //@ATTRIBUTE feature-tubes-totalrighttime NUMERIC
+        //@ATTRIBUTE feature-tubes-totallefttime NUMERIC
         POMDPmetrics += getTotalRunTimeForSection(TUBES) + ", ";
         POMDPmetrics += getTotalRightTimeForSection(TUBES) + ", ";
         POMDPmetrics += getTotalLeftTimeForSection(TUBES) + ", ";
-        
+        //@ATTRIBUTE feature-cannons-totalruntime NUMERIC
+        //@ATTRIBUTE feature-cannons-totalrighttime NUMERIC
+        //@ATTRIBUTE feature-cannons-totallefttime NUMERIC
         POMDPmetrics += getTotalRunTimeForSection(CANNONS) + ", ";
         POMDPmetrics += getTotalRightTimeForSection(CANNONS) + ", ";
         POMDPmetrics += getTotalLeftTimeForSection(CANNONS) + ", ";
-
+        //@ATTRIBUTE feature-perc-totalruntime NUMERIC
+        //@ATTRIBUTE feature-perc-totalrighttime NUMERIC
+        //@ATTRIBUTE feature-perc-totallefttime NUMERIC
+        POMDPmetrics += (Math.round(( getTotalRunTime()/getSuccesfulRunTime() )*100.0)/100.0) + ", ";
+        POMDPmetrics += (Math.round(( getTotalRightTime()/getSuccesfulRunTime() )*100.0)/100.0) + ", ";
+        POMDPmetrics += (Math.round(( getTotalLeftTime()/getSuccesfulRunTime() )*100.0)/100.0) + ", ";
+        //@ATTRIBUTE parameter-straight NUMERIC
+        //@ATTRIBUTE parameter-hills NUMERIC
+        //@ATTRIBUTE parameter-tubes NUMERIC
+        //@ATTRIBUTE parameter-jump NUMERIC
+        //@ATTRIBUTE parameter-cannons NUMERIC
         POMDPmetrics += level.odds[0] + ", ";
         POMDPmetrics += level.odds[1] + ", ";
         POMDPmetrics += level.odds[2] + ", ";
         POMDPmetrics += level.odds[3] + ", ";
         POMDPmetrics += level.odds[4] + ", ";
-        POMDPmetrics += level.odds[5] + ", ";
 
         // Difficulty estimation Here -DE1
         // DIRTY DESIGN DECISION, we will store the value for BETTER in the already existing FRUSTRATION in the ARFF
-        POMDPmetrics += userOpinion.engagement + ", ";
+        //@ATTRIBUTE label-boredom {1,2,3,4,5}
+        //@ATTRIBUTE label-frustration {1,2,3,4,5}
+        //@ATTRIBUTE label-apathy {1,2,3,4,5}
+        //@ATTRIBUTE label-flow {1,2,3,4,5}
+        POMDPmetrics += userOpinion.boredom + ", ";
         POMDPmetrics += userOpinion.frustration + ", ";
-        POMDPmetrics += userOpinion.challenge + ", ";
-        POMDPmetrics += userOpinion.better + ", ";
-        
-        
+        POMDPmetrics += (6-userOpinion.apathy) + ", ";
+        POMDPmetrics += userOpinion.flow + ", ";
+
         // pass the parameter back to the Architect
         gpm.better = userOpinion.better;
         if(gpm.better == 0)
@@ -1190,6 +1417,8 @@ public class DataRecorder {
         
 
         //Add date + time stamp
+        //@ATTRIBUTE timestamp STRING
+        //@ATTRIBUTE id-string STRING
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
         POMDPmetrics += timeStamp  + ", ";;
         POMDPmetrics += id;
@@ -1203,10 +1432,11 @@ public class DataRecorder {
 
         //Write metrics relevant for POMDP to sander.txt file
         System.out.println("");
-        System.out.println("Uploading recorded observations...");
         if(online){
-            request.uploadData("trainingfile_test.arff", POMDPmetrics);
+            System.out.println("Uploading recorded observations...");
+            request.uploadData("trainingfile_flow.arff", POMDPmetrics);
         } else {
+            System.out.println("Saving to local temp file...");
             writePOMDP(POMDPmetrics);
         }
         //Write detailedLog that lists jump actions and other barely relevant stuff
@@ -1229,7 +1459,7 @@ public class DataRecorder {
     private void writePOMDP(String detailedLogName) {
         try {
             //System.out.println(detailedLogName);
-            String filename = "../../MAINOOR/MarioPOMDP-traininstances-sectionfeatures.arff";
+            String filename = "../../temp.arff";
             FileWriter fw = new FileWriter(filename, true); //the true will append the new data
             fw.write(detailedLogName); //appends the string to the file
             fw.close();
@@ -1252,31 +1482,35 @@ public class DataRecorder {
         return new Random(new Random().nextLong()).nextInt(high - low) + low;
     }
 
-    public int getCompletionTime() {
-        return convertTime(completionTime);
+    public double getCompletionTime() {
+        return convertTimeTwoDecimals(completionTime);
+    }
+    
+    public double getSuccesfulRunTime() {
+        return convertTimeTwoDecimals(succesfulRunTime);
     }
 
-    public int getTotalTime() {
-        return convertTime(totalTime);
+    public double getTotalTime() {
+        return convertTimeTwoDecimals(totalTime);
     }
 
-    public int getTotalJumpTime() {
-        return convertTime(totalJumpTime);
+    public double getTotalJumpTime() {
+        return convertTimeTwoDecimals(totalJumpTime);
     }
 
     public int getTimesJumped() {
         return timesJumped;
     }
 
-    public int getTotalDuckTime() {
-        return convertTime(totalDuckTime);
+    public double getTotalDuckTime() {
+        return convertTimeTwoDecimals(totalDuckTime);
     }
 
     public int getTimesDucked() {
         return timesDucked;
     }
 
-    public int getTotalRunTime() {
+    public double getTotalRunTime() {
         return convertTime(totalRunTime);
     }
 
@@ -1284,11 +1518,11 @@ public class DataRecorder {
         return timesRun;
     }
 
-    public int getTotalRightTime() {
+    public double getTotalRightTime() {
         return convertTime(totalRightTime);
     }
 
-    public int getTotalLeftTime() {
+    public double getTotalLeftTime() {
         return convertTime(totalLeftTime);
     }
 
@@ -1336,16 +1570,16 @@ public class DataRecorder {
         return suicideKills;
     }
 
-    public int getTotalLittleTime() {
-        return convertTime(totalLittleTime);
+    public double getTotalLittleTime() {
+        return convertTimeTwoDecimals(totalLittleTime);
     }
 
-    public int getTotalLargeTime() {
-        return convertTime(totalLargeTime);
+    public double getTotalLargeTime() {
+        return convertTimeTwoDecimals(totalLargeTime);
     }
 
-    public int getTotalFireTime() {
-        return convertTime(totalFireTime);
+    public double getTotalFireTime() {
+        return convertTimeTwoDecimals(totalFireTime);
     }
 
     public int getSwitchedPower() {

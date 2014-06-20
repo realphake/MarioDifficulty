@@ -179,6 +179,7 @@ public class MarioComponent extends JComponent implements Runnable, KeyListener,
     public void resume() {
         //System.out.println("");
         //System.out.println("Resuming...");
+        //resetKeys();
         paused = false;
         wasPaused = true;
     }
@@ -301,7 +302,7 @@ public class MarioComponent extends JComponent implements Runnable, KeyListener,
                 }
             }
 
-            Art.stopMusic();
+            //Art.stopMusic();
         }
     }
 

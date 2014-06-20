@@ -256,6 +256,7 @@ public class LevelScene extends Scene implements SpriteContext
                                         addSprite(new Sparkle(x * 16 + 8, y * 16 + (int) (Math.random() * 16), (float) Math.random() * dir, 0, 0, 1, 5));
                                     }
                                     addSprite(new BulletBill(this, x * 16 + 8 + dir * 8, y * 16 + 15, dir));
+                                    recorder.bulletBillsFired++;
                                     hasShotCannon = true;
                                 }
                             }

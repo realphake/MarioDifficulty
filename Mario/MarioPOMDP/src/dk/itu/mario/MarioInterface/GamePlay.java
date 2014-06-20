@@ -12,15 +12,15 @@ public class GamePlay implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public int completionTime; //counts only the current run on the level, excluding death games
-    public int totalTime;//sums all the time, including from previous games if player died
+    public double succesfulRunTime; //counts only the current run on the level, excluding death games
+    public double completionTime;//sums all the time, including from previous games if player died
     public int jumpsNumber; // total number of jumps
     public int duckNumber; //total number of ducks
-    public int timeSpentDucking; // time spent in ducking mode
+    public double timeSpentDucking; // time spent in ducking mode
     public int timesPressedRun;//number of times the run key pressed
-    public int timeSpentRunning; //total time spent running
-    public int timeRunningRight; //total time spent running to the right
-    public int timeRunningLeft;//total time spent running to the left
+    public double timeSpentRunning; //total time spent running
+    public double timeRunningRight; //total time spent running to the right
+    public double timeRunningLeft;//total time spent running to the left
     public int emptyBlocksDestroyed; //number of empty blocks destroyed
     public int coinsCollected; //number of coins collected
     public int coinBlocksDestroyed; //number of coin block destroyed
@@ -28,9 +28,9 @@ public class GamePlay implements Serializable {
     public int kickedShells; //number of shells Mario kicked
     public int enemyKillByFire; //number of enemies killed by shooting them
     public int enemyKillByKickingShell; //number of enemies killed by kicking a shell on them
-    public int totalTimeLittleMode; //total time spent in little mode
-    public int totalTimeLargeMode; //total time spent in large mode
-    public int totalTimeFireMode; //total time spent in fire mode
+    public double totalTimeLittleMode; //total time spent in little mode
+    public double totalTimeLargeMode; //total time spent in large mode
+    public double totalTimeFireMode; //total time spent in fire mode
     public int timesSwichingPower; //number of Times Switched Between Little, Large or Fire Mario
     public double aimlessJumps; //number of jumps without a reason
     public double percentageBlocksDestroyed; //percentage of all blocks destroyed
