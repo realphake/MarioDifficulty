@@ -77,7 +77,7 @@ public class LevelSceneTest extends LevelScene {
     
     
     MainSendRequest request = new MainSendRequest();
-    boolean online = false;
+    boolean online = true;
 
     public LevelSceneTest(GraphicsConfiguration graphicsConfiguration,
             MarioComponent renderer, long seed, int levelDifficulty, int type) {
