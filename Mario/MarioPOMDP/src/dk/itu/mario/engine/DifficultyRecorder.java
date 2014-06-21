@@ -426,7 +426,7 @@ public class DifficultyRecorder {
         JLabel labelGreetings2 = new JLabel("Please answer these questions...");
         //JLabel labelEngagement = new JLabel("");
         JLabel labelBoredom = new JLabel("Was the previous segment boring?");
-        JLabel labelApathy = new JLabel("How important does it feel to play this game?");
+        JLabel labelApathy = new JLabel("How important does it feel to do well at this game?");
         JLabel labelFlow = new JLabel("Do you feel like playing more?");
         JLabel labelFrustration = new JLabel("Did the game elements in the last segment frustrate you?");
         //JLabel labelChallenge = new JLabel("The challenge level of the part that I just played is...");
@@ -464,7 +464,7 @@ public class DifficultyRecorder {
         Hashtable labelTableFlow = new Hashtable();
         labelTableFlow.put(new Integer(0), new JLabel("Not Set"));
         labelTableFlow.put(new Integer(1), new JLabel("Ready to quit"));
-        labelTableFlow.put(new Integer(3), new JLabel("I'll keep going"));
+        labelTableFlow.put(new Integer(3), new JLabel("Just a few more and I'll stop"));
         labelTableFlow.put(new Integer(5), new JLabel("Give me more!"));
 
         Hashtable labelTableBetter = new Hashtable();
