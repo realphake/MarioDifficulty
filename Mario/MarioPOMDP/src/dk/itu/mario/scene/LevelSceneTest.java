@@ -408,7 +408,7 @@ public class LevelSceneTest extends LevelScene {
         return fDistribution;
     }
 
-    public DifficultyRecorder getUserOpinion() {
+    public DifficultyRecorder getUserOpinion(int deathSection) {
         dr.startRecordDifficulty(false);
         while (!dr.isFinished()) {
             try {
@@ -639,7 +639,7 @@ public class LevelSceneTest extends LevelScene {
 
             //if we need to train, get user opinion.
             if (isTraining) {
-                getUserOpinion();
+                getUserOpinion(-1);
             }
             int[] tempLikertValues = {dr.likert0, dr.likert1, dr.likert2, dr.likert3, dr.likert4};
             this.likertValues = tempLikertValues;
@@ -668,20 +668,26 @@ public class LevelSceneTest extends LevelScene {
 
                     //test for 1 section
                     section.initializeModel(); //WORKS
-                    section.readDataFromFile(); //WORKS
+                    //section.readDataFromFile(); //WORKS
                     section.addInstance(this.likertValues[section.getId()]);//WORKS
                     section.buildClassifier();//WORKS
-                    double[] q = section.getEstimate();//WORKS
+
+                    double likertEstimate = 3;
+                    if (!this.isTraining) {
+                        likertEstimate = 0;
+
+                        double[] q = section.getEstimate();//WORKS
+
+                        for (int ll = 0; ll < 5; ll++) {
+                            likertEstimate += (ll + 1) * likertWeights[ll] * q[ll];
+                        }
+                    }
                     //for (double z : q) {
                     //System.out.println("estimate  :"+z);
                     //}
                     section.saveDataToFile(); //WORKS
 
                     //estimate of classified likert distribution * weights.
-                    double likertEstimate = 0;
-                    for (int ll = 0; ll < 5; ll++) {
-                        likertEstimate += (ll + 1) * likertWeights[ll] * q[ll];
-                    }
                     System.out.println("likert estimate ---" + likertEstimate);
 
                     //new difficulty (from [1,5] to [-3,3])
@@ -979,7 +985,7 @@ public class LevelSceneTest extends LevelScene {
         DifficultyRecorder dr = DifficultyRecorder.getInstance();
 
         if (isTraining) {
-            getUserOpinion();
+            getUserOpinion(mario.getDeathSection());
             int[] tempLikertValues = {dr.likert0, dr.likert1, dr.likert2, dr.likert3, dr.likert4};
             this.likertValues = tempLikertValues;
         }
@@ -1220,20 +1226,24 @@ public class LevelSceneTest extends LevelScene {
 
             //test for 1 section
             sections.get(deathSection).initializeModel(); //WORKS
-            sections.get(deathSection).readDataFromFile(); //WORKS
+            //sections.get(deathSection).readDataFromFile(); //WORKS
             sections.get(deathSection).addDeathInstance(this.likertValues[deathSection]);//WORKS
             sections.get(deathSection).buildClassifier();//WORKS
-            double[] q = sections.get(deathSection).getDeathEstimate();//WORKS
+            double likertEstimate = 3;
+            if (!this.isTraining) {
+                double[] q = sections.get(deathSection).getDeathEstimate();//WORKS
+                //estimate of classified likert distribution * weights.
+                likertEstimate = 0;
+                for (int ll = 0; ll < 5; ll++) {
+                    likertEstimate += (ll + 1) * likertWeights[ll] * q[ll];
+                }
+            }
+
             //for (double z : q) {
             //System.out.println("estimate  :"+z);
             //}
             sections.get(deathSection).saveDataToFile(); //WORKS
 
-            //estimate of classified likert distribution * weights.
-            double likertEstimate = 0;
-            for (int ll = 0; ll < 5; ll++) {
-                likertEstimate += (ll + 1) * likertWeights[ll] * q[ll];
-            }
             System.out.println("likert estimate ---" + likertEstimate);
 
             //new difficulty (from [1,5] to [-3,3])

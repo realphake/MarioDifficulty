@@ -175,7 +175,7 @@ public class DifficultyRecorder {
         if (isFirstQuestions) {
             loadFirstQuestions(dc);
         } else {
-            loadSwapLevelQuestions(dc);
+            loadSwapLevelQuestions(dc);            
         }
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
