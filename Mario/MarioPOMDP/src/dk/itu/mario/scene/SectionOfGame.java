@@ -194,7 +194,52 @@ public class SectionOfGame {
         }
     }
 
-    public double getEstimate() {
+    public double[] getDeathEstimate(){
+
+        int diff = this.getPreviousDifficulty();
+        float yaw = this.getGazeMatrix()[0]; //yaw,pitch,roll
+        float pitch = this.getGazeMatrix()[1];
+        float roll = this.getGazeMatrix()[2];
+        float neutral = this.getDeathEmotions()[0];
+        float happy = this.getDeathEmotions()[1];
+        float surprised = this.getDeathEmotions()[2];
+        float angry = this.getDeathEmotions()[3];
+        float disgusted = this.getDeathEmotions()[4];
+        float afraid = this.getDeathEmotions()[5];
+        float sad = this.getDeathEmotions()[6];
+        Instance newInstance2 = new Instance(12);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(0), diff);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(1), yaw);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(2), pitch);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(3), roll);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(4), neutral);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(5), happy);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(6), surprised);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(7), angry);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(8), disgusted);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(9), afraid);
+        newInstance2.setValue((Attribute) this.attributes.elementAt(10), sad);
+        newInstance2.setDataset(this.data);
+        newInstance2.setMissing(11);
+
+        double [] result = {0,0,0,0,0};
+        try {
+            result = this.tree.distributionForInstance(newInstance2);
+        } catch (Exception ex) {
+            Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+          //  System.out.println("RISALTZZZZ++   +     "+result);//RETURNS THE INDEX OF NOMINAL CLASS OF ATTRIBUTE (0-4)
+
+        return result;
+
+  
+    
+    
+    }
+    
+    
+    
+    public double[] getEstimate() {
 
         int diff = this.getPreviousDifficulty();
         float yaw = this.getGazeMatrix()[0]; //yaw,pitch,roll
@@ -222,9 +267,9 @@ public class SectionOfGame {
         newInstance2.setDataset(this.data);
         newInstance2.setMissing(11);
 
-        double result = 0;
+        double [] result = {0,0,0,0,0};
         try {
-            result = this.tree.classifyInstance(newInstance2);
+            result = this.tree.distributionForInstance(newInstance2);
         } catch (Exception ex) {
             Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -261,6 +306,38 @@ public class SectionOfGame {
 
     }
 
+    public void addDeathInstance(int likert){
+        int diff = this.getPreviousDifficulty();
+        float yaw = this.getGazeMatrix()[0]; //yaw,pitch,roll
+        float pitch = this.getGazeMatrix()[1];
+        float roll = this.getGazeMatrix()[2];
+        float neutral = this.getDeathEmotions()[0];
+        float happy = this.getDeathEmotions()[1];
+        float surprised = this.getDeathEmotions()[2];
+        float angry = this.getDeathEmotions()[3];
+        float disgusted = this.getDeathEmotions()[4];
+        float afraid = this.getDeathEmotions()[5];
+        float sad = this.getDeathEmotions()[6];
+
+        Instance newInstance = new Instance(12);
+        newInstance.setValue((Attribute) this.attributes.elementAt(0), diff);
+        newInstance.setValue((Attribute) this.attributes.elementAt(1), yaw);
+        newInstance.setValue((Attribute) this.attributes.elementAt(2), pitch);
+        newInstance.setValue((Attribute) this.attributes.elementAt(3), roll);
+        newInstance.setValue((Attribute) this.attributes.elementAt(4), neutral);
+        newInstance.setValue((Attribute) this.attributes.elementAt(5), happy);
+        newInstance.setValue((Attribute) this.attributes.elementAt(6), surprised);
+        newInstance.setValue((Attribute) this.attributes.elementAt(7), angry);
+        newInstance.setValue((Attribute) this.attributes.elementAt(8), disgusted);
+        newInstance.setValue((Attribute) this.attributes.elementAt(9), afraid);
+        newInstance.setValue((Attribute) this.attributes.elementAt(10), sad);
+        newInstance.setValue((Attribute) this.attributes.elementAt(11), Integer.toString(likert));
+
+        newInstance.setDataset(this.data);
+        this.data.add(newInstance);
+        this.data.setClassIndex(this.data.numAttributes() - 1);        
+    }
+    
     public void addInstance(int likert) {
         int diff = this.getPreviousDifficulty();
         float yaw = this.getGazeMatrix()[0]; //yaw,pitch,roll
@@ -351,8 +428,8 @@ public class SectionOfGame {
         this.hasStarted2 = false;
         this.allEmotions = new ArrayList<float[]>();
 
-        //calculate next difficulty
-        this.nextDifficulty = calculateNextDifficulty(alphaFactor);
+        //calculate next difficulty NOT ANYMORE. this is done in levelscenetest now separately.
+        //this.nextDifficulty = calculateNextDifficulty(alphaFactor);
 
         //save the previous emotions
         float[] tempPrev = this.emotions;

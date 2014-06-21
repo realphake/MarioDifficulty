@@ -45,7 +45,11 @@ public class DifficultyRecorder {
     public int engagement = 0;
     public int frustration = 0;
     public int challenge = 0;
-    public int likert = 0;
+    public int likert0 = 0;
+    public int likert1 = 0;
+    public int likert2 = 0;
+    public int likert3 = 0;
+    public int likert4 = 0;
     public static final int LOG_APPEND = 0;
     public static final int LOG_PREPEND = 1;
 
@@ -153,7 +157,7 @@ public class DifficultyRecorder {
         // Create new frame on top of the main window
         JFrame tempFrame = new JFrame("Measuring Perceived Difficulty");
         tempFrame.setUndecorated(true);
-        DisplayerComponent dc = new DisplayerComponent(this.frame.getWidth()+10, this.frame.getHeight()+10);
+        DisplayerComponent dc = new DisplayerComponent(this.frame.getWidth() + 100, this.frame.getHeight() + 100);
 
         //this.mariocomponent.pause();
         setFrame(tempFrame);
@@ -419,7 +423,11 @@ public class DifficultyRecorder {
         JLabel labelGreetings = new JLabel("Hello again!");
         JLabel labelGreetings2 = new JLabel("Please answer the questions before continuing.");
         JLabel labelEngagement = new JLabel("Experienced engagement:");
-        JLabel labelLikert = new JLabel("1-too easy 3-optimal 5-too difficult:");
+        JLabel labelLikert0 = new JLabel("Straight:  1-too easy 3-optimal 5-too difficult");
+        JLabel labelLikert1 = new JLabel("Hills:  1-too easy 3-optimal 5-too difficult");
+        JLabel labelLikert2 = new JLabel("Tubes:  1-too easy 3-optimal 5-too difficult");
+        JLabel labelLikert3 = new JLabel("Jump:  1-too easy 3-optimal 5-too difficult");
+        JLabel labelLikert4 = new JLabel("Cannons:  1-too easy 3-optimal 5-too difficult");
         JLabel labelFrustration = new JLabel("Experienced frustration:");
         JLabel labelChallenge = new JLabel("Experienced challenge:");
         JLabel labelInfo1 = new JLabel("After clicking the submit button the game will");
@@ -429,7 +437,7 @@ public class DifficultyRecorder {
         labelTableEandF.put(new Integer(1), new JLabel("None"));
         labelTableEandF.put(new Integer(3), new JLabel("Some"));
         labelTableEandF.put(new Integer(5), new JLabel("A Lot"));
-        
+
         Hashtable likertText = new Hashtable();
         likertText.put(new Integer(1), new JLabel("Too easy"));
         likertText.put(new Integer(3), new JLabel("Optimal"));
@@ -440,14 +448,36 @@ public class DifficultyRecorder {
         labelTableChallenge.put(new Integer(3), new JLabel("Just Right"));
         labelTableChallenge.put(new Integer(5), new JLabel("Too High"));
 
-        final JSlider sliderLikert = new JSlider(1, 5);//span 1-5
-        sliderLikert.setMajorTickSpacing(1);
-        sliderLikert.setPaintTicks(true);
-        sliderLikert.setLabelTable(likertText);
-        sliderLikert.setPaintLabels(true);
-        
-        
-        
+        final JSlider sliderLikert0 = new JSlider(1, 5);//span 1-5
+        sliderLikert0.setMajorTickSpacing(1);
+        sliderLikert0.setPaintTicks(true);
+        sliderLikert0.setLabelTable(likertText);
+        sliderLikert0.setPaintLabels(true);
+
+        final JSlider sliderLikert1 = new JSlider(1, 5);//span 1-5
+        sliderLikert1.setMajorTickSpacing(1);
+        sliderLikert1.setPaintTicks(true);
+        sliderLikert1.setLabelTable(likertText);
+        sliderLikert1.setPaintLabels(true);
+
+        final JSlider sliderLikert2 = new JSlider(1, 5);//span 1-5
+        sliderLikert2.setMajorTickSpacing(1);
+        sliderLikert2.setPaintTicks(true);
+        sliderLikert2.setLabelTable(likertText);
+        sliderLikert2.setPaintLabels(true);
+
+        final JSlider sliderLikert3 = new JSlider(1, 5);//span 1-5
+        sliderLikert3.setMajorTickSpacing(1);
+        sliderLikert3.setPaintTicks(true);
+        sliderLikert3.setLabelTable(likertText);
+        sliderLikert3.setPaintLabels(true);
+
+        final JSlider sliderLikert4 = new JSlider(1, 5);//span 1-5
+        sliderLikert4.setMajorTickSpacing(1);
+        sliderLikert4.setPaintTicks(true);
+        sliderLikert4.setLabelTable(likertText);
+        sliderLikert4.setPaintLabels(true);
+
         final JSlider sliderEngagement = new JSlider(1, 5);//span 1-5
         sliderEngagement.setMajorTickSpacing(1);
         sliderEngagement.setPaintTicks(true);
@@ -478,29 +508,37 @@ public class DifficultyRecorder {
         c.gridy = 2;
         c.gridx = 0;
         c.insets = new Insets(15, 0, 0, 0);
-        dc.add(labelEngagement, c);
+        dc.add(labelLikert0, c);
         c.gridx = 1;
-        dc.add(sliderEngagement, c);
+        dc.add(sliderLikert0, c);
 
         c.gridy = 3;
         c.gridx = 0;
-        dc.add(labelFrustration, c);
+        c.insets = new Insets(15, 0, 0, 0);
+        dc.add(labelLikert1, c);
         c.gridx = 1;
-        dc.add(sliderFrustration, c);
+        dc.add(sliderLikert1, c);
 
         c.gridy = 4;
         c.gridx = 0;
-        dc.add(labelChallenge, c);
+        c.insets = new Insets(15, 0, 0, 0);
+        dc.add(labelLikert2, c);
         c.gridx = 1;
-        dc.add(sliderChallenge, c);
-
+        dc.add(sliderLikert2, c);
+ 
         c.gridy = 5;
         c.gridx = 0;
-        dc.add(labelLikert, c);
+        c.insets = new Insets(15, 0, 0, 0);
+        dc.add(labelLikert3, c);
         c.gridx = 1;
-        dc.add(sliderLikert, c);
-        
-        
+        dc.add(sliderLikert3, c);
+
+        c.gridy = 6;
+        c.gridx = 0;
+        dc.add(labelLikert4, c);
+        c.gridx = 1;
+        dc.add(sliderLikert4, c);
+
         c.gridx = 0;
         c.gridy = 7;
         dc.add(labelInfo1, c);
@@ -544,8 +582,11 @@ public class DifficultyRecorder {
                 engagement = sliderEngagement.getValue();
                 frustration = sliderFrustration.getValue();
                 challenge = sliderChallenge.getValue();
-                likert = sliderLikert.getValue();
-                
+                likert0 = sliderLikert0.getValue();
+                likert1 = sliderLikert1.getValue();
+                likert2 = sliderLikert2.getValue();
+                likert3 = sliderLikert3.getValue();
+                likert4 = sliderLikert4.getValue();
 
                 stopRecordDifficulty();
             }

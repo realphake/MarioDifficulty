@@ -60,8 +60,8 @@ import weka.filters.unsupervised.attribute.NumericToNominal;
 
 public class LevelSceneTest extends LevelScene {
 
-    
-    
+    private int[] likertValues = new int[5];
+    private int implementation = 2;
     private boolean isTraining = true;
     ArrayList<Double> switchPoints;
     private ArrayList<SectionOfGame> sections = new ArrayList<SectionOfGame>();
@@ -74,9 +74,9 @@ public class LevelSceneTest extends LevelScene {
         this.sections = sections;
     }
     private int previousSection = -1;
-       
+
     private boolean readGaze = false;
-    
+
     public ArrayList<double[]> valueArrayList = new ArrayList(0);//means of the gaussians, will contain all unique vectors used
     public ArrayList<double[]> rewardList = new ArrayList(0);//contains all rewards in same order as valueArrayList, corresponding to each vector, list for each vector
     public double[] vectorModel = new double[0];//appropriateness for vectors values in same order as valueArrayList, corresponding to each vector, one for each vector
@@ -102,8 +102,8 @@ public class LevelSceneTest extends LevelScene {
     public boolean verbose = false;
 
     //alpha factor (emotion variance related)
-    private  float alphaFactor;
-    
+    private float alphaFactor;
+
     //Variables for Random Forest classification
     public RandomForest RF = new RandomForest();
     public Instances RF_trainingInstances;
@@ -129,19 +129,19 @@ public class LevelSceneTest extends LevelScene {
             //System.exit(0);
         }
         this.firstRun = true;
-        this.alphaFactor =0;
+        this.alphaFactor = 0;
         int diffParis = 1;
-        int[] temp = {diffParis,diffParis,diffParis,diffParis,diffParis,diffParis};
+        int[] temp = {diffParis, diffParis, diffParis, diffParis, diffParis, diffParis};
         //set difficulties for sections aswell.
-        for(SectionOfGame section : this.sections){
+        for (SectionOfGame section : this.sections) {
             section.setPreviousDifficulty(temp[0]);
         }
         this.newDifficulties = temp;
-        
+
         //System.out.println("paris implementation");
         //create list of sections.
         /**
-            * STRAIGHT = 0; HILL_STRAIGHT = 1; TUBES = 2; JUMP = 3; CANNONS = 4;
+         * STRAIGHT = 0; HILL_STRAIGHT = 1; TUBES = 2; JUMP = 3; CANNONS = 4;
          */
         for (int i = 0; i < 5; i++) {
             SectionOfGame section = new SectionOfGame(i);
@@ -434,7 +434,7 @@ public class LevelSceneTest extends LevelScene {
         } else {
             return level2.sectionTypeAtCoordinate(xcoord - level3.map.length);
         }
-        
+
     }
 
     public int getDifficulty() {
@@ -597,16 +597,15 @@ public class LevelSceneTest extends LevelScene {
 
         int k = 0;
         //The background info should change aswell               
-        
+
         if (mario.x > (level2.width * 16 + level3.width * 16 - (10 * 16))) {
             tries = 3;
             recorder.endTime();
             marioComponent.pause();
 
-                    
             //keep track of neutral, happy and angry  
             ArrayList<float[]> neutralHappyAngry = new ArrayList<>();
-            
+
             //read emotions and create text files
             //readEmotions() also normalizes the emotions table for each section
             readEmotions();
@@ -616,72 +615,110 @@ public class LevelSceneTest extends LevelScene {
             //System.out.println(emotionVarianceThisSegment);
             //show more emotions = smoother change in difficulties.
             //show less emotions = cause more significant change in difficulties.
-            if(this.firstRun){
-                this.alphaFactor = 1-emotionVarianceThisSegment;
-                System.out.println("alpha Factor : "+ this.alphaFactor);
-                this.firstRun=false;
-                
-                
-            //write initial Difficulties to file
-            StringBuilder line2 = new StringBuilder();
-            for(SectionOfGame section:sections){
-                line2.append("1");
-                line2.append(" ");
+            if (this.firstRun) {
+                this.alphaFactor = 1 - emotionVarianceThisSegment;
+                System.out.println("alpha Factor : " + this.alphaFactor);
+                this.firstRun = false;
+
+                //write initial Difficulties to file
+                StringBuilder line2 = new StringBuilder();
+                for (SectionOfGame section : sections) {
+                    line2.append("1");
+                    line2.append(" ");
+                }
+
+                try {
+                    String filename = "difficulties.txt";
+                    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename, true)));
+                    out.println(line2);
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
-            try {
-                String filename = "difficulties.txt";
-                PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename, true)));
-                out.println(line2);
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            //if we need to train, get user opinion.
+            if (isTraining) {
+                getUserOpinion();
             }
-            }
-            
-            
+            int[] tempLikertValues = {dr.likert0, dr.likert1, dr.likert2, dr.likert3, dr.likert4};
+            this.likertValues = tempLikertValues;
             //paris: calculate stuff during segments and update difficulties.
             for (SectionOfGame section : sections) {
-                
-                
-                /**
-                 * System.out.println(section.getId()); section.printEmotions();
-                 * if(section.getEmotions()[0]>0.2){
-                 * this.newDifficulties[section.getId()] ++;
-                    }
-                 */
-                
-                //System.out.println(section.getId()); 
-                //section.printEmotions();
-                
-                
+
                 //get neutral, happy and angry feelings and add them to a list.
-                float[] nha = {section.getEmotions()[0],section.getEmotions()[1],section.getEmotions()[3]};
+                float[] nha = {section.getEmotions()[0], section.getEmotions()[1], section.getEmotions()[3]};
                 neutralHappyAngry.add(nha);
-                
-                 //section.printAllEmotions();
-                //reset also calculates next difficulty.
+
+                //section.printAllEmotions();
+                //reset section metrics
                 section.reset(this.alphaFactor);
+
+                /**
+                 *
+                 * Add code here to calculate next difficulty according to which
+                 * implementation im using ?
+                 *
+                 */
+                if (this.implementation == 1) {
+                    //calculate next difficulty;
+                    section.setNextDifficulty(section.calculateNextDifficulty(this.alphaFactor));
+                } else {
+                    //classification Paris
+
+                    //test for 1 section
+                    section.initializeModel(); //WORKS
+                    section.readDataFromFile(); //WORKS
+                    section.addInstance(this.likertValues[section.getId()]);//WORKS
+                    section.buildClassifier();//WORKS
+                    double[] q = section.getEstimate();//WORKS
+                    //for (double z : q) {
+                    //System.out.println("estimate  :"+z);
+                    //}
+                    section.saveDataToFile(); //WORKS
+
+                    //estimate of classified likert distribution * weights.
+                    double likertEstimate = 0;
+                    for (int ll = 0; ll < 5; ll++) {
+                        likertEstimate += (ll + 1) * likertWeights[ll] * q[ll];
+                    }
+                    System.out.println("likert estimate ---" + likertEstimate);
+
+                    //new difficulty (from [1,5] to [-3,3])
+                    int nextDiff = -Math.round(Math.round(likertEstimate * (3 / 2) - 4.5)) + section.getPreviousDifficulty();
+                    if (nextDiff < 0) {
+                        nextDiff = 0;
+                    } else if (nextDiff > 5) {
+                        nextDiff = 5;
+                    }
+                    System.out.println("DIFFICULTIES   " + section.getPreviousDifficulty() + "   -- " + nextDiff);
+                    section.setNextDifficulty(nextDiff);
+
+                    section.resetGazeMeasurements();
+
+                }
+
                 this.newDifficulties[section.getId()] = section.getNextDifficulty();
 
             }
+
             //calculate neutral,happy and angry for whole section, and write to file.
-            float[] tempSumNha={0,0,0};
-            
-            for(int ind=0;ind<5;ind++){
-                tempSumNha[0] +=neutralHappyAngry.get(ind)[0]; 
-                tempSumNha[1] +=neutralHappyAngry.get(ind)[1];
-                tempSumNha[2] +=neutralHappyAngry.get(ind)[2];
+            float[] tempSumNha = {0, 0, 0};
+
+            for (int ind = 0; ind < 5; ind++) {
+                tempSumNha[0] += neutralHappyAngry.get(ind)[0];
+                tempSumNha[1] += neutralHappyAngry.get(ind)[1];
+                tempSumNha[2] += neutralHappyAngry.get(ind)[2];
             }
-            
-            for(int nhaInd=0;nhaInd<3;nhaInd++){
-                tempSumNha[nhaInd]/=5;
-                System.out.println("emotion "+nhaInd+" "+tempSumNha[nhaInd]);
+
+            for (int nhaInd = 0; nhaInd < 3; nhaInd++) {
+                tempSumNha[nhaInd] /= 5;
+                System.out.println("emotion " + nhaInd + " " + tempSumNha[nhaInd]);
             }
-            
+
             //write neutral,happy,angry to file
             StringBuilder line = new StringBuilder();
-            
+
             line.append(String.valueOf(tempSumNha[0]));
             line.append(" ");
             line.append(String.valueOf(tempSumNha[1]));
@@ -695,10 +732,10 @@ public class LevelSceneTest extends LevelScene {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            
+
             //write new Difficulties to file
             StringBuilder line2 = new StringBuilder();
-            for(SectionOfGame section:sections){
+            for (SectionOfGame section : sections) {
                 line2.append(String.valueOf(this.newDifficulties[section.getId()]));
                 line2.append(" ");
             }
@@ -711,166 +748,10 @@ public class LevelSceneTest extends LevelScene {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            
-            
-                    //classification Paris
-            
-            //gather all the data.
-            
-            //for each section:
-            
-            //readDataFromFile
-            //get new instance
-            //get estimate.
-            
-            
-            //if we need to train, get user opinion.
-            if(isTraining){
-                getUserOpinion();
 
-            }
-            //test for 1 section
-            sections.get(0).initializeModel(); //WORKS
-            sections.get(0).readDataFromFile(); //WORKS
-            sections.get(0).addInstance(dr.likert);//WORKS
-            sections.get(0).buildClassifier();//WORKS
-            double q = sections.get(0).getEstimate();//WORKS  
-            sections.get(0).saveDataToFile(); //WORKS
-            
-            
-            
-            
-            
-//            int likert = dr.likert;
-//          //  FastVector attributes = new FastVector();
-//            int diff = sections.get(0).getPreviousDifficulty();
-//            float yaw = sections.get(0).getGazeMatrix()[0]; //yaw,pitch,roll
-//            float pitch = sections.get(0).getGazeMatrix()[1];
-//            float roll = sections.get(0).getGazeMatrix()[2];
-//            float neutral = sections.get(0).getPreviousEmotions()[0];
-//            float happy = sections.get(0).getPreviousEmotions()[1];
-//            float surprised = sections.get(0).getPreviousEmotions()[2];
-//            float angry = sections.get(0).getPreviousEmotions()[3];
-//            float disgusted = sections.get(0).getPreviousEmotions()[4];
-//            float afraid = sections.get(0).getPreviousEmotions()[5];
-//            float sad = sections.get(0).getPreviousEmotions()[6];
-//            
-//            FastVector nom = new FastVector(5);
-//            nom.addElement("1");
-//            nom.addElement("2");
-//            nom.addElement("3");
-//            nom.addElement("4");
-//            nom.addElement("5");
-//            Attribute likertAttr = new Attribute("aNominal",nom);
-//           
-//            
-//            attributes.addElement(new Attribute("diff"));
-//            attributes.addElement(new Attribute("yaw"));
-//            attributes.addElement(new Attribute("pitch"));
-//            attributes.addElement(new Attribute("roll"));
-//            attributes.addElement(new Attribute("neutral"));
-//            attributes.addElement(new Attribute("happy"));
-//            attributes.addElement(new Attribute("surprised"));
-//            attributes.addElement(new Attribute("angry"));
-//            attributes.addElement(new Attribute("disgusted"));
-//            attributes.addElement(new Attribute("afraid"));
-//            attributes.addElement(new Attribute("sad"));
-//            
-//            if(isTraining){
-//                attributes.addElement(likertAttr);
-//            }
-
-            
-//            Instances data = new Instances("myRelation",attributes,12);
-
-//            Instance newInstance = new Instance(12);
-//            newInstance.setValue((Attribute)attributes.elementAt(0),diff);
-//            newInstance.setValue((Attribute)attributes.elementAt(1),yaw);
-//            newInstance.setValue((Attribute)attributes.elementAt(2),pitch);
-//            newInstance.setValue((Attribute)attributes.elementAt(3),roll);
-//            newInstance.setValue((Attribute)attributes.elementAt(4),neutral);
-//            newInstance.setValue((Attribute)attributes.elementAt(5),happy);
-//            newInstance.setValue((Attribute)attributes.elementAt(6),surprised);
-//            newInstance.setValue((Attribute)attributes.elementAt(7),angry);
-//            newInstance.setValue((Attribute)attributes.elementAt(8),disgusted);
-//            newInstance.setValue((Attribute)attributes.elementAt(9),afraid);
-//            newInstance.setValue((Attribute)attributes.elementAt(10),sad);
-//            newInstance.setValue((Attribute)attributes.elementAt(11),Integer.toString(likert));
-            
-            
-            
-//            newInstance.setDataset(data);
-//            data.add(newInstance);
-//            data.setClassIndex(data.numAttributes()-1);
-            
-            //section.saveDataToFile
-//            //save to arff
-//            ArffSaver saver = new ArffSaver();
-//            saver.setInstances(data);
-//            saver.setFile(new File("test.arff"));
-//            saver.writeBatch();
-          
-            //section.readDataFromFile
-//            BufferedReader reader = new BufferedReader(
-//            new FileReader("test.arff"));
-//            Instances data2 = new Instances(reader);
-//            reader.close();
-            
-            
-          //  System.out.println("DATA    "+data);
-//
-//            RandomForest tree = new RandomForest();
-//            try {
-//                tree.buildClassifier(data);
-//            } catch (Exception ex) {
-//                System.out.println(ex);
-//            }
-            
-//            Instance newInstance2 = new Instance(12);
-//            newInstance2.setValue((Attribute)attributes.elementAt(0),diff);
-//            newInstance2.setValue((Attribute)attributes.elementAt(1),yaw);
-//            newInstance2.setValue((Attribute)attributes.elementAt(2),pitch);
-//            newInstance2.setValue((Attribute)attributes.elementAt(3),roll);
-//            newInstance2.setValue((Attribute)attributes.elementAt(4),neutral);
-//            newInstance2.setValue((Attribute)attributes.elementAt(5),happy);
-//            newInstance2.setValue((Attribute)attributes.elementAt(6),surprised);
-//            newInstance2.setValue((Attribute)attributes.elementAt(7),angry);
-//            newInstance2.setValue((Attribute)attributes.elementAt(8),disgusted);
-//            newInstance2.setValue((Attribute)attributes.elementAt(9),afraid);
-//            newInstance2.setValue((Attribute)attributes.elementAt(10),sad);
-//            newInstance2.setDataset(data);
-//            newInstance2.setMissing(11);
-//            
-//            double result = 0;
-//            try {
-//                result = tree.classifyInstance(newInstance2);
-//            } catch (Exception ex) {
-//                Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//            }
-//            System.out.println("RISALTZZZZ++   +     "+result);//RETURNS THE INDEX OF NOMINAL CLASS OF ATTRIBUTE (0-4)
-//            
-//            
-            
-            sections.get(0).resetGazeMeasurements();
-            
-        
-            
-            
-            
+            //SET NEW DIFFICULTIES.
             arch.params_new.setSettingsInt(this.newDifficulties);
 
-            //Swapping level segment
-            //System.out.println("");
-            //System.out.println("----------------------------------------");
-            //System.out.println("-------- Swapping level segment --------");
-            //System.out.println("----------------------------------------");
-            // Difficulty Popup here -DP1
-            //System.out.println("-pausing");
-            //arch.Obs = recorder.fillGamePlayMetrics(getUserOpinion(), verbose, request, online); //write metrics at swapping to new level segment
-            //Load test instances and select last instance for classification
-            //Update in which level segment the player currently is
-            //arch.reward_label = level3.getCustomRewards("coin");
-            //arch.reward_weights = classifyInstance();
             currentLevelSegment++;
 
             nextSegmentAlreadyGenerated = false;
@@ -1093,13 +974,15 @@ public class LevelSceneTest extends LevelScene {
     }
 
     public void deathActions() {
-        
 
         //Reset general mario stuff
         DifficultyRecorder dr = DifficultyRecorder.getInstance();
-        
-        getUserOpinion();
-        System.out.println(dr.likert+ " LIKERT");
+
+        if (isTraining) {
+            getUserOpinion();
+            int[] tempLikertValues = {dr.likert0, dr.likert1, dr.likert2, dr.likert3, dr.likert4};
+            this.likertValues = tempLikertValues;
+        }
 
         if (Mario.lives <= 0) { //has no more lives
             if (recorder != null) {
@@ -1130,10 +1013,14 @@ public class LevelSceneTest extends LevelScene {
             tries--;
             if (tries == 0) {
                 tries = 3;
-              //  recorder.fillGamePlayMetrics(getUserOpinion(), verbose, request, online);
+                //  recorder.fillGamePlayMetrics(getUserOpinion(), verbose, request, online);
             }
-            //Mario.lives--; //Infinite amount of lives
-            reset();
+            try {
+                //Mario.lives--; //Infinite amount of lives
+                reset();
+            } catch (IOException ex) {
+                Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -1205,6 +1092,8 @@ public class LevelSceneTest extends LevelScene {
         }
     }
 
+    private double[] likertWeights = {1, 1, 1, 1, 1};
+
     private int randomNumber(int low, int high) {
         return new Random(new Random().nextLong()).nextInt(high - low) + low;
     }
@@ -1221,22 +1110,17 @@ public class LevelSceneTest extends LevelScene {
         return b * 16;
     }
 
-    public void reset() {
-        
-        
-        
+    public void reset() throws IOException {
+
         System.out.println("");
         System.out.println("----------------------------------------");
         System.out.println("------------ Resetting game ------------");
         System.out.println("----------------------------------------");
 
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        System.out.println("reset Time: "+calendar.getTimeInMillis() / 1000);
-        sections.get(mario.getDeathSection()).calculateDeathEmotions(calendar.getTimeInMillis()/1000);
-        
+        System.out.println("reset Time: " + calendar.getTimeInMillis() / 1000);
+        sections.get(mario.getDeathSection()).calculateDeathEmotions(calendar.getTimeInMillis() / 1000);
 
-        
-        
         //Always reset POMDP stuff
         playerModelDiff1.clear();
         playerModelDiff4.clear();
@@ -1291,9 +1175,7 @@ public class LevelSceneTest extends LevelScene {
         float[] deathEmotions = sections.get(deathSection).getDeathEmotions();
         int[] difficultiesAfterDeath = this.newDifficulties;
         boolean isAngry = true;
-    
-        
-                
+
 //        System.out.println("----EMOTIONS BEFORE DEATH");
 //        for(int z=0;z<7;z++){
 //            System.out.println(sections.get(deathSection).getEmotionsBeforeDeath()[z]);
@@ -1303,59 +1185,99 @@ public class LevelSceneTest extends LevelScene {
 //            System.out.println(sections.get(deathSection).getDeathEmotions()[z]);
 //        }
 //        
-        
         //old implementation: angry > all else
 //        for(float emotion:deathEmotions){
 //            if(deathEmotions[3]<emotion){
 //                isAngry = false;
 //            }
 //        }
+        if (implementation == 1) {//old 
 
-        
-        //new implementation heuristic : angry>0.3?
-        if(deathEmotions[3]<0.1){
-            isAngry = false;
-        }
-        
-        if(isAngry==true){
-            int decreaseAmount = Math.round(deathEmotions[3]*5);
-        if(this.firstRun){
-            System.out.println("reducing previous difficulty.");
-            sections.get(mario.getDeathSection()).reducePreviousDifficulty(1);
-        }
+            //new implementation heuristic : angry>0.3?
+            if (deathEmotions[3] < 0.1) {
+                isAngry = false;
+            }
 
-            
-            System.out.println("user is angry, decreasing difficulty for section: "+deathSection);
-            difficultiesAfterDeath[deathSection]-=decreaseAmount;
-            
+            if (isAngry == true) {
+                int decreaseAmount = Math.round(deathEmotions[3] * 5);
+                if (this.firstRun) {
+                    System.out.println("reducing previous difficulty.");
+                    sections.get(mario.getDeathSection()).reducePreviousDifficulty(1);
+                }
+
+                System.out.println("user is angry, decreasing difficulty for section: " + deathSection);
+                difficultiesAfterDeath[deathSection] -= decreaseAmount;
+
+                sections.get(deathSection).setWasReduced(true);
+
+                if (difficultiesAfterDeath[deathSection] < 0) {
+                    difficultiesAfterDeath[deathSection] = 0;
+                }
+            }
+
+        } else {//new (classifier)
+            //classification Paris
+
+            //test for 1 section
+            sections.get(deathSection).initializeModel(); //WORKS
+            sections.get(deathSection).readDataFromFile(); //WORKS
+            sections.get(deathSection).addDeathInstance(this.likertValues[deathSection]);//WORKS
+            sections.get(deathSection).buildClassifier();//WORKS
+            double[] q = sections.get(deathSection).getDeathEstimate();//WORKS
+            //for (double z : q) {
+            //System.out.println("estimate  :"+z);
+            //}
+            sections.get(deathSection).saveDataToFile(); //WORKS
+
+            //estimate of classified likert distribution * weights.
+            double likertEstimate = 0;
+            for (int ll = 0; ll < 5; ll++) {
+                likertEstimate += (ll + 1) * likertWeights[ll] * q[ll];
+            }
+            System.out.println("likert estimate ---" + likertEstimate);
+
+            //new difficulty (from [1,5] to [-3,3])
+            int nextDiff = -Math.round(Math.round(likertEstimate * (3 / 2) - 4.5)) + sections.get(deathSection).getPreviousDifficulty();
+            if (nextDiff < 0) {
+                nextDiff = 0;
+            } else if (nextDiff > 5) {
+                nextDiff = 5;
+            }
+            System.out.println("DIFFICULTIES   " + sections.get(deathSection).getPreviousDifficulty() + "   -- " + nextDiff);
+            if (this.firstRun) {
+                System.out.println("reducing previous difficulty.");
+                sections.get(mario.getDeathSection()).reducePreviousDifficulty(1);
+            }
+
+            System.out.println("user is angry, decreasing difficulty for section: " + deathSection);
+            difficultiesAfterDeath[deathSection] = nextDiff;
+
             sections.get(deathSection).setWasReduced(true);
-            
-            if(difficultiesAfterDeath[deathSection]<0){
-                difficultiesAfterDeath[deathSection]=0;
-            }
-        }
-        
-        arch.params_new.setSettingsInt(difficultiesAfterDeath);
-            
-            //write new Difficulties to file
-            StringBuilder line2 = new StringBuilder();
-            for(SectionOfGame section:sections){
-                line2.append(String.valueOf(difficultiesAfterDeath[section.getId()]));
-                line2.append(" ");
-            }
 
-            try {
-                String filename = "difficulties.txt";
-                PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename, true)));
-                out.println(line2);
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        
+            sections.get(deathSection).resetGazeMeasurements();
+        }
+
+        arch.params_new.setSettingsInt(difficultiesAfterDeath);
+
+        //write new Difficulties to file
+        StringBuilder line2 = new StringBuilder();
+        for (SectionOfGame section : sections) {
+            line2.append(String.valueOf(difficultiesAfterDeath[section.getId()]));
+            line2.append(" ");
+        }
+
+        try {
+            String filename = "difficulties.txt";
+            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename, true)));
+            out.println(line2);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         level2 = new ArchLevel(arch.params_new);
         level3 = new ArchLevel(arch.params_new);
-        
+
         conjoin();
 
         layer = new LevelRenderer(level, graphicsConfiguration, 320, 240);
@@ -1389,8 +1311,6 @@ public class LevelSceneTest extends LevelScene {
 //        sections.get(deathSection).setDeathEmotions(zeros);
 //        sections.get(deathSection).setEmotionsBeforeDeath(zeros);
 //        
-        
-        
         /*
          * SETS UP ALL OF THE CHECKPOINTS TO CHECK FOR SWITCHING
          */
@@ -1410,10 +1330,7 @@ public class LevelSceneTest extends LevelScene {
         //System.out.println("\n enemies LEFT : " + recorder.level.BLOCKS_COINS);
         //System.out.println("\n enemies LEFT : " + recorder.level.BLOCKS_POWER);
         gameStarted = false;
-        
 
-        
-        
     }
 
     public void sectionCalculations() {
@@ -1424,7 +1341,7 @@ public class LevelSceneTest extends LevelScene {
         int currentSection = getCurrentSectionType((int) mariox / 16);
         //System.out.println("s1 : " + currentSection);
         //System.out.println(currentSection);
-        
+
         //if mario is in a valid section.
         if (currentSection != -1) {
             //check if the section has already started. if not, set its startTime 
@@ -1499,11 +1416,11 @@ public class LevelSceneTest extends LevelScene {
          *
          * allGameEmotions is a list that contains all the emotion vectors for
          * the whole durations of the segment.
-         * 
-         * 
-         * 
+         *
+         *
+         *
          * NEW : ALSO READS YAW PITCH AND ROLL (with this sequence)
-         * 
+         *
          */
         float[] emotions = new float[7];
         double[][] startEndTimes = new double[5][4];
@@ -1533,16 +1450,15 @@ public class LevelSceneTest extends LevelScene {
                         Double temp = Double.valueOf(timeStampS);
                         double timeStamp = temp.doubleValue();
                         a = getSectionFromTimeStamp(startEndTimes, timeStamp);
-                        this.readGaze=false;
+                        this.readGaze = false;
 
-                    } else if(this.readGaze==false){
+                    } else if (this.readGaze == false) {
                         //convert string to float and add it to the correct position.
-                            emotions[counter] += Float.parseFloat(currentLine);
-                            counter++;
-                        
-                        
+                        emotions[counter] += Float.parseFloat(currentLine);
+                        counter++;
+
                         //if counter exceeds array dimensions
-                        if (counter >6) {
+                        if (counter > 6) {
 //                            float t = Float.valueOf(currentLine);
 //                            System.out.println("last line   "+t);
                             if (a != -1) {
@@ -1555,18 +1471,18 @@ public class LevelSceneTest extends LevelScene {
                                 }
                                 //add emotion to the total list
                                 allGameEmotions.add(temp);
-                                
-                                   /**
-                                    * gaze matrix = [Yaw, Pitch, Roll]
-                                    */
-                                float[] gazeMeasurements = {0,0,0};
-                                
-                                for(int kk=0;kk<3;kk++){
+
+                                /**
+                                 * gaze matrix = [Yaw, Pitch, Roll]
+                                 */
+                                float[] gazeMeasurements = {0, 0, 0};
+
+                                for (int kk = 0; kk < 3; kk++) {
                                     currentLine = br.readLine();
                                     gazeMeasurements[kk] = Float.parseFloat(currentLine);
-                                    
+
                                 }
-                                sections.get(a).addGazeMeasurements(gazeMeasurements);  
+                                sections.get(a).addGazeMeasurements(gazeMeasurements);
                                 this.readGaze = true;
                             }
 
@@ -1580,9 +1496,6 @@ public class LevelSceneTest extends LevelScene {
 
                 }
 
-                
-                
-                
                 //write emotions to file
                 for (int j = 0; j < allGameEmotions.size(); j++) {
                     StringBuilder line = new StringBuilder();
