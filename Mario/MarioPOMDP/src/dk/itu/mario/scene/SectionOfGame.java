@@ -219,9 +219,11 @@ public class SectionOfGame {
         newInstance2.setValue((Attribute) this.attributes.elementAt(8), disgusted);
         newInstance2.setValue((Attribute) this.attributes.elementAt(9), afraid);
         newInstance2.setValue((Attribute) this.attributes.elementAt(10), sad);
+        this.data.setClassIndex(this.data.numAttributes() - 1);        
+
         newInstance2.setDataset(this.data);
         newInstance2.setMissing(11);
-
+        
         double [] result = {0,0,0,0,0};
         try {
             result = this.tree.distributionForInstance(newInstance2);
@@ -264,9 +266,11 @@ public class SectionOfGame {
         newInstance2.setValue((Attribute) this.attributes.elementAt(8), disgusted);
         newInstance2.setValue((Attribute) this.attributes.elementAt(9), afraid);
         newInstance2.setValue((Attribute) this.attributes.elementAt(10), sad);
+        this.data.setClassIndex(this.data.numAttributes() - 1); 
+
         newInstance2.setDataset(this.data);
         newInstance2.setMissing(11);
-
+        
         double [] result = {0,0,0,0,0};
         try {
             result = this.tree.distributionForInstance(newInstance2);
@@ -303,7 +307,7 @@ public class SectionOfGame {
         this.attributes.addElement(likertAttr);
 
         this.data = new Instances("myRelation", this.attributes, 12);
-
+        this.data.setClassIndex(data.numAttributes()-1);
     }
 
     public void addDeathInstance(int likert){
@@ -376,7 +380,7 @@ public class SectionOfGame {
             this.previousDifficulty = 0;
         }
     }
-    private int previousDifficulty = 5;
+    private int previousDifficulty = 1;
     private int nextDifficulty;
     private int[] possibleActions = {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5};
 

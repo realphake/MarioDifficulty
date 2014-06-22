@@ -62,7 +62,7 @@ public class LevelSceneTest extends LevelScene {
 
     private int[] likertValues = new int[5];
     private int implementation = 2;
-    private boolean isTraining = true;
+    private boolean isTraining = false;
     ArrayList<Double> switchPoints;
     private ArrayList<SectionOfGame> sections = new ArrayList<SectionOfGame>();
 
@@ -130,7 +130,7 @@ public class LevelSceneTest extends LevelScene {
         }
         this.firstRun = true;
         this.alphaFactor = 0;
-        int diffParis = 5;
+        int diffParis = 1;
         int[] temp = {diffParis, diffParis, diffParis, diffParis, diffParis, diffParis};
         //set difficulties for sections aswell.
         for (SectionOfGame section : this.sections) {
@@ -668,7 +668,9 @@ public class LevelSceneTest extends LevelScene {
 
                     section.initializeModel(); //WORKS
                     section.readDataFromFile(); //WORKS
-                    section.addInstance(this.likertValues[section.getId()]);//WORKS
+                    if(this.isTraining){
+                        section.addInstance(this.likertValues[section.getId()]);//WORKS
+                    }
                     section.buildClassifier();//WORKS
 
                     double likertEstimate = 3;
@@ -690,7 +692,7 @@ public class LevelSceneTest extends LevelScene {
                     System.out.println("likert estimate ---" + likertEstimate);
 
                     //new difficulty (from [1,5] to [-3,3])
-                    int nextDiff = -Math.round(Math.round(likertEstimate * (3 / 2) - 4.5)) +4 ;//+ section.getPreviousDifficulty();
+                    int nextDiff = -Math.round(Math.round(likertEstimate * (3 / 2) - 4.5)) + section.getPreviousDifficulty();
                     if (nextDiff < 0) {
                         nextDiff = 0;
                     } else if (nextDiff > 5) {
@@ -1227,8 +1229,9 @@ public class LevelSceneTest extends LevelScene {
             sections.get(deathSection).initializeModel(); //WORKS
             sections.get(deathSection).readDataFromFile(); //WORKS
             System.out.println("adding DEATH instance, previous diff :" + sections.get(mario.getDeathSection()).getPreviousDifficulty());
-
-            sections.get(deathSection).addDeathInstance(this.likertValues[deathSection]);//WORKS
+            if(this.isTraining){
+                sections.get(deathSection).addDeathInstance(this.likertValues[deathSection]);//WORKS
+            }
             sections.get(deathSection).buildClassifier();//WORKS
             double likertEstimate = 3;
             if (!this.isTraining) {
@@ -1248,7 +1251,7 @@ public class LevelSceneTest extends LevelScene {
             System.out.println("likert estimate ---" + likertEstimate);
 
             //new difficulty (from [1,5] to [-3,3])
-            int nextDiff = -Math.round(Math.round(likertEstimate * (3 / 2) - 4.5)) +4;//+ sections.get(deathSection).getPreviousDifficulty();
+            int nextDiff = -Math.round(Math.round(likertEstimate * (3 / 2) - 4.5))+ sections.get(deathSection).getPreviousDifficulty();
             if (nextDiff < 0) {
                 nextDiff = 0;
             } else if (nextDiff > 5) {
