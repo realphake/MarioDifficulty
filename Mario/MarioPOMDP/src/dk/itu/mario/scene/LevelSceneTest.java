@@ -130,7 +130,7 @@ public class LevelSceneTest extends LevelScene {
         }
         this.firstRun = true;
         this.alphaFactor = 0;
-        int diffParis = 1;
+        int diffParis = 5;
         int[] temp = {diffParis, diffParis, diffParis, diffParis, diffParis, diffParis};
         //set difficulties for sections aswell.
         for (SectionOfGame section : this.sections) {
@@ -692,12 +692,13 @@ public class LevelSceneTest extends LevelScene {
                     System.out.println("likert estimate ---" + likertEstimate);
 
                     //new difficulty (from [1,5] to [-3,3])
-                    int nextDiff = -Math.round(Math.round(likertEstimate * (3 / 2) - 4.5)) + section.getPreviousDifficulty();
+                    int nextDiff = section.getPreviousDifficulty() -(int)(likertEstimate * (3.0 / 2.0) - 4.5);
                     if (nextDiff < 0) {
                         nextDiff = 0;
                     } else if (nextDiff > 5) {
                         nextDiff = 5;
                     }
+                    section.setPreviousDifficulty(nextDiff);
                     System.out.println("DIFFICULTIES   " + section.getPreviousDifficulty() + "   -- " + nextDiff);
                     section.setNextDifficulty(nextDiff);
 
@@ -1251,7 +1252,9 @@ public class LevelSceneTest extends LevelScene {
             System.out.println("likert estimate ---" + likertEstimate);
 
             //new difficulty (from [1,5] to [-3,3])
-            int nextDiff = -Math.round(Math.round(likertEstimate * (3 / 2) - 4.5))+ sections.get(deathSection).getPreviousDifficulty();
+            int nextDiff = sections.get(deathSection).getPreviousDifficulty() - (int)(likertEstimate * (3.0 / 2.0) - 4.5);
+            //System.out.println("estimate round round"+ (-1)*Math.round(Math.round(likertEstimate *(3/2)-4.5)));
+            
             if (nextDiff < 0) {
                 nextDiff = 0;
             } else if (nextDiff > 5) {
@@ -1263,7 +1266,7 @@ public class LevelSceneTest extends LevelScene {
                 //System.out.println("reducing previous difficulty.");
                 //sections.get(mario.getDeathSection()).reducePreviousDifficulty(1);
             }
-
+            sections.get(deathSection).setPreviousDifficulty(nextDiff);
             difficultiesAfterDeath[deathSection] = nextDiff;
 
             sections.get(deathSection).setWasReduced(true);

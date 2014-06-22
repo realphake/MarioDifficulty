@@ -43,7 +43,7 @@ public class paramsPCG {
         
         newSeed();
         
-        int diffParis = 1;
+        int diffParis = 5;
         //paris - these are the default values for the first segments
         ODDS_TUBES = diffParis ;        //(0-5)
         ODDS_JUMP = diffParis;          //(0-5)       
