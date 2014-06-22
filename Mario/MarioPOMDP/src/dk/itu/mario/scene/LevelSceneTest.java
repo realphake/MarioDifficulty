@@ -130,7 +130,7 @@ public class LevelSceneTest extends LevelScene {
         }
         this.firstRun = true;
         this.alphaFactor = 0;
-        int diffParis = 1;
+        int diffParis = 5;
         int[] temp = {diffParis, diffParis, diffParis, diffParis, diffParis, diffParis};
         //set difficulties for sections aswell.
         for (SectionOfGame section : this.sections) {
@@ -666,9 +666,8 @@ public class LevelSceneTest extends LevelScene {
                 } else {
                     //classification Paris
 
-                    //test for 1 section
                     section.initializeModel(); //WORKS
-                    //section.readDataFromFile(); //WORKS
+                    section.readDataFromFile(); //WORKS
                     section.addInstance(this.likertValues[section.getId()]);//WORKS
                     section.buildClassifier();//WORKS
 
@@ -691,7 +690,7 @@ public class LevelSceneTest extends LevelScene {
                     System.out.println("likert estimate ---" + likertEstimate);
 
                     //new difficulty (from [1,5] to [-3,3])
-                    int nextDiff = -Math.round(Math.round(likertEstimate * (3 / 2) - 4.5)) + section.getPreviousDifficulty();
+                    int nextDiff = -Math.round(Math.round(likertEstimate * (3 / 2) - 4.5)) +4 ;//+ section.getPreviousDifficulty();
                     if (nextDiff < 0) {
                         nextDiff = 0;
                     } else if (nextDiff > 5) {
@@ -1226,7 +1225,9 @@ public class LevelSceneTest extends LevelScene {
 
             //test for 1 section
             sections.get(deathSection).initializeModel(); //WORKS
-            //sections.get(deathSection).readDataFromFile(); //WORKS
+            sections.get(deathSection).readDataFromFile(); //WORKS
+            System.out.println("adding DEATH instance, previous diff :" + sections.get(mario.getDeathSection()).getPreviousDifficulty());
+
             sections.get(deathSection).addDeathInstance(this.likertValues[deathSection]);//WORKS
             sections.get(deathSection).buildClassifier();//WORKS
             double likertEstimate = 3;
@@ -1247,7 +1248,7 @@ public class LevelSceneTest extends LevelScene {
             System.out.println("likert estimate ---" + likertEstimate);
 
             //new difficulty (from [1,5] to [-3,3])
-            int nextDiff = -Math.round(Math.round(likertEstimate * (3 / 2) - 4.5)) + sections.get(deathSection).getPreviousDifficulty();
+            int nextDiff = -Math.round(Math.round(likertEstimate * (3 / 2) - 4.5)) +4;//+ sections.get(deathSection).getPreviousDifficulty();
             if (nextDiff < 0) {
                 nextDiff = 0;
             } else if (nextDiff > 5) {
@@ -1255,11 +1256,11 @@ public class LevelSceneTest extends LevelScene {
             }
             System.out.println("DIFFICULTIES   " + sections.get(deathSection).getPreviousDifficulty() + "   -- " + nextDiff);
             if (this.firstRun) {
-                System.out.println("reducing previous difficulty.");
-                sections.get(mario.getDeathSection()).reducePreviousDifficulty(1);
+                //System.out.println("firstRUN_______");
+                //System.out.println("reducing previous difficulty.");
+                //sections.get(mario.getDeathSection()).reducePreviousDifficulty(1);
             }
 
-            System.out.println("user is angry, decreasing difficulty for section: " + deathSection);
             difficultiesAfterDeath[deathSection] = nextDiff;
 
             sections.get(deathSection).setWasReduced(true);
