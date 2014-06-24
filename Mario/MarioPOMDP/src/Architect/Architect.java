@@ -132,11 +132,11 @@ public class Architect {
         } else if (experiment == 3) {
             //random with bias to GSP
             int[] newParam = {
-				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
-				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
-				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
-				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
-				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
+				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
+				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
+				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
+				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
+				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
 				0};
             params_new.setSettingsInt(newParam);
         }
@@ -466,11 +466,11 @@ public class Architect {
         } else {
             //random with bias to GSP
             int[] newParam = {
-				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
-				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
-				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
-				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
-				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
+				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
+				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
+				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
+				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
+				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
                 0};
             params_new.setSettingsInt(newParam);
         }
