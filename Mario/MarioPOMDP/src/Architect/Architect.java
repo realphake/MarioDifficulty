@@ -131,12 +131,13 @@ public class Architect {
              //System.out.println(paramsfromstring(stringSettings[condition]));
         } else if (experiment == 3) {
             //random with bias to GSP
-            int[] newParam = {randomGenerator.nextInt(3)+randomGenerator.nextInt(4),
-                              randomGenerator.nextInt(3)+randomGenerator.nextInt(4),
-                              randomGenerator.nextInt(3)+randomGenerator.nextInt(4),
-                              randomGenerator.nextInt(3)+randomGenerator.nextInt(4), 
-                              randomGenerator.nextInt(3)+randomGenerator.nextInt(4), 
-                              0};
+            int[] newParam = {
+				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
+				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
+				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
+				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
+				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
+				0};
             params_new.setSettingsInt(newParam);
         }
 
@@ -464,12 +465,13 @@ public class Architect {
         //hillClimb();
         } else {
             //random with bias to GSP
-            int[] newParam = {randomGenerator.nextInt(3)+randomGenerator.nextInt(4),
-                              randomGenerator.nextInt(3)+randomGenerator.nextInt(4),
-                              randomGenerator.nextInt(3)+randomGenerator.nextInt(4),
-                              randomGenerator.nextInt(3)+randomGenerator.nextInt(4), 
-                              randomGenerator.nextInt(3)+randomGenerator.nextInt(4), 
-                              0};
+            int[] newParam = {
+				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
+				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
+				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
+				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
+				randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2)+randomGenerator.nextInt(2),
+                0};
             params_new.setSettingsInt(newParam);
         }
         params_new.newSeed();
