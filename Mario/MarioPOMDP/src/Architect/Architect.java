@@ -80,14 +80,14 @@ public class Architect {
     
     // SANDER EXPERIMENT PARAMS
     // ex number
-    public int experiment = 3;
+    public int experiment = 1;
     
     // conditions as listed
     // for experiment 2 the condition number is actually the index of the difficulty vectors
-    public int condition = 1;
+    public int condition = 4;
     
     // if you want to use p or s argument or maintain 
-    public boolean personalize = false;
+    public boolean personalize = true;
 
     public Architect() {
         params_new = new paramsPCG();

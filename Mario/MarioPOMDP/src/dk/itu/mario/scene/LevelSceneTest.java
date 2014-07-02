@@ -73,7 +73,7 @@ public class LevelSceneTest extends LevelScene {
     public boolean first_time = true;
     public int levelWidth = 50;
     
-    public boolean training = false;
+    public boolean training = true;
     
     
     MainSendRequest request = new MainSendRequest();
