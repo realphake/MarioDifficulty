@@ -62,7 +62,7 @@ public class LevelSceneTest extends LevelScene {
 
     private int[] likertValues = new int[5];
     private int implementation = 2;
-    private boolean isTraining = false;
+    private boolean isTraining = true;
     ArrayList<Double> switchPoints;
     private ArrayList<SectionOfGame> sections = new ArrayList<SectionOfGame>();
 
@@ -598,9 +598,38 @@ public class LevelSceneTest extends LevelScene {
         int k = 0;
         //The background info should change aswell               
 
+//        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+//                StringBuilder swapTimeS = new StringBuilder();
+//        swapTimeS.append("swap time: ");
+//        swapTimeS.append(String.valueOf(calendar.getTimeInMillis()));
+//        try {
+//            String filename = "events.txt";
+//            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename, true)));
+//            out.println(swapTimeS);
+//            out.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        
         if (mario.x > (level2.width * 16 + level3.width * 16 - (10 * 16))) {
             tries = 3;
             recorder.endTime();
+            
+            
+                    Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                StringBuilder swapTimeS = new StringBuilder();
+        swapTimeS.append("swap time: ");
+        swapTimeS.append(String.valueOf(calendar.getTimeInMillis()));
+        try {
+            String filename = "events.txt";
+            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename, true)));
+            out.println(swapTimeS);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+            
+            
             marioComponent.pause();
 
             //keep track of neutral, happy and angry  
@@ -667,7 +696,7 @@ public class LevelSceneTest extends LevelScene {
                     //classification Paris
 
                     section.initializeModel(); //WORKS
-                    section.readDataFromFile(); //WORKS
+                    //section.readDataFromFile(); //WORKS
                     if(this.isTraining){
                         section.addInstance(this.likertValues[section.getId()]);//WORKS
                     }
@@ -692,7 +721,7 @@ public class LevelSceneTest extends LevelScene {
                     System.out.println("likert estimate ---" + likertEstimate);
 
                     //new difficulty (from [1,5] to [-3,3])
-                    int nextDiff = section.getPreviousDifficulty() -(int)(likertEstimate * (2.5) - 7.5); //or 3/2 - 4.5
+                    int nextDiff = section.getPreviousDifficulty();// -(int)(likertEstimate * (2.5) - 7.5); //or 3/2 - 4.5
                     if (nextDiff < 0) {
                         nextDiff = 0;
                     } else if (nextDiff > 5) {
@@ -808,12 +837,17 @@ public class LevelSceneTest extends LevelScene {
             } catch (InterruptedException ex) {
                 Logger.getLogger(LevelSceneTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
+            
+            
+            
             marioComponent.resume();
+            
+
+        
         }
 
     }
     // }
-
     public void save() {
         try {
             level2_reset = level2.clone();
@@ -1127,6 +1161,21 @@ public class LevelSceneTest extends LevelScene {
 
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         System.out.println("reset Time: " + calendar.getTimeInMillis() / 1000);
+        
+//                        //write resetTimeS to file
+//        StringBuilder resetTimeS = new StringBuilder();
+//        resetTimeS.append("reset Time: ");
+//        resetTimeS.append(String.valueOf(calendar.getTimeInMillis()));
+//        try {
+//            String filename = "events.txt";
+//            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename, true)));
+//            out.println(resetTimeS);
+//            out.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        
+        
         sections.get(mario.getDeathSection()).calculateDeathEmotions(calendar.getTimeInMillis() / 1000);
 
         //Always reset POMDP stuff
@@ -1228,7 +1277,7 @@ public class LevelSceneTest extends LevelScene {
 
             //test for 1 section
             sections.get(deathSection).initializeModel(); //WORKS
-            sections.get(deathSection).readDataFromFile(); //WORKS
+            //sections.get(deathSection).readDataFromFile(); //WORKS
             System.out.println("adding DEATH instance, previous diff :" + sections.get(mario.getDeathSection()).getPreviousDifficulty());
             if(this.isTraining){
                 sections.get(deathSection).addDeathInstance(this.likertValues[deathSection]);//WORKS
@@ -1252,7 +1301,7 @@ public class LevelSceneTest extends LevelScene {
             System.out.println("likert estimate ---" + likertEstimate);
 
             //new difficulty (from [1,5] to [-3,3])
-            int nextDiff = sections.get(deathSection).getPreviousDifficulty() - (int)(likertEstimate * (2.5) - 7.5);//or 3/2 -4.5
+            int nextDiff = sections.get(deathSection).getPreviousDifficulty();// - (int)(likertEstimate * (2.5) - 7.5);//or 3/2 -4.5
             //System.out.println("estimate round round"+ (-1)*Math.round(Math.round(likertEstimate *(3/2)-4.5)));
             
             if (nextDiff < 0) {

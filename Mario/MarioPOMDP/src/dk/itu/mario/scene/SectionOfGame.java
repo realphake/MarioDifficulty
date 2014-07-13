@@ -381,7 +381,7 @@ public class SectionOfGame {
             this.previousDifficulty = 0;
         }
     }
-    private int previousDifficulty = 1;
+    private int previousDifficulty = 1; //diffParis
     private int nextDifficulty;
     private int[] possibleActions = {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5};
 
@@ -589,6 +589,26 @@ public class SectionOfGame {
         //System.out.println("in calcdeathEmotions");
         //System.out.println("reset time: "+ resetTime + "death time : "+this.deathTime);
         System.out.println("st: " + this.startTime + " dt: " + this.deathTime);
+        
+        
+                //write deathTime to file
+        StringBuilder deathTimeS = new StringBuilder();
+        deathTimeS.append("death Time: ");
+        deathTimeS.append(String.valueOf(this.deathTime));
+        try {
+            String filename = "events.txt";
+            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename, true)));
+            out.println(deathTimeS);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        
+        
+        
+        
+        
         float[] emotions = {0, 0, 0, 0, 0, 0, 0};
 
         //emotions before death. too hard to implement now.

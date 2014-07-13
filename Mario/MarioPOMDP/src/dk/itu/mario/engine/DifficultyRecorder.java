@@ -11,8 +11,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Calendar;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.TimeZone;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -587,7 +593,25 @@ public class DifficultyRecorder {
                 likert2 = sliderLikert2.getValue();
                 likert3 = sliderLikert3.getValue();
                 likert4 = sliderLikert4.getValue();
-
+            //write to file
+                    Calendar calendar2 = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                StringBuilder endSubmit = new StringBuilder();
+        endSubmit.append("submit : ");
+        endSubmit.append(String.valueOf(calendar2.getTimeInMillis()));
+        endSubmit.append(" "+likert0 +","+likert1 +","+likert2 +","+likert3 +","+likert4);
+        try {
+            String filename = "events.txt";
+            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename, true)));
+            out.println(endSubmit);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+       
+        
+        
+        
                 stopRecordDifficulty();
             }
         });
