@@ -95,7 +95,7 @@ public class paramsPCG {
         ODDS_TUBES = randomGenerator.nextInt(6);//(0-5)
         ODDS_JUMP = randomGenerator.nextInt(6);//(0-5)
         ODDS_CANNONS = randomGenerator.nextInt(6);//(0-5)
-        GAP_SIZE = randomGenerator.nextInt(4)+2;//(2-5)
+        //GAP_SIZE = randomGenerator.nextInt(4)+2;//(2-5) //not used, no need to update
     }
     
     public void incrementAll(){

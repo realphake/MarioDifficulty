@@ -95,7 +95,7 @@ public class WekaFunctions {
         System.out.println("Load instance succesful");
     }
 
-    public void loadTestInstances(boolean verbose,String instances) {
+    public void loadTestInstances(boolean verbose, String instances, int personalize_mode) {
         try {
             //Load test instances into data
             //System.out.println("");
@@ -117,18 +117,17 @@ public class WekaFunctions {
 
             System.out.println("-done loading " + RF_testInstances.numInstances() + " test instance(s)");
 
-
-// create copy
+            // create copy
             Instances labeled = new Instances(RF_testInstances);
             // label instances
 
-//// label instances
-// for (int i = 0; i < RF_testInstances.numInstances(); i++) {
-//   double[] clsLabel = classifyInstance(RF_testInstances.instance(i),true);
-//   break;
-// }
+            //// label instances
+            // for (int i = 0; i < RF_testInstances.numInstances(); i++) {
+            //   double[] clsLabel = classifyInstance(RF_testInstances.instance(i),true);
+            //   break;
+            // }
 
-            this.distributions = classifyInstance(selectTestInstance(), true);
+            this.distributions = classifyInstance(selectTestInstance(), true, personalize_mode);
             
         } catch (Exception e) {
             //Error reading file
@@ -137,25 +136,50 @@ public class WekaFunctions {
         }
     }
 
-    public double[] classifyInstance(Instance testInstance, boolean verbose) {
+    public double[] classifyInstance(Instance testInstance, boolean verbose, int personalize_mode) {
         try {
             //Classify one particular instance from loaded set of Test Instances
 
             // Specify that the instance belong to the training set 
             // in order to inherit from the set description                                
             //testInstance.setDataset(RF_trainingInstances);
+            
+            double[] fDistribution = new double[5];
+            switch(personalize_mode) {
+                case 1:
+                    // Adaptation based on ZeroQ classification
+                    // ZeroQ majority class is 3
+                    fDistribution[0] = 0.0;
+                    fDistribution[1] = 0.0;
+                    fDistribution[2] = 1.0;
+                    fDistribution[3] = 0.0;
+                    fDistribution[4] = 0.0;
+                            
+                    if (verbose) {
+                        System.out.println("");
+                        System.out.println("Classifying selected test instance with forced ZeroQ clasisfication...");
+                        System.out.println("-probability of instance being class 1: " + fDistribution[0]);
+                        System.out.println("-probability of instance being class 2: " + fDistribution[1]);
+                        System.out.println("-probability of instance being class 3: " + fDistribution[2]);
+                        System.out.println("-probability of instance being class 4: " + fDistribution[3]);
+                        System.out.println("-probability of instance being class 5: " + fDistribution[4]);
+                    }
+                    break;
+                default:
+                    // All other personalization modes                   
+                    // Get the likelihood of each class
+                    fDistribution = model.distributionForInstance(testInstance);
 
-            // Get the likelihood of each class
-            double[] fDistribution = model.distributionForInstance(testInstance);
-            verbose = true;
-            if (verbose) {
-                System.out.println("");
-                System.out.println("Classifying selected test instance...");
-                System.out.println("-probability of instance being class 1: " + fDistribution[0]);
-                System.out.println("-probability of instance being class 2: " + fDistribution[1]);
-                System.out.println("-probability of instance being class 3: " + fDistribution[2]);
-                System.out.println("-probability of instance being class 4: " + fDistribution[3]);
-                System.out.println("-probability of instance being class 5: " + fDistribution[4]);
+                    if (verbose) {
+                        System.out.println("");
+                        System.out.println("Classifying selected test instance...");
+                        System.out.println("-probability of instance being class 1: " + fDistribution[0]);
+                        System.out.println("-probability of instance being class 2: " + fDistribution[1]);
+                        System.out.println("-probability of instance being class 3: " + fDistribution[2]);
+                        System.out.println("-probability of instance being class 4: " + fDistribution[3]);
+                        System.out.println("-probability of instance being class 5: " + fDistribution[4]);
+                    }
+                    break;
             }
             return fDistribution;
         } catch (Exception e) {
@@ -212,6 +236,7 @@ public class WekaFunctions {
         predict.add(new Instance(1, inputvalues));
         double predictedValue = 0;
         try {
+            //predictedValue = model.classifyInstance(predict.lastInstance(), true, personalize_mode);            
             predictedValue = model.classifyInstance(predict.lastInstance());
         } catch (Exception ex) {
             Logger.getLogger(WekaFunctions.class.getName()).log(Level.SEVERE, null, ex);

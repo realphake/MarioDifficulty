@@ -67,7 +67,7 @@ public class Architect {
     public int type;
     public double[] reward_weights;
     public double reward_label;
-    public String[] stringSettings = {"1 1 1 1 1", "3 3 3 3 3", "5 5 5 5 5", "2 3 3 2 2", "0 0 0 0 0", "2 4 2 2 5"};
+    public String[] stringSettings = {"1 1 1 1 1", "3 3 3 3 3", "5 5 5 5 5", "2 3 3 2 2", "0 0 0 0 0", "3 1 1 0 0"};
     //0=easy
     //1=normal
     //2=hard
@@ -80,14 +80,26 @@ public class Architect {
     
     // SANDER EXPERIMENT PARAMS
     // ex number
-    public int experiment = 1;
+    public int experiment = 2;
     
     // conditions as listed
     // for experiment 2 the condition number is actually the index of the difficulty vectors
-    public int condition = 1;
+    // - 0 = easy {1,1,1,1,1}
+    // - 1 = normal {3,3,3,3,3}
+    // - 2 = hard {5,5,5,5,5}
+    // - 3 = GSP, the learned Global Safe Policy {2,3,3,2,2}
+    // - 4 = Tutorial {0,0,0,0,0}
+    public int condition = 3;
     
     // if you want to use p or s argument or maintain 
-    public boolean personalize = false;
+    public boolean personalize = true;
+    
+    // personalisation mode
+    // 0 = random adaptation
+    // 1 = ZeroQ based adaptation
+    // 2 = intelligent in WRONG direction
+    // 3 = intelligent in CORRECT direction
+    public int personalize_mode = 0;
 
     public Architect() {
         params_new = new paramsPCG();
@@ -139,7 +151,7 @@ public class Architect {
                        
             request.downloadData("trainingfile_test.arff");
             testFileRequest = request;
-            sFunctions.loadTestInstances(true,testFileRequest.download);
+            sFunctions.loadTestInstances(true, testFileRequest.download, personalize_mode);
             testFileRequest = request;
             System.out.println("Building model for the first time");
             // or load basic model
@@ -382,7 +394,7 @@ public class Architect {
 //                params_new.adjustSettingsInt(paramchanges);
 //            }
             testFileRequest.downloadData("trainingfile_test.arff");
-            sFunctions.loadTestInstances(true,testFileRequest.download);
+            sFunctions.loadTestInstances(true, testFileRequest.download, personalize_mode);
             runPerc[0] = (double) Obs.totalRunTimeStraight
                     / (Obs.totalLeftTimeStraight
                     + Obs.totalRightTimeStraight);
@@ -408,23 +420,75 @@ public class Architect {
             int[] newParam = {0, 0, 0, 0, 0};
             int[] oldParam = params_new.getSettingsInt();
                             
-             
-            if (EL < 3) {
-                
-                
-                for (int x = 0; x < 5; x++) {
-                    newParam[x] = oldParam[x] + (int) (runPerc[x] * stepSize);
-                    System.out.println("new param value for " + x + " " + newParam[x]);
-                }
-            } else {
+            
+//            if (EL < 3) {
+//                for (int x = 0; x < 5; x++) {
+//                    newParam[x] = oldParam[x] + (int) (runPerc[x] * stepSize);
+//                    System.out.println("new param value for " + x + " " + newParam[x]);
+//                }
+//            } else {
+//
+//                for (int x = 0; x < 5; x++) {
+//                    newParam[x] = oldParam[x] - (int) ((1 - runPerc[x]) * stepSize);
+//                    System.out.println("new param value for " + x + " " + newParam[x]);
+//                }
+//            }
+            
+            //Do actual update dependent on personalize_mode setting
+            System.out.println("");
+            switch(personalize_mode) {
+                case 0:
+                    //Random pcg parameter settings
+                    System.out.println("Random pcg parameter settings");
+                    for (int x = 0; x < 5; x++) {
+                            newParam[x] = randomGenerator.nextInt(6);
+                            System.out.println("new param value for " + x + " " + newParam[x]);
+                    }
+                    params_new.setSettingsInt(newParam);
+                    break;
+                case 1:
+                    //Adaptation based on ZeroQ classification
+                    System.out.println("Adaptation based on ZeroQ classification");
+                    int zeroq = 3;
+                    params_new.setSettingsInt(newParam);
+                    break;
+                case 2:
+                    //Intelligent personalization in the WRONG direction
+                    System.out.println("Intelligent personalization in the WRONG direction");
+                    if (EL < 3) {
+                        for (int x = 0; x < 5; x++) {
+                            newParam[x] = oldParam[x] - (int) (runPerc[x] * stepSize);
+                            System.out.println("new param value for " + x + " " + newParam[x]);
+                        }
+                    } else {
 
-                for (int x = 0; x < 5; x++) {
-                    newParam[x] = oldParam[x] - (int) ((1 - runPerc[x]) * stepSize);
-                    System.out.println("new param value for " + x + " " + newParam[x]);
-                }
+                        for (int x = 0; x < 5; x++) {
+                            newParam[x] = oldParam[x] + (int) ((1 - runPerc[x]) * stepSize);
+                            System.out.println("new param value for " + x + " " + newParam[x]);
+                        }
+                    }                    
+                    params_new.setSettingsInt(newParam);
+                    break;
+                default:
+                    //Intelligent personalization in the CORRECT direction                  
+                    System.out.println("Intelligent personalization in the CORRECT direction");
+                    if (EL < 3) {
+                        for (int x = 0; x < 5; x++) {
+                            newParam[x] = oldParam[x] + (int) (runPerc[x] * stepSize);
+                            System.out.println("new param value for " + x + " " + newParam[x]);
+                        }
+                    } else {
+
+                        for (int x = 0; x < 5; x++) {
+                            newParam[x] = oldParam[x] - (int) ((1 - runPerc[x]) * stepSize);
+                            System.out.println("new param value for " + x + " " + newParam[x]);
+                        }
+                    }                    
+                    params_new.setSettingsInt(newParam);
+                    break;              
             }
-            params_new.setSettingsInt(newParam);
-          
+            
+
         }
         // Update the reward given the latest observations
         // note : the observations gets updated externaly in the LevelSceneTest Class at every swap()

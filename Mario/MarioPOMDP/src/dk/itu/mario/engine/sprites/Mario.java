@@ -7,6 +7,7 @@ import level2.*;
 import dk.itu.mario.scene.LevelScene;
 import dk.itu.mario.scene.LevelSceneTest;
 import dk.itu.mario.scene.Scene;
+import java.util.Random;
 
 public class Mario extends Sprite {
 
@@ -844,34 +845,44 @@ public class Mario extends Sprite {
             
           if(world.arch.personalize)  {
               
-                world.arch.params_new.incrementRandomorSpecific(false, world.arch.reverseParams, this.currentSectionType, true, true);
-//                double[] stepSize = {0,0,0,0,0};
-//                int[] newParam = {0, 0, 0, 0, 0};
-//                int[] oldParam =  world.arch.params_new.getSettingsInt();
-//                for (int i = 0; i < 5; i++) {
-//                stepSize[i] = (world.arch.alpha * world.arch.maxStep) * ( 1 - world.arch.runPerc[i] );
-//                System.out.println("alpha is: " + world.arch.alpha );
-//                System.out.println("max step is: " + world.arch.maxStep);
-//                System.out.println("runPerc is : " + world.arch.runPerc[i]);
-//                System.out.println("old param is : " + oldParam[i]);
-//                System.out.println("stepsize:" + stepSize[i]);
-//                newParam[i] = oldParam[i] -(int) stepSize[i];
-//                System.out.println("new param value:" + newParam[i]);
-//                }
-//                world.arch.params_new.setSettingsInt(newParam);
-        
-        
-                System.out.println("-resetting (with one mutation at point of death) to: jump(" 
-                    + world.arch.params_new.ODDS_JUMP + "), tubes(" 
-                    + world.arch.params_new.ODDS_TUBES + "), cannons(" 
-                    + world.arch.params_new.ODDS_CANNONS + "), straight(" 
-                    + world.arch.params_new.ODDS_STRAIGHT + "), hills(" 
-                    + world.arch.params_new.ODDS_HILL_STRAIGHT + "))");
-            
-            
-            
-//        }
+              switch(world.arch.personalize_mode) {
+                  case 0:
+                      // Reset with random pcg parameter settings on Mario death
+                      System.out.println("-resetting with random pcg parameter settings");
+                      int[] newParam = {0, 0, 0, 0, 0};
+                      Random randomGenerator = new Random();
+                      for (int x = 0; x < 5; x++) {
+                              newParam[x] = randomGenerator.nextInt(6);
+                              System.out.println("new param value for " + x + " " + newParam[x]);
+                      }
+                      world.arch.params_new.setSettingsInt(newParam);
+                      break;
+                  default:
+                      // Reset with intelligent parameter decrease on death
+                      world.arch.params_new.incrementRandomorSpecific(false, world.arch.reverseParams, this.currentSectionType, true, true);
+                      //                double[] stepSize = {0,0,0,0,0};
+                      //                int[] newParam = {0, 0, 0, 0, 0};
+                      //                int[] oldParam =  world.arch.params_new.getSettingsInt();
+                      //                for (int i = 0; i < 5; i++) {
+                      //                stepSize[i] = (world.arch.alpha * world.arch.maxStep) * ( 1 - world.arch.runPerc[i] );
+                      //                System.out.println("alpha is: " + world.arch.alpha );
+                      //                System.out.println("max step is: " + world.arch.maxStep);
+                      //                System.out.println("runPerc is : " + world.arch.runPerc[i]);
+                      //                System.out.println("old param is : " + oldParam[i]);
+                      //                System.out.println("stepsize:" + stepSize[i]);
+                      //                newParam[i] = oldParam[i] -(int) stepSize[i];
+                      //                System.out.println("new param value:" + newParam[i]);
+                      //                }
+                      //                world.arch.params_new.setSettingsInt(newParam);
 
+                      System.out.println("-resetting (with one mutation at point of death) to: jump(" 
+                        + world.arch.params_new.ODDS_JUMP + "), tubes(" 
+                        + world.arch.params_new.ODDS_TUBES + "), cannons(" 
+                        + world.arch.params_new.ODDS_CANNONS + "), straight(" 
+                        + world.arch.params_new.ODDS_STRAIGHT + "), hills(" 
+                        + world.arch.params_new.ODDS_HILL_STRAIGHT + "))");                      
+                      break;
+              }
           }
     }
 
