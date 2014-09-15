@@ -117,7 +117,7 @@ public class paramsPCG {
         //GAP_SIZE = (GAP_SIZE -1)%4+2;//(2-5)
     }    
     
-    public void incrementRandomorSpecific(boolean reverse, paramsPCG reverseValues, int param, boolean specific, boolean phase3){
+    public void incrementRandomorSpecific(boolean reverse, paramsPCG reverseValues, int param, boolean specific, boolean phase3, boolean decreaseOnDeath){
         // could not use the dictionary/list variable type
         // sorry for sloppy programming
         if(reverse){
@@ -154,14 +154,29 @@ public class paramsPCG {
             
             if (phase3) {
                 //how to decrement at Mario death during Online Personalisation (Phase3)
-                 switch(parameter_increment){
-                    case 0: ODDS_STRAIGHT = ODDS_STRAIGHT - increment_value; break;
-                    case 1: ODDS_HILL_STRAIGHT = ODDS_HILL_STRAIGHT - increment_value; break;
-                    case 2: ODDS_TUBES = ODDS_TUBES - increment_value; break;
-                    case 3: ODDS_JUMP = ODDS_JUMP - increment_value; break;
-                    case 4: ODDS_CANNONS = ODDS_CANNONS - increment_value; break;
-                    case 5: GAP_SIZE = increment_value; 
-                 }
+                
+                if (decreaseOnDeath) {
+                    // Decrease parameter values for specific content on Mario Death - for adaption in CORRECT direction
+                    switch(parameter_increment){
+                       case 0: ODDS_STRAIGHT = ODDS_STRAIGHT - increment_value; break;
+                       case 1: ODDS_HILL_STRAIGHT = ODDS_HILL_STRAIGHT - increment_value; break;
+                       case 2: ODDS_TUBES = ODDS_TUBES - increment_value; break;
+                       case 3: ODDS_JUMP = ODDS_JUMP - increment_value; break;
+                       case 4: ODDS_CANNONS = ODDS_CANNONS - increment_value; break;
+                       case 5: GAP_SIZE = increment_value; 
+                    }
+                }
+                else {
+                    // Increase parameter values for specific content on Mario Death - for adaptation in WRONG direction
+                    switch(parameter_increment){
+                       case 0: ODDS_STRAIGHT = ODDS_STRAIGHT + increment_value; break;
+                       case 1: ODDS_HILL_STRAIGHT = ODDS_HILL_STRAIGHT + increment_value; break;
+                       case 2: ODDS_TUBES = ODDS_TUBES + increment_value; break;
+                       case 3: ODDS_JUMP = ODDS_JUMP + increment_value; break;
+                       case 4: ODDS_CANNONS = ODDS_CANNONS + increment_value; break;
+                       case 5: GAP_SIZE = increment_value; 
+                    }                    
+                }
             }
             else {
                 //how George coded the decrement for the training phase

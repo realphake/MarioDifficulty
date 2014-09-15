@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="4">
+        <file>
+            <url>file:/C:/Users/software/Documents/MarioDifficulty/Mario/MarioPOMDP/src/Architect/Architect.java</url>
+            <bookmark id="4">
+                <name/>
+                <line>97</line>
+                <key/>
+            </bookmark>
+            <bookmark id="2">
+                <name/>
+                <line>432</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/software/Documents/MarioDifficulty/Mario/MarioPOMDP/src/dk/itu/mario/engine/Art.java</file>
-            <file>file:/C:/Users/software/Documents/MarioDifficulty/Mario/MarioPOMDP/src/dk/itu/mario/scene/LevelSceneTest.java</file>
+            <file>file:/C:/Users/software/Documents/MarioDifficulty/Mario/MarioPOMDP/src/Architect/paramsPCG.java</file>
             <file>file:/C:/Users/software/Documents/MarioDifficulty/Mario/MarioPOMDP/src/Architect/Architect.java</file>
+            <file>file:/C:/Users/software/Documents/MarioDifficulty/Mario/MarioPOMDP/src/dk/itu/mario/engine/sprites/Mario.java</file>
         </group>
     </open-files>
 </project-private>
