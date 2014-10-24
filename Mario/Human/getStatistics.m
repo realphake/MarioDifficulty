@@ -1,8 +1,8 @@
-listing = dir('playerMeasurements');
+listing = dir('playerMeasurementsNEW');
 innerDIR = cellstr('asd');
 for i=1:13
    if ~strcmp(listing(i).name,'.')&&~strcmp(listing(i).name,'..')&&~strcmp(listing(i).name,'.DS_Store')
-       innerDIR{i} = strcat('playerMeasurements/',listing(i).name);
+       innerDIR{i} = strcat('playerMeasurementsNEW/',listing(i).name);
        inner{i,1} = dir(innerDIR{i});
    end
 end
@@ -79,15 +79,15 @@ for j= 1: size(inner,1)
     end
 end
 
- 
+%  
 % figure()
 % plot(easyDiffs);
-% legend('STRAIGHT','HILLS','TUBES','JUMPS','CANNONS','Location','northwest');
-
-
-% figure()
-% plot(easyEmotions);
-% legend('neutral','happy','surprised','angry','disgusted','afraid','sad');
+% legend('straight','hills','tubes','jumps','cannons','location','northwest');
+% 
+% 
+figure()
+plot(easyDiffs);
+%legend('neutral','happy','surprised','angry','disgusted','afraid','sad');
 
 
 for q=1:5

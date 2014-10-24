@@ -681,8 +681,9 @@ public class LevelSceneTest extends LevelScene {
 
                 //section.printAllEmotions();
                 //reset section metrics
-                section.reset(this.alphaFactor);
-
+                if(this.implementation==2){
+                    section.reset(this.alphaFactor);
+                }
                 /**
                  *
                  * Add code here to calculate next difficulty according to which
@@ -692,6 +693,8 @@ public class LevelSceneTest extends LevelScene {
                 if (this.implementation == 1) {
                     //calculate next difficulty;
                     section.setNextDifficulty(section.calculateNextDifficulty(this.alphaFactor));
+                    section.reset(this.alphaFactor);//and reset.
+                
                 } else {
                     //classification Paris
 
@@ -1165,8 +1168,8 @@ public class LevelSceneTest extends LevelScene {
         System.out.println("------------ Resetting game ------------");
         System.out.println("----------------------------------------");
 
-        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        System.out.println("reset Time: " + calendar.getTimeInMillis() / 1000);
+        Calendar calendar33 = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        //System.out.println("reset Time: " + calendar.getTimeInMillis() / 1000);
         
 //                        //write resetTimeS to file
 //        StringBuilder resetTimeS = new StringBuilder();
@@ -1182,7 +1185,7 @@ public class LevelSceneTest extends LevelScene {
 //        }
         
         
-        sections.get(mario.getDeathSection()).calculateDeathEmotions(calendar.getTimeInMillis() / 1000);
+        sections.get(mario.getDeathSection()).calculateDeathEmotions(calendar33.getTimeInMillis()/1000);
 
         //Always reset POMDP stuff
         playerModelDiff1.clear();

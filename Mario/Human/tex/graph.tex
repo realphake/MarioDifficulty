@@ -46,16 +46,19 @@ $a=$ action space: ${-5,...,5}$
  
 $e =$ emotions vector 
 
-${a_t}_{n+1} = Math.round({e_t}_{n+1}[\epsilon] - {e_t}_{n}[\epsilon] *5)$ , where $\epsilon$ is a specific emotion.
+${a_t}_{n+1} = Math.round({e_t}_{n+1}[\epsilon] - {e_t}_{n}[\epsilon]) *5$ , where $\epsilon$ is a specific emotion.
 
 This equation transfers the variation of emotions into the action space. $[-1..1] \rightarrow [-5...5]$
 
 It means that a bigger variation in the player's emotions will cause a steeper change in difficulty.
 
-At each step of the game, difficulty ${d_t}_{n+1} = {d_t}_{n} + {a_t}_n  $
+At each step of the game, difficulty ${d_t}_{n+2} = {d_t}_{n+1} + {a_t}_{n+1}  $
 \vspace{0.5cm}
 
 
+$\alpha = 1-var(e_1)$
+
+$\phi=round(5\times \alpha \times e_t[Anger])$
 
 \begin{tikzpicture}
 \node[draw,rectangle,scale=1.5,text width=4cm](1){Complete a segment and  record emotions};
@@ -69,6 +72,8 @@ At each step of the game, difficulty ${d_t}_{n+1} = {d_t}_{n} + {a_t}_n  $
 \end{tikzpicture}
 
 
+
+$e_t[Neutral]>=0.8\times \alpha$
 
 
 \end{document}

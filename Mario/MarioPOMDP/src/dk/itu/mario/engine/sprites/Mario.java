@@ -835,7 +835,7 @@ public class Mario extends Sprite {
         ArrayList<SectionOfGame> sections = world2.getSections();
         if (currentSectionType != -1) {
             sections.get(currentSectionType).setDiedHere(true);
-            sections.get(currentSectionType).setDeathTime(calendar.getTimeInMillis());
+            sections.get(currentSectionType).setDeathTime(calendar.getTimeInMillis()/1000);
             this.deathSection = currentSectionType;
 
             for (SectionOfGame section : sections) {

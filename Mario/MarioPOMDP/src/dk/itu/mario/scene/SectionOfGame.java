@@ -339,6 +339,8 @@ public class SectionOfGame {
         newInstance.setValue((Attribute) this.attributes.elementAt(11), Integer.toString(likert));
 
         newInstance.setDataset(this.data);
+        
+        System.out.println("the instance"+newInstance);
         this.data.add(newInstance);
         this.data.setClassIndex(this.data.numAttributes() - 1);        
     }
@@ -381,7 +383,7 @@ public class SectionOfGame {
             this.previousDifficulty = 0;
         }
     }
-    private int previousDifficulty = 5; //diffParis
+    private int previousDifficulty =5; //diffParis
     private int nextDifficulty;
     private int[] possibleActions = {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5};
 
@@ -580,15 +582,18 @@ public class SectionOfGame {
     }
 
     public void printEmotions() {
+        float sum =0;
         for (int i = 0; i < 7; i++) {
+            sum+=this.emotions[i];
             System.out.println(this.emotions[i]);
         }
+        System.out.println("sum: "+sum);
     }
 
     public void calculateDeathEmotions(double resetTime) {
         //System.out.println("in calcdeathEmotions");
         //System.out.println("reset time: "+ resetTime + "death time : "+this.deathTime);
-        System.out.println("st: " + this.startTime + " dt: " + this.deathTime);
+        System.out.println("rt: " + resetTime + " dt: " + this.deathTime);
         
         
                 //write deathTime to file
@@ -783,9 +788,10 @@ public class SectionOfGame {
         } else {
             //initialize nextAction
             int nextAction = 0;
-
+            
+            
             //if user is always neutral, the game will not "progress" so, make it a bit harder.
-            if (this.emotions[0] > 0.8 * alphaFactor) {
+            if (this.emotions[0] > 0.7 * alphaFactor) {
                 System.out.println("User >.8 neutral");
                 nextAction = 1;
             } //if difficulty was reduced during death

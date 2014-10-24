@@ -12,3 +12,5 @@ BayesOptMario/nbproject/Makefile-impl.mk
 /Mario/_badHuman/nbproject/private/
 /Mario/_badHuman/build/
 *.jpg
+
+*.txt
