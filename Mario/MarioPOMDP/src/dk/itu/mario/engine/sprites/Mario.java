@@ -857,9 +857,9 @@ public class Mario extends Sprite {
                       }
                       world.arch.params_new.setSettingsInt(newParam);
                       break;
-                  default:
-                      // Reset with intelligent parameter decrease on death
-                      world.arch.params_new.incrementRandomorSpecific(false, world.arch.reverseParams, this.currentSectionType, true, true);
+                  case 2:
+                      //Reset with intelligent parameter decrease on death in WRONG direction
+                      world.arch.params_new.incrementRandomorSpecific(false, world.arch.reverseParams, this.currentSectionType, true, true, false);
                       //                double[] stepSize = {0,0,0,0,0};
                       //                int[] newParam = {0, 0, 0, 0, 0};
                       //                int[] oldParam =  world.arch.params_new.getSettingsInt();
@@ -875,7 +875,32 @@ public class Mario extends Sprite {
                       //                }
                       //                world.arch.params_new.setSettingsInt(newParam);
 
-                      System.out.println("-resetting (with one mutation at point of death) to: jump(" 
+                      System.out.println("-resetting with intelligent parameter decrease on death in WRONG direction (with one mutation at point of death) to: jump(" 
+                        + world.arch.params_new.ODDS_JUMP + "), tubes(" 
+                        + world.arch.params_new.ODDS_TUBES + "), cannons(" 
+                        + world.arch.params_new.ODDS_CANNONS + "), straight(" 
+                        + world.arch.params_new.ODDS_STRAIGHT + "), hills(" 
+                        + world.arch.params_new.ODDS_HILL_STRAIGHT + "))");                      
+                      break;
+                  default:
+                      // Reset with intelligent parameter decrease on death in CORRECT direction
+                      world.arch.params_new.incrementRandomorSpecific(false, world.arch.reverseParams, this.currentSectionType, true, true, true);
+                      //                double[] stepSize = {0,0,0,0,0};
+                      //                int[] newParam = {0, 0, 0, 0, 0};
+                      //                int[] oldParam =  world.arch.params_new.getSettingsInt();
+                      //                for (int i = 0; i < 5; i++) {
+                      //                stepSize[i] = (world.arch.alpha * world.arch.maxStep) * ( 1 - world.arch.runPerc[i] );
+                      //                System.out.println("alpha is: " + world.arch.alpha );
+                      //                System.out.println("max step is: " + world.arch.maxStep);
+                      //                System.out.println("runPerc is : " + world.arch.runPerc[i]);
+                      //                System.out.println("old param is : " + oldParam[i]);
+                      //                System.out.println("stepsize:" + stepSize[i]);
+                      //                newParam[i] = oldParam[i] -(int) stepSize[i];
+                      //                System.out.println("new param value:" + newParam[i]);
+                      //                }
+                      //                world.arch.params_new.setSettingsInt(newParam);
+
+                      System.out.println("-resetting with intelligent parameter decrease on death in CORRECT direction (with one mutation at point of death) to: jump(" 
                         + world.arch.params_new.ODDS_JUMP + "), tubes(" 
                         + world.arch.params_new.ODDS_TUBES + "), cannons(" 
                         + world.arch.params_new.ODDS_CANNONS + "), straight(" 

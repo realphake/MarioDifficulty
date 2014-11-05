@@ -95,11 +95,7 @@ public class Architect {
     public boolean personalize = true;
     
     // personalisation mode
-    // 0 = random adaptation
-    // 1 = ZeroQ based adaptation
-    // 2 = intelligent in WRONG direction
-    // 3 = intelligent in CORRECT direction
-    public int personalize_mode = 0;
+    public int personalize_mode = 3;
 
     public Architect() {
         params_new = new paramsPCG();
@@ -364,10 +360,10 @@ public class Architect {
                 }
                 // we reverse back to the old parameters and change a new one (0.04% prob to changethe same)
                 if (this.Obs.better == 0) {
-                    params_new.incrementRandomorSpecific(true, reverseParams, 0, false, false);
+                    params_new.incrementRandomorSpecific(true, reverseParams, 0, false, false, true);
                     System.out.println("-incremented random with reverse");
                 } else {
-                    params_new.incrementRandomorSpecific(false, reverseParams, 0, false, false);
+                    params_new.incrementRandomorSpecific(false, reverseParams, 0, false, false, true);
                     System.out.println("-incremented random with no reverse");
                 }
             }
