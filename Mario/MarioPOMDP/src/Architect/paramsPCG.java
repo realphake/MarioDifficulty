@@ -45,6 +45,7 @@ public class paramsPCG {
         newSeed();
         
         //SANDER - these are the default values for the first segments
+        //BLA
         ODDS_TUBES = 0;         //(0-5)
         ODDS_JUMP = 0;          //(0-5)       
         ODDS_HILL_STRAIGHT = 0; //(0-5)
