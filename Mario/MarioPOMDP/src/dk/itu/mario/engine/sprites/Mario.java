@@ -851,9 +851,19 @@ public class Mario extends Sprite {
                       System.out.println("-resetting with random pcg parameter settings");
                       int[] newParam = {0, 0, 0, 0, 0};
                       Random randomGenerator = new Random();
+                      int[] randomChoice = {-1,1};
                       for (int x = 0; x < 5; x++) {
-                              newParam[x] = randomGenerator.nextInt(3)-1;
-                              System.out.println("adjusting param value for " + x + " by " + newParam[x]);
+                            int doSomething = randomGenerator.nextInt(2); //change or do nothing
+                            int chooseAdaptation = randomGenerator.nextInt(2); //increase or decrease by 1
+                            if(doSomething ==1){
+                                //choose from either -1 or +1 randomly
+                                newParam[x] = randomChoice[chooseAdaptation];
+                            }
+                            else{
+                                //do nothing
+                              newParam[x] = 0;  
+                            }
+                            System.out.println("adjusting param value for " + x + " by " + newParam[x]);
                       }
                       world.arch.params_new.adjustSettingsInt(newParam);
                       break;

@@ -435,9 +435,19 @@ public class Architect {
             switch(personalize_mode) {
                 case 0:
                     //Random pcg parameter settings
+                    int[] randomChoice = {-1,1};
                     System.out.println("Random pcg parameter settings");
                     for (int x = 0; x < 5; x++) {
-                            newParam[x] = randomGenerator.nextInt(3)-1;
+                            int doSomething = randomGenerator.nextInt(2); //change or do nothing
+                            int chooseAdaptation = randomGenerator.nextInt(2); //increase or decrease by 1
+                            if(doSomething ==1){
+                                //choose from either -1 or +1 randomly
+                                newParam[x] = randomChoice[chooseAdaptation];
+                            }
+                            else{
+                                //do nothing
+                              newParam[x] = 0;  
+                            }
                             System.out.println("adjusting param value for " + x + " by " + newParam[x]);
                     }
                     params_new.adjustSettingsInt(newParam);
