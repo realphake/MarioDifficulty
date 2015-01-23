@@ -95,7 +95,7 @@ public class Architect {
     public boolean personalize = true;
     
     // personalisation mode
-    public int personalize_mode = 3;
+    public int personalize_mode = 0;
 
     public Architect() {
         params_new = new paramsPCG();
@@ -437,10 +437,10 @@ public class Architect {
                     //Random pcg parameter settings
                     System.out.println("Random pcg parameter settings");
                     for (int x = 0; x < 5; x++) {
-                            newParam[x] = randomGenerator.nextInt(6);
-                            System.out.println("new param value for " + x + " " + newParam[x]);
+                            newParam[x] = randomGenerator.nextInt(3)-1;
+                            System.out.println("adjusting param value for " + x + " by " + newParam[x]);
                     }
-                    params_new.setSettingsInt(newParam);
+                    params_new.adjustSettingsInt(newParam);
                     break;
                 case 1:
                     //Adaptation based on ZeroQ classification

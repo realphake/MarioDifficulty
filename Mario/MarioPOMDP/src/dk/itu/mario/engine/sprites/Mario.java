@@ -852,10 +852,10 @@ public class Mario extends Sprite {
                       int[] newParam = {0, 0, 0, 0, 0};
                       Random randomGenerator = new Random();
                       for (int x = 0; x < 5; x++) {
-                              newParam[x] = randomGenerator.nextInt(6);
-                              System.out.println("new param value for " + x + " " + newParam[x]);
+                              newParam[x] = randomGenerator.nextInt(3)-1;
+                              System.out.println("adjusting param value for " + x + " by " + newParam[x]);
                       }
-                      world.arch.params_new.setSettingsInt(newParam);
+                      world.arch.params_new.adjustSettingsInt(newParam);
                       break;
                   case 2:
                       //Reset with intelligent parameter decrease on death in WRONG direction
