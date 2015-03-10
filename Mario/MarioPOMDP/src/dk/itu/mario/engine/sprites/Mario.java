@@ -11,6 +11,9 @@ import java.util.Random;
 
 public class Mario extends Sprite {
 
+    //params_new not rounded (for random adaptation)
+    public float[] paramsNotRounded = {0,0,0,0,0};
+    
     public static boolean large = false;
     public static boolean fire = false;
     public static int coins = 0;
@@ -850,22 +853,19 @@ public class Mario extends Sprite {
                       // Reset with random pcg parameter settings on Mario death
                       System.out.println("-resetting with random pcg parameter settings");
                       int[] newParam = {0, 0, 0, 0, 0};
-                      Random randomGenerator = new Random();
-                      int[] randomChoice = {-1,1};
                       for (int x = 0; x < 5; x++) {
-                            int doSomething = randomGenerator.nextInt(2); //change or do nothing
-                            int chooseAdaptation = randomGenerator.nextInt(2); //increase or decrease by 1
-                            if(doSomething ==1){
-                                //choose from either -1 or +1 randomly
-                                newParam[x] = randomChoice[chooseAdaptation];
-                            }
-                            else{
-                                //do nothing
-                              newParam[x] = 0;  
-                            }
-                            System.out.println("adjusting param value for " + x + " by " + newParam[x]);
+                          //System.out.println(world.arch.params_new.getSettingsInt()[x]);
+                          
+                          //calculate (not rounded) next difficulty (cumulative)
+                          this.paramsNotRounded[x] = world.arch.params_new.getSettingsInt()[x]+
+                                  world.arch.randomAdaptation[x];
+                          System.out.println("paramsnotrounded: "+ this.paramsNotRounded[x]);
+                          //round the new difficulty
+                          newParam[x] = Math.round(this.paramsNotRounded[x]);
+                         
+                          System.out.println("new param value for " + x + " is: " + newParam[x]);
                       }
-                      world.arch.params_new.adjustSettingsInt(newParam);
+                      world.arch.params_new.setSettingsInt(newParam);
                       break;
                   case 2:
                       //Reset with intelligent parameter decrease on death in WRONG direction

@@ -21,7 +21,12 @@ import org.zeromq.ZMQ;
  * @author stathis
  */
 public class Architect {
-
+   
+    // Random adaptation steepness for each chunk
+    public float[] paramsNotRounded = {0,0,0,0,0};
+    public float[] steepness = {0,0,0,0,0};
+    public float[] randomAdaptation = {0,0,0,0,0};
+    
     //Reward
     public double REWARD;
     public double Reward;
@@ -95,7 +100,8 @@ public class Architect {
     public boolean personalize = true;
     
     // personalisation mode
-    public int personalize_mode = 0;
+    public int personalize_mode = 3;
+    public int numberOfSegments = 4; //how many segments does the player have to finish?
 
     public Architect() {
         params_new = new paramsPCG();
@@ -105,7 +111,20 @@ public class Architect {
     }
     
     public Architect(boolean training, MainSendRequest request) throws IOException {
-        
+        for(int i=0;i<5;i++){
+            if(randomGenerator.nextBoolean()){
+               this.steepness[i] = randomGenerator.nextFloat(); 
+            }else{
+                this.steepness[i] = randomGenerator.nextFloat()*(-1);
+            }
+            
+            //the adaptation step will be determined according to how steep (also random)
+            //the adaptation should be,
+            // and how long the experiment is expected to last.
+            this.randomAdaptation[i] = 5/this.numberOfSegments*this.steepness[i];
+            
+            System.out.println("steep : "+ this.steepness[i] + "     randAdapt : "+this.randomAdaptation[i]);
+        }
         
         params_new = new paramsPCG();
         params_old = new paramsPCG();
@@ -434,24 +453,24 @@ public class Architect {
             System.out.println("");
             switch(personalize_mode) {
                 case 0:
+                    
                     //Random pcg parameter settings
                     int[] randomChoice = {-1,1};
                     System.out.println("Random pcg parameter settings");
                     for (int x = 0; x < 5; x++) {
-                            int doSomething = randomGenerator.nextInt(2); //change or do nothing
-                            int chooseAdaptation = randomGenerator.nextInt(2); //increase or decrease by 1
-                            if(doSomething ==1){
-                                //choose from either -1 or +1 randomly
-                                newParam[x] = randomChoice[chooseAdaptation];
-                            }
-                            else{
-                                //do nothing
-                              newParam[x] = 0;  
-                            }
-                            System.out.println("adjusting param value for " + x + " by " + newParam[x]);
-                    }
-                    params_new.adjustSettingsInt(newParam);
-                    break;
+                            //System.out.println(world.arch.params_new.getSettingsInt()[x]);
+                          
+                          //calculate (not rounded) next difficulty (cumulative)
+                          this.paramsNotRounded[x] = params_new.getSettingsInt()[x]+
+                                  randomAdaptation[x];
+                          System.out.println("paramsnotrounded: "+ this.paramsNotRounded[x]);
+                          //round the new difficulty
+                          newParam[x] = Math.round(this.paramsNotRounded[x]);
+                         
+                          System.out.println("new param value for " + x + " is: " + newParam[x]);
+                      }
+                      params_new.setSettingsInt(newParam);
+                      break;
                 case 1:
                     //Adaptation based on ZeroQ classification
                     System.out.println("Adaptation based on ZeroQ classification");
